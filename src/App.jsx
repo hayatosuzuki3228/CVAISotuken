@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { toppage } from "./Page/toppage";
+import { Toppage } from "./Page/toppage";
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<toppage />} />
+        <Route path="/" element={<Toppage />} />
       </Routes>
     </Router>
   );
