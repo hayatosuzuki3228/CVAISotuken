@@ -1,6 +1,7 @@
 function connect(database) {
     const mysql = require("mysql");
 
+    // データベースサーバーと接続
     const connection = mysql.createConnection({
         host: "localhost",
         user: "user",
