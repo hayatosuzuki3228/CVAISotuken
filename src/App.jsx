@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { TestPage } from "./Page/TestPage";
+import { Addstudent } from "./Page/addstudent";
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<TestPage />} />
+        <Route path="/" element={<Addstudent />} />
       </Routes>
     </Router>
   );
