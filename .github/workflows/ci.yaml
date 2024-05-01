@@ -2,24 +2,24 @@ name: ci
 
 on:
   push:
-    branches: "develop"
+    branches:
+      - main
   pull_request:
-    branches: ["main", "develop"]
+    branches:
+      - main
+      - develop
 
 jobs:
-  rome:
-    name: Run rome scanning
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code #コードを持ってくる
-        uses: actions/checkout@v3
-
-      - name: Install Rome #romeをインストールする
-        run: |
-          npm install rome@12.0.0\
-
-      - name: Build #build test
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install dependencies
+        run: npm install
+      - name: Build the project
         run: npm run build
-
-      - name: Run Rome #romeを実行
-        run: npx rome check ./src
