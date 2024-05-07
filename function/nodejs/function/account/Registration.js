@@ -45,10 +45,6 @@ function registration(args) {
             }
         );
 
-        const profileDataConnection = connect.connect("profile");
-        const sql = "INSERT INTO authentication(username, mailaddress, password, salt) VALUES(?, ?, ?, ?)";
-
-
         return true;
     }
 }
