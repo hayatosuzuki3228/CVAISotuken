@@ -20,6 +20,7 @@ server.post("/api", async (req, res) => {
         const result = await requests[req.body.request]({...req.body});
         
         // 結果を返す
+        console.log();
         res.send(result);
 
     } catch (e) {
