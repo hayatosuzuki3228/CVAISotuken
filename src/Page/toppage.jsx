@@ -1,7 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "normalize.css";
 
+
+
 export function Toppage() {
+
+    const navigate = useNavigate();
+
+    const login = () => {
+    navigate("/test");
+    }   
+
+    function search () {
+        window.open("https://www.meisankai.net/student/company/");
+    }
+
+    function job () {
+        window.open("https://www.meisankai.net/student/job_offer/");
+    }
+
     const[isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -33,10 +51,10 @@ export function Toppage() {
                 <div className="list">
                     
                     <ul>
-                        <li>ログイン</li>
-                        <a href="https://www.meisankai.net/student/company/"><li>企業検索</li></a>
-                        <a href="https://www.meisankai.net/student/job_offer/"><li>求人表</li></a>
-                        <li>マッチング</li>
+                        <button onClick={login}><li>ログイン / 新規登録</li></button>
+                        <button onClick={search}><li>企業検索</li></button>
+                        <button onClick={job}><li>求人表</li></button>
+                        <button><li>マッチング</li></button>
                     </ul>
                 </div>
 
@@ -94,12 +112,12 @@ export function Toppage() {
                 border-radius: 25px;
                 background-color: #ffffff;
                 color: #66aacc;
-                transition: .5s;
+                transition: .2s;
                 cursor: pointer;   
             }      
               
             .header button:hover {  
-                
+                transform: scale(0.95);
             }
 
             .parent {
@@ -156,20 +174,26 @@ export function Toppage() {
                 text-decoration: none;
             }
 
-            .list li {
-                color: #ffffff;
+            .list button {
+                width: 200px;
+                height: 75px;
+                margin-top: 5px;
+                margin-bottom: 15px;
                 background: #66aacc;
-                margin-bottom: 20px;
-                line-height: 2;
-                padding: 1em;
-                border-top: solid 3px #66aacc;
-                border-bottom: solid 3px #66aacc;
-                list-style-type: none!important;
+                color: #ffffff;
+                text-align: left;
+                padding-left: 20px;
+                border: solid #66aacc;
+                border-width: 3px 0 3px 0;
                 cursor: pointer;
                 transition: .5s;
             }
 
-            .list li:hover {
+            .list  li {
+                list-style-type: none!important;
+            }
+
+            .list button:hover {
                 background-color: #ffffff;
                 color: #66aacc;
             }
