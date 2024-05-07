@@ -14,10 +14,10 @@ const requests = {
 };
 
 // /apiに対するpostリクエストに応答
-server.post("/api", (req, res) => {
+server.post("/api", async (req, res) => {
     try {
         // postされたうち、requestに設定された値の関数を実行
-        const result = requests[req.body.request]({...req.body});
+        const result = await requests[req.body.request]({...req.body});
         
         // 結果を返す
         res.send(result);

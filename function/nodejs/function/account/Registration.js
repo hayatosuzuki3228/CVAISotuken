@@ -27,13 +27,13 @@ function registration(args) {
     // 計算が成功しているのであればデータベースに送信
     if(hashedPassword !== false) {
         // sqlと接続
-        const authenticationDataConnection = connect.connect("user");
+        const connection = connect.connect("user");
 
         // SQLを記述
         const sql = "INSERT INTO authentication(username, mailaddress, password, salt) VALUES(?, ?, ?, ?)";
 
         // 送信
-        authenticationDataConnection.query (
+        connection.query (
             sql,
             [args.username, args.mailaddress, hashedPassword, salt],
             (error, results) => {
