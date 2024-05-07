@@ -14,10 +14,9 @@ function registration(args) {
 
     requiredArgs.forEach(arg => {
         if (arg === undefined) {
-            throw new Error("Args are not set correctly.");
+            throw new Error("Args are not set cxorrectly.");
         }
     });
-
 
     // saltを生成し暗号化
     const salt = crypto.randomBytes(16).toString('hex');
