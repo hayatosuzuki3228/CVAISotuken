@@ -6,10 +6,9 @@ import axios from "axios";
 
 export function TestPage() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    department: "",
-    graduation: "",
+    request:"registration",
+    username: "",
+    mailaddress: "",
     password: "",
   });
 
@@ -25,14 +24,14 @@ export function TestPage() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://your-backend-url.com/api/form",
+        "http://localhost:3000/api/",
         formData
       );
       // レスポンスを alert ダイアログで表示
-      alert("送信成功: " + response.data.message); // バックエンドからの応答に基づいたメッセージを表示
+      console.log("送信成功: " + response); // バックエンドからの応答に基づいたメッセージを表示
     } catch (error) {
       // エラーを alert ダイアログで表示
-      alert("送信失敗: " + error.response.data.message); // エラー詳細を表示
+      console.log("送信失敗: " + error); // エラー詳細を表示
     }
   };
 
@@ -54,20 +53,6 @@ export function TestPage() {
         label="メールアドレス"
         variant="outlined"
         value={formData.email}
-        onChange={handleChange}
-      />
-      <TextField
-        name="department"
-        label="学科"
-        variant="outlined"
-        value={formData.department}
-        onChange={handleChange}
-      />
-      <TextField
-        name="graduation"
-        label="卒業年度"
-        variant="outlined"
-        value={formData.graduation}
         onChange={handleChange}
       />
       <TextField
