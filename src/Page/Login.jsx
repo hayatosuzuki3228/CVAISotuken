@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+    const signup = () => {
+    navigate("/Testpage");
+    } 
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
@@ -61,10 +68,23 @@ export function LoginPage() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ 
+              mt: 3,
+              mb: 2, 
+            }}
+
           >
             ログイン
           </Button>
+        </Box>
+        <Box>
+          <Button
+            fullWidth
+            sx={{ mt: 3, mb: 2 }}
+            onClick={signup}
+          >
+              新規登録はこちら
+            </Button>
         </Box>
       </Box>
     </Container>

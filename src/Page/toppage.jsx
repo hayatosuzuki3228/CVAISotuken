@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { primalycolor } from "../const/color";
 import "normalize.css";
 
 
@@ -9,7 +10,7 @@ export function Toppage() {
     const navigate = useNavigate();
 
     const login = () => {
-    navigate("/test");
+    navigate("/Loginpage");
     }   
 
     function search () {
@@ -61,7 +62,7 @@ export function Toppage() {
             </div>
 
             <div className="footer">
-                <p>フッター</p>
+                <p></p>
             </div>
             
 
@@ -87,7 +88,7 @@ export function Toppage() {
         <style jsx>{`
 
             .header {
-                background-color: #66aacc;
+                background-color: ${primalycolor};
                 width: 100%;
                 height: 70px;          
                 position: fixed;
@@ -108,10 +109,10 @@ export function Toppage() {
                 right: 0;
                 width: 200px;
                 height: 70px;
-                border: 5px solid #66aacc;
+                border: 5px solid ${primalycolor};
                 border-radius: 25px;
                 background-color: #ffffff;
-                color: #66aacc;
+                color: ${primalycolor};
                 transition: .2s;
                 cursor: pointer;   
             }      
@@ -136,13 +137,13 @@ export function Toppage() {
             .sub {
                 float: right;
                 width: 200px;
-                border-left: solid 3px #66aacc;
+                border-left: solid 3px ${primalycolor};
             }
             
             .noticebox {
                 margin: 0 auto;
                 margin-top: 45px;
-                border: solid 5px #66aacc;
+                border: solid 5px ${primalycolor};
                 border-radius: 30px;
                 width: 80%;
                 height: 70%;   
@@ -156,13 +157,13 @@ export function Toppage() {
                 top: 80px;
                 left: 13%;
                 font-size: 20px;
-                color: #66aacc;
+                color: ${primalycolor};
                 font-weight: bold;
                 background-color: #ffffff;
             }
 
             .noticebox p {
-                color: #66aacc;
+                color: ${primalycolor};
             }
 
             .list ul {
@@ -179,11 +180,11 @@ export function Toppage() {
                 height: 75px;
                 margin-top: 5px;
                 margin-bottom: 15px;
-                background: #66aacc;
+                background: ${primalycolor};
                 color: #ffffff;
                 text-align: left;
                 padding-left: 20px;
-                border: solid #66aacc;
+                border: solid ${primalycolor};
                 border-width: 3px 0 3px 0;
                 cursor: pointer;
                 transition: .5s;
@@ -195,7 +196,7 @@ export function Toppage() {
 
             .list button:hover {
                 background-color: #ffffff;
-                color: #66aacc;
+                color: ${primalycolor};
             }
             
             .footer {
@@ -214,7 +215,7 @@ export function Toppage() {
                 height: 100%;
                 top: 70px;
                 left: 0;
-                background-color: #66aacc;
+                background-color: ${primalycolor};
             }
 
             .modal a {
