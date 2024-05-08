@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import { Container, Typography, TextField, Button, Box, createTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { primarycolor, gray } from "../const/color";
 
 export function LoginPage() {
   const [address, setAddress] = useState("");
@@ -10,7 +11,7 @@ export function LoginPage() {
 
     const signup = () => {
     navigate("/Testpage");
-    } 
+    }; 
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
@@ -36,7 +37,7 @@ export function LoginPage() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" sx={{ color: primarycolor}}>
           ログイン
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -51,6 +52,11 @@ export function LoginPage() {
             autoFocus
             value={address}
             onChange={handleAddressChange}
+            sx={{
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: primarycolor,
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -63,16 +69,24 @@ export function LoginPage() {
             autoComplete="current-password"
             value={password}
             onChange={handlePasswordChange}
+            sx={{
+              "&:hover": {
+                borderColor: primarycolor,
+              },
+            }}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ 
+            sx={{  
               mt: 3,
-              mb: 2, 
+              mb: 0,
+              backgroundColor: primarycolor,
+              '&:hover': {
+                backgroundColor: primarycolor,
+              }
             }}
-
           >
             ログイン
           </Button>
@@ -80,10 +94,17 @@ export function LoginPage() {
         <Box>
           <Button
             fullWidth
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 0,color: primarycolor}}
             onClick={signup}
           >
               新規登録はこちら
+            </Button> 
+          <Button
+            fullWidth
+            sx={{ mt: 0, mb: 2,color: primarycolor}}
+            onClick={signup}
+          >
+              パスワードを忘れた方はこちら
             </Button>
         </Box>
       </Box>
