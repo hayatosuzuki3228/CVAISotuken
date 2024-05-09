@@ -1,4 +1,4 @@
-function connect(database) {
+function connect() {
     const mysql = require("mysql2");
 
     // データベースサーバーと接続
@@ -6,7 +6,7 @@ function connect(database) {
         host: "localhost",
         user: "user",
         password: "user",
-        database: database,
+        database: "sotsuken",
     });
 
     return connection;
