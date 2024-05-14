@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TOP | docment</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        <header>
+            <a href="../index.html">TOP</a>
+        </header>
+        <article>
+            <div class="menu">
+                <ul>
+                    <li><a href="DOCauthentication.html">authentication</a></li>
+                    <li><a href="DOCregistration.html">registration</a></li>
+                    <li><a href="DOCprofile.html">profile</a></li>
+                </ul>
+            </div>
+    
+            <div class="content">
+                <h1>registration</h1>
+                アカウントの新規作成を行います。
+                <p>
+                    <h3>引数</h3>
+                    <div class="container">
+                        email:str<br>
+                        <div class="container">メールアドレス</div>
+                        password:str<br>
+                        <div class="container">
+                            パスワード<br>
+                            大文字小文字数字の8文字以上14文字以下で構成された文字列であること。
+                        </div>
+                        name:str<br>
+                        <div class="container">名前</div>
+                        furigana:str<br>
+                        <div class="container">ふりがな</div>
+                        sex:int<br>
+                        <div class="container">性別</div>
+                        birthday:date<br>
+                        <div class="container">誕生日</div>
+                        residence:str<br>
+                        <div class="container">
+                            居住地<br>
+                            県のみ日本語漢字で<br>
+                        </div>
+                        qualification:str[]<br>
+                        <div class="container">資格</div>
+                    </div>
+                </p>
+                <p>
+                    <h3>戻り値</h3>
+                    <div class="container">bool</div>
+                </p>
+            </div>
+        </article>
+    </body>
+</html>
