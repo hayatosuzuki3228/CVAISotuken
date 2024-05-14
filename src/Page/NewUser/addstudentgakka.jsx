@@ -19,6 +19,13 @@ export function Addstudentgakka() {
     navigate("/addkakunin");
   };
 
+  // 変数の初期値をnullに設定
+  const [myVariable, setMyVariable] = useState(null);
+
+  // ボタンのスタイル
+  const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
+  const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
+
   const selectBox = [
     { label: "情報総合学科", value: "value1" },
     { label: "情報システム科", value: "value2" },
@@ -56,12 +63,12 @@ export function Addstudentgakka() {
     { label: "2028年卒", value: "value4" },
     { label: "2029年卒", value: "value5" },
     { label: "2030年卒", value: "value6" },
-    { label: "2031年卒", value: "value1" },
-    { label: "2032年卒", value: "value2" },
-    { label: "2033年卒", value: "value3" },
-    { label: "2034年卒", value: "value4" },
-    { label: "2035年卒", value: "value5" },
-    { label: "2036年卒", value: "value6" },
+    { label: "2031年卒", value: "value7" },
+    { label: "2032年卒", value: "value8" },
+    { label: "2033年卒", value: "value9" },
+    { label: "2034年卒", value: "value10" },
+    { label: "2035年卒", value: "value11" },
+    { label: "2036年卒", value: "value12" },
   ];
 
   return (
@@ -104,6 +111,7 @@ export function Addstudentgakka() {
             label="卒業予定年"
             select
             fullWidth
+            onChange={(e) => setMyVariable(e.target.value)}
           >
             {selectBox1.map((item, index) => (
               <MenuItem key={index} value={item.value}>
@@ -126,10 +134,9 @@ export function Addstudentgakka() {
         </Box>
         <Box textAlign="right">
           <Button
-            disabled
+            style={myVariable ? enabledButtonStyle : disabledButtonStyle}
+            disabled={!myVariable}
             variant="contained"
-            style={{ backgroundColor: "#bbdefb", color: "#000000" }}
-            //disabled={item.label === ""}
             onClick={onClick1}
           >
             次へ
