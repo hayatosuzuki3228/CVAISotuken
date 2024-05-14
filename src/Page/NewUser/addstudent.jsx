@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Button, Box } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import "normalize.css";
 
 export function Addstudent() {
@@ -11,15 +13,17 @@ export function Addstudent() {
   const navigate = useNavigate();
 
   const onClick = () => {
-    <TextComparison text1={email} text2={remail} />;
+    return navigate("/adduser");
   };
 
-  const [text, setText] = useState("");
+  const [email, setemail] = useState("");
+  const [remail, setremail] = useState("");
+  const [pass, setpass] = useState("");
+  const [rpass, setrpass] = useState("");
 
-  let email;
-  let remail;
-  let pass;
-  let rpass;
+  // 入力値が異なるかどうかを判定
+  const isDifferent = email !== remail;
+  const isDifferent1 = pass !== rpass;
 
   return (
     <>
@@ -42,58 +46,64 @@ export function Addstudent() {
       </Stack>
       <Stack justifyContent="center" alignItems="center">
         <div>
-          <p></p>
           <label>メールアドレス</label>
-          <td>
-            <input
-              value={email}
-              onChange={(event) => setText(event.target.value)}
-              placeholder="Email"
-              required
-              minlength="4"
-              maxlength="50"
-              size="30"
-            />
-          </td>
+          <p></p>
+          <TextField
+            required
+            label="メールアドレス"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+            error={isDifferent} // 入力が異なればエラースタイルを適用
+            helperText={isDifferent ? "入力が違います" : ""}
+          />
           <p></p>
           <label>メールアドレス(確認用)</label>
-          <td>
-            <input
-              value={remail}
-              onChange={(event) => setText(event.target.value)}
-              placeholder="Email"
-              required
-              minlength="4"
-              maxlength="50"
-              size="30"
-            />
-          </td>
           <p></p>
+          <TextField
+            required
+            label="メールアドレス(確認用)"
+            variant="outlined"
+            value={remail}
+            onChange={(e) => setremail(e.target.value)}
+            error={isDifferent} // 入力が異なればエラースタイルを適用
+            helperText={isDifferent ? "入力が違います" : ""}
+          />
+          {isDifferent && (
+            <Typography color="red" variant="body2">
+              メールアドレスが違います
+            </Typography>
+          )}
+          <p></p>
+
           <label>パスワード</label>
-          <td>
-            <input
-              value={pass}
-              onChange={(event) => setText(event.target.value)}
-              placeholder="Password"
-              required
-              minlength="8"
-              maxlength="20"
-              size="30"
-            />
-          </td>
+          <p></p>
+          <TextField
+            required
+            label="パスワード"
+            variant="outlined"
+            value={pass}
+            onChange={(e) => setpass(e.target.value)}
+            error={isDifferent1} // 入力が異なればエラースタイルを適用
+            helperText={isDifferent1 ? "入力が違います" : ""}
+          />
           <p></p>
           <label>パスワード(確認用)</label>
-          <td>
-            <input
-              value={rpass}
-              onChange={(event) => setText(event.target.value)}
-              placeholder="Password"
-              required
-              minlength="8"
-              maxlength="20"
-              size="30"
-            />
-          </td>
+          <p></p>
+          <TextField
+            required
+            label="パスワード(確認用)"
+            variant="outlined"
+            value={rpass}
+            onChange={(e) => setrpass(e.target.value)}
+            error={isDifferent1} // 入力が異なればエラースタイルを適用
+            helperText={isDifferent1 ? "入力が違います" : ""}
+          />
+          {isDifferent1 && (
+            <Typography color="red" variant="body2">
+              パスワードが違います
+            </Typography>
+          )}
           <p></p>
         </div>
       </Stack>
@@ -102,6 +112,9 @@ export function Addstudent() {
           <Button
             variant="contained"
             style={{ backgroundColor: "#bbdefb", color: "#000000" }}
+            disabled={
+              isDifferent || isDifferent1 || email === "" || pass === ""
+            }
             onClick={onClick}
           >
             次へ
@@ -112,7 +125,7 @@ export function Addstudent() {
   );
 }
 
-function TextComparison({ text1, text2 }) {
+/*function TextComparison({ text1, text2 }) {
   return (
     <div>
       {text1 === text2 ? (
@@ -124,4 +137,4 @@ function TextComparison({ text1, text2 }) {
   );
 }
 
-//  <TextComparison text1= "em" text2="reem" />
+  <TextComparison text1= "em" text2="reem" />*/
