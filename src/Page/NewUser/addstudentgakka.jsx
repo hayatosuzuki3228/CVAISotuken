@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Button, Box } from "@mui/material";
 import { TextField, MenuItem } from "@mui/material";
+import { useState } from "react";
 import "normalize.css";
 
 export function Addstudentgakka() {
@@ -21,6 +22,7 @@ export function Addstudentgakka() {
 
   // 変数の初期値をnullに設定
   const [myVariable, setMyVariable] = useState(null);
+  const [myVariable1, setMyVariable1] = useState(null);
 
   // ボタンのスタイル
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
@@ -57,18 +59,18 @@ export function Addstudentgakka() {
   ];
 
   const selectBox1 = [
-    { label: "2025年卒", value: "value1" },
-    { label: "2026年卒", value: "value2" },
-    { label: "2027年卒", value: "value3" },
-    { label: "2028年卒", value: "value4" },
-    { label: "2029年卒", value: "value5" },
-    { label: "2030年卒", value: "value6" },
-    { label: "2031年卒", value: "value7" },
-    { label: "2032年卒", value: "value8" },
-    { label: "2033年卒", value: "value9" },
-    { label: "2034年卒", value: "value10" },
-    { label: "2035年卒", value: "value11" },
-    { label: "2036年卒", value: "value12" },
+    { label: "25卒", value: "value1" },
+    { label: "26卒", value: "value2" },
+    { label: "27卒", value: "value3" },
+    { label: "28卒", value: "value4" },
+    { label: "29卒", value: "value5" },
+    { label: "30卒", value: "value6" },
+    { label: "31卒", value: "value7" },
+    { label: "32卒", value: "value8" },
+    { label: "33卒", value: "value9" },
+    { label: "34卒", value: "value10" },
+    { label: "35卒", value: "value11" },
+    { label: "36卒", value: "value12" },
   ];
 
   return (
@@ -95,7 +97,14 @@ export function Addstudentgakka() {
           <p></p>
           <label>学科名</label>
           <p></p>
-          <TextField required id={selectBox} label="学科名" select fullWidth>
+          <TextField
+            required
+            id={selectBox}
+            label="学科名"
+            select
+            fullWidth
+            onChange={(e) => setMyVariable(e.target.value)}
+          >
             {selectBox.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -111,7 +120,7 @@ export function Addstudentgakka() {
             label="卒業予定年"
             select
             fullWidth
-            onChange={(e) => setMyVariable(e.target.value)}
+            onChange={(e) => setMyVariable1(e.target.value)}
           >
             {selectBox1.map((item, index) => (
               <MenuItem key={index} value={item.value}>
@@ -134,7 +143,11 @@ export function Addstudentgakka() {
         </Box>
         <Box textAlign="right">
           <Button
-            style={myVariable ? enabledButtonStyle : disabledButtonStyle}
+            style={
+              myVariable && myVariable1
+                ? enabledButtonStyle
+                : disabledButtonStyle
+            }
             disabled={!myVariable}
             variant="contained"
             onClick={onClick1}

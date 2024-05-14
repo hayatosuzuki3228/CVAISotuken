@@ -20,6 +20,8 @@ export function Addstudent() {
   const [remail, setremail] = useState("");
   const [pass, setpass] = useState("");
   const [rpass, setrpass] = useState("");
+  const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
+  const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
 
   // 入力値が異なるかどうかを判定
   const isDifferent = email !== remail;
@@ -111,7 +113,11 @@ export function Addstudent() {
         <Box>
           <Button
             variant="contained"
-            style={{ backgroundColor: "#bbdefb", color: "#000000" }}
+            style={
+              isDifferent || isDifferent1 || email === "" || pass === ""
+                ? disabledButtonStyle
+                : enabledButtonStyle
+            }
             disabled={
               isDifferent || isDifferent1 || email === "" || pass === ""
             }
