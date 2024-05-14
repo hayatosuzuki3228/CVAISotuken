@@ -18,7 +18,6 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import LoginIcon from "@mui/icons-material/Login";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
@@ -84,7 +83,7 @@ export function Toppage() {
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="temporary" //variantで常時
+          variant="temporary"
           open={open}
           disablePortal
           ModalProps={{
