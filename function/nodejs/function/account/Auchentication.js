@@ -41,7 +41,7 @@ async function authentication(args) {
                 const hashedPassword = encryption.encryption(args.password, results[0].salt);
 
                 // データベースのものと一致したアクティブなアカウントがあった場合trueを返す
-                if(results[0].active == true && results[0].password == hashedPassword) {
+                if(results[0].active && results[0].password === hashedPassword) {
                     resolve(true);
                 } else {
                     resolve(false);

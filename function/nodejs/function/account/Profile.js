@@ -1,10 +1,13 @@
 const connect = require("../database/Connection.js");
+const encryption = require("../database/Encryption.js");
 
-async function login(args) {
+async function profile(args) {
+    
     // 必要な値が与えられなければエラーを返す
     const requiredArgs = [
+        args.email,
     ]
-
+    
     for (const arg of requiredArgs) {
         if (arg === undefined || arg === "") {
             throw new Error("Invalid arguments.");
@@ -13,36 +16,30 @@ async function login(args) {
 
     return new Promise((resolve, reject) => {
         // sqlと接続
-        const connection = connect.connect("user");
+        const connection = connect.connect();
 
-        const sql = "SELECT * FROM authentication";
-        
-        const data = [];
+        const sql = "SELECT user_profile.* FROM user_profile JOIN authentication ON user_profile.id = authentication.id WHERE email = (?)";
 
         // 送信
         connection.execute(
             sql,
+            [args.email],
             (error, results) => {
                 // 送信失敗時にエラーを送信
                 if (error) {
                     reject(error); // エラーがあればrejectする
                     return;
                 }
-                
-                results.forEach(result => {
-                    data.push([
-                        result.id,
-                        result.mailaddress,
-                        result.password,
-                        result.salt,
-                    ]);
-                });
 
-                // データの取得が終了したらresolveする
-                resolve(data);
+                if (results.length === 0) {
+                    resolve(false); // ユーザーが見つからない場合はfalseを返す
+                    return;
+                } else {
+                    resolve(results[0]);
+                }
             }
         );
     });
 }
 
-exports.sample = sample;
+exports.profile = profile;

@@ -1,0 +1,41 @@
+body {
+    background-color: #EEF7FF;
+}
+
+header {
+    padding: 0.5em 1.1em;
+    font-size: 2em;
+    color: #526D82;
+    background-color: #9DB2BF;
+}
+
+article {
+    display: flex;
+}
+
+.menu {
+    padding-right: 20px;
+    background-color: #DDE6ED;
+    float: top;
+}
+
+.content {
+    margin-left: 1.2em;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration-line: none;
+    color: #27374D;
+}
+
+a:hover {
+    color: #526D82
+}
+
+.container {
+    margin-left: 1.2em;
+}
