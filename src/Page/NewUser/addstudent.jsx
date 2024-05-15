@@ -43,11 +43,26 @@ export function Addstudent() {
         <Box bgcolor="#e0ffff" p={2}>
           <strong>ID・PS </strong>
         </Box>
-        <Box>利用者情報</Box>
-        <Box>学科情報</Box>
+        <Box
+          style={{
+            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            padding: "16px",
+          }}
+        >
+          利用者情報
+        </Box>
+        <Box
+          style={{
+            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            padding: "16px",
+          }}
+        >
+          学科情報
+        </Box>
       </Stack>
       <Stack justifyContent="center" alignItems="center">
         <div>
+          <p></p>
           <label>メールアドレス</label>
           <p></p>
           <TextField
@@ -130,17 +145,3 @@ export function Addstudent() {
     </>
   );
 }
-
-/*function TextComparison({ text1, text2 }) {
-  return (
-    <div>
-      {text1 === text2 ? (
-        navigate("/adduser")
-      ) : (
-        <p>テキストが一致していません。</p>
-      )}
-    </div>
-  );
-}
-
-  <TextComparison text1= "em" text2="reem" />*/

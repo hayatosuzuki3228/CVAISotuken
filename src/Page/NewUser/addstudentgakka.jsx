@@ -86,8 +86,22 @@ export function Addstudentgakka() {
         justifyContent="center"
         alignItems="center"
       >
-        <Box>ID・PS</Box>
-        <Box>利用者情報</Box>
+        <Box
+          style={{
+            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            padding: "16px",
+          }}
+        >
+          ID・PS
+        </Box>
+        <Box
+          style={{
+            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            padding: "16px",
+          }}
+        >
+          利用者情報
+        </Box>
         <Box bgcolor="#e0ffff" p={2}>
           <strong>学科情報</strong>
         </Box>
@@ -148,7 +162,7 @@ export function Addstudentgakka() {
                 ? enabledButtonStyle
                 : disabledButtonStyle
             }
-            disabled={!myVariable}
+            disabled={!myVariable || !myVariable1}
             variant="contained"
             onClick={onClick1}
           >

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Button, Box, MenuItem } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { Autocomplete, TextField, Chip } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import ReactDOM from "react-dom";
 import Typography from "@mui/material/Typography";
 import "normalize.css";
 
@@ -73,9 +74,37 @@ export function Addstudentuser() {
     { label: "沖縄県", value: "47" },
   ];
 
+  const options = [
+    { title: "ITパスポート" },
+    { title: "情報セキュリティマネジメント" },
+    { title: "基本情報技術者" },
+    { title: "応用情報技術者" },
+    { title: "ITストラテジスト" },
+    { title: "システムアーキテクト" },
+    { title: "プロジェクトマネージャ" },
+    { title: "ネットワークスペシャリスト" },
+    { title: "データベーススペシャリスト" },
+    { title: "エンベデッドシステムスペシャリスト" },
+    { title: "ITサービスマネージャ" },
+    { title: "システム監査技術者" },
+    { title: "情報処理安全確保支援士" },
+  ];
+
+  //const [selectedOptions, setSelectedOptions] = React.useState([]);
+
   const [namae, setnamae] = useState("");
   const [kanamae, setkanamae] = useState("");
   const [birthday, setbirthday] = useState("");
+  const [male] = useState("");
+  const [other] = useState("");
+
+  // 変数の初期値をnullに設定
+  const [myVariable, setMyVariable] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState(null);
+
+  // ボタンのスタイル
+  const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
+  const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
 
   return (
     <>
@@ -90,11 +119,25 @@ export function Addstudentuser() {
         justifyContent="center"
         alignItems="center"
       >
-        <Box>ID・PS</Box>
+        <Box
+          style={{
+            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            padding: "16px",
+          }}
+        >
+          ID・PS
+        </Box>
         <Box bgcolor="#e0ffff" p={2}>
           <strong>利用者情報</strong>
         </Box>
-        <Box>学科情報</Box>
+        <Box
+          style={{
+            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            padding: "16px",
+          }}
+        >
+          学科情報
+        </Box>
       </Stack>
       <Stack justifyContent="center" alignItems="center">
         <div>
@@ -119,7 +162,7 @@ export function Addstudentuser() {
             onChange={(e) => setkanamae(e.target.value)}
           />
           <p></p>
-          <RadioGroup defaultValue="male">
+          <RadioGroup required defaultValue="male">
             性別
             <Box
               direction="row"
@@ -144,7 +187,14 @@ export function Addstudentuser() {
           <p></p>
           <label>居住地域</label>
           <p></p>
-          <TextField required id={selectBox} label="居住地域" select fullWidth>
+          <TextField
+            required
+            id={selectBox}
+            label="居住地域"
+            select
+            fullWidth
+            onChange={(e) => setMyVariable(e.target.value)}
+          >
             {selectBox.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -154,10 +204,42 @@ export function Addstudentuser() {
           <p></p>
           <label>保有資格</label>
           <p></p>
-          <TextField></TextField>
-          <p></p>
         </div>
       </Stack>
+      <Stack justifyContent="center" alignItems="center">
+        <Box width={230}>
+          <Autocomplete
+            fullWidth
+            multiple
+            id="tags-outlined"
+            options={options}
+            getOptionLabel={(option) => option.title}
+            defaultValue={[]}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                required
+                {...params}
+                variant="outlined"
+                label="保有資格"
+              />
+            )}
+            renderTags={(value, getTagProps) =>
+              value.map((option, index) => (
+                <Chip
+                  variant="outlined"
+                  label={option.title}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            onChange={(event, newValue) => {
+              setSelectedOptions(newValue);
+            }}
+          />
+        </Box>
+      </Stack>
+      <p></p>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
           <Button
@@ -171,7 +253,21 @@ export function Addstudentuser() {
         <Box textAlign="right">
           <Button
             variant="contained"
-            style={{ backgroundColor: "#bbdefb", color: "#000000" }}
+            style={
+              !myVariable ||
+              !selectedOptions ||
+              namae === "" ||
+              kanamae === "" ||
+              birthday === ""
+                ? disabledButtonStyle
+                : enabledButtonStyle
+            }
+            disabled={
+              !myVariable ||
+              !selectedOptions ||
+              namae === "" ||
+              (kanamae === "") | (birthday === "")
+            }
             onClick={onClick1}
           >
             次へ
