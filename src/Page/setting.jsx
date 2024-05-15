@@ -20,9 +20,13 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -70,7 +74,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export function Toppage() {
+export function Setting() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -148,6 +152,14 @@ export function Toppage() {
           <Divider />
           <List>
             <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("/")}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="ホーム" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
               <ListItemButton
                 onClick={() =>
                   (window.location.href =
@@ -204,7 +216,22 @@ export function Toppage() {
         <Main open={open}>
           <DrawerHeader />
           <List>
-            <ListItem>メイン画面</ListItem>
+            <ListItem>
+              ログイン済みのユーザのみ設定画面が見られるようにしたい
+            </ListItem>
+            <ListItem>
+              <ListItemButton>
+                <LockResetIcon />
+                <ListItemText primary="パスワード変更" />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemButton>
+                <PersonRemoveIcon />
+                <ListItemText primary="アカウント削除" />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Main>
       </Box>
