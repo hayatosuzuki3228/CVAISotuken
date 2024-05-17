@@ -3,6 +3,7 @@ import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login";
 import { TestPage } from "./Page/TestPage";
 import { Setting } from "./Page/setting";
+import { Lostpass } from "./Page/Lostpass";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/LoginPage" element={<LoginPage />} />
         <Route path="/Testpage" element={<TestPage />} />
         <Route path="/Setting" element={<Setting />} />
+        <Route path="/Lostpass" element={<Lostpass />} />
       </Routes>
     </Router>
   );

@@ -220,16 +220,25 @@ export function Setting() {
               ログイン済みのユーザのみ設定画面が見られるようにしたい
             </ListItem>
             <ListItem>
-              <ListItemButton>
-                <LockResetIcon />
-                <ListItemText primary="パスワード変更" />
+              <ListItemButton style={{ justifyContent: "center" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ListItemIcon>
+                    <LockResetIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="パスワード変更" />
+                </div>
               </ListItemButton>
             </ListItem>
+
             <Divider />
             <ListItem>
-              <ListItemButton>
-                <PersonRemoveIcon />
-                <ListItemText primary="アカウント削除" />
+              <ListItemButton style={{ justifyContent: "center" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ListItemIcon>
+                    <PersonRemoveIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="アカウント削除" />
+                </div>
               </ListItemButton>
             </ListItem>
           </List>

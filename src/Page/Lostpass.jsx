@@ -11,27 +11,22 @@ import {
 import { useNavigate } from "react-router-dom";
 import { primarycolor, gray } from "../const/color";
 
-export function LoginPage() {
+export function Lostpass() {
   const [address, setAddress] = useState("");
-  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const lostpass = () => {
-    navigate("/Lostpass");
+  const login = () => {
+    navigate("/LoginPage");
   };
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Address:", address, "Password:", password);
+    console.log("Address:", address);
     // ここにログイン処理を実装する
   };
 
@@ -59,7 +54,12 @@ export function LoginPage() {
           }}
         >
           <Typography component="h1" variant="h5" sx={{ color: primarycolor }}>
-            ログイン
+            パスワード変更
+          </Typography>
+          <Typography variant="h6" sx={{ color: gray, marginTop: 3 }}>
+            下記に登録したメールアドレスを入力してください。
+            <br />
+            登録されたメールアドレス宛にパスワード設定のためのメールが送信されます。
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
@@ -67,7 +67,7 @@ export function LoginPage() {
               required
               fullWidth
               id="address"
-              label="メールアドレス"
+              label="登録メールアドレス"
               name="address"
               autoComplete="username"
               autoFocus
@@ -94,13 +94,13 @@ export function LoginPage() {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="パスワード"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={handlePasswordChange}
+              id="address"
+              label="登録メールアドレス（確認）"
+              name="address"
+              autoComplete="username"
+              autoFocus
+              value={address}
+              onChange={handleAddressChange}
               InputLabelProps={{
                 sx: {
                   color: gray,
@@ -131,23 +131,16 @@ export function LoginPage() {
                 },
               }}
             >
-              ログイン
+              パスワード再設定メールの送信
             </Button>
           </Box>
           <Box>
             <Button
               fullWidth
               sx={{ mt: 3, mb: 0, color: primarycolor }}
-              onClick={lostpass}
+              onClick={login}
             >
-              新規登録はこちら
-            </Button>
-            <Button
-              fullWidth
-              sx={{ mt: 0, mb: 2, color: primarycolor }}
-              onClick={lostpass}
-            >
-              パスワードを忘れた方はこちら
+              ログインはこちら
             </Button>
           </Box>
         </Box>
