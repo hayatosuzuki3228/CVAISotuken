@@ -33,7 +33,7 @@ async function authentication(args) {
                 }
 
                 if (results.length === 0) {
-                    resolve(false); // ユーザーが見つからない場合はfalseを返す
+                    resolve({"status": false, "result": "User not found :( "}); // ユーザーが見つからない場合はfalseを返す
                     return;
                 }
 
@@ -42,9 +42,9 @@ async function authentication(args) {
 
                 // データベースのものと一致したアクティブなアカウントがあった場合trueを返す
                 if(results[0].active && results[0].password === hashedPassword) {
-                    resolve(true);
+                    resolve({"status": true, "result": "User is active :)"});
                 } else {
-                    resolve(false);
+                    resolve({"status": false, "result": "User is not active"});
                 }
             }
         );

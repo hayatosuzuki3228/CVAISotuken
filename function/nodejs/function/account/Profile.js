@@ -32,10 +32,10 @@ async function profile(args) {
                 }
 
                 if (results.length === 0) {
-                    resolve(false); // ユーザーが見つからない場合はfalseを返す
+                    resolve({"status": false, "result": "User not found :( "}); // ユーザーが見つからない場合はfalseを返す
                     return;
                 } else {
-                    resolve(results[0]);
+                    resolve({"status": true, "result": results[0]});
                 }
             }
         );

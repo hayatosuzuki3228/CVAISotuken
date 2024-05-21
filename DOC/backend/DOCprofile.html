@@ -32,25 +32,30 @@
                 <p>
                     <h3>戻り値</h3>
                     <div class="container">
-                        {<br>
+                        {
                         <div class="container">
-                            "id":int,<br>
+                            "status": bool,<br>
+                            "result": {<br>
                             <div class="container">
-                                id<br>
-                                アカウント毎に固有の数値を表します。
+                                "id":int,<br>
+                                <div class="container">
+                                    id<br>
+                                    アカウント毎に固有の数値を表します。
+                                </div>
+                                "name":str,<br>
+                                <div class="container">名前</div>
+                                "furigana":str,<br>
+                                <div class="container">ふりがな</div>
+                                "sex":int,<br>
+                                <div class="container">性別</div>
+                                "birthday":str,<br>
+                                <div class="container">誕生日</div>
+                                "residence":str,<br>
+                                <div class="container">居住地</div>
+                                "qualification":str[]<br>
+                                <div class="container">資格</div>
                             </div>
-                            "name":str,<br>
-                            <div class="container">名前</div>
-                            "furigana":str,<br>
-                            <div class="container">ふりがな</div>
-                            "sex":int,<br>
-                            <div class="container">性別</div>
-                            "birthday":str,<br>
-                            <div class="container">誕生日</div>
-                            "residence":str,<br>
-                            <div class="container">居住地</div>
-                            "qualification":str[]<br>
-                            <div class="container">資格</div>
+                            }
                         </div>
                         }
                     </div>

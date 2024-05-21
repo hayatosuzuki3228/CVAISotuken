@@ -12,7 +12,7 @@ server.use(cors());
 // フォームデータの解析
 server.use(express.urlencoded({ extended: false }));
 server.use(express.json()); // JSONデータのパースも許可
- 
+  
 // リクエストに対して応答する関数を指定
 const requests = {
   registration: require("./function/account/Registration").registration,
