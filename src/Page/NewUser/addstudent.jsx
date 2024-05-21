@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -11,14 +11,16 @@ export function Addstudent() {
   }, []);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const initialEmail = location.state?.email || "";
+  const initialPass = location.state?.pass || "";
 
   const onClick = () => {
-    return navigate("/adduser");
+    return navigate("/adduser", { state: { email, pass } });
   };
-
-  const [email, setemail] = useState("");
-  const [remail, setremail] = useState("");
-  const [pass, setpass] = useState("");
+  const [email, setemail] = useState(initialEmail);
+  const [remail, setremail] = useState();
+  const [pass, setpass] = useState(initialPass);
   const [rpass, setrpass] = useState("");
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };

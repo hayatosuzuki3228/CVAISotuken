@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, MenuItem } from "@mui/material";
 import { Autocomplete, TextField, Chip } from "@mui/material";
 import Radio from "@mui/material/Radio";
@@ -13,9 +13,10 @@ export function Addstudentuser() {
   }, []);
 
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const { email, pass } = location.state || {};
   const onClick = () => {
-    navigate("/");
+    navigate("/", { state: { email, pass } });
   };
 
   const onClick1 = () => {
