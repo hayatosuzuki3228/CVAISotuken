@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TOP | docment</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        <header>
+            <a href="../index.html">TOP</a>
+        </header>
+        <article>
+            <div class="menu">
+                <ul>
+                    <li><a href="DOCauthentication.html">authentication</a></li>
+                    <li><a href="DOCregistration.html">registration</a></li>
+                    <li><a href="DOCprofile.html">user_profile</a></li>
+                    <li><a href="DOCcompany_profile.html">company_profile</a></li>
+                </ul>
+            </div>
+    
+            <div class="content">
+                <h1>company_profile</h1>
+                idを送ることでプロフィールを返します。
+                <p>
+                    <h3>引数</h3>
+                    <div class="container">
+                        id:int<br>
+                        <div class="container">１から始まる連番の一意の値</div>
+                    </div>
+                    
+                </p>
+                <p>
+                    <h3>戻り値</h3>
+                    <div class="container">
+                        {<br>
+                            <div class="container">
+                            "status": bool,<br>
+                            "result": {<br>
+                                <div class="container">
+                                    "id": int,<br>
+                                    <div class="container">1から始まる連番の一意の値</div>
+                                    "code": int,<br>
+                                    <div class="container">企業コード</div>
+                                    "name": str,<br>
+                                    <div class="container">名前</div>
+                                    "website": str,<br>
+                                    <div class="container">企業ウェブサイトのURL</div>
+                                    "furigana": str,<br>
+                                    <div class="container">ﾌﾘｶﾞﾅ</div>
+                                    "category": str,<br>
+                                    <div class="container">名前</div>
+                                    "detail": str,<br>
+                                    <div class="container">業種</div>
+                                    "office": str,<br>
+                                    <div class="container">事業所</div>
+                                    "representative": str,<br>
+                                    <div class="container">代表者名</div>
+                                    "foundation_date": str,<br>
+                                    <div class="container">設立年月日</div>
+                                    "capital": str,<br>
+                                    <div class="container">資本金</div>
+                                    "amount_of_sales": str,<br>
+                                    <div class="container">売上高</div>
+                                    "number_of_employees": str,<br>
+                                    <div class="container">従業員数</div>
+                                    "phone_number": str,<br>
+                                    <div class="container">採用関連連絡電話番号</div>
+                                    "email": str,<br>
+                                    <div class="container">採用関連連絡メールアドレス</div>
+                                    "recruitment_numbers": str,<br>
+                                    <div class="container">募集予定人数</div>
+                                    "this_year_graduate_recruitment_ results": str,<br>
+                                    <div class="container">今年度卒業生採用実績</div>
+                                    "last_year_graduate_recruitment_ results": str,<br>
+                                    <div class="container">昨年度卒業生採用実績</div>
+                                    "recruitment_grade": str,<br>
+                                    <div class="container">募集学科</div>
+                                    "qualification": str,<br>
+                                    <div class="container">資格</div>
+                                    "ideal_candidate_profile": str,<br>
+                                    <div class="container">望む人物像</div>
+                                    "work_location": str,<br>
+                                    <div class="container">勤務地</div>
+                                    "working_hours": str,<br>
+                                    <div class="container">勤務時間</div>
+                                    "holiday": str,<br>
+                                    <div class="container">休日・休暇</div>
+                                    "4_year_course_basic_salary": str,<br>
+                                    <div class="container">給与実績 4年課程 基本給</div>
+                                    "4_year_course_allowances": str,<br>
+                                    <div class="container">給与実績 4年課程 諸手当</div>
+                                    "4_year_course_salary_total": str,<br>
+                                    <div class="container">給与実績 4年課程 合計</div>
+                                    "3_year_course_basic_salary": str,<br>
+                                    <div class="container">給与実績 3年課程 基本給</div>
+                                    "3_year_course_allowances": str,<br>
+                                    <div class="container">給与実績 3年課程 諸手当</div>
+                                    "3_year_course_salary_total": str,<br>
+                                    <div class="container">給与実績 3年課程 合計</div>
+                                    "2_year_course_basic_salary": str,<br>
+                                    <div class="container">給与実績 2年課程 基本給</div>
+                                    "2_year_course_allowances": str,<br>
+                                    <div class="container">給与実績 2年課程 諸手当</div>
+                                    "2_year_course_salary_total": str,<br>
+                                    <div class="container">給与実績 2年課程 合計</div>
+                                    "1_year_course_basic_salary": str,<br>
+                                    <div class="container">給与実績 1年課程 基本給</div>
+                                    "1_year_course_allowances": str,<br>
+                                    <div class="container">給与実績 1年課程 諸手当</div>
+                                    "1_year_course_salary_total": str,<br>
+                                    <div class="container">給与実績 1年課程 合計</div>
+                                    "others": str,<br>
+                                    <div class="container">その他</div>
+                                    "allowances": str,<br>
+                                    <div class="container">諸手当</div>
+                                    "welfare": str,<br>
+                                    <div class="container">福利厚生</div>
+                                    "corporate_philosophy": str",<br>
+                                    <div class="container">経営理念</div>
+                                    "appeal": str<br>
+                                    <div class="container">アピール</div>
+                            </div>
+                            }<br>
+                        </div>
+                        }
+                    </div>
+                </p>
+            </div>
+        </article>
+    </body>
+</html>

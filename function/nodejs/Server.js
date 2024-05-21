@@ -17,7 +17,8 @@ server.use(express.json()); // JSONデータのパースも許可
 const requests = {
   registration: require("./function/account/Registration").registration,
   authentication: require("./function/account/Auchentication").authentication,
-  profile: require("./function/account/Profile").profile,
+  user_profile: require("./function/account/Profile").profile,
+  company_profile: require("./function/company/Profile").profile,
 };
  
 // /apiに対するpostリクエストに応答
