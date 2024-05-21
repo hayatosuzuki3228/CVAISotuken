@@ -88,7 +88,7 @@ export function Addstudentgakka() {
       >
         <Box
           style={{
-            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            border: "2px solid #e0ffff",
             padding: "16px",
           }}
         >
@@ -96,7 +96,7 @@ export function Addstudentgakka() {
         </Box>
         <Box
           style={{
-            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            border: "2px solid #e0ffff",
             padding: "16px",
           }}
         >

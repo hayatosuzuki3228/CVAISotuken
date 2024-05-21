@@ -5,8 +5,6 @@ import { Autocomplete, TextField, Chip } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import ReactDOM from "react-dom";
-import Typography from "@mui/material/Typography";
 import "normalize.css";
 
 export function Addstudentuser() {
@@ -121,7 +119,7 @@ export function Addstudentuser() {
       >
         <Box
           style={{
-            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            border: "2px solid #e0ffff",
             padding: "16px",
           }}
         >
@@ -132,7 +130,7 @@ export function Addstudentuser() {
         </Box>
         <Box
           style={{
-            border: "2px solid #e0ffff", // カスタムカラーコードを使用
+            border: "2px solid #e0ffff",
             padding: "16px",
           }}
         >
@@ -217,12 +215,7 @@ export function Addstudentuser() {
             defaultValue={[]}
             filterSelectedOptions
             renderInput={(params) => (
-              <TextField
-                required
-                {...params}
-                variant="outlined"
-                label="保有資格"
-              />
+              <TextField {...params} variant="outlined" label="保有資格" />
             )}
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -254,17 +247,12 @@ export function Addstudentuser() {
           <Button
             variant="contained"
             style={
-              !myVariable ||
-              !selectedOptions ||
-              namae === "" ||
-              kanamae === "" ||
-              birthday === ""
+              !myVariable || namae === "" || kanamae === "" || birthday === ""
                 ? disabledButtonStyle
                 : enabledButtonStyle
             }
             disabled={
               !myVariable ||
-              !selectedOptions ||
               namae === "" ||
               (kanamae === "") | (birthday === "")
             }
