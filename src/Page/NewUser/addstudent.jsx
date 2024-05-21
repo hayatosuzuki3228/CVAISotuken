@@ -13,13 +13,16 @@ export function Addstudent() {
   const navigate = useNavigate();
   const location = useLocation();
   const initialEmail = location.state?.email || "";
+  const initialRemail = location.state?.remail || "";
   const initialPass = location.state?.pass || "";
-
+  const { namae, kanamae, birthday, area } = location.state || {};
   const onClick = () => {
-    return navigate("/adduser", { state: { email, pass } });
+    return navigate("/adduser", {
+      state: { email, pass, namae, kanamae, birthday, area },
+    });
   };
   const [email, setemail] = useState(initialEmail);
-  const [remail, setremail] = useState();
+  const [remail, setremail] = useState(initialRemail);
   const [pass, setpass] = useState(initialPass);
   const [rpass, setrpass] = useState("");
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };

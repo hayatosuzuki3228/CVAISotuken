@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box } from "@mui/material";
 import { TextField, MenuItem } from "@mui/material";
 import { useState } from "react";
@@ -11,20 +11,23 @@ export function Addstudentgakka() {
   }, []);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { email, pass, namae, kanamae, birthday, area } = location.state || {};
 
   const onClick = () => {
-    navigate("/adduser");
+    navigate("/adduser", {
+      state: { email, pass, namae, kanamae, birthday, area },
+    });
   };
 
   const onClick1 = () => {
     navigate("/addkakunin");
   };
 
-  // 変数の初期値をnullに設定
   const [myVariable, setMyVariable] = useState(null);
   const [myVariable1, setMyVariable1] = useState(null);
 
-  // ボタンのスタイル
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
 
