@@ -15,6 +15,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material//TextField";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
@@ -22,6 +24,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
+import prefectures from "../const/prefectures";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -73,9 +76,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export function Conditions() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
   };
 
   const theme = createTheme({
@@ -204,7 +212,20 @@ export function Conditions() {
         <Main open={open}>
           <DrawerHeader />
           <List>
-            <ListItem>メイン画面</ListItem>
+            <ListItem>
+              資格 得意なもの 募集学科情報（一致しなかったら０）
+              勤務地（一致しなかったら０） 給与 長所 従業員数 年間休日数 売上高
+              休日制 勤務時間
+            </ListItem>
+            <Autocomplete
+              options={Object.values(prefectures).flat()}
+              renderInput={(params) => (
+                <TextField {...params} label="希望勤務地を選択" />
+              )}
+              onChange={(event, newValue) => handleLocationSelect(newValue)}
+              value={selectedLocation}
+              style={{ width: 300 }}
+            />
           </List>
         </Main>
       </Box>
