@@ -1,6 +1,16 @@
 const connect = require("../database/Connection.js");
 
 async function login(args) {
+    // 必要な値が与えられなければエラーを返す
+    const requiredArgs = [
+    ]
+
+    for (const arg of requiredArgs) {
+        if (arg === undefined || arg === "") {
+            throw new Error("Invalid arguments.");
+        }
+    }
+
     return new Promise((resolve, reject) => {
         // sqlと接続
         const connection = connect.connect("user");
@@ -35,4 +45,4 @@ async function login(args) {
     });
 }
 
-exports.login = login;
+exports.sample = sample;

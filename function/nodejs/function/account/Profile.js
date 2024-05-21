@@ -1,14 +1,13 @@
 const connect = require("../database/Connection.js");
 const encryption = require("../database/Encryption.js");
 
-async function authentication(args) {
+async function profile(args) {
     
     // 必要な値が与えられなければエラーを返す
     const requiredArgs = [
         args.email,
-        args.password,
     ]
-
+    
     for (const arg of requiredArgs) {
         if (arg === undefined || arg === "") {
             throw new Error("Invalid arguments.");
@@ -19,7 +18,7 @@ async function authentication(args) {
         // sqlと接続
         const connection = connect.connect();
 
-        const sql = "SELECT email, password, salt, active FROM authentication WHERE email = (?)";
+        const sql = "SELECT user_profile.* FROM user_profile JOIN authentication ON user_profile.id = authentication.id WHERE email = (?)";
 
         // 送信
         connection.execute(
@@ -35,20 +34,12 @@ async function authentication(args) {
                 if (results.length === 0) {
                     resolve({"status": false, "result": "User not found :( "}); // ユーザーが見つからない場合はfalseを返す
                     return;
-                }
-
-                // 入力されたパスワードをハッシュ化
-                const hashedPassword = encryption.encryption(args.password, results[0].salt);
-
-                // データベースのものと一致したアクティブなアカウントがあった場合trueを返す
-                if(results[0].active && results[0].password === hashedPassword) {
-                    resolve({"status": true, "result": "User is active :)"});
                 } else {
-                    resolve({"status": false, "result": "User is not active"});
+                    resolve({"status": true, "result": results[0]});
                 }
             }
         );
     });
 }
 
-exports.authentication = authentication;
+exports.profile = profile;
