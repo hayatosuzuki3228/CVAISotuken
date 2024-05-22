@@ -248,7 +248,7 @@ export function Addstudentuser() {
             id="tags-outlined"
             options={options}
             getOptionLabel={(option) => option.title}
-            defaultValue={selectedOptions}
+            defaultValue={selectedOptions} //最初選択されていないと真っ白になる
             filterSelectedOptions
             renderInput={(params) => (
               <TextField {...params} variant="outlined" label="保有資格" />
