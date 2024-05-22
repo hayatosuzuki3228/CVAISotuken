@@ -18,17 +18,34 @@ export function Addstudentuser() {
   const initialKanamae = location.state?.kanamae || "";
   const initialBirthday = location.state?.birthday || "";
   const initialArea = location.state?.area || "";
+  const initialSelectedOptions = location.state?.selectedOptions || "";
 
   const { email, pass } = location.state || {};
   const onClick = () => {
     navigate("/", {
-      state: { email, pass, namae, kanamae, birthday, area },
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+      },
     });
   };
 
   const onClick1 = () => {
     navigate("/addgakka", {
-      state: { email, pass, namae, kanamae, birthday, area },
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+      },
     });
   };
 
@@ -105,7 +122,9 @@ export function Addstudentuser() {
   const [other, setother] = useState("");
 
   const [area, setArea] = useState(initialArea);
-  const [selectedOptions, setSelectedOptions] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState(
+    initialSelectedOptions
+  );
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
@@ -229,7 +248,7 @@ export function Addstudentuser() {
             id="tags-outlined"
             options={options}
             getOptionLabel={(option) => option.title}
-            defaultValue={[]}
+            defaultValue={selectedOptions}
             filterSelectedOptions
             renderInput={(params) => (
               <TextField {...params} variant="outlined" label="保有資格" />

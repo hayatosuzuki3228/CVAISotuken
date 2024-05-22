@@ -15,10 +15,19 @@ export function Addstudent() {
   const initialEmail = location.state?.email || "";
   const initialRemail = location.state?.remail || "";
   const initialPass = location.state?.pass || "";
-  const { namae, kanamae, birthday, area } = location.state || {};
+  const { namae, kanamae, birthday, area, selectedOptions } =
+    location.state || {};
   const onClick = () => {
     return navigate("/adduser", {
-      state: { email, pass, namae, kanamae, birthday, area },
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+      },
     });
   };
   const [email, setemail] = useState(initialEmail);
