@@ -1,7 +1,18 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import {
+  Box,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+} from "@mui/material";
 import "./styles.css";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export function CProfile() {
   useEffect(() => {
@@ -10,41 +21,59 @@ export function CProfile() {
 
   const navigate = useNavigate();
   const OnClick = () => {
+    navigate("");
     navigate("/profile-com-edit");
+  };
+  const OnClick2 = () => {
+    navigate("");
+
+    navigate("/profile-st");
+  };
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
   };
 
   return (
     <>
       <header className="header" style={{ textAlign: "center" }}>
+        <div>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Drawer open={open} onClose={toggleDrawer(false)}>
+            <Box
+              sx={{ width: 250 }}
+              role="presentation"
+              onClick={toggleDrawer(false)}
+            >
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick}>
+                    <ListItemText primary="企業情報編集" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick2}>
+                    <ListItemText primary="個人情報" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Box>
+          </Drawer>
+        </div>
+
         <h1>企業プロフィール</h1>
       </header>
-      <div className="main">
-        <div className="left-border">
-          <p>
-            <br />
-            ・タブ欄①
-          </p>
-          <p>
-            ・
-            <font size="3.5">
-              <Link to="/profile-st">個人情報</Link>
-            </font>
-          </p>
-        </div>
-        <div className="down-border">
-          <p>できてほしい</p>
-          <Link to="/profile-com-edit">プロフィール編集</Link>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
-      </div>
+
       <div className="info" style={{ textAlign: "center" }}>
         <div className="half-box black">
           <font size="3.5">
