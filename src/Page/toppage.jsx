@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -70,12 +71,36 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const menuItems = [
+  {
+    text: "企業検索",
+    icon: <BusinessIcon />,
+    link: "https://www.meisankai.net/student/company/",
+  },
+  {
+    text: "求人票",
+    icon: <EventNoteIcon />,
+    link: "https://www.meisankai.net/student",
+  },
+  { text: "マッチング", icon: <ContentPasteSearchIcon />, link: null },
+  { text: "プロフィール", icon: <PersonIcon />, link: null },
+  { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
+];
+
 export function Toppage() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
   };
 
   const theme = createTheme({
@@ -147,58 +172,23 @@ export function Toppage() {
           <DrawerHeader />
           <Divider />
           <List>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() =>
-                  (window.location.href =
-                    "https://www.meisankai.net/student/company/")
-                }
-              >
-                <ListItemIcon>
-                  <BusinessIcon />
-                </ListItemIcon>
-                <ListItemText primary="企業検索" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() =>
-                  (window.location.href = "https://www.meisankai.net/student")
-                }
-              >
-                <ListItemIcon>
-                  <EventNoteIcon />
-                </ListItemIcon>
-                <ListItemText primary="求人票" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <ContentPasteSearchIcon />
-                </ListItemIcon>
-                <ListItemText primary="マッチング" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary="プロフィール" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate("/Setting")}>
-                <ListItemIcon>
-                  <SettingsIcon />
-                </ListItemIcon>
-                <ListItemText primary="設定" />
-              </ListItemButton>
-            </ListItem>
+            {menuItems.map((item, index) => (
+              <React.Fragment key={index}>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => handleItemClick(item.link, item.isNavigate)}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItemButton>
+                </ListItem>
+                {index === 2 && (
+                  <Box my={1}>
+                    <Divider />
+                  </Box>
+                )}
+              </React.Fragment>
+            ))}
           </List>
         </Drawer>
         <Main open={open}>
