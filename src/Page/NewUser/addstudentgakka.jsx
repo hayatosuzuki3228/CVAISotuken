@@ -12,21 +12,46 @@ export function Addstudentgakka() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const initialMyVariable = location.state?.myVariable || "";
+  const initialMyVariable1 = location.state?.myVariable1 || "";
 
-  const { email, pass, namae, kanamae, birthday, area } = location.state || {};
+  const { email, pass, namae, kanamae, birthday, area, selectedOptions } =
+    location.state || {};
 
   const onClick = () => {
     navigate("/adduser", {
-      state: { email, pass, namae, kanamae, birthday, area },
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+        myVariable,
+        myVariable1,
+      },
     });
   };
 
   const onClick1 = () => {
-    navigate("/addkakunin");
+    navigate("/addkakunin", {
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+        myVariable,
+        myVariable1,
+      },
+    });
   };
 
-  const [myVariable, setMyVariable] = useState(null);
-  const [myVariable1, setMyVariable1] = useState(null);
+  const [myVariable, setMyVariable] = useState(initialMyVariable);
+  const [myVariable1, setMyVariable1] = useState(initialMyVariable1);
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
@@ -118,6 +143,7 @@ export function Addstudentgakka() {
             required
             id={selectBox}
             label="学科名"
+            value={myVariable}
             select
             fullWidth
             onChange={(e) => setMyVariable(e.target.value)}
@@ -135,6 +161,7 @@ export function Addstudentgakka() {
             required
             id={selectBox1}
             label="卒業予定年"
+            value={myVariable1}
             select
             fullWidth
             onChange={(e) => setMyVariable1(e.target.value)}

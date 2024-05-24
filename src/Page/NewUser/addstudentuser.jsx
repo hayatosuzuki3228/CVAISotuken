@@ -20,7 +20,7 @@ export function Addstudentuser() {
   const initialArea = location.state?.area || "";
   const initialSelectedOptions = location.state?.selectedOptions || "";
 
-  const { email, pass } = location.state || {};
+  const { email, pass, myVariable, myVariable1 } = location.state || {};
   const onClick = () => {
     navigate("/", {
       state: {
@@ -31,6 +31,8 @@ export function Addstudentuser() {
         birthday,
         area,
         selectedOptions,
+        myVariable,
+        myVariable1,
       },
     });
   };
@@ -45,6 +47,8 @@ export function Addstudentuser() {
         birthday,
         area,
         selectedOptions,
+        myVariable,
+        myVariable1,
       },
     });
   };

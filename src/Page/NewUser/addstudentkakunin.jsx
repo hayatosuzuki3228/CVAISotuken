@@ -8,13 +8,49 @@ export function Addstudentkakunin() {
   }, []);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const {
+    email,
+    pass,
+    namae,
+    kanamae,
+    birthday,
+    area,
+    selectedOptions,
+    myVariable,
+    myVariable1,
+  } = location.state || {};
 
   const onClick = () => {
-    navigate("/addgakka");
+    navigate("/addgakka", {
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+        myVariable,
+        myVariable1,
+      },
+    });
   };
 
   const onClick1 = () => {
-    navigate("/");
+    navigate("/", {
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        birthday,
+        area,
+        selectedOptions,
+        myVariable,
+        myVariable1,
+      },
+    });
   };
 
   return (

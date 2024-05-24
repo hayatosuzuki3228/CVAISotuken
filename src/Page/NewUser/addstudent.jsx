@@ -15,8 +15,15 @@ export function Addstudent() {
   const initialEmail = location.state?.email || "";
   const initialRemail = location.state?.remail || "";
   const initialPass = location.state?.pass || "";
-  const { namae, kanamae, birthday, area, selectedOptions } =
-    location.state || {};
+  const {
+    namae,
+    kanamae,
+    birthday,
+    area,
+    selectedOptions,
+    myVariable,
+    myVariable1,
+  } = location.state || {};
   const onClick = () => {
     return navigate("/adduser", {
       state: {
@@ -27,6 +34,8 @@ export function Addstudent() {
         birthday,
         area,
         selectedOptions,
+        myVariable,
+        myVariable1,
       },
     });
   };
