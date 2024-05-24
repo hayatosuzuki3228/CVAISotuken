@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Stack, Button, Box, MenuItem } from "@mui/material";
-import { Autocomplete, TextField, Chip } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import {
+  Stack,
+  Button,
+  Box,
+  MenuItem,
+  Autocomplete,
+  TextField,
+  Chip,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+} from "@mui/material";
 import "normalize.css";
 
 export function Addstudentuser() {
@@ -252,7 +259,7 @@ export function Addstudentuser() {
             id="tags-outlined"
             options={options}
             getOptionLabel={(option) => option.title}
-            defaultValue={selectedOptions || [""]}
+            defaultValue={selectedOptions || []}
             filterSelectedOptions
             renderInput={(params) => (
               <TextField {...params} variant="outlined" label="保有資格" />

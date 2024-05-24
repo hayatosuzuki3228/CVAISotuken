@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Stack, Button, Box } from "@mui/material";
-import { TextField, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { Stack, Button, Box, TextField, MenuItem } from "@mui/material";
 import "normalize.css";
 
 export function Addstudentgakka() {

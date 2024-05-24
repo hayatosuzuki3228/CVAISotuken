@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Stack, Button, Box } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
+import { Stack, Button, Box, TextField, Typography } from "@mui/material";
 import "normalize.css";
 
 export function Addstudent() {
