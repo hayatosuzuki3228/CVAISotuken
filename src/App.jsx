@@ -7,10 +7,10 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Addstudent />} />
-      <Route path="/adduser" element={<Addstudentuser />} />
-      <Route path="/addgakka" element={<Addstudentgakka />} />
-      <Route path="/addkakunin" element={<Addstudentkakunin />} />
+        <Route path="/" element={<Addstudent />} />
+        <Route path="/adduser" element={<Addstudentuser />} />
+        <Route path="/addgakka" element={<Addstudentgakka />} />
+        <Route path="/addkakunin" element={<Addstudentkakunin />} />
       </Routes>
     </Router>
   );
