@@ -99,10 +99,12 @@ export function Addstudentkakunin() {
           <label>居住地域　　　　：　</label>
           <label>{area}</label>
           <p></p>
-          <label>保有資格　　　　：　</label>
+          <label>保有資格---------------------------</label>
           {selectedOptions.map((option, index) => (
             <Typography key={index}>{option.title}</Typography>
           ))}
+          <label>------------------------------------</label>
+          <p></p>
           <p></p>
           <label>学科名　　　　　：　</label>
           <label>{gakka}</label>

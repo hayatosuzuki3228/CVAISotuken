@@ -89,6 +89,10 @@ export function Addstudent() {
           <label>メールアドレス</label>
           <p></p>
           <TextField
+            inputProps={{
+              maxLength: 50,
+              pattern: "^[a-zA-Z0-9_]+$",
+            }}
             required
             label="メールアドレス"
             variant="outlined"
