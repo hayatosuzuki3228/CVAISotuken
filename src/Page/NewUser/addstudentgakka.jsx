@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, TextField, MenuItem } from "@mui/material";
 import "normalize.css";
+import { selectBox, selectBox1 } from "./Data";
 
 export function Addstudentgakka() {
   useEffect(() => {
@@ -53,51 +54,6 @@ export function Addstudentgakka() {
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
-
-  const selectBox = [
-    { label: "情報総合学科", value: "value1" },
-    { label: "情報システム科", value: "value2" },
-    { label: "情報処理学科", value: "value3" },
-    { label: "AIイノベーション学科 AIシステムコース", value: "value4" },
-    {
-      label: "AIイノベーション学科 グローバルコミュニケーションコース",
-      value: "value5",
-    },
-    { label: "高度情報学科", value: "value6" },
-    { label: "ゲーム総合学科 ゲームプログラミングコース", value: "value7" },
-    { label: "ゲーム総合学科 ゲームCGコース", value: "value8" },
-    { label: "ゲームサイエンス学科", value: "value9" },
-    { label: "ゲームCG学科", value: "value10" },
-    { label: "ゲーム研究科 ゲームプログラミングコース", value: "value11" },
-    { label: "ゲーム研究科 ゲームCGコース", value: "value12" },
-    { label: "映像メディア科", value: "value13" },
-    { label: "映像音響科 映像コース", value: "value14" },
-    { label: "映像音響科 音響・照明コース", value: "value15" },
-    { label: "映像メディア研究科", value: "value16" },
-    { label: "電気工学科", value: "value17" },
-    { label: "電業技術学科", value: "value18" },
-    { label: "電気工学研究科", value: "value19" },
-    { label: "電子情報学科", value: "value20" },
-    { label: "電子情報研究科", value: "value21" },
-    { label: "機械工学科", value: "value22" },
-    { label: "機械CAD設計科", value: "value23" },
-    { label: "産業技術研究科", value: "value24" },
-  ];
-
-  const selectBox1 = [
-    { label: "25卒", value: "value1" },
-    { label: "26卒", value: "value2" },
-    { label: "27卒", value: "value3" },
-    { label: "28卒", value: "value4" },
-    { label: "29卒", value: "value5" },
-    { label: "30卒", value: "value6" },
-    { label: "31卒", value: "value7" },
-    { label: "32卒", value: "value8" },
-    { label: "33卒", value: "value9" },
-    { label: "34卒", value: "value10" },
-    { label: "35卒", value: "value11" },
-    { label: "36卒", value: "value12" },
-  ];
 
   return (
     <>
