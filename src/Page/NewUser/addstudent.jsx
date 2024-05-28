@@ -20,8 +20,8 @@ export function Addstudent() {
     birthday,
     area,
     selectedOptions,
-    myVariable,
-    myVariable1,
+    gakka,
+    sotu,
   } = location.state || {};
   const onClick = () => {
     return navigate("/adduser", {
@@ -34,8 +34,8 @@ export function Addstudent() {
         birthday,
         area,
         selectedOptions,
-        myVariable,
-        myVariable1,
+        gakka,
+        sotu,
       },
     });
   };

@@ -8,9 +8,6 @@ import {
   Autocomplete,
   TextField,
   Chip,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
 } from "@mui/material";
 import "normalize.css";
 import { selectBox2, selectBox3, options } from "./Data";
@@ -29,7 +26,7 @@ export function Addstudentuser() {
   const initialSelectedOptions = location.state?.selectedOptions || "";
   const initialGender = location.state?.gender || "";
 
-  const { email, pass, myVariable, myVariable1 } = location.state || {};
+  const { email, pass, gakka, sotu } = location.state || {};
   const onClick = () => {
     navigate("/", {
       state: {
@@ -41,8 +38,8 @@ export function Addstudentuser() {
         birthday,
         area,
         selectedOptions,
-        myVariable,
-        myVariable1,
+        gakka,
+        sotu,
       },
     });
   };
@@ -58,8 +55,8 @@ export function Addstudentuser() {
         birthday,
         area,
         selectedOptions,
-        myVariable,
-        myVariable1,
+        gakka,
+        sotu,
       },
     });
   };

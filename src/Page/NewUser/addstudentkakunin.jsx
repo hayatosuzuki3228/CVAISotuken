@@ -1,6 +1,15 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Stack, Button, Box, MenuItem, TextField } from "@mui/material";
+import {
+  Stack,
+  Button,
+  Box,
+  MenuItem,
+  TextField,
+  Autocomplete,
+  Chip,
+  Typography,
+} from "@mui/material";
 import { options, selectBox, selectBox1, selectBox2, selectBox3 } from "./Data";
 
 export function Addstudentkakunin() {
@@ -19,8 +28,8 @@ export function Addstudentkakunin() {
     birthday,
     area,
     selectedOptions,
-    myVariable,
-    myVariable1,
+    gakka,
+    sotu,
   } = location.state || {};
 
   const onClick = () => {
@@ -34,8 +43,8 @@ export function Addstudentkakunin() {
         birthday,
         area,
         selectedOptions,
-        myVariable,
-        myVariable1,
+        gakka,
+        sotu,
       },
     });
   };
@@ -51,11 +60,13 @@ export function Addstudentkakunin() {
         birthday,
         area,
         selectedOptions,
-        myVariable,
-        myVariable1,
+        gakka,
+        sotu,
       },
     });
   };
+
+  let ir = 30;
 
   return (
     <>
@@ -89,13 +100,15 @@ export function Addstudentkakunin() {
           <label>{area}</label>
           <p></p>
           <label>保有資格　　　　：　</label>
-          <label>{selectedOptions}</label>
+          {selectedOptions.map((option, index) => (
+            <Typography key={index}>{option.title}</Typography>
+          ))}
           <p></p>
           <label>学科名　　　　　：　</label>
-          <label>{myVariable}</label>
+          <label>{gakka}</label>
           <p></p>
           <label>卒業予定　　　　：　</label>
-          <lable>{myVariable1}</lable>
+          <lable>{sotu}</lable>
           <p></p>
         </div>
       </Stack>
