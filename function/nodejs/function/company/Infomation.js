@@ -1,6 +1,6 @@
 const connect = require("../database/Connection.js");
 
-async function profile(args) {
+async function infomation(args) {
     
     // 必要な値が与えられなければエラーを返す
     const requiredArgs = [
@@ -41,4 +41,4 @@ async function profile(args) {
     });
 }
 
-exports.profile = profile;
+exports.infomation = infomation;

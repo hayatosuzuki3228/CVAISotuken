@@ -18,7 +18,8 @@ const requests = {
   registration: require("./function/account/Registration").registration,
   authentication: require("./function/account/Auchentication").authentication,
   user_profile: require("./function/account/Profile").profile,
-  company_profile: require("./function/company/Profile").profile,
+  company_infomation: require("./function/company/Infomation").infomation,
+  company_search: require("./function/company/Search").search,
 };
  
 // /apiに対するpostリクエストに応答

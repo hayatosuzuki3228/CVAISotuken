@@ -1,6 +1,6 @@
 const connect = require("../database/Connection.js");
 
-async function login(args) {
+async function sample(args) {
     // 必要な値が与えられなければエラーを返す
     const requiredArgs = [
     ]
