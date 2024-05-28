@@ -1,6 +1,7 @@
 // ライブラリ等読み込み
 const express = require("express");
 const cors = require("cors");
+const { updateprofile } = require("./function/account/UpdateProfile");
 const server = express();
 
 // ポート番号の指定
@@ -18,6 +19,7 @@ const requests = {
   registration: require("./function/account/Registration").registration,
   authentication: require("./function/account/Auchentication").authentication,
   user_profile: require("./function/account/Profile").profile,
+  updateprofile: require("./function/account/UpdateProfile").updateprofile,
   company_infomation: require("./function/company/Infomation").infomation,
   company_search: require("./function/company/Search").search,
 };
