@@ -163,7 +163,7 @@ export function SCompany() {
               <p>
                 ・応用情報技術者
                 <br /> ・普通自動車運転免許 <br />
-                ・世界遺産検定1級{" "}
+                ・世界遺産検定1級
               </p>
             </font>
           </div>

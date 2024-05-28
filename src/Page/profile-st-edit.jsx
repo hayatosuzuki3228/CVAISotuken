@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -20,12 +20,22 @@ import {
   TextField,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Gkinfo } from "./Data";
+import { Gkinfo, years, months, days, tdfk, Byears } from "./Data";
 
 export function SEdit() {
   useEffect(() => {
     document.title = "プロフィール編集";
   }, []);
+
+  const handleInput = (e) => {
+    const inputValue = e.target.value;
+    const kregex = /^[ァ-ヶー　]+$/;
+
+    if (!kregex.test(inputValue)) {
+      const correctedValue = inputValue.replace(/[^ァ-ヶー　]+/g, "");
+      e.target.value = correctedValue;
+    }
+  };
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -44,28 +54,33 @@ export function SEdit() {
   const [man, getMan] = useState("");
   const [age, getAge] = useState("");
   const [gk, getGk] = useState("");
-  const [selectItems, getSelectItems] = useState([]);
+  const [Years, getYears] = useState("");
+  const [Months, getMonths] = useState("");
+  const [Days, getDays] = useState("");
+  const [TDFK, getTDFK] = useState("");
+  const [sika, getSika] = useState("");
+  const [byear, getByear] = useState("");
 
   const handleChange1 = (event) => {
     getMan(event.target.value);
   };
   const handleChange2 = (event) => {
-    getAge(event.target.value);
-  };
-  const handleChange3 = (event) => {
     getGk(event.target.value);
   };
-
-  const handleMenuItemClick = (Gkinfo) => {
-    const currentIndex = selectItems.indexOf(Gkinfo);
-    const newItem = [...selectItems];
-
-    if (currentIndex === -1) {
-      newItem.push(Gkinfo);
-    } else {
-      newItem.splice(currentIndex, 1);
-    }
-    setSelectItems(newItem);
+  const handleChange3 = (event) => {
+    getYears(event.target.value);
+  };
+  const handleChange4 = (event) => {
+    getMonths(event.target.value);
+  };
+  const handleChange5 = (event) => {
+    getDays(event.target.value);
+  };
+  const handleChange6 = (event) => {
+    getTDFK(event.target.value);
+  };
+  const handleChange7 = (event) => {
+    getByear(event.target.value);
   };
 
   return (
@@ -111,27 +126,31 @@ export function SEdit() {
         justifyContent="center"
         alignItems="center"
         textAlign="center"
-        direction="column"
+        //direction="column"
         paddingTop="3%"
         paddingBottom="5%"
         spacing={2}
       >
-        <Box>
-          <p>名前の編集</p>
-          <TextField
-            label="名前の変更"
-            value={name}
-            onChange={(e) => getName(e.target.value)}
-            helperText="名前の変更です"
-          />
-        </Box>
-        <Box>
-          <TextField
-            label="名前(カタカナ)の変更"
-            value={kName}
-            onChange={(e) => getKName(e.target.value)}
-          />
-        </Box>
+        <p>名前の編集</p>
+        <Stack spacing={2}>
+          <Box>
+            <TextField
+              label="名前の変更"
+              value={name}
+              onChange={(e) => getName(e.target.value)}
+              //helperText=""
+            />
+          </Box>
+          <Box>
+            <TextField
+              inputProps={{
+                maxLength: 50,
+              }}
+              onInput={handleInput}
+              label="名前(カタカナ)の変更"
+            />
+          </Box>
+        </Stack>
 
         <Box>
           <p>性別の変更</p>
@@ -154,24 +173,6 @@ export function SEdit() {
           </RadioGroup>
         </Box>
 
-        <Box sx={{ minWidth: 120 }}>
-          <p>年齢の変更</p>
-          <FormControl fullWidth>
-            <InputLabel id="test-age-label">年齢</InputLabel>
-            <Select
-              labelId="test-age-label"
-              id="test-age"
-              value={age}
-              label="年齢"
-              onChange={handleChange2}
-            >
-              <MenuItem value={15}>15歳</MenuItem>
-              <MenuItem value={16}>16歳</MenuItem>
-              <MenuItem value={17}>17歳</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-
         <Box sx={{ minWidth: 240 }}>
           <p>学科名の変更</p>
           <FormControl fullWidth>
@@ -181,15 +182,104 @@ export function SEdit() {
               id="Gk"
               value={gk}
               label="学科名"
+              onChange={handleChange2}
+            >
+              {Gkinfo.map((Gk) => (
+                <MenuItem key={Gk} value={Gk}>
+                  {Gk}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+        <p></p>
+        <p>生年月日の変更</p>
+        <Stack
+          sx={{ Width: 120 }}
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          paddingBottom={2}
+        >
+          <FormControl sx={{ width: 90 }}>
+            <InputLabel id="YMD-label">年</InputLabel>
+            <Select
+              labelId="YMD-label"
+              id="YMD"
+              value={Years}
+              label="年"
               onChange={handleChange3}
             >
-              {Gkinfo.map((option) => (
-                <MenuItem
-                  key={Gkinfo}
-                  onClick={() => handleMenuItemClick(option)}
-                >
-                  <ListItemText primary={Gkinfo.label} />
+              {years.map((YMD) => (
+                <MenuItem key={YMD} value={YMD}>
+                  {YMD}
                 </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <p>年</p>
+          <FormControl sx={{ width: 80 }}>
+            <InputLabel id="YMD-label">月</InputLabel>
+            <Select
+              labelId="YMD-label"
+              id="YMD"
+              value={Months}
+              label="月"
+              onChange={handleChange4}
+            >
+              {months.map((YMD) => (
+                <MenuItem key={YMD} value={YMD}>
+                  {YMD}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <p>月</p>
+          <FormControl sx={{ width: 80 }}>
+            <InputLabel id="YMD-label">日</InputLabel>
+            <Select
+              labelId="YMD-label"
+              id="YMD"
+              value={Days}
+              label="日"
+              onChange={handleChange5}
+            >
+              {days.map((YMD) => (
+                <MenuItem key={YMD} value={YMD}>
+                  {YMD}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <p>日</p>
+        </Stack>
+
+        <p>居住地域</p>
+        <Box paddingBottom={2}>
+          <FormControl sx={{ minWidth: 120 }}>
+            <InputLabel id="TDFK-label">居住地</InputLabel>
+            <Select
+              labelId="TDFK-label"
+              value={TDFK}
+              label="居住地"
+              onChange={handleChange6}
+            >
+              {tdfk.map((home) => (
+                <MenuItem key={home} value={home}>
+                  {home}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <p>卒業年度</p>
+        <Box>
+          <FormControl sx={{ minWidth: 120 }}>
+            <InputLabel>卒業年度</InputLabel>
+            <Select value={byear} label="卒業年度" onChange={handleChange7}>
+              {Byears.map((BY) => (
+                <MenuItem value={BY}>{BY}</MenuItem>
               ))}
             </Select>
           </FormControl>
