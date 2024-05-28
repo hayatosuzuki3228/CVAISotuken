@@ -1,5 +1,4 @@
 const connect = require("../database/Connection.js");
-const encryption = require("../database/Encryption.js");
 
 async function profile(args) {
     

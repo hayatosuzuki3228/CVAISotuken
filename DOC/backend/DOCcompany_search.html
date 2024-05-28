@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TOP | docment</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        <header>
+            <a href="../index.html">TOP</a>
+        </header>
+        <article>
+            <div class="menu">
+                <ul>
+                    <li><a href="DOCauthentication.html">authentication</a></li>
+                    <li><a href="DOCregistration.html">registration</a></li>
+                    <li><a href="DOCprofile.html">user_profile</a></li>
+                    <li><a href="DOCcompany_infomation.html">company_profile</a></li>
+                    <li><a href="DOCcompany_search.html">company_search</li>
+                </ul>
+            </div>
+    
+            <div class="content">
+                <h1>company_profile</h1>
+                検索対象と検索文字列を送ることで、
+                <p>
+                    <h3>引数</h3>
+                    <div class="container">
+                        subject:str<br>
+                        <div class="container">
+                            検索対象<br>
+                            以下のものから一つを選択
+                            name
+                            <div class="container">
+                                名前から検索
+                            </div>
+                            code
+                            <div class="container">
+                                企業コードから検索
+                            </div>
+                            category
+                            <div class="container">
+                                業種から検索
+                            </div>
+                            office
+                            <div class="container">
+                                事業所から検索
+                            </div>
+                            qualification
+                            <div class="container">
+                                資格から検索
+                            </div>
+                        </div>
+                    </div>
+                    
+                </p>
+                <p>
+                    <h3>戻り値</h3>
+                    <div class="container">
+                        {<br>
+                        <div class="container">
+                            "status": bool,<br>
+                            "result": [{<br>
+                            <div class="container">
+                                "id": ind,<br>
+                                <div class="container">企業毎に一意のID</div>
+                                "name": str,<br>
+                                <div class="container">企業名</div>
+                                "$subject": str<br>
+                                <div class="container">指定した検索対象ごとに異なる内容</div>
+                            </div>
+                            ],<br>
+                            以下検索結果に合致した数繰り返し<br>
+                            }<br>
+                        </div>
+                        }
+                    </div>
+                </p>
+            </div>
+        </article>
+    </body>
+</html>

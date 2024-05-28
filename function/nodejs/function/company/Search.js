@@ -16,28 +16,32 @@ async function search(args) {
     // 渡された検索対象を許可されたもの以外はじく
     const allowedSubject = ["name", "code", "category", "office", "qualification"]
     if(!(allowedSubject.includes(args.subject))) {
-        throw new Error("Invalid subject.");
+        return({"status": false, "result": "Invalid subject."});
     }
 
     // 得られた検索キーワードを整形
-    const splitedKeywords = args.keyword.split(/\s+/);
-    const keywords = [];
+    const keywords = args.keyword.split(/\s+/);
 
-    for(let i = 0; i < splitedKeywords.length; i ++) {
-        keywords.push(`%${splitedKeywords[i]}%`);
+    for(let i = 0; i < keywords.length; i ++) {
+        keywords[i] = `%${keywords[i]}%`;
     }
 
     // sql文の作成
-    let sql = "SELECT id, name, "
+    let sql = "SELECT id, name"
     if(args.subject != "name") {
-        sql += args.subject;
+        sql += ", " + args.subject;
     }
-    sql += " FROM companies WHERE " + args.subject + " LIKE ?";
 
-    for(let i = 0; i < Object.keys(keywords).length -1; i ++) {
-        sql += " AND "+ args.subject + " LIKE ?";
+    sql += " FROM companies WHERE "
+
+    for(let i = 0; i < Object.keys(keywords).length; i ++) {
+        if(i !== 0) {
+            sql += " AND ";
+        }
+        sql += args.subject + " LIKE ?";
     }
     sql += ";";
+    console.log(sql);
     
     return new Promise((resolve, reject) => {
         // sqlと接続
@@ -55,7 +59,7 @@ async function search(args) {
                 }
 
                 // データの取得が終了したらresolveする
-                resolve(results);
+                resolve({"status": true, "result":results});
             }
         );
     });
