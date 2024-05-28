@@ -16,6 +16,7 @@ export function Addstudent() {
   const {
     namae,
     kanamae,
+    gender,
     birthday,
     area,
     selectedOptions,
@@ -29,6 +30,7 @@ export function Addstudent() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,

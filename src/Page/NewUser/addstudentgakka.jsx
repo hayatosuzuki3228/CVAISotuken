@@ -14,8 +14,16 @@ export function Addstudentgakka() {
   const initialMyVariable = location.state?.myVariable || "";
   const initialMyVariable1 = location.state?.myVariable1 || "";
 
-  const { email, pass, namae, kanamae, birthday, area, selectedOptions } =
-    location.state || {};
+  const {
+    email,
+    pass,
+    namae,
+    kanamae,
+    gender,
+    birthday,
+    area,
+    selectedOptions,
+  } = location.state || {};
 
   const onClick = () => {
     navigate("/adduser", {
@@ -24,6 +32,7 @@ export function Addstudentgakka() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,
@@ -40,6 +49,7 @@ export function Addstudentgakka() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,

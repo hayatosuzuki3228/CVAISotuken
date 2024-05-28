@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, MenuItem, TextField } from "@mui/material";
-import { options, selectBox, selectBox1, selectBox2 } from "./Data";
+import { options, selectBox, selectBox1, selectBox2, selectBox3 } from "./Data";
 
 export function Addstudentkakunin() {
   useEffect(() => {
@@ -15,6 +15,7 @@ export function Addstudentkakunin() {
     pass,
     namae,
     kanamae,
+    gender,
     birthday,
     area,
     selectedOptions,
@@ -29,6 +30,7 @@ export function Addstudentkakunin() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,
@@ -45,6 +47,7 @@ export function Addstudentkakunin() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,
@@ -77,27 +80,22 @@ export function Addstudentkakunin() {
           <label>{kanamae}</label>
           <p></p>
           <label>性別　　　　　　：　</label>
+          <label>{gender}</label>
           <p></p>
           <label>生年月日　　　　：　</label>
           <label>{birthday}</label>
           <p></p>
           <label>居住地域　　　　：　</label>
-          <TextField id={selectBox2} value={area}>
-            {selectBox2.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          <label>{area}</label>
           <p></p>
           <label>保有資格　　　　：　</label>
-
+          <label>{selectedOptions}</label>
           <p></p>
           <label>学科名　　　　　：　</label>
-
+          <label>{myVariable}</label>
           <p></p>
           <label>卒業予定　　　　：　</label>
-
+          <lable>{myVariable1}</lable>
           <p></p>
         </div>
       </Stack>

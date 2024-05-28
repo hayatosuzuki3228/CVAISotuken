@@ -13,7 +13,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import "normalize.css";
-import { selectBox2, options } from "./Data";
+import { selectBox2, selectBox3, options } from "./Data";
 
 export function Addstudentuser() {
   useEffect(() => {
@@ -27,6 +27,7 @@ export function Addstudentuser() {
   const initialBirthday = location.state?.birthday || "";
   const initialArea = location.state?.area || "";
   const initialSelectedOptions = location.state?.selectedOptions || "";
+  const initialGender = location.state?.gender || "";
 
   const { email, pass, myVariable, myVariable1 } = location.state || {};
   const onClick = () => {
@@ -36,6 +37,7 @@ export function Addstudentuser() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,
@@ -52,6 +54,7 @@ export function Addstudentuser() {
         pass,
         namae,
         kanamae,
+        gender,
         birthday,
         area,
         selectedOptions,
@@ -64,8 +67,7 @@ export function Addstudentuser() {
   const [namae, setnamae] = useState(initialNamae);
   const [kanamae, setkanamae] = useState(initialKanamae);
   const [birthday, setbirthday] = useState(initialBirthday);
-  const [male, setmale] = useState("");
-  const [other, setother] = useState("");
+  const [gender, setGender] = useState(initialGender);
 
   const [area, setArea] = useState(initialArea);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -131,29 +133,24 @@ export function Addstudentuser() {
             onChange={(e) => setkanamae(e.target.value)}
           />
           <p></p>
-          <RadioGroup required defaultValue="male">
-            性別
-            <Box
-              direction="row"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              p={1}
-            >
-              <FormControlLabel
-                value="male"
-                control={<Radio />}
-                label="男"
-                onChange={(e) => setmale(e.target.value)}
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="女"
-                onChange={(e) => setother(e.target.value)}
-              />
-            </Box>
-          </RadioGroup>
+          <label>性別</label>
+          <p></p>
+          <TextField
+            required
+            id={selectBox3}
+            label="性別"
+            value={gender}
+            select
+            fullWidth
+            onChange={(e) => setGender(e.target.value)}
+          >
+            {selectBox3.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <p></p>
           <label>生年月日</label>
           <p></p>
           <TextField
