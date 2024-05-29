@@ -17,13 +17,6 @@ export function Addstudentuser() {
     document.title = "新規登録";
   }, []);
 
-  const [namae, setnamae] = useState(initialNamae);
-  const [kanamae, setkanamae] = useState(initialKanamae);
-  const [birthday, setbirthday] = useState(initialBirthday);
-  const [gender, setGender] = useState(initialGender);
-  const [area, setArea] = useState(initialArea);
-  const [sikaku, setSikaku] = useState(initialSikaku);
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialNamae = location.state?.namae || "";
@@ -34,6 +27,12 @@ export function Addstudentuser() {
   const initialGender = location.state?.gender || "";
 
   const { email, pass, gakka, sotu } = location.state || {};
+  const [namae, setnamae] = useState(initialNamae);
+  const [kanamae, setkanamae] = useState(initialKanamae);
+  const [birthday, setbirthday] = useState(initialBirthday);
+  const [gender, setGender] = useState(initialGender);
+  const [area, setArea] = useState(initialArea);
+  const [sikaku, setSikaku] = useState(initialSikaku);
 
   const onClick = () => {
     navigate("/", {

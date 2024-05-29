@@ -8,11 +8,6 @@ export function Addstudent() {
     document.title = "新規登録";
   }, []);
 
-  const [email, setemail] = useState(initialEmail);
-  const [remail, setremail] = useState("");
-  const [pass, setpass] = useState(initialPass);
-  const [rpass, setrpass] = useState("");
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialEmail = location.state?.email || "";
@@ -20,6 +15,10 @@ export function Addstudent() {
 
   const { namae, kanamae, gender, birthday, area, sikaku, gakka, sotu } =
     location.state || {};
+  const [email, setemail] = useState(initialEmail);
+  const [remail, setremail] = useState("");
+  const [pass, setpass] = useState(initialPass);
+  const [rpass, setrpass] = useState("");
 
   const onClick = () => {
     return navigate("/adduser", {

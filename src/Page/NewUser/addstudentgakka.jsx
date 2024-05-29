@@ -9,9 +9,6 @@ export function Addstudentgakka() {
     document.title = "新規登録";
   }, []);
 
-  const [gakka, setGakka] = useState(initialGakka);
-  const [sotu, setSotu] = useState(initialSotu);
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialGakka = location.state?.gakka || "";
@@ -19,6 +16,8 @@ export function Addstudentgakka() {
 
   const { email, pass, namae, kanamae, gender, birthday, area, sikaku } =
     location.state || {};
+  const [gakka, setGakka] = useState(initialGakka);
+  const [sotu, setSotu] = useState(initialSotu);
 
   const onClick = () => {
     navigate("/adduser", {
