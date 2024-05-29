@@ -86,69 +86,163 @@ export function SCEdit() {
         justifyContent="center"
         alignItems="center"
         textAlign="center"
-        //direction="column"
         paddingTop="3%"
         paddingBottom="7%"
         spacing={2}
       >
-        <p>希望職種</p>
-        <Box paddingBottom={2}>
-          <TextField
-            label="希望職種の変更"
-            value={job}
-            onChange={(e) => setJob(e.target.value)}
-            helperText={job !== undefined && !job ? "未入力です。" : ""}
-            error={job !== undefined && !job}
-          />
-        </Box>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            textAlign="center"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <p>希望職種</p>
+          </Box>
+          <Box
+            //paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <TextField
+              fullWidth
+              multiline
+              required
+              label="希望職種の変更"
+              value={job}
+              onChange={(e) => setJob(e.target.value)}
+              helperText={job !== undefined && !job ? "未入力です。" : ""}
+              error={job !== undefined && !job}
+            />
+          </Box>
+        </Stack>
 
-        <p>趣味</p>
-        <Box paddingBottom={2}>
-          <TextField
-            label="趣味の変更"
-            value={hobby}
-            onChange={(e) => setHobby(e.target.value)}
-            helperText={hobby !== undefined && !hobby ? "未入力です。" : ""}
-            error={hobby !== undefined && !hobby}
-          />
-        </Box>
+        <Stack direction="row" paddingBottom="5">
+          <Box
+            flex="1"
+            border="1px solid black"
+            textAlign="center"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <p>趣味</p>
+          </Box>
 
-        <p>特技</p>
-        <Box paddingBottom={2}>
-          <TextField
-            label="特技の変更"
-            value={skill}
-            onChange={(e) => setSkill(e.target.value)}
-            helperText={skill !== undefined && !skill ? "未入力です。" : ""}
-            error={skill !== undefined && !skill}
-          />
-        </Box>
+          <Box
+            //paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              required
+              label="趣味の変更"
+              value={hobby}
+              onChange={(e) => setHobby(e.target.value)}
+              helperText={hobby !== undefined && !hobby ? "未入力です。" : ""}
+              error={hobby !== undefined && !hobby}
+            />
+          </Box>
+        </Stack>
 
-        <p>得意な科目＆苦手な科目</p>
-        <Box paddingBottom={2}>
-          <TextField
-            label="得意な科目の変更"
-            value={SSubject}
-            onChange={(e) => setSSubject(e.target.value)}
-            helperText={
-              SSubject !== undefined && !SSubject ? "未入力です。" : ""
-            }
-            error={SSubject !== undefined && !SSubject}
-          />
-          <p></p>
-          <TextField
-            label="苦手な科目の変更"
-            value={KSubject}
-            onChange={(e) => setKSubject(e.target.value)}
-            helperText={
-              KSubject !== undefined && !KSubject ? "未入力です。" : ""
-            }
-            error={KSubject !== undefined && !KSubject}
-          />
-        </Box>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <p>特技</p>
+          </Box>
 
-        <p>取得した資格</p>
-        <Box></Box>
+          <Box
+            //paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              required
+              label="特技の変更"
+              value={skill}
+              onChange={(e) => setSkill(e.target.value)}
+              helperText={skill !== undefined && !skill ? "未入力です。" : ""}
+              error={skill !== undefined && !skill}
+            />
+          </Box>
+        </Stack>
+
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <p>得意な科目＆苦手な科目</p>
+          </Box>
+
+          <Box
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              required
+              label="得意な科目の変更"
+              value={SSubject}
+              onChange={(e) => setSSubject(e.target.value)}
+              helperText={
+                SSubject !== undefined && !SSubject ? "未入力です。" : ""
+              }
+              error={SSubject !== undefined && !SSubject}
+            />
+            <p></p>
+            <TextField
+              multiline
+              fullWidth
+              required
+              label="苦手な科目の変更"
+              value={KSubject}
+              onChange={(e) => setKSubject(e.target.value)}
+              helperText={
+                KSubject !== undefined && !KSubject ? "未入力です。" : ""
+              }
+              error={KSubject !== undefined && !KSubject}
+            />
+          </Box>
+        </Stack>
+
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          >
+            <p>取得した資格</p>
+          </Box>
+
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 240 }}
+          ></Box>
+        </Stack>
 
         <Button variant="contained">情報を確定する</Button>
       </Stack>

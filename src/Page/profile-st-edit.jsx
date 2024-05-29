@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import {
   Box,
+  Button,
   Drawer,
   Divider,
   FormControlLabel,
@@ -284,6 +285,8 @@ export function SEdit() {
             </Select>
           </FormControl>
         </Box>
+
+        <Button variant="contained">情報を確定する</Button>
       </Stack>
     </>
   );
