@@ -8,13 +8,19 @@ export function Addstudent() {
     document.title = "新規登録";
   }, []);
 
+  const [email, setemail] = useState(initialEmail);
+  const [remail, setremail] = useState("");
+  const [pass, setpass] = useState(initialPass);
+  const [rpass, setrpass] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const initialEmail = location.state?.email || "";
-  const initialRemail = location.state?.remail || "";
   const initialPass = location.state?.pass || "";
+
   const { namae, kanamae, gender, birthday, area, sikaku, gakka, sotu } =
     location.state || {};
+
   const onClick = () => {
     return navigate("/adduser", {
       state: {
@@ -31,10 +37,7 @@ export function Addstudent() {
       },
     });
   };
-  const [email, setemail] = useState(initialEmail);
-  const [remail, setremail] = useState(initialRemail);
-  const [pass, setpass] = useState(initialPass);
-  const [rpass, setrpass] = useState("");
+
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
 

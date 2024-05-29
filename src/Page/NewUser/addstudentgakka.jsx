@@ -9,6 +9,9 @@ export function Addstudentgakka() {
     document.title = "新規登録";
   }, []);
 
+  const [gakka, setGakka] = useState(initialGakka);
+  const [sotu, setSotu] = useState(initialSotu);
+
   const navigate = useNavigate();
   const location = useLocation();
   const initialGakka = location.state?.gakka || "";
@@ -50,9 +53,6 @@ export function Addstudentgakka() {
       },
     });
   };
-
-  const [gakka, setGakka] = useState(initialGakka);
-  const [sotu, setSotu] = useState(initialSotu);
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
