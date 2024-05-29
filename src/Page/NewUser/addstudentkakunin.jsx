@@ -1,16 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Stack,
-  Button,
-  Box,
-  MenuItem,
-  TextField,
-  Autocomplete,
-  Chip,
-  Typography,
-} from "@mui/material";
-import { options, selectBox, selectBox1, selectBox2, selectBox3 } from "./Data";
+import { Stack, Button, Box, Typography } from "@mui/material";
 
 export function Addstudentkakunin() {
   useEffect(() => {
@@ -27,7 +17,7 @@ export function Addstudentkakunin() {
     gender,
     birthday,
     area,
-    selectedOptions,
+    sikaku,
     gakka,
     sotu,
   } = location.state || {};
@@ -42,7 +32,7 @@ export function Addstudentkakunin() {
         gender,
         birthday,
         area,
-        selectedOptions,
+        sikaku,
         gakka,
         sotu,
       },
@@ -59,7 +49,7 @@ export function Addstudentkakunin() {
         gender,
         birthday,
         area,
-        selectedOptions,
+        sikaku,
         gakka,
         sotu,
       },
@@ -100,7 +90,7 @@ export function Addstudentkakunin() {
           <label>{area}</label>
           <p></p>
           <label>保有資格---------------------------</label>
-          {selectedOptions.map((option, index) => (
+          {sikaku.map((option, index) => (
             <Typography key={index}>{option.title}</Typography>
           ))}
           <label>------------------------------------</label>

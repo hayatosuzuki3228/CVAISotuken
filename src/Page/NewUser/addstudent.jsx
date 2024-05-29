@@ -13,16 +13,8 @@ export function Addstudent() {
   const initialEmail = location.state?.email || "";
   const initialRemail = location.state?.remail || "";
   const initialPass = location.state?.pass || "";
-  const {
-    namae,
-    kanamae,
-    gender,
-    birthday,
-    area,
-    selectedOptions,
-    gakka,
-    sotu,
-  } = location.state || {};
+  const { namae, kanamae, gender, birthday, area, sikaku, gakka, sotu } =
+    location.state || {};
   const onClick = () => {
     return navigate("/adduser", {
       state: {
@@ -33,7 +25,7 @@ export function Addstudent() {
         gender,
         birthday,
         area,
-        selectedOptions,
+        sikaku,
         gakka,
         sotu,
       },
@@ -46,7 +38,6 @@ export function Addstudent() {
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
 
-  // 入力値が異なるかどうかを判定
   const isDifferent = email !== remail;
   const isDifferent1 = pass !== rpass;
 
@@ -91,14 +82,14 @@ export function Addstudent() {
           <TextField
             inputProps={{
               maxLength: 50,
-              pattern: "^[a-zA-Z0-9_]+$",
+              pattern: "^[a-zA-Z0-9]",
             }}
             required
             label="メールアドレス"
             variant="outlined"
             value={email}
             onChange={(e) => setemail(e.target.value)}
-            error={isDifferent} // 入力が異なればエラースタイルを適用
+            error={isDifferent}
             helperText={isDifferent ? "入力が違います" : ""}
           />
           <p></p>
@@ -110,7 +101,7 @@ export function Addstudent() {
             variant="outlined"
             value={remail}
             onChange={(e) => setremail(e.target.value)}
-            error={isDifferent} // 入力が異なればエラースタイルを適用
+            error={isDifferent}
             helperText={isDifferent ? "入力が違います" : ""}
           />
           {isDifferent && (
@@ -128,7 +119,7 @@ export function Addstudent() {
             variant="outlined"
             value={pass}
             onChange={(e) => setpass(e.target.value)}
-            error={isDifferent1} // 入力が異なればエラースタイルを適用
+            error={isDifferent1}
             helperText={isDifferent1 ? "入力が違います" : ""}
           />
           <p></p>
@@ -140,7 +131,7 @@ export function Addstudent() {
             variant="outlined"
             value={rpass}
             onChange={(e) => setrpass(e.target.value)}
-            error={isDifferent1} // 入力が異なればエラースタイルを適用
+            error={isDifferent1}
             helperText={isDifferent1 ? "入力が違います" : ""}
           />
           {isDifferent1 && (

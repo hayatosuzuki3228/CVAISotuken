@@ -23,7 +23,7 @@ export function Addstudentuser() {
   const initialKanamae = location.state?.kanamae || "";
   const initialBirthday = location.state?.birthday || "";
   const initialArea = location.state?.area || "";
-  const initialSelectedOptions = location.state?.selectedOptions || "";
+  const initialSikaku = location.state?.sikaku || "";
   const initialGender = location.state?.gender || "";
 
   const { email, pass, gakka, sotu } = location.state || {};
@@ -37,7 +37,7 @@ export function Addstudentuser() {
         gender,
         birthday,
         area,
-        selectedOptions,
+        sikaku,
         gakka,
         sotu,
       },
@@ -54,7 +54,7 @@ export function Addstudentuser() {
         gender,
         birthday,
         area,
-        selectedOptions,
+        sikaku,
         gakka,
         sotu,
       },
@@ -67,9 +67,7 @@ export function Addstudentuser() {
   const [gender, setGender] = useState(initialGender);
 
   const [area, setArea] = useState(initialArea);
-  const [selectedOptions, setSelectedOptions] = useState(
-    initialSelectedOptions
-  );
+  const [sikaku, setSikaku] = useState(initialSikaku);
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
@@ -188,7 +186,7 @@ export function Addstudentuser() {
             id="tags-outlined"
             options={options}
             getOptionLabel={(option) => option.title}
-            defaultValue={selectedOptions || []}
+            defaultValue={sikaku || []}
             filterSelectedOptions
             renderInput={(params) => (
               <TextField {...params} variant="outlined" label="保有資格" />
@@ -203,7 +201,7 @@ export function Addstudentuser() {
               ))
             }
             onChange={(event, newValue) => {
-              setSelectedOptions(newValue);
+              setSikaku(newValue);
             }}
           />
         </Box>
