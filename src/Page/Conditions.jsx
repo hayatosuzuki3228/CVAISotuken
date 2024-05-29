@@ -16,16 +16,19 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material//TextField";
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
+import ListSubheader from "@mui/material/ListSubheader";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
-import prefectures from "../const/prefectures";
+import { regions, allPrefectures } from "../const/prefectures";
 import "normalize.css";
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -76,14 +79,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export function Conditions() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const toggleDrawer = () => {
     setOpen(!open);
-  };
-
-  const handleLocationSelect = (location) => {
-    setSelectedLocation(location);
   };
 
   const theme = createTheme({
@@ -104,6 +102,39 @@ export function Conditions() {
       },
     },
   });
+
+  const salarylist = [
+    { label: "15万円以上" },
+    { label: "17万円以上" },
+    { label: "19万円以上" },
+    { label: "21万円以上" },
+  ];
+
+  const holiday = [
+    { label: "90日以上" },
+    { label: "100日以上" },
+    { label: "110日以上" },
+    { label: "120日以上" },
+  ];
+
+  const employees = [
+    { label: "10人以下" },
+    { label: "50人以下" },
+    { label: "100人以下" },
+    { label: "500人以下" },
+    { label: "1000人以下" },
+    { label: "1000人以上" },
+  ];
+
+  const detail = [
+    { label: "IT" },
+    { label: "電気" },
+    { label: "情報通信" },
+    { label: "機械" },
+    { label: "音響" },
+    { label: "ゲーム" },
+    { label: "その他" },
+  ];
 
   return (
     <ThemeProvider theme={theme}>
@@ -133,9 +164,6 @@ export function Conditions() {
                 名産会マッチングシステム
               </Typography>
             </Box>
-            <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-              ログイン
-            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -156,55 +184,11 @@ export function Conditions() {
           <Divider />
           <List>
             <ListItem disablePadding>
-              <ListItemButton
-                onClick={() =>
-                  (window.location.href =
-                    "https://www.meisankai.net/student/company/")
-                }
-              >
+              <ListItemButton onClick={() => (window.location.href = "https")}>
                 <ListItemIcon>
                   <BusinessIcon />
                 </ListItemIcon>
                 <ListItemText primary="企業検索" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() =>
-                  (window.location.href = "https://www.meisankai.net/student")
-                }
-              >
-                <ListItemIcon>
-                  <EventNoteIcon />
-                </ListItemIcon>
-                <ListItemText primary="求人票" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <ContentPasteSearchIcon />
-                </ListItemIcon>
-                <ListItemText primary="マッチング" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary="プロフィール" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate("/Setting")}>
-                <ListItemIcon>
-                  <SettingsIcon />
-                </ListItemIcon>
-                <ListItemText primary="設定" />
               </ListItemButton>
             </ListItem>
           </List>
@@ -212,23 +196,87 @@ export function Conditions() {
         <Main open={open}>
           <DrawerHeader />
           <List>
-            <ListItem>
-              資格 得意なもの 募集学科情報（一致しなかったら０）
-              勤務地（一致しなかったら０） 給与 長所 従業員数 年間休日数 売上高
-              休日制 勤務時間
-            </ListItem>
-            <Autocomplete
-              options={Object.values(prefectures).flat()}
-              renderInput={(params) => (
-                <TextField {...params} label="希望勤務地を選択" />
-              )}
-              onChange={(event, newValue) => handleLocationSelect(newValue)}
-              value={selectedLocation}
-              style={{ width: 300 }}
-            />
+            <ListItem></ListItem>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                gap: 2,
+              }}
+            >
+              <Typography variant="h6">
+                希望する条件を選択してください
+              </Typography>
+              <Autocomplete
+                multiple
+                limitTags={1}
+                options={allPrefectures}
+                sx={{ width: 300 }}
+                getOptionLabel={(option) => option}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="希望勤務地"
+                    placeholder="選択してください"
+                  />
+                )}
+              />
+
+              <Autocomplete
+                disablePortal
+                id="salary"
+                options={salarylist}
+                sx={{ width: 300 }}
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => (
+                  <TextField {...params} label="基本給" />
+                )}
+              />
+
+              <Autocomplete
+                disablePortal
+                id="salary"
+                options={holiday}
+                sx={{ width: 300 }}
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => <TextField {...params} label="休日" />}
+              />
+
+              <Autocomplete
+                disablePortal
+                id="salary"
+                options={employees}
+                sx={{ width: 300 }}
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => (
+                  <TextField {...params} label="従業員数" />
+                )}
+              />
+
+              <Autocomplete
+                disablePortal
+                id="salary"
+                options={detail}
+                sx={{ width: 300 }}
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => (
+                  <TextField {...params} label="事業内容" />
+                )}
+              />
+              <Button variant="contained" size="large" sx={{ width: 300 }}>
+                マッチングを開始
+              </Button>
+            </Box>
           </List>
         </Main>
       </Box>
     </ThemeProvider>
   );
 }
+
+//資格 得意なもの 募集学科情報（一致しなかったら０）
+//勤務地（一致しなかったら０） 給与 長所 従業員数 年間休日数 売上高
+//休日制 勤務時間
