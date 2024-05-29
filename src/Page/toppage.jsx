@@ -1,23 +1,21 @@
+import React from "react";
 import { useState } from "react";
-import {
-  AppBar,
-  Box,
-  Button,
-  CssBaseline,
-  Drawer,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemButton,
-  ListItemText,
-  Toolbar,
-  Typography,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
@@ -26,17 +24,90 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
-
 const drawerWidth = 240;
+
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  })
+);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  zIndex: open ? 100 : 1,
+  ...(open && {
+    width: `100%`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
+const menuItems = [
+  {
+    text: "企業検索",
+    icon: <BusinessIcon />,
+    link: "https://www.meisankai.net/student/company/",
+  },
+  {
+    text: "求人票",
+    icon: <EventNoteIcon />,
+    link: "https://www.meisankai.net/student",
+  },
+  {
+    text: "マッチング",
+    icon: <ContentPasteSearchIcon />,
+    link: "/Conditions",
+    isNavigate: true,
+  },
+  { text: "プロフィール", icon: <PersonIcon />, link: null },
+  { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
+];
 
 export function Toppage() {
   const navigate = useNavigate();
-
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
+  };
+
   const theme = createTheme({
     components: {
       MuiListItemIcon: {
@@ -58,10 +129,11 @@ export function Toppage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
           position="fixed"
+          open={open}
           sx={{
             zIndex: (theme) => theme.zIndex.drawer + 1,
             backgroundColor: primarycolor,
@@ -69,10 +141,16 @@ export function Toppage() {
         >
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <IconButton onClick={toggleDrawer} sx={{ color: "white" }}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                edge="start"
+                sx={{ mr: 2 }}
+              >
                 <MenuIcon />
               </IconButton>
-              <Box sx={{ width: "1rem" }} />
+              <Box />
               <Typography variant="h6" noWrap component="div">
                 名産会マッチングシステム
               </Typography>
@@ -83,82 +161,47 @@ export function Toppage() {
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="temporary"
-          open={open}
-          disablePortal
-          ModalProps={{
-            disablePortal: true,
-            BackdropProps: {
-              style: { backgroundColor: "transparent" },
-            },
-          }}
           sx={{
             width: drawerWidth,
             flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
+            "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
+              boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
             },
           }}
+          variant="persistent"
+          anchor="left"
+          open={open}
         >
-          <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
-            <List>
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={() =>
-                    (window.location.href =
-                      "https://www.meisankai.net/student/company/")
-                  }
-                >
-                  <ListItemIcon>
-                    <BusinessIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="企業検索" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={() =>
-                    (window.location.href = "https://www.meisankai.net/student")
-                  }
-                >
-                  <ListItemIcon>
-                    <EventNoteIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="求人票" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ContentPasteSearchIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="マッチング" />
-                </ListItemButton>
-              </ListItem>
-            </List>
-            <Divider />
-            <List>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <PersonIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="プロフィール" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <SettingsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="設定" />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Box>
+          <DrawerHeader />
+          <Divider />
+          <List>
+            {menuItems.map((item, index) => (
+              <React.Fragment key={index}>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => handleItemClick(item.link, item.isNavigate)}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItemButton>
+                </ListItem>
+                {index === 2 && (
+                  <Box my={1}>
+                    <Divider />
+                  </Box>
+                )}
+              </React.Fragment>
+            ))}
+          </List>
         </Drawer>
+        <Main open={open}>
+          <DrawerHeader />
+          <List>
+            <ListItem>メイン画面</ListItem>
+          </List>
+        </Main>
       </Box>
     </ThemeProvider>
   );

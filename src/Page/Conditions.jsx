@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -23,6 +24,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
 import ListSubheader from "@mui/material/ListSubheader";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
@@ -76,6 +78,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const menuItems = [
+  { text: "ホーム", icon: <HomeIcon />, link: "/", isNavigate: true },
+  {
+    text: "企業検索",
+    icon: <BusinessIcon />,
+    link: "https://www.meisankai.net/student/company/",
+  },
+  {
+    text: "求人票",
+    icon: <EventNoteIcon />,
+    link: "https://www.meisankai.net/student",
+  },
+  { text: "プロフィール", icon: <PersonIcon />, link: null },
+  { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
+];
+
 export function Conditions() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -84,8 +102,41 @@ export function Conditions() {
     setOpen(!open);
   };
 
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
+  };
+
   const theme = createTheme({
     components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            backgroundColor: primarycolor,
+            "&:hover": {
+              backgroundColor: primarycolor,
+            },
+          },
+        },
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: gray,
+              },
+
+              "&.Mui-focused fieldset": {
+                borderColor: primarycolor,
+              },
+            },
+          },
+        },
+      },
       MuiListItemIcon: {
         styleOverrides: {
           root: {
@@ -183,14 +234,23 @@ export function Conditions() {
           <DrawerHeader />
           <Divider />
           <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => (window.location.href = "https")}>
-                <ListItemIcon>
-                  <BusinessIcon />
-                </ListItemIcon>
-                <ListItemText primary="企業検索" />
-              </ListItemButton>
-            </ListItem>
+            {menuItems.map((item, index) => (
+              <React.Fragment key={index}>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => handleItemClick(item.link, item.isNavigate)}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItemButton>
+                </ListItem>
+                {index === 2 && (
+                  <Box my={1}>
+                    <Divider />
+                  </Box>
+                )}
+              </React.Fragment>
+            ))}
           </List>
         </Drawer>
         <Main open={open}>
