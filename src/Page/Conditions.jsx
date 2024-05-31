@@ -161,14 +161,14 @@ export function Conditions() {
     { label: "21万円以上" },
   ];
 
-  const holiday = [
+  const holidaylist = [
     { label: "90日以上" },
     { label: "100日以上" },
     { label: "110日以上" },
     { label: "120日以上" },
   ];
 
-  const employees = [
+  const employeeslist = [
     { label: "10人以下" },
     { label: "50人以下" },
     { label: "100人以下" },
@@ -177,7 +177,7 @@ export function Conditions() {
     { label: "1000人以上" },
   ];
 
-  const detail = [
+  const detaillist = [
     { label: "IT" },
     { label: "電気" },
     { label: "情報通信" },
@@ -186,6 +186,11 @@ export function Conditions() {
     { label: "ゲーム" },
     { label: "その他" },
   ];
+
+  const [Prefectures, setPrefectures] = useState([]);
+  const [Salary, setSalary] = useState(null);
+  const [Holiday, setHoliday] = useState(null);
+  const [Detail, setDetail] = useState(null);
 
   return (
     <ThemeProvider theme={theme}>
@@ -299,7 +304,7 @@ export function Conditions() {
               <Autocomplete
                 disablePortal
                 id="salary"
-                options={holiday}
+                options={holidaylist}
                 sx={{ width: 300 }}
                 getOptionLabel={(option) => option.label}
                 renderInput={(params) => <TextField {...params} label="休日" />}
@@ -308,7 +313,7 @@ export function Conditions() {
               <Autocomplete
                 disablePortal
                 id="salary"
-                options={employees}
+                options={employeeslist}
                 sx={{ width: 300 }}
                 getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
@@ -319,14 +324,28 @@ export function Conditions() {
               <Autocomplete
                 disablePortal
                 id="salary"
-                options={detail}
+                options={detaillist}
                 sx={{ width: 300 }}
                 getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
                   <TextField {...params} label="事業内容" />
                 )}
               />
-              <Button variant="contained" size="large" sx={{ width: 300 }}>
+              <Button
+                onClick={() =>
+                  navigate("/matching", {
+                    state: {
+                      Prefectures,
+                      Salary,
+                      Holiday,
+                      Detail,
+                    },
+                  })
+                }
+                variant="contained"
+                size="large"
+                sx={{ width: 300 }}
+              >
                 マッチングを開始
               </Button>
             </Box>
