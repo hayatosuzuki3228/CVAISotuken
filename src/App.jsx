@@ -12,9 +12,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Toppage />} />
+        <Route path="/Toppage" element={<Toppage />} />
         <Route path="/Matchtable" element={<Matchtable />} />
-        <Route path="/Matching" element={<Matching />} />
+        <Route path="/" element={<Matching />} />
         <Route path="/Conditions" element={<Conditions />} />
         <Route path="/Conditions2" element={<Conditions2 />} />
         <Route path="/LoginPage" element={<LoginPage />} />

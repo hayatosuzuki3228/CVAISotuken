@@ -13,8 +13,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 
 function createData(id, name, matchdo, history) {
   return {
@@ -28,9 +26,9 @@ function createData(id, name, matchdo, history) {
 const rows = [
   createData("001", "Frozen yoghurt", 90, [
     {
-      date: "飲食業",
-      customerId: "今、シンガポールにいます。",
-      amount: "",
+      industry: "飲食業",
+      location: "今、シンガポールにいます。",
+      department: "",
       employees: "",
       capital: "",
       sales: "",
@@ -38,33 +36,33 @@ const rows = [
   ]),
   createData("002", "Ice cream sandwich", 90, [
     {
-      date: "冒険業",
-      customerId: "今、異世界にいます。",
-      amount: "",
+      industry: "冒険業",
+      location: "今、異世界にいます。",
+      department: "",
       employees: "",
     },
   ]),
   createData("003", "Eclair", 90, [
     {
-      date: "飲食業",
-      customerId: "今、夢の国にいます。",
-      amount: "",
+      industry: "飲食業",
+      location: "今、夢の国にいます。",
+      department: "",
       employees: "",
     },
   ]),
   createData("004", "Cupcake", 90, [
     {
-      date: "闇バイト",
-      customerId: "今、どっかにいます。",
-      amount: "",
+      industry: "闇バイト",
+      location: "今、どっかにいます。",
+      department: "",
       employees: "",
     },
   ]),
   createData("005", "Gingerbread", 90, [
     {
-      date: "宇宙業",
-      customerId: "今、宇宙戦艦ヤマトにいます。",
-      amount: 3,
+      industry: "宇宙業",
+      location: "今、宇宙戦艦ヤマトにいます。",
+      department: 3,
       employees: "",
     },
   ]),
@@ -114,10 +112,10 @@ function Row(props) {
                   {row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {historyRow.industry}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell>{historyRow.amount}</TableCell>
+                      <TableCell>{historyRow.location}</TableCell>
+                      <TableCell>{historyRow.department}</TableCell>
                       <TableCell>{historyRow.employees}</TableCell>
                       <TableCell>{historyRow.capital}</TableCell>
                       <TableCell>{historyRow.sales}</TableCell>
@@ -141,9 +139,9 @@ Row.propTypes = {
 
     history: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.string.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        industry: PropTypes.string.isRequired,
+        location: PropTypes.string.isRequired,
+        department: PropTypes.string.isRequired,
         employees: PropTypes.string.isRequired,
         capital: PropTypes.string.isRequired,
         sales: PropTypes.string.isRequired,
@@ -154,22 +152,43 @@ Row.propTypes = {
 
 export function Matchtable() {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>会社ID</TableCell>
-            <TableCell>会社名</TableCell>
-            <TableCell>マッチ度</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.id} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer
+        component={Paper}
+        className="table1"
+        sx={{
+          width: 1400,
+          fontSize: 30,
+          border: "2px solid gray",
+          boxShadow: "0px 10px 14px rgba(0, 0, 0, 0.3)",
+        }}
+      >
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>会社ID</TableCell>
+              <TableCell>会社名</TableCell>
+              <TableCell>マッチ度</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <Row key={row.id} row={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <head>
+        <link
+          href="matchtable.css"
+          rel="stylesheet"
+          type="text/css"
+          media="all"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+    </>
   );
 }
