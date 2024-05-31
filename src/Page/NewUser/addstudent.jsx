@@ -20,6 +20,11 @@ export function Addstudent() {
   const [pass, setpass] = useState(initialPass);
   const [rpass, setrpass] = useState("");
 
+  const [error, setError] = useState(false);
+  const [error1, setError1] = useState(false);
+  const [error2, setError2] = useState(false);
+  const [error3, setError3] = useState(false);
+
   const onClick = () => {
     return navigate("/adduser", {
       state: {
@@ -42,6 +47,58 @@ export function Addstudent() {
 
   const isDifferent = email !== remail;
   const isDifferent1 = pass !== rpass;
+
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    if (/^[a-zA-Z0-9]*$/.test(newValue)) {
+      setpass(newValue);
+
+      if (newValue.length >= 4 && newValue.length <= 10) {
+        setError(false);
+      } else {
+        setError(true);
+      }
+    }
+  };
+
+  const handleChange1 = (event) => {
+    const newValue = event.target.value;
+    if (/^[a-zA-Z0-9]*$/.test(newValue)) {
+      setrpass(newValue);
+
+      if (newValue.length >= 4 && newValue.length <= 10) {
+        setError1(false);
+      } else {
+        setError1(true);
+      }
+    }
+  };
+
+  const handleChange2 = (event) => {
+    const newValue = event.target.value;
+    if (/^[a-zA-Z0-9@.!?]*$/.test(newValue)) {
+      setemail(newValue);
+
+      if (newValue.length >= 4 && newValue.length <= 50) {
+        setError2(false);
+      } else {
+        setError2(true);
+      }
+    }
+  };
+
+  const handleChange3 = (event) => {
+    const newValue = event.target.value;
+    if (/^[a-zA-Z0-9@.!?]*$/.test(newValue)) {
+      setremail(newValue);
+
+      if (newValue.length >= 4 && newValue.length <= 50) {
+        setError3(false);
+      } else {
+        setError3(true);
+      }
+    }
+  };
 
   return (
     <>
@@ -77,84 +134,102 @@ export function Addstudent() {
         </Box>
       </Stack>
       <Stack justifyContent="center" alignItems="center">
-        <div>
-          <p></p>
-          <label>メールアドレス</label>
-          <p></p>
-          <TextField
-            inputProps={{
-              maxLength: 50,
-              pattern: "^[a-zA-Z0-9]",
-            }}
-            required
-            label="メールアドレス"
-            variant="outlined"
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
-            error={isDifferent}
-            helperText={isDifferent ? "入力が違います" : ""}
-          />
-          <p></p>
-          <label>メールアドレス(確認用)</label>
-          <p></p>
-          <TextField
-            required
-            label="メールアドレス(確認用)"
-            variant="outlined"
-            value={remail}
-            onChange={(e) => setremail(e.target.value)}
-            error={isDifferent}
-            helperText={isDifferent ? "入力が違います" : ""}
-          />
-          {isDifferent && (
-            <Typography color="red" variant="body2">
-              メールアドレスが違います
-            </Typography>
-          )}
-          <p></p>
+        <Box width={300}>
+          <div>
+            <p></p>
+            <label>メールアドレス</label>
+            <p></p>
+            <TextField
+              fullWidth
+              required
+              label="メールアドレス"
+              variant="outlined"
+              value={email}
+              onChange={handleChange2}
+              error={error2}
+              helperText={error2 ? "4文字以上50文字以下で入力してください" : ""}
+            />
+            <p></p>
+            <label>メールアドレス(確認用)</label>
+            <p></p>
+            <TextField
+              fullWidth
+              required
+              label="メールアドレス(確認用)"
+              variant="outlined"
+              value={remail}
+              onChange={handleChange3}
+              error={error3}
+              helperText={error3 ? "4文字以上50文字以下で入力してください" : ""}
+            />
+            {isDifferent && (
+              <Typography color="red" variant="body2">
+                メールアドレスが違います
+              </Typography>
+            )}
+            <p></p>
 
-          <label>パスワード</label>
-          <p></p>
-          <TextField
-            required
-            label="パスワード"
-            variant="outlined"
-            value={pass}
-            onChange={(e) => setpass(e.target.value)}
-            error={isDifferent1}
-            helperText={isDifferent1 ? "入力が違います" : ""}
-          />
-          <p></p>
-          <label>パスワード(確認用)</label>
-          <p></p>
-          <TextField
-            required
-            label="パスワード(確認用)"
-            variant="outlined"
-            value={rpass}
-            onChange={(e) => setrpass(e.target.value)}
-            error={isDifferent1}
-            helperText={isDifferent1 ? "入力が違います" : ""}
-          />
-          {isDifferent1 && (
-            <Typography color="red" variant="body2">
-              パスワードが違います
-            </Typography>
-          )}
-          <p></p>
-        </div>
+            <label>パスワード</label>
+            <p></p>
+            <TextField
+              fullWidth
+              required
+              type="password"
+              label="パスワード"
+              variant="outlined"
+              value={pass}
+              onChange={handleChange}
+              error={error}
+              helperText={error ? "4文字以上10文字以下で入力してください" : ""}
+            />
+            <p></p>
+            <label>パスワード(確認用)</label>
+            <p></p>
+            <TextField
+              fullWidth
+              required
+              type="password"
+              label="パスワード(確認用)"
+              variant="outlined"
+              value={rpass}
+              onChange={handleChange1}
+              error={error1}
+              helperText={error1 ? "4文字以上10文字以下で入力してください" : ""}
+            />
+            {isDifferent1 && (
+              <Typography color="red" variant="body2">
+                パスワードが違います
+              </Typography>
+            )}
+            <p></p>
+          </div>
+        </Box>
       </Stack>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box>
           <Button
             variant="contained"
             style={
-              isDifferent || isDifferent1 || email === "" || pass === ""
+              isDifferent ||
+              isDifferent1 ||
+              email === "" ||
+              pass === "" ||
+              error ||
+              error1 ||
+              error2 ||
+              error3
                 ? disabledButtonStyle
                 : enabledButtonStyle
             }
             disabled={
-              isDifferent || isDifferent1 || email === "" || pass === ""
+              isDifferent ||
+              isDifferent1 ||
+              email === "" ||
+              pass === "" ||
+              error ||
+              error1 ||
+              error2 ||
+              error3
             }
             onClick={onClick}
           >
@@ -165,3 +240,5 @@ export function Addstudent() {
     </>
   );
 }
+
+//すべての入力欄に入力すると真っ白になる
