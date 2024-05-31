@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -21,7 +21,7 @@ import {
   TextField,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Gkinfo, years, months, days, tdfk, Byears } from "./Data";
+import { years, months, days, selectBox, HOME, Bye } from "./Data";
 
 export function SEdit() {
   useEffect(() => {
@@ -50,38 +50,20 @@ export function SEdit() {
     setOpen(newOpen);
   };
 
-  const [name, getName] = useState("");
-  const [kName, getKName] = useState("");
-  const [man, getMan] = useState("");
+  const [name, setName] = useState(undefined);
+  const [kName, setKName] = useState("");
+  const [man, setMan] = useState("");
   const [age, getAge] = useState("");
-  const [gk, getGk] = useState("");
-  const [Years, getYears] = useState("");
-  const [Months, getMonths] = useState("");
-  const [Days, getDays] = useState("");
-  const [TDFK, getTDFK] = useState("");
-  const [sika, getSika] = useState("");
-  const [byear, getByear] = useState("");
+  const [gk, setGk] = useState("");
+  const [Years, setYears] = useState("");
+  const [Months, setMonths] = useState("");
+  const [Days, setDays] = useState("");
+  const [Home, setHome] = useState("");
+  const [sika, setSika] = useState("");
+  const [bye, setBye] = useState("");
 
   const handleChange1 = (event) => {
-    getMan(event.target.value);
-  };
-  const handleChange2 = (event) => {
-    getGk(event.target.value);
-  };
-  const handleChange3 = (event) => {
-    getYears(event.target.value);
-  };
-  const handleChange4 = (event) => {
-    getMonths(event.target.value);
-  };
-  const handleChange5 = (event) => {
-    getDays(event.target.value);
-  };
-  const handleChange6 = (event) => {
-    getTDFK(event.target.value);
-  };
-  const handleChange7 = (event) => {
-    getByear(event.target.value);
+    setMan(event.target.value);
   };
 
   return (
@@ -132,159 +114,249 @@ export function SEdit() {
         paddingBottom="5%"
         spacing={2}
       >
-        <p>名前の編集</p>
-        <Stack spacing={2}>
-          <Box>
-            <TextField
-              label="名前の変更"
-              value={name}
-              onChange={(e) => getName(e.target.value)}
-              //helperText=""
-            />
-          </Box>
-          <Box>
-            <TextField
-              inputProps={{
-                maxLength: 50,
-              }}
-              onInput={handleInput}
-              label="名前(カタカナ)の変更"
-            />
-          </Box>
-        </Stack>
-
-        <Box>
-          <p>性別の変更</p>
-          <RadioGroup
-            value={man}
-            onChange={handleChange1}
-            defaultValue="man"
-            row
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
           >
-            <FormControlLabel
-              value="man"
-              control={<Radio />}
-              label="男性"
-            ></FormControlLabel>
-            <FormControlLabel
-              value="woman"
-              control={<Radio />}
-              label="女性"
-            ></FormControlLabel>
-          </RadioGroup>
-        </Box>
-
-        <Box sx={{ minWidth: 240 }}>
-          <p>学科名の変更</p>
-          <FormControl fullWidth>
-            <InputLabel id="Gk-label">学科名</InputLabel>
-            <Select
-              labelId="Gk-label"
-              id="Gk"
-              value={gk}
-              label="学科名"
-              onChange={handleChange2}
-            >
-              {Gkinfo.map((Gk) => (
-                <MenuItem key={Gk} value={Gk}>
-                  {Gk}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-        <p></p>
-        <p>生年月日の変更</p>
-        <Stack
-          sx={{ Width: 120 }}
-          direction="row"
-          spacing={2}
-          alignItems="center"
-          paddingBottom={2}
-        >
-          <FormControl sx={{ width: 90 }}>
-            <InputLabel id="YMD-label">年</InputLabel>
-            <Select
-              labelId="YMD-label"
-              id="YMD"
-              value={Years}
-              label="年"
-              onChange={handleChange3}
-            >
-              {years.map((YMD) => (
-                <MenuItem key={YMD} value={YMD}>
-                  {YMD}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <p>年</p>
-          <FormControl sx={{ width: 80 }}>
-            <InputLabel id="YMD-label">月</InputLabel>
-            <Select
-              labelId="YMD-label"
-              id="YMD"
-              value={Months}
-              label="月"
-              onChange={handleChange4}
-            >
-              {months.map((YMD) => (
-                <MenuItem key={YMD} value={YMD}>
-                  {YMD}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <p>月</p>
-          <FormControl sx={{ width: 80 }}>
-            <InputLabel id="YMD-label">日</InputLabel>
-            <Select
-              labelId="YMD-label"
-              id="YMD"
-              value={Days}
-              label="日"
-              onChange={handleChange5}
-            >
-              {days.map((YMD) => (
-                <MenuItem key={YMD} value={YMD}>
-                  {YMD}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <p>日</p>
+            <p>名前の編集</p>
+          </Box>
+          <Stack
+            spacing={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <Box>
+              <TextField
+                fullWidth
+                label="名前の変更"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                helperText={name !== undefined && !name ? "未入力です。" : ""}
+                error={name !== undefined && !name}
+              />
+            </Box>
+            <Box>
+              <TextField
+                fullWidth
+                inputProps={{
+                  maxLength: 50,
+                }}
+                onInput={handleInput}
+                label="名前(カタカナ)の変更"
+              />
+            </Box>
+          </Stack>
         </Stack>
 
-        <p>居住地域</p>
-        <Box paddingBottom={2}>
-          <FormControl sx={{ minWidth: 120 }}>
-            <InputLabel id="TDFK-label">居住地</InputLabel>
-            <Select
-              labelId="TDFK-label"
-              value={TDFK}
-              label="居住地"
-              onChange={handleChange6}
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>性別の変更</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <RadioGroup
+              value={man}
+              onChange={handleChange1}
+              defaultValue="man"
+              row
             >
-              {tdfk.map((home) => (
-                <MenuItem key={home} value={home}>
-                  {home}
+              <FormControlLabel
+                value="man"
+                control={<Radio />}
+                label="男性"
+              ></FormControlLabel>
+              <FormControlLabel
+                value="woman"
+                control={<Radio />}
+                label="女性"
+              ></FormControlLabel>
+            </RadioGroup>
+          </Box>
+        </Stack>
+
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>学科名の変更</p>
+          </Box>
+
+          <Box
+            sx={{ minWidth: 300 }}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+          >
+            <TextField
+              sx={{ width: 300 }}
+              multiline
+              id={selectBox}
+              label="学科名"
+              value={gk}
+              select
+              onChange={(e) => setGk(e.target.value)}
+            >
+              {selectBox.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
                 </MenuItem>
               ))}
-            </Select>
-          </FormControl>
-        </Box>
+            </TextField>
+          </Box>
+        </Stack>
 
-        <p>卒業年度</p>
-        <Box>
-          <FormControl sx={{ minWidth: 120 }}>
-            <InputLabel>卒業年度</InputLabel>
-            <Select value={byear} label="卒業年度" onChange={handleChange7}>
-              {Byears.map((BY) => (
-                <MenuItem value={BY}>{BY}</MenuItem>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p></p>
+            <p>生年月日の変更</p>
+          </Box>
+          <Stack
+            sx={{ minWidth: 300 }}
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+          >
+            <TextField
+              sx={{ width: 100 }}
+              select
+              multiline
+              id={years}
+              label="年"
+              value={Years}
+              onChange={(e) => setYears(e.target.value)}
+            >
+              {years.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
               ))}
-            </Select>
-          </FormControl>
-        </Box>
+            </TextField>
+            <p>年</p>
+            <TextField
+              sx={{ width: 60 }}
+              select
+              multiline
+              id={months}
+              label="月"
+              value={Months}
+              onChange={(e) => setMonths(e.target.value)}
+            >
+              {months.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <p>月</p>
+            <TextField
+              sx={{ width: 60 }}
+              select
+              multiline
+              id={days}
+              label="日"
+              value={Days}
+              onChange={(e) => setDays(e.target.value)}
+            >
+              {days.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <p>日</p>
+          </Stack>
+        </Stack>
+
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>居住地域</p>
+          </Box>
+          <Box
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <TextField
+              select
+              fullWidth
+              id={HOME}
+              value={Home}
+              label="都道府県"
+              onChange={(e) => setHome(e.target.value)}
+            >
+              {HOME.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+        </Stack>
+
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>卒業年度</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <TextField
+              select
+              fullWidth
+              id={Bye}
+              label="卒業年度"
+              value={bye}
+              onChange={(e) => setBye(e.target.value)}
+            >
+              {Bye.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+        </Stack>
 
         <Button variant="contained">情報を確定する</Button>
       </Stack>

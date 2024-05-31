@@ -22,8 +22,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.css";
-import { days, months, years } from "./Data";
-import { CenterFocusStrong } from "@mui/icons-material";
+import { days, months, older } from "./Data";
 
 export function CEdit() {
   useEffect(() => {
@@ -57,13 +56,6 @@ export function CEdit() {
   const [people, setPeople] = useState(undefined);
   const [comePeople, setComePeople] = useState(undefined);
   const [homepage, setHomepage] = useState("");
-
-  const handleChange1 = (event) => {
-    setCOpen(event.target.value);
-  };
-  const handleChange2 = (event) => {
-    setCOpenM(event.target.value);
-  };
 
   return (
     <>
@@ -112,18 +104,26 @@ export function CEdit() {
         paddingBottom="7%"
         spacing={2}
       >
-        <Box
-          sx={{
-            border: "2px solid black",
-            padding: "24px",
-            borderRadius: "8px",
-          }}
-        >
-          <p>企業名</p>
-          <Stack spacing={2} paddingBottom={2}>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>企業名</p>
+          </Box>
+          <Stack
+            spacing={2}
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <Box>
               <TextField
-                required
+                fullWidth
                 label="企業名の変更"
                 value={Cname}
                 onChange={(e) => setCname(e.target.value)}
@@ -133,7 +133,7 @@ export function CEdit() {
             </Box>
             <Box>
               <TextField
-                required
+                fullWidth
                 label="企業名(カタカナ)の変更"
                 value={Ckname}
                 onChange={(e) => setCkname(e.target.value)}
@@ -144,11 +144,26 @@ export function CEdit() {
               />
             </Box>
           </Stack>
+        </Stack>
 
-          <p>企業所在地</p>
-          <Box paddingBottom={2}>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>企業所在地</p>
+          </Box>
+          <Box
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <TextField
-              required
+              fullWidth
               label="企業所在地の変更"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -158,12 +173,28 @@ export function CEdit() {
               error={location !== undefined && !location}
             />
           </Box>
+        </Stack>
 
-          <p>電話番号＆FAX番号</p>
-          <Stack spacing={2} paddingBottom={2}>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>電話番号＆FAX番号</p>
+          </Box>
+          <Stack
+            spacing={2}
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <Box>
               <TextField
-                required
+                fullWidth
                 label="電話番号の変更"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
@@ -173,7 +204,7 @@ export function CEdit() {
             </Box>
             <Box>
               <TextField
-                required
+                fullWidth
                 label="FAX番号の変更"
                 value={fax}
                 onChange={(e) => setFax(e.target.value)}
@@ -182,12 +213,27 @@ export function CEdit() {
               />
             </Box>
           </Stack>
+        </Stack>
 
-          <p>事業内容</p>
-          <Box paddingBottom={2}>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>事業内容</p>
+          </Box>
+          <Box
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <TextField
-              required
               multiline
+              fullWidth
               minRows={4}
               label="事業内容の変更"
               value={info}
@@ -196,50 +242,85 @@ export function CEdit() {
               error={info !== undefined && !info}
             />
           </Box>
+        </Stack>
 
-          <p>創業年日</p>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>創業年日</p>
+          </Box>
           <Stack
             direction="row"
             alignItems="center"
             paddingBottom={2}
-            spacing={2}
+            spacing={1.2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
           >
             <p>西暦</p>
-            <FormControl sx={{ minWidth: 120 }} required>
-              <InputLabel>年</InputLabel>
-              <Select label="年" value={COpen} onChange={handleChange1}>
-                {years.map((OY) => (
-                  <MenuItem key={OY} value={OY}>
-                    {OY}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <TextField
+              select
+              sx={{ width: 100 }}
+              multiline
+              id={older}
+              label="年"
+              value={COpen}
+              onChange={(e) => setCOpen(e.target.value)}
+            >
+              {older.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
             <p>年</p>
-            <FormControl sx={{ minWidth: 120 }} required>
-              <InputLabel>月</InputLabel>
-              <Select label="月" value={COpenM} onChange={handleChange2}>
-                {months.map((OM) => (
-                  <MenuItem key={OM} value={OM}>
-                    {OM}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <TextField
+              sx={{ width: 55 }}
+              multiline
+              id={months}
+              label="月"
+              value={COpenM}
+              select
+              onChange={(e) => setCOpenM(e.target.value)}
+            >
+              {months.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
             <p>月創業</p>
           </Stack>
+        </Stack>
 
-          <p>資本金</p>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>資本金</p>
+          </Box>
           <Stack
             direction="row"
             alignItems="center"
             justifyContent="center"
             paddingBottom={2}
-            spacing={2}
+            spacing={1.2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
           >
             <Box>
               <TextField
-                required
                 label="資本金の変更(百万円単位)"
                 value={capital}
                 onChange={(e) => setCapital(e.target.value)}
@@ -251,11 +332,26 @@ export function CEdit() {
             </Box>
             <p>万円</p>
           </Stack>
+        </Stack>
 
-          <p>代表者名</p>
-          <Box paddingBottom={2}>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>代表者名</p>
+          </Box>
+          <Box
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <TextField
-              required
+              fullWidth
               label="代表者名の変更"
               value={people}
               onChange={(e) => setPeople(e.target.value)}
@@ -263,11 +359,26 @@ export function CEdit() {
               error={people !== undefined && !people}
             />
           </Box>
+        </Stack>
 
-          <p>企業が求める人材像</p>
-          <Box paddingBottom={2}>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>企業が求める人材像</p>
+          </Box>
+          <Box
+            paddingBottom={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <TextField
-              required
+              fullWidth
               multiline
               minRows={4}
               sx={{ minWidth: 240 }}
@@ -280,9 +391,23 @@ export function CEdit() {
               error={comePeople !== undefined && !comePeople}
             />
           </Box>
+        </Stack>
 
-          <p>ホームページ等</p>
-          <Box paddingBottom={4}>
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>ホームページ等</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
             <TextField
               label="代表者名の変更"
               value={homepage}
@@ -290,9 +415,11 @@ export function CEdit() {
               helperText="ここは任意です"
             />
           </Box>
+        </Stack>
 
-          <Button variant="contained">情報を確定する</Button>
-        </Box>
+        <Button variant="contained" size="8">
+          情報を確定する
+        </Button>
       </Stack>
     </>
   );
