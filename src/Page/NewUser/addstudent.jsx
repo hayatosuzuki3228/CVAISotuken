@@ -25,11 +25,13 @@ export function Addstudent() {
   const [error2, setError2] = useState(false);
   const [error3, setError3] = useState(false);
   const [message, setMessage] = useState("");
+  const [message1, setMessage1] = useState("");
 
   const onClick = () => {
     const emailRegex =
       /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-    if (emailRegex.test(email)) {
+    const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{4,10}$/;
+    if (emailRegex.test(email) && passRegex.test(pass)) {
       return navigate("/adduser", {
         state: {
           email,
@@ -45,7 +47,18 @@ export function Addstudent() {
         },
       });
     } else {
-      setMessage("無効なメールアドレスです");
+      {
+        !emailRegex.test(email) && !passRegex.test(pass)
+          ? setMessage1("文字数字を含めてください") ||
+            setMessage("無効なメールアドレスです")
+          : "";
+      }
+      {
+        emailRegex.test(email) ? setMessage1("文字数字を含めてください") : "";
+      }
+      {
+        passRegex.test(pass) ? setMessage("無効なメールアドレスです") : "";
+      }
     }
   };
 
@@ -199,6 +212,16 @@ export function Addstudent() {
               error={error || isDifferent1}
               helperText={error ? "4文字以上10文字以下で入力してください" : ""}
             />
+            <p></p>
+            {message1 && (
+              <Typography
+                variant="h6"
+                color="red"
+                style={{ marginTop: "20px" }}
+              >
+                {message1}
+              </Typography>
+            )}
             <p></p>
             <label>パスワード(確認用)</label>
             <p></p>

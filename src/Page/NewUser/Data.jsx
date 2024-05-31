@@ -130,4 +130,5 @@ export const selectBox1 = [
 export const selectBox3 = [
   { label: "男", value: "男" },
   { label: "女", value: "女" },
+  { label: "その他", value: "その他" },
 ];
