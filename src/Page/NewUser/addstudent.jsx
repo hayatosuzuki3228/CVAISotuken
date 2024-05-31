@@ -24,22 +24,29 @@ export function Addstudent() {
   const [error1, setError1] = useState(false);
   const [error2, setError2] = useState(false);
   const [error3, setError3] = useState(false);
+  const [message, setMessage] = useState("");
 
   const onClick = () => {
-    return navigate("/adduser", {
-      state: {
-        email,
-        pass,
-        namae,
-        kanamae,
-        gender,
-        birthday,
-        area,
-        sikaku,
-        gakka,
-        sotu,
-      },
-    });
+    const emailRegex =
+      /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    if (emailRegex.test(email)) {
+      return navigate("/adduser", {
+        state: {
+          email,
+          pass,
+          namae,
+          kanamae,
+          gender,
+          birthday,
+          area,
+          sikaku,
+          gakka,
+          sotu,
+        },
+      });
+    } else {
+      setMessage("無効なメールアドレスです");
+    }
   };
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
@@ -146,9 +153,19 @@ export function Addstudent() {
               variant="outlined"
               value={email}
               onChange={handleChange2}
-              error={error2}
+              error={error2 || isDifferent}
               helperText={error2 ? "4文字以上50文字以下で入力してください" : ""}
             />
+            <p></p>
+            {message && (
+              <Typography
+                variant="h6"
+                color="red"
+                style={{ marginTop: "20px" }}
+              >
+                {message}
+              </Typography>
+            )}
             <p></p>
             <label>メールアドレス(確認用)</label>
             <p></p>
@@ -159,7 +176,7 @@ export function Addstudent() {
               variant="outlined"
               value={remail}
               onChange={handleChange3}
-              error={error3}
+              error={error3 || isDifferent}
               helperText={error3 ? "4文字以上50文字以下で入力してください" : ""}
             />
             {isDifferent && (
@@ -179,7 +196,7 @@ export function Addstudent() {
               variant="outlined"
               value={pass}
               onChange={handleChange}
-              error={error}
+              error={error || isDifferent1}
               helperText={error ? "4文字以上10文字以下で入力してください" : ""}
             />
             <p></p>
@@ -193,7 +210,7 @@ export function Addstudent() {
               variant="outlined"
               value={rpass}
               onChange={handleChange1}
-              error={error1}
+              error={error1 || isDifferent1}
               helperText={error1 ? "4文字以上10文字以下で入力してください" : ""}
             />
             {isDifferent1 && (
@@ -240,5 +257,3 @@ export function Addstudent() {
     </>
   );
 }
-
-//すべての入力欄に入力すると真っ白になる
