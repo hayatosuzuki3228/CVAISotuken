@@ -26,7 +26,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
 import ListSubheader from "@mui/material/ListSubheader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import { regions, allPrefectures } from "../const/prefectures";
 import "normalize.css";
@@ -95,7 +95,6 @@ const menuItems = [
 ];
 
 export function Conditions() {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -187,9 +186,13 @@ export function Conditions() {
     { label: "その他" },
   ];
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [Prefectures, setPrefectures] = useState([]);
   const [Salary, setSalary] = useState(null);
   const [Holiday, setHoliday] = useState(null);
+  const [Employess, setEmployss] = useState(null);
   const [Detail, setDetail] = useState(null);
 
   return (
@@ -280,6 +283,7 @@ export function Conditions() {
                 options={allPrefectures}
                 sx={{ width: 300 }}
                 getOptionLabel={(option) => option}
+                defaultValue={Prefectures || []}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -294,6 +298,7 @@ export function Conditions() {
                 disablePortal
                 id="salary"
                 options={salarylist}
+                defaultValue={Salary || []}
                 sx={{ width: 300 }}
                 getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
@@ -333,11 +338,14 @@ export function Conditions() {
               />
               <Button
                 onClick={() =>
-                  navigate("/matching", {
+                  navigate("/Matchscore", {
                     state: {
-                      Prefectures,
+                      Prefectures: Prefectures.map(
+                        (prefecture) => prefecture.label
+                      ),
                       Salary,
                       Holiday,
+                      Employess,
                       Detail,
                     },
                   })
