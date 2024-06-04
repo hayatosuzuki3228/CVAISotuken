@@ -62,7 +62,7 @@ export function SEdit() {
   const warpKName = location.state?.kName || "";
   const warpMan = location.state?.man || "";
   const warpGak = location.state?.Gak || "";
-  const warpYears = location.state?.years || "";
+  const warpYears = location.state?.Years || "";
   const warpMonths = location.state?.Months || "";
   const warpDays = location.state?.Days || "";
   const warpHome = location.state?.Home || "";
