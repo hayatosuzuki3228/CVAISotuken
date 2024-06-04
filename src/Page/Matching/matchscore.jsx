@@ -13,7 +13,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import GroupIcon from "@mui/icons-material/Group";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { primarycolor } from "../const/color";
+import { primarycolor } from "../../const/color";
 
 export function Matchscore() {
   const location = useLocation();

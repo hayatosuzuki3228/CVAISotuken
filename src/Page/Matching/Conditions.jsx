@@ -24,8 +24,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
-import { gray, primarycolor } from "../const/color";
-import { allPrefectures } from "../const/prefectures";
+import { gray, primarycolor } from "../../const/color";
+import { allPrefectures } from "../../const/prefectures";
 import "normalize.css";
 
 const drawerWidth = 240;

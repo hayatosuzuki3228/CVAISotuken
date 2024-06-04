@@ -14,7 +14,7 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TextField from "@mui/material/TextField";
-import companies from "../const/companies";
+import companies from "../../const/companies";
 function convertCompanyData(company) {
   return {
     id: company.id.toString(), // IDを文字列に変換
