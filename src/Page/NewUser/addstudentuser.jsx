@@ -8,6 +8,7 @@ import {
   Autocomplete,
   TextField,
   Chip,
+  Typography,
 } from "@mui/material";
 import "normalize.css";
 import { selectBox2, selectBox3, options } from "./Data";
@@ -34,8 +35,16 @@ export function Addstudentuser() {
   const [area, setArea] = useState(initialArea);
   const [sikaku, setSikaku] = useState(initialSikaku);
 
+  const [message1, setMessage1] = useState("");
+  const [message2, setMessage2] = useState("");
+  const [message3, setMessage3] = useState("");
+
+  const namaeRegex = /^[\p{Hiragana}\p{Katakana}\p{Han}ー]{2,}$/;
+  const kanamaeRegex = /^[\p{Katakana}ー]{2,}$/;
+  const birthdayRegex = /^\d{8}$/;
+
   const onClick = () => {
-    navigate("/", {
+    return navigate("/", {
       state: {
         email,
         pass,
@@ -52,20 +61,51 @@ export function Addstudentuser() {
   };
 
   const onClick1 = () => {
-    navigate("/addgakka", {
-      state: {
-        email,
-        pass,
-        namae,
-        kanamae,
-        gender,
-        birthday,
-        area,
-        sikaku,
-        gakka,
-        sotu,
-      },
-    });
+    if (
+      namaeRegex.test(namae) &&
+      kanamaeRegex.test(kanamae) &&
+      birthdayRegex.test(birthday)
+    ) {
+      return navigate("/addgakka", {
+        state: {
+          email,
+          pass,
+          namae,
+          kanamae,
+          gender,
+          birthday,
+          area,
+          sikaku,
+          gakka,
+          sotu,
+        },
+      });
+    } else {
+      {
+        !namaeRegex.test(namae) &&
+        !kanamaeRegex.test(kanamae) &&
+        !birthdayRegex.test(birthday)
+          ? setMessage1("ひらがなカタカナ漢字二文字以上で入力してください") ||
+            setMessage2("カタカナ二文字以上で入力してください") ||
+            setMessage3("数字のみ8文字で入力してください 例20041125")
+          : "";
+      }
+      {
+        namaeRegex.test(namae)
+          ? setMessage1("ひらがなカタカナ漢字二文字以上で入力してください")
+          : "";
+      }
+      {
+        kanamaeRegex.test(kanamae)
+          ? setMessage2("カタカナ二文字以上で入力してください")
+          : "";
+      }
+      {
+        birthdayRegex.test(birthday)
+          ? setMessage3("数字のみ8文字で入力してください 例20041125")
+          : "";
+      }
+    }
   };
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
@@ -110,22 +150,38 @@ export function Addstudentuser() {
           <label>氏名</label>
           <p></p>
           <TextField
+            fullWidth
             required
             label="氏名"
             variant="outlined"
             value={namae}
+            error={!namaeRegex}
             onChange={(e) => setnamae(e.target.value)}
           />
+          <p></p>
+          {message1 && (
+            <Typography variant="h6" color="red" style={{ marginTop: "20px" }}>
+              {message1}
+            </Typography>
+          )}
           <p></p>
           <label>カタカナ</label>
           <p></p>
           <TextField
+            fullWidth
             required
             label="カタカナ"
             variant="outlined"
             value={kanamae}
+            error={!kanamaeRegex}
             onChange={(e) => setkanamae(e.target.value)}
           />
+          <p></p>
+          {message2 && (
+            <Typography variant="h6" color="red" style={{ marginTop: "20px" }}>
+              {message2}
+            </Typography>
+          )}
           <p></p>
           <label>性別</label>
           <p></p>
@@ -148,12 +204,20 @@ export function Addstudentuser() {
           <label>生年月日</label>
           <p></p>
           <TextField
+            fullWidth
             required
             label="生年月日"
             variant="outlined"
             value={birthday}
+            error={!birthdayRegex}
             onChange={(e) => setbirthday(e.target.value)}
           />
+          <p></p>
+          {message3 && (
+            <Typography variant="h6" color="red" style={{ marginTop: "20px" }}>
+              {message3}
+            </Typography>
+          )}
           <p></p>
           <label>居住地域</label>
           <p></p>
@@ -188,7 +252,12 @@ export function Addstudentuser() {
             defaultValue={sikaku || []}
             filterSelectedOptions
             renderInput={(params) => (
-              <TextField {...params} variant="outlined" label="保有資格" />
+              <TextField
+                fullWidth
+                {...params}
+                variant="outlined"
+                label="保有資格"
+              />
             )}
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -220,12 +289,20 @@ export function Addstudentuser() {
           <Button
             variant="contained"
             style={
-              !area || namae === "" || kanamae === "" || birthday === ""
+              !area ||
+              namae === "" ||
+              kanamae === "" ||
+              birthday === "" ||
+              !gender
                 ? disabledButtonStyle
                 : enabledButtonStyle
             }
             disabled={
-              !area || namae === "" || kanamae === "" || birthday === ""
+              !area ||
+              namae === "" ||
+              kanamae === "" ||
+              birthday === "" ||
+              !gender
             }
             onClick={onClick1}
           >
