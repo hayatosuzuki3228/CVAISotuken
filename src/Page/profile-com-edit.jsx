@@ -43,6 +43,10 @@ export function CEdit() {
     navigate("");
     navigate("/profile-st-com");
   };
+  const OnClickBack = () => {
+    navigate("");
+    navigate("/profile-com");
+  };
 
   const [Cname, setCname] = useState(undefined);
   const [Ckname, setCkname] = useState(undefined);
@@ -409,6 +413,7 @@ export function CEdit() {
             sx={{ minWidth: 300 }}
           >
             <TextField
+              fullWidth
               label="代表者名の変更"
               value={homepage}
               onChange={(e) => setHomepage(e.target.value)}
@@ -417,7 +422,7 @@ export function CEdit() {
           </Box>
         </Stack>
 
-        <Button variant="contained" size="8">
+        <Button variant="contained" onClick={OnClickBack}>
           情報を確定する
         </Button>
       </Stack>

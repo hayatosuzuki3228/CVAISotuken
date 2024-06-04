@@ -10,12 +10,15 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  MenuItem,
   IconButton,
   Stack,
+  Select,
   TextField,
   Button,
 } from "@mui/material";
 import "./styles.css";
+import { license } from "./Data";
 
 export function SCEdit() {
   useEffect(() => {
@@ -32,6 +35,11 @@ export function SCEdit() {
     navigate("/profile-st-com");
   };
 
+  const OnClickBack = () => {
+    navigate("");
+    navigate("/profile-st-com");
+  };
+
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -42,6 +50,7 @@ export function SCEdit() {
   const [skill, setSkill] = useState(undefined);
   const [SSubject, setSSubject] = useState(undefined);
   const [KSubject, setKSubject] = useState(undefined);
+  const [myPower, setMyPower] = useState("");
 
   return (
     <>
@@ -110,7 +119,6 @@ export function SCEdit() {
             <TextField
               fullWidth
               multiline
-              required
               label="希望職種の変更"
               value={job}
               onChange={(e) => setJob(e.target.value)}
@@ -141,7 +149,6 @@ export function SCEdit() {
             <TextField
               multiline
               fullWidth
-              required
               label="趣味の変更"
               value={hobby}
               onChange={(e) => setHobby(e.target.value)}
@@ -171,7 +178,6 @@ export function SCEdit() {
             <TextField
               multiline
               fullWidth
-              required
               label="特技の変更"
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
@@ -201,7 +207,6 @@ export function SCEdit() {
             <TextField
               multiline
               fullWidth
-              required
               label="得意な科目の変更"
               value={SSubject}
               onChange={(e) => setSSubject(e.target.value)}
@@ -214,7 +219,6 @@ export function SCEdit() {
             <TextField
               multiline
               fullWidth
-              required
               label="苦手な科目の変更"
               value={KSubject}
               onChange={(e) => setKSubject(e.target.value)}
@@ -241,10 +245,27 @@ export function SCEdit() {
             border="1px solid black"
             padding="10px"
             sx={{ minWidth: 240 }}
-          ></Box>
+          >
+            <TextField
+              select
+              fullWidth
+              id={license}
+              value={myPower}
+              label="取得した資格"
+              onChange={(e) => setMyPower(e.target.value)}
+            >
+              {license.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
         </Stack>
 
-        <Button variant="contained">情報を確定する</Button>
+        <Button variant="contained" onClick={OnClickBack}>
+          情報を確定する
+        </Button>
       </Stack>
     </>
   );

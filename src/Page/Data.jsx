@@ -220,6 +220,27 @@ export const Bye = [
   { label: "32卒", value: "32卒" },
 ];
 
+export const license = [
+  { label: "ITパスポート", value: "ITパスポート" },
+  { label: "基本情報技術者", value: "基本情報技術者" },
+  { label: "応用情報技術者", value: "応用情報技術者" },
+  { label: "ITサービスマネージャー", value: "ITサービスマネージャー" },
+  { label: "ITストラテジスト", value: "ITストラテジスト" },
+  { label: "システム監査技術者", value: "システム監査技術者" },
+  { label: "プロジェクトマネージャー", value: "プロジェクトマネージャー" },
+  { label: "ネットワークスペシャリスト", value: "ネットワークスペシャリスト" },
+  {
+    label: "情報セキュリティスペシャリスト",
+    value: "情報セキュリティスペシャリスト",
+  },
+  {
+    label: "エンベデッドシステムスペシャリスト",
+    value: "エンベデッドシステムスペシャリスト",
+  },
+  { label: "データベーススペシャリスト", value: "データベーススペシャリスト" },
+  { label: "システムアーキテクト", value: "システムアーキテクト" },
+];
+
 export const older = [];
 const startYear = 1900;
 const endYear = 2025;

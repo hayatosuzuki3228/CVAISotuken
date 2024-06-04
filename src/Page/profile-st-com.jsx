@@ -58,7 +58,7 @@ export function SCompany() {
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="企業向け情の報編集" />
+                    <ListItemText primary="企業向け情報編集" />
                   </ListItemButton>
                 </ListItem>
               </List>

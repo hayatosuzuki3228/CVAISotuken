@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -28,16 +28,6 @@ export function SEdit() {
     document.title = "プロフィール編集";
   }, []);
 
-  const handleInput = (e) => {
-    const inputValue = e.target.value;
-    const kregex = /^[ァ-ヶー　]+$/;
-
-    if (!kregex.test(inputValue)) {
-      const correctedValue = inputValue.replace(/[^ァ-ヶー　]+/g, "");
-      e.target.value = correctedValue;
-    }
-  };
-
   const navigate = useNavigate();
   const OnClick = () => {
     navigate("/profile-st");
@@ -45,22 +35,50 @@ export function SEdit() {
   const OnClick2 = () => {
     navigate("/profile-st-com");
   };
+  const OnClickBack = () => {
+    navigate("/profile-st", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+      },
+    });
+  };
+
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
-  const [name, setName] = useState(undefined);
-  const [kName, setKName] = useState("");
-  const [man, setMan] = useState("");
-  const [age, getAge] = useState("");
-  const [gk, setGk] = useState("");
-  const [Years, setYears] = useState("");
-  const [Months, setMonths] = useState("");
-  const [Days, setDays] = useState("");
-  const [Home, setHome] = useState("");
-  const [sika, setSika] = useState("");
-  const [bye, setBye] = useState("");
+  const location = useLocation();
+  const warpName = location.state?.name || "";
+  const warpKName = location.state?.kName || "";
+  const warpMan = location.state?.man || "";
+  const warpGak = location.state?.Gak || "";
+  const warpYears = location.state?.years || "";
+  const warpMonths = location.state?.Months || "";
+  const warpDays = location.state?.Days || "";
+  const warpHome = location.state?.Home || "";
+  const warpBye = location.state?.bye || "";
+  const warpEmail = location.state?.email || "";
+
+  const [name, setName] = useState(warpName);
+  const [kName, setKName] = useState(warpKName);
+  const [man, setMan] = useState(warpMan);
+  const [Gak, setGak] = useState(warpGak);
+  const [Years, setYears] = useState(warpYears);
+  const [Months, setMonths] = useState(warpMonths);
+  const [Days, setDays] = useState(warpDays);
+  const [Home, setHome] = useState(warpHome);
+  const [bye, setBye] = useState(warpBye);
+  const [email, setEmail] = useState(warpEmail);
 
   const handleChange1 = (event) => {
     setMan(event.target.value);
@@ -143,11 +161,11 @@ export function SEdit() {
             <Box>
               <TextField
                 fullWidth
-                inputProps={{
-                  maxLength: 50,
-                }}
-                onInput={handleInput}
                 label="名前(カタカナ)の変更"
+                value={kName}
+                onChange={(e) => setKName(e.target.value)}
+                helperText={kName !== undefined && !kName ? "未入力です。" : ""}
+                error={kName !== undefined && !kName}
               />
             </Box>
           </Stack>
@@ -184,6 +202,11 @@ export function SEdit() {
                 control={<Radio />}
                 label="女性"
               ></FormControlLabel>
+              <FormControlLabel
+                value="gender"
+                control={<Radio />}
+                label="その他"
+              ></FormControlLabel>
             </RadioGroup>
           </Box>
         </Stack>
@@ -209,9 +232,9 @@ export function SEdit() {
               multiline
               id={selectBox}
               label="学科名"
-              value={gk}
+              value={Gak}
               select
-              onChange={(e) => setGk(e.target.value)}
+              onChange={(e) => setGak(e.target.value)}
             >
               {selectBox.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -326,7 +349,7 @@ export function SEdit() {
           </Box>
         </Stack>
 
-        <Stack direction="row" paddingBottom={5}>
+        <Stack direction="row">
           <Box
             flex="1"
             border="1px solid black"
@@ -358,7 +381,35 @@ export function SEdit() {
           </Box>
         </Stack>
 
-        <Button variant="contained">情報を確定する</Button>
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>メールアドレス</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <TextField
+              fullWidth
+              label="メールアドレスの変更"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              helperText={email !== undefined && !email ? "未入力です" : ""}
+              error={email !== undefined && !email}
+            />
+          </Box>
+        </Stack>
+
+        <Button variant="contained" onClick={OnClickBack}>
+          情報を確定する
+        </Button>
       </Stack>
     </>
   );

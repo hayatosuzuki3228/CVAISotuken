@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
 import "./styles.css";
+import { days } from "./Data";
 
 export function SProfile() {
   useEffect(() => {
@@ -23,7 +24,20 @@ export function SProfile() {
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("/profile-st-edit");
+    navigate("/profile-st-edit", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+      },
+    });
   };
   const OnClick2 = () => {
     navigate("/profile-st-com");
@@ -31,7 +45,10 @@ export function SProfile() {
   const OnClick3 = () => {
     navigate("/profile-com");
   };
+  const location = useLocation();
 
+  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye } =
+    location.state || {};
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -98,9 +115,9 @@ export function SProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                工学院太郎
+                {name}
                 <br />
-                コウガクインタロウ
+                {kName}
               </p>
             </font>
           </div>
@@ -114,7 +131,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>男性 or 女性</p>
+              <p>{man}</p>
             </font>
           </div>
         </div>
@@ -126,7 +143,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>○○歳</p>
+              <p>31歳</p>
             </font>
           </div>
         </div>
@@ -138,7 +155,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>○○○○学科</p>
+              <p>{Gak}</p>
             </font>
           </div>
         </div>
@@ -150,7 +167,11 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>YYYY/MM/DD</p>
+              <p>
+                {Years}
+                {Months}
+                {Days}
+              </p>
             </font>
           </div>
         </div>
@@ -162,7 +183,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>メールアドレス</p>
+              <p>{email}</p>
             </font>
           </div>
         </div>
@@ -174,23 +195,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>愛知県・・・</p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>保有資格</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                ・世界遺産検定1級
-                <br />
-                ・漢検準2級
-              </p>
+              <p>{Home}</p>
             </font>
           </div>
         </div>
@@ -202,7 +207,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>2025年卒</p>
+              <p>{bye}</p>
             </font>
           </div>
         </div>
