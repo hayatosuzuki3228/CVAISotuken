@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
@@ -37,7 +37,16 @@ export function SCEdit() {
 
   const OnClickBack = () => {
     navigate("");
-    navigate("/profile-st-com");
+    navigate("/profile-st-com", {
+      state: {
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+      },
+    });
   };
 
   const [open, setOpen] = React.useState(false);
@@ -45,12 +54,20 @@ export function SCEdit() {
     setOpen(newOpen);
   };
 
-  const [job, setJob] = useState(undefined);
-  const [hobby, setHobby] = useState(undefined);
-  const [skill, setSkill] = useState(undefined);
-  const [SSubject, setSSubject] = useState(undefined);
-  const [KSubject, setKSubject] = useState(undefined);
-  const [myPower, setMyPower] = useState("");
+  const location = useLocation();
+  const warpJob = location.state?.job || "";
+  const warpHobby = location.state?.hobby || "";
+  const warpSkill = location.state?.skill || "";
+  const warpSSubject = location.state?.SSubject || "";
+  const warpKSubject = location.state?.KSubject || "";
+  const warpMyPower = location.state?.myPower || "";
+
+  const [job, setJob] = useState(warpJob);
+  const [hobby, setHobby] = useState(warpHobby);
+  const [skill, setSkill] = useState(warpSkill);
+  const [SSubject, setSSubject] = useState(warpSSubject);
+  const [KSubject, setKSubject] = useState(warpKSubject);
+  const [myPower, setMyPower] = useState(warpMyPower);
 
   return (
     <>

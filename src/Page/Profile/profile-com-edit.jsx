@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -40,26 +40,53 @@ export function CEdit() {
     navigate("/profile-st-edit");
   };
   const OnClick2 = () => {
-    navigate("");
     navigate("/profile-st-com");
   };
   const OnClickBack = () => {
-    navigate("");
-    navigate("/profile-com");
+    navigate("/profile-com", {
+      state: {
+        Cname,
+        CkName,
+        place,
+        tel,
+        fax,
+        info,
+        COpen,
+        COpenM,
+        capital,
+        people,
+        comePeople,
+        homepage,
+      },
+    });
   };
 
-  const [Cname, setCname] = useState(undefined);
-  const [Ckname, setCkname] = useState(undefined);
-  const [location, setLocation] = useState(undefined);
-  const [tel, setTel] = useState(undefined);
-  const [fax, setFax] = useState(undefined);
-  const [info, setInfo] = useState(undefined);
-  const [COpen, setCOpen] = useState("");
-  const [COpenM, setCOpenM] = useState("");
-  const [capital, setCapital] = useState(undefined);
-  const [people, setPeople] = useState(undefined);
-  const [comePeople, setComePeople] = useState(undefined);
-  const [homepage, setHomepage] = useState("");
+  const location = useLocation();
+  const warpCname = location.state?.Cname || "";
+  const warpCkName = location.state?.CkName || "";
+  const warpPlace = location.state?.place || "";
+  const warpTel = location.state?.tel || "";
+  const warpFax = location.state?.fax || "";
+  const warpInfo = location.state?.info || "";
+  const warpCOpen = location.state?.COpen || "";
+  const warpCOpenM = location.state?.COpenM || "";
+  const warpCapital = location.state?.capital || "";
+  const warpPeople = location.state?.people || "";
+  const warpComePeople = location.state?.comePeople || "";
+  const warpHomepage = location.state?.homepage || "";
+
+  const [Cname, setCname] = useState(warpCname);
+  const [CkName, setCkName] = useState(warpCkName);
+  const [place, setPlace] = useState(warpPlace);
+  const [tel, setTel] = useState(warpTel);
+  const [fax, setFax] = useState(warpFax);
+  const [info, setInfo] = useState(warpInfo);
+  const [COpen, setCOpen] = useState(warpCOpen);
+  const [COpenM, setCOpenM] = useState(warpCOpenM);
+  const [capital, setCapital] = useState(warpCapital);
+  const [people, setPeople] = useState(warpPeople);
+  const [comePeople, setComePeople] = useState(warpComePeople);
+  const [homepage, setHomepage] = useState(warpHomepage);
 
   return (
     <>
@@ -139,12 +166,12 @@ export function CEdit() {
               <TextField
                 fullWidth
                 label="企業名(カタカナ)の変更"
-                value={Ckname}
-                onChange={(e) => setCkname(e.target.value)}
+                value={CkName}
+                onChange={(e) => setCkName(e.target.value)}
                 helperText={
-                  Ckname !== undefined && !Ckname ? "未入力です。" : ""
+                  CkName !== undefined && !CkName ? "未入力です。" : ""
                 }
-                error={Ckname !== undefined && !Ckname}
+                error={CkName !== undefined && !CkName}
               />
             </Box>
           </Stack>
@@ -169,12 +196,10 @@ export function CEdit() {
             <TextField
               fullWidth
               label="企業所在地の変更"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              helperText={
-                location !== undefined && !location ? "未入力です" : ""
-              }
-              error={location !== undefined && !location}
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+              helperText={place !== undefined && !place ? "未入力です" : ""}
+              error={place !== undefined && !place}
             />
           </Box>
         </Stack>

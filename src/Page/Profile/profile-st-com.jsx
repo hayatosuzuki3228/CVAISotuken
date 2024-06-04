@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -14,23 +14,35 @@ import {
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
 
-//変数をnavigateの中に入れて、
-//ボタンを押したら自動挿入され転送されるようにしたい
-
 export function SCompany() {
-  const navigate = useNavigate();
-  const OnClick = () => {
-    navigate("");
-    navigate("/profile-st-com-edit");
-  };
-  const OnClick2 = () => {
-    navigate("");
-    navigate("/profile-st");
-  };
-
   useEffect(() => {
     document.title = "企業向けプロフィール";
   }, []);
+
+  const navigate = useNavigate();
+  const OnClick = () => {
+    navigate("/profile-st-com-edit", {
+      state: {
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+      },
+    });
+  };
+  const OnClick2 = () => {
+    navigate("/profile-st", {
+      state: {
+        Gak,
+      },
+    });
+  };
+
+  const location = useLocation();
+  const { job, hobby, skill, SSubject, KSubject, myPower, Gak } =
+    location.state || {};
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -85,7 +97,20 @@ export function SCompany() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>ITエンジニア、SE</p>
+              <p>{job}</p>
+            </font>
+          </div>
+        </div>
+
+        <div className="info" style={{ textAlign: "center" }}>
+          <div className="half-box black">
+            <font size="3.5">
+              <p>学科名</p>
+            </font>
+          </div>
+          <div className="half-box black">
+            <font size="3.5">
+              <p>{Gak}</p>
             </font>
           </div>
         </div>
@@ -98,11 +123,7 @@ export function SCompany() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>
-                ・プログラミング
-                <br />
-                ・全国の古い自動販売機を巡ること
-              </p>
+              <p>{hobby}</p>
             </font>
           </div>
         </div>
@@ -115,7 +136,7 @@ export function SCompany() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>相手を楽しませるコミュニケーションができること</p>
+              <p>{skill}</p>
             </font>
           </div>
         </div>
@@ -129,7 +150,7 @@ export function SCompany() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                地理
+                {SSubject}
                 <br />
               </p>
             </font>
@@ -145,7 +166,7 @@ export function SCompany() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                数学
+                {KSubject}
                 <br />
               </p>
             </font>
@@ -160,11 +181,7 @@ export function SCompany() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>
-                ・応用情報技術者
-                <br /> ・普通自動車運転免許 <br />
-                ・世界遺産検定1級
-              </p>
+              <p>{myPower}</p>
             </font>
           </div>
         </div>

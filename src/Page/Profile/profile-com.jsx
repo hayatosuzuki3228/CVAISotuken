@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -21,7 +21,22 @@ export function CProfile() {
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("/profile-com-edit");
+    navigate("/profile-com-edit", {
+      state: {
+        Cname,
+        CkName,
+        place,
+        tel,
+        fax,
+        info,
+        COpen,
+        COpenM,
+        capital,
+        people,
+        comePeople,
+        homepage,
+      },
+    });
   };
   const OnClick2 = () => {
     navigate("/profile-st");
@@ -29,6 +44,22 @@ export function CProfile() {
   const OnClick3 = () => {
     navigate("/profile-st-com");
   };
+
+  const location = useLocation();
+  const {
+    Cname,
+    CkName,
+    place,
+    tel,
+    fax,
+    info,
+    COpen,
+    COpenM,
+    capital,
+    people,
+    comePeople,
+    homepage,
+  } = location.state || {};
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -97,9 +128,9 @@ export function CProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                任天堂株式会社
+                {Cname}
                 <br />
-                ニンテンドーカブシキガイシャ
+                {CkName}
               </p>
             </font>
           </div>
@@ -112,7 +143,7 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>京都府京都市南区上鳥羽鉾立町１１－１</p>
+              <p>{place}</p>
             </font>
           </div>
         </div>
@@ -130,9 +161,9 @@ export function CProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                (TEL)075-0000-0000
+                (TEL){tel}
                 <br />
-                (FAX)075-1111-1111
+                (FAX){fax}
               </p>
             </font>
           </div>
@@ -146,7 +177,7 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>家庭用レジャー機器の製造・販売</p>
+              <p>{info}</p>
             </font>
           </div>
         </div>
@@ -159,7 +190,9 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>明治22年9月</p>
+              <p>
+                {COpen}/{COpenM}
+              </p>
             </font>
           </div>
         </div>
@@ -172,7 +205,7 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>100億円</p>
+              <p>{capital}万円</p>
             </font>
           </div>
         </div>
@@ -185,11 +218,7 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>
-                (代表取締役会長)
-                <br />
-                古川 俊太郎
-              </p>
+              <p>{people}</p>
             </font>
           </div>
         </div>
@@ -202,7 +231,7 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>全員笑顔にしてくれる人</p>
+              <p>{comePeople}</p>
             </font>
           </div>
         </div>
@@ -216,23 +245,8 @@ export function CProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                <Link to="https://www.nintendo.com/jp/index.html">
-                  https://www.nintendo.com/jp
-                </Link>
+                <Link to={homepage}>{homepage}</Link>
               </p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>支店</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>名古屋東京</p>
             </font>
           </div>
         </div>

@@ -39,7 +39,11 @@ export function SProfile() {
     });
   };
   const OnClick2 = () => {
-    navigate("/profile-st-com");
+    navigate("/profile-st-com", {
+      state: {
+        Gak,
+      },
+    });
   };
   const OnClick3 = () => {
     navigate("/profile-com");
