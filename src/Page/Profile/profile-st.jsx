@@ -15,7 +15,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
 import "./styles.css";
-import { days } from "./Data";
 
 export function SProfile() {
   useEffect(() => {
@@ -143,7 +142,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>31歳</p>
+              <p>20歳</p>
             </font>
           </div>
         </div>

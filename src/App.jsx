@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { SProfile } from "./Page/profile-st";
-import { SEdit } from "./Page/profile-st-edit";
+import { SProfile } from "./Page/Profile/profile-st";
+import { SEdit } from "./Page/Profile/profile-st-edit";
 import { SCompany } from "./Page/Profile/profile-st-com";
-import { SCEdit } from "./Page/profile-st-com-edit";
+import { SCEdit } from "./Page/Profile/profile-st-com-edit";
 import { CProfile } from "./Page/Profile/profile-com";
-import { CEdit } from "./Page/profile-com-edit";
+import { CEdit } from "./Page/Profile/profile-com-edit";
 import { Matching } from "./Page/Matching/matching";
 import { Matchtable } from "./Page/Matching/matchtable";
 import { Matchscore } from "./Page/Matching/matchscore";
