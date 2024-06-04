@@ -28,6 +28,9 @@ export function SProfile() {
   const OnClick2 = () => {
     navigate("/profile-st-com");
   };
+  const OnClick3 = () => {
+    navigate("/profile-com");
+  };
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -64,6 +67,14 @@ export function SProfile() {
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
                     <ListItemText primary="企業向け情報" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick3}>
+                    <ListItemText primary="企業情報" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -196,14 +207,12 @@ export function SProfile() {
           </div>
         </div>
       </Box>
-      <Box my={4} alignContent="center" component="section" gap={4} p={2}>
-        <div className="div-padding">
-          <button className="button" onClick={OnClick}>
-            情報を編集する
-          </button>
-          <button className="button">戻る</button>
-        </div>
-      </Box>
+      <div className="div-padding">
+        <button className="button" onClick={OnClick}>
+          情報を編集する
+        </button>
+        <button className="button">戻る</button>
+      </div>
     </>
   );
 }
