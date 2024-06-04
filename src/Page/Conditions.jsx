@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -18,17 +17,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
-import ListSubheader from "@mui/material/ListSubheader";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
-import { regions, allPrefectures } from "../const/prefectures";
+import { allPrefectures } from "../const/prefectures";
 import "normalize.css";
 
 const drawerWidth = 240;
@@ -83,12 +80,12 @@ const menuItems = [
   {
     text: "企業検索",
     icon: <BusinessIcon />,
-    link: "https://www.meisankai.net/student/company/",
+    link: "https://wwy/",
   },
   {
     text: "求人票",
     icon: <EventNoteIcon />,
-    link: "https://www.meisankai.net/student",
+    link: "https://",
   },
   { text: "プロフィール", icon: <PersonIcon />, link: null },
   { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
@@ -128,7 +125,6 @@ export function Conditions() {
               "& fieldset": {
                 borderColor: gray,
               },
-
               "&.Mui-focused fieldset": {
                 borderColor: primarycolor,
               },
@@ -187,12 +183,11 @@ export function Conditions() {
   ];
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [Prefectures, setPrefectures] = useState([]);
   const [Salary, setSalary] = useState(null);
   const [Holiday, setHoliday] = useState(null);
-  const [Employess, setEmployss] = useState(null);
+  const [Employees, setEmployees] = useState(null);
   const [Detail, setDetail] = useState(null);
 
   return (
@@ -218,9 +213,8 @@ export function Conditions() {
               >
                 <MenuIcon />
               </IconButton>
-              <Box />
               <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム
+                マッチングシステム
               </Typography>
             </Box>
           </Toolbar>
@@ -263,107 +257,97 @@ export function Conditions() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <List>
-            <ListItem></ListItem>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                gap: 2,
-              }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            <Typography variant="h6">希望する条件を選択してください</Typography>
+            <Autocomplete
+              multiple
+              limitTags={1}
+              options={allPrefectures}
+              sx={{ width: 300 }}
+              getOptionLabel={(option) => option}
+              onChange={(event, value) => setPrefectures(value)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="希望勤務地"
+                  placeholder="選択してください"
+                />
+              )}
+            />
+
+            <Autocomplete
+              disablePortal
+              id="salary"
+              options={salarylist}
+              getOptionLabel={(option) => option.label}
+              onChange={(event, value) => setSalary(value)}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="基本給" />}
+            />
+
+            <Autocomplete
+              disablePortal
+              id="holiday"
+              options={holidaylist}
+              getOptionLabel={(option) => option.label}
+              onChange={(event, value) => setHoliday(value)}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="休日" />}
+            />
+
+            <Autocomplete
+              disablePortal
+              id="employees"
+              options={employeeslist}
+              getOptionLabel={(option) => option.label}
+              onChange={(event, value) => setEmployees(value)}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="従業員数" />
+              )}
+            />
+
+            <Autocomplete
+              disablePortal
+              id="detail"
+              options={detaillist}
+              getOptionLabel={(option) => option.label}
+              onChange={(event, value) => setDetail(value)}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="事業内容" />
+              )}
+            />
+            <Button
+              onClick={() =>
+                navigate("/Matchscore", {
+                  state: {
+                    Prefectures,
+                    Salary: Salary?.label,
+                    Holiday: Holiday?.label,
+                    Employees: Employees?.label,
+                    Detail: Detail?.label,
+                  },
+                })
+              }
+              variant="contained"
+              size="large"
+              sx={{ width: 300 }}
             >
-              <Typography variant="h6">
-                希望する条件を選択してください
-              </Typography>
-              <Autocomplete
-                multiple
-                limitTags={1}
-                options={allPrefectures}
-                sx={{ width: 300 }}
-                getOptionLabel={(option) => option}
-                defaultValue={Prefectures || []}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
-                    label="希望勤務地"
-                    placeholder="選択してください"
-                  />
-                )}
-              />
-
-              <Autocomplete
-                disablePortal
-                id="salary"
-                options={salarylist}
-                defaultValue={Salary || []}
-                sx={{ width: 300 }}
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField {...params} label="基本給" />
-                )}
-              />
-
-              <Autocomplete
-                disablePortal
-                id="salary"
-                options={holidaylist}
-                sx={{ width: 300 }}
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => <TextField {...params} label="休日" />}
-              />
-
-              <Autocomplete
-                disablePortal
-                id="salary"
-                options={employeeslist}
-                sx={{ width: 300 }}
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField {...params} label="従業員数" />
-                )}
-              />
-
-              <Autocomplete
-                disablePortal
-                id="salary"
-                options={detaillist}
-                sx={{ width: 300 }}
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField {...params} label="事業内容" />
-                )}
-              />
-              <Button
-                onClick={() =>
-                  navigate("/Matchscore", {
-                    state: {
-                      Prefectures: Prefectures.map(
-                        (prefecture) => prefecture.label
-                      ),
-                      Salary,
-                      Holiday,
-                      Employess,
-                      Detail,
-                    },
-                  })
-                }
-                variant="contained"
-                size="large"
-                sx={{ width: 300 }}
-              >
-                マッチングを開始
-              </Button>
-            </Box>
-          </List>
+              マッチングを開始
+            </Button>
+          </Box>
         </Main>
       </Box>
     </ThemeProvider>
   );
 }
-
-//資格 得意なもの 募集学科情報（一致しなかったら０）
-//勤務地（一致しなかったら０） 給与 長所 従業員数 年間休日数 売上高
-//休日制 勤務時間
