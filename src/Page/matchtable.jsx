@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -14,60 +14,26 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TextField from "@mui/material/TextField";
-
-function createData(id, name, matchdo, history) {
+import companies from "../const/companies";
+function convertCompanyData(company) {
   return {
-    id,
-    name,
-    matchdo,
-    history,
+    id: company.id.toString(), // IDを文字列に変換
+    name: company.name,
+    matchdo: 90, // マッチ度の初期値
+    history: [
+      {
+        industry: company.category,
+        location: company.work_location,
+        department: company.recruitment_grade,
+        employees: company.number_of_employees,
+        capital: company.capital,
+        sales: company.amount_of_sales,
+      },
+    ],
   };
 }
 
-const rows = [
-  createData("001", "Frozen yoghurt", 90, [
-    {
-      industry: "飲食業",
-      location: "今、シンガポールにいます。",
-      department: "",
-      employees: "",
-      capital: "",
-      sales: "",
-    },
-  ]),
-  createData("002", "Ice cream sandwich", 90, [
-    {
-      industry: "冒険業",
-      location: "今、異世界にいます。",
-      department: "",
-      employees: "",
-    },
-  ]),
-  createData("003", "Eclair", 90, [
-    {
-      industry: "飲食業",
-      location: "今、夢の国にいます。",
-      department: "",
-      employees: "",
-    },
-  ]),
-  createData("004", "Cupcake", 90, [
-    {
-      industry: "闇バイト",
-      location: "今、どっかにいます。",
-      department: "",
-      employees: "",
-    },
-  ]),
-  createData("005", "Gingerbread", 90, [
-    {
-      industry: "宇宙業",
-      location: "今、宇宙戦艦ヤマトにいます。",
-      department: 3,
-      employees: "",
-    },
-  ]),
-];
+const rows = companies.map(convertCompanyData);
 
 function Row(props) {
   const { row } = props;
@@ -213,3 +179,4 @@ export function Matchtable() {
     </>
   );
 }
+export default companies;
