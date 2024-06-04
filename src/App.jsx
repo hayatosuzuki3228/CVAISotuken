@@ -9,7 +9,6 @@ import { Matching } from "./Page/matching";
 import { Matchtable } from "./Page/matchtable";
 import { Matchscore } from "./Page/matchscore";
 import { Conditions } from "./Page/Conditions";
-import { Conditions2 } from "./Page/Conditions2";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login";
 import { MyProvider } from "./provider/provider";
@@ -28,7 +27,6 @@ function App() {
           <Route path="/Matching" element={<Matching />} />
           <Route path="/Matchscore" element={<Matchscore />} />
           <Route path="/Conditions" element={<Conditions />} />
-          <Route path="/Conditions2" element={<Conditions2 />} />
           <Route path="/LoginPage" element={<LoginPage />} />
           <Route path="/addstudent" element={<Addstudent />} />
           <Route path="/adduser" element={<Addstudentuser />} />
