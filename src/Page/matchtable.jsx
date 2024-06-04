@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import TextField from "@mui/material/TextField";
 
 function createData(id, name, matchdo, history) {
   return {
@@ -151,8 +152,28 @@ Row.propTypes = {
 };
 
 export function Matchtable() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredRows = rows.filter(
+    (row) =>
+      row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      row.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
+      <TextField
+        label="IDまたは会社名入力"
+        value={searchTerm}
+        onChange={handleSearch}
+        variant="outlined"
+        sx={{ marginBottom: "1rem", width: 500 }}
+        className="sertch"
+      />
       <TableContainer
         component={Paper}
         className="table1"
@@ -173,7 +194,7 @@ export function Matchtable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {filteredRows.map((row) => (
               <Row key={row.id} row={row} />
             ))}
           </TableBody>
