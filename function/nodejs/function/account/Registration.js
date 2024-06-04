@@ -3,8 +3,6 @@ const crypto = require("crypto");
 
 const connect = require("../database/Connection.js");
 const encryption = require("../database/Encryption.js");
-const { clearLine } = require("readline");
-const { error } = require("console");
 
 async function registration(args) {
     // 必要な値が与えられなければエラーを返す
@@ -29,7 +27,7 @@ async function registration(args) {
     // パスワードが8~14文字かつ不正な文字が使われていないかの判定
     if (!((/^[A-Za-z\d]{8,14}$/).test(args.password))) {
         console.log("Please enter between 8 and 14 characters.");
-        return {"status:":false, "message": "Please enter between 8 and 14 characters."};
+        return {"status:":false, "message": "Please enter the password between 8 and 14 characters."};
     }
 
     // saltを生成し暗号化
@@ -47,10 +45,29 @@ async function registration(args) {
         const profileSql = "INSERT INTO user_profile(name, furigana, sex, birthday, residence, qualification) VALUES(?, ?, ?, ?, ?, ?)";
         const checkEmailSql = "SELECT COUNT(*) AS count FROM authentication WHERE email = ?";
 
+        const sql_array = [checkEmailSql, authSql, profileSql]
+        const args_array = [[args.email], [args.email, hashedPassword, salt], [args.name, args.furigana, args.sex, args.birthday, args.residence, args.qualification]]
 
         return new Promise(async(resolve, reject) => {
 
+            for(let i = 0;i<sql_array.length;i++){
+                connection.execute(
+                    sql_array[i],
+                    args_array[i],
+                    (error, result) => {
+                        if(result === undefined){
+                            reject({"status":false, "message":"Failed to send information"});;
+                        }
+                        if ((result[0].count > 0) && i == 0) {
+                            console.log("The email address has already been used");
+                            resolve({"status":false, "message":"The email address has already been used."});
+                        }
+                    }
+                );
+            }
+
             // メールアドレスの判別
+            /*
             connection.query (
                 checkEmailSql,
                 [args.email],
@@ -93,6 +110,7 @@ async function registration(args) {
                     }
                 }
             );
+            */
 
             // コミット
             connection.commit((error) => {
