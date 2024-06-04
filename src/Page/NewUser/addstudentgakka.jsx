@@ -11,19 +11,13 @@ export function Addstudentgakka() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const initialMyVariable = location.state?.myVariable || "";
-  const initialMyVariable1 = location.state?.myVariable1 || "";
+  const initialGakka = location.state?.gakka || "";
+  const initialSotu = location.state?.sotu || "";
 
-  const {
-    email,
-    pass,
-    namae,
-    kanamae,
-    gender,
-    birthday,
-    area,
-    selectedOptions,
-  } = location.state || {};
+  const { email, pass, namae, kanamae, gender, birthday, area, sikaku } =
+    location.state || {};
+  const [gakka, setGakka] = useState(initialGakka);
+  const [sotu, setSotu] = useState(initialSotu);
 
   const onClick = () => {
     navigate("/adduser", {
@@ -35,9 +29,9 @@ export function Addstudentgakka() {
         gender,
         birthday,
         area,
-        selectedOptions,
-        myVariable,
-        myVariable1,
+        sikaku,
+        gakka,
+        sotu,
       },
     });
   };
@@ -52,15 +46,12 @@ export function Addstudentgakka() {
         gender,
         birthday,
         area,
-        selectedOptions,
-        myVariable,
-        myVariable1,
+        sikaku,
+        gakka,
+        sotu,
       },
     });
   };
-
-  const [myVariable, setMyVariable] = useState(initialMyVariable);
-  const [myVariable1, setMyVariable1] = useState(initialMyVariable1);
 
   const enabledButtonStyle = { backgroundColor: "#bbdefb", color: "#000000" };
   const disabledButtonStyle = { backgroundColor: "#d3d3d3", color: "#808080" };
@@ -107,10 +98,10 @@ export function Addstudentgakka() {
             required
             id={selectBox}
             label="学科名"
-            value={myVariable}
+            value={gakka}
             select
             fullWidth
-            onChange={(e) => setMyVariable(e.target.value)}
+            onChange={(e) => setGakka(e.target.value)}
           >
             {selectBox.map((item, index) => (
               <MenuItem key={index} value={item.value}>
@@ -125,10 +116,10 @@ export function Addstudentgakka() {
             required
             id={selectBox1}
             label="卒業予定年"
-            value={myVariable1}
+            value={sotu}
             select
             fullWidth
-            onChange={(e) => setMyVariable1(e.target.value)}
+            onChange={(e) => setSotu(e.target.value)}
           >
             {selectBox1.map((item, index) => (
               <MenuItem key={index} value={item.value}>
@@ -151,12 +142,8 @@ export function Addstudentgakka() {
         </Box>
         <Box textAlign="right">
           <Button
-            style={
-              myVariable && myVariable1
-                ? enabledButtonStyle
-                : disabledButtonStyle
-            }
-            disabled={!myVariable || !myVariable1}
+            style={gakka && sotu ? enabledButtonStyle : disabledButtonStyle}
+            disabled={!gakka || !sotu}
             variant="contained"
             onClick={onClick1}
           >
