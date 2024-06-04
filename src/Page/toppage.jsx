@@ -88,7 +88,7 @@ const menuItems = [
     link: "/Matching",
     isNavigate: true,
   },
-  { text: "プロフィール", icon: <PersonIcon />, link: null },
+  { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
   { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
 ];
 
