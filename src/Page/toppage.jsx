@@ -85,7 +85,7 @@ const menuItems = [
   {
     text: "マッチング",
     icon: <ContentPasteSearchIcon />,
-    link: "/Conditions",
+    link: "/Matching",
     isNavigate: true,
   },
   { text: "プロフィール", icon: <PersonIcon />, link: null },

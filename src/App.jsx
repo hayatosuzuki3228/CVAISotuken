@@ -6,9 +6,7 @@ import { Conditions } from "./Page/Conditions";
 import { Conditions2 } from "./Page/Conditions2";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login";
-import { SearchCompany } from "./Page/SearchCompany";
 import { MyProvider } from "./provider/provider";
-import { TestPage } from "./Page/TestPage";
 import "normalize.css";
 function App() {
   return (
@@ -22,7 +20,6 @@ function App() {
           <Route path="/Conditions" element={<Conditions />} />
           <Route path="/Conditions2" element={<Conditions2 />} />
           <Route path="/LoginPage" element={<LoginPage />} />
-          <Route path="/Testpage" element={<TestPage />} />
         </Routes>
       </Router>
     </MyProvider>
