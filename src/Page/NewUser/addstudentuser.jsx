@@ -44,7 +44,7 @@ export function Addstudentuser() {
   const birthdayRegex = /^\d{8}$/;
 
   const onClick = () => {
-    return navigate("/", {
+    return navigate("/addstudent", {
       state: {
         email,
         pass,

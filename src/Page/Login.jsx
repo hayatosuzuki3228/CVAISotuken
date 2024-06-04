@@ -18,7 +18,7 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const signup = () => {
-    navigate("/Testpage");
+    navigate("/Addstudent");
   };
 
   const handleAddressChange = (event) => {
