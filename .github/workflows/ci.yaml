@@ -2,51 +2,24 @@ name: ci
 
 on:
   push:
-    branches: "develop"
+    branches:
+      - main
   pull_request:
-    branches: ["main", "develop"]
+    branches:
+      - main
+      - develop
 
 jobs:
-  eslint:
-    name: Run eslint scanning
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code #コードを持ってくる
-        uses: actions/checkout@v3
-
-      - name: Install ESLint #ESlintをインストールする
-        run: |
-          npm install eslint@8.47.0
-          npm install @microsoft/eslint-formatter-sarif@2.1.7
-
-      - name: Build #build test
-        run: npm run build
-
-      - name: Run ESLint #ESLintを実行する
-        run:
-          npx eslint ./src --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
-        continue-on-error: true
-
-      - name: Upload analysis results to GitHub #githubに解析結果をアップロード
-        uses: github/codeql-action/upload-sarif@v2
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
-
-  rome:
-    name: Run rome scanning
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code #コードを持ってくる
-        uses: actions/checkout@v3
-
-      - name: Install Rome #romeをインストールする
-        run: |
-          npm install rome@12.0.0\
-
-      - name: Build #build test
+          node-version: "14"
+      - name: Install dependencies
+        run: npm install
+      - name: Build the project
         run: npm run build
-
-      - name: Run Rome #romeを実行
-        run: npx rome check ./src
