@@ -14,11 +14,14 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button"; // Buttonをインポート
 import companies from "../const/companies";
+
 function convertCompanyData(company) {
   return {
     id: company.id.toString(), // IDを文字列に変換
     name: company.name,
+    detail: company.detail,
     matchdo: 90, // マッチ度の初期値
     history: [
       {
@@ -36,7 +39,7 @@ function convertCompanyData(company) {
 const rows = companies.map(convertCompanyData);
 
 function Row(props) {
-  const { row } = props;
+  const { row, showDetail } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -55,10 +58,14 @@ function Row(props) {
           {row.id}
         </TableCell>
         <TableCell>{row.name}</TableCell>
+        {showDetail && <TableCell>{row.detail}</TableCell>}
         <TableCell>{row.matchdo}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={showDetail ? 5 : 4}
+        >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
@@ -76,8 +83,8 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.history.map((historyRow, index) => (
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {historyRow.industry}
                       </TableCell>
@@ -102,8 +109,8 @@ Row.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    detail: PropTypes.string.isRequired,
     matchdo: PropTypes.number.isRequired,
-
     history: PropTypes.arrayOf(
       PropTypes.shape({
         industry: PropTypes.string.isRequired,
@@ -115,10 +122,12 @@ Row.propTypes = {
       })
     ).isRequired,
   }).isRequired,
+  showDetail: PropTypes.bool.isRequired,
 };
 
 export function Matchtable() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [showDetail, setShowDetail] = useState(true); // 事業内容の表示状態を管理するstate
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -130,6 +139,10 @@ export function Matchtable() {
       row.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const toggleDetail = () => {
+    setShowDetail((prevShowDetail) => !prevShowDetail);
+  };
+
   return (
     <>
       <TextField
@@ -140,6 +153,13 @@ export function Matchtable() {
         sx={{ marginBottom: "1rem", width: 500 }}
         className="sertch"
       />
+      <Button
+        onClick={toggleDetail}
+        variant="contained"
+        sx={{ marginBottom: "1rem" }}
+      >
+        {showDetail ? "Hide Details" : "Show Details"}
+      </Button>
       <TableContainer
         component={Paper}
         className="table1"
@@ -154,29 +174,21 @@ export function Matchtable() {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>会社ID</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell>会社名</TableCell>
+              {showDetail && <TableCell>事業内容</TableCell>}
               <TableCell>マッチ度</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredRows.map((row) => (
-              <Row key={row.id} row={row} />
+              <Row key={row.id} row={row} showDetail={showDetail} />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-
-      <head>
-        <link
-          href="matchtable.css"
-          rel="stylesheet"
-          type="text/css"
-          media="all"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
     </>
   );
 }
+
 export default companies;
