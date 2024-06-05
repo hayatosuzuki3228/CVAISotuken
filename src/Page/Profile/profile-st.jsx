@@ -35,6 +35,7 @@ export function SProfile() {
         email,
         Home,
         bye,
+        age,
       },
     });
   };
@@ -50,7 +51,7 @@ export function SProfile() {
   };
   const location = useLocation();
 
-  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye } =
+  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
     location.state || {};
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -91,7 +92,8 @@ export function SProfile() {
                 </ListItem>
               </List>
               <Divider />
-              <List>
+              <List //実際に動かすときは95～102行目を消す
+              >
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick3}>
                     <ListItemText primary="企業情報" />
@@ -146,7 +148,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>20歳</p>
+              <p>{age !== undefined ? "${age}歳" : ""}</p>
             </font>
           </div>
         </div>
@@ -171,9 +173,7 @@ export function SProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                {Years}
-                {Months}
-                {Days}
+                {Years}年{Months}月{Days}日生まれ
               </p>
             </font>
           </div>

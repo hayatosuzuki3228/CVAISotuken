@@ -21,41 +21,12 @@ import {
   TextField,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { years, months, days, selectBox, HOME, Bye } from "./Data";
+import { years, months, days, selectBox, HOME, Bye, older } from "./Data";
 
 export function SEdit() {
   useEffect(() => {
     document.title = "プロフィール編集";
   }, []);
-
-  const navigate = useNavigate();
-  const OnClick = () => {
-    navigate("/profile-st");
-  };
-  const OnClick2 = () => {
-    navigate("/profile-st-com");
-  };
-  const OnClickBack = () => {
-    navigate("/profile-st", {
-      state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-      },
-    });
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
 
   const location = useLocation();
   const warpName = location.state?.name || "";
@@ -68,6 +39,7 @@ export function SEdit() {
   const warpHome = location.state?.Home || "";
   const warpBye = location.state?.bye || "";
   const warpEmail = location.state?.email || "";
+  const warpAge = location.state?.age || "";
 
   const [name, setName] = useState(warpName);
   const [kName, setKName] = useState(warpKName);
@@ -79,6 +51,47 @@ export function SEdit() {
   const [Home, setHome] = useState(warpHome);
   const [bye, setBye] = useState(warpBye);
   const [email, setEmail] = useState(warpEmail);
+  const [age, setAge] = useState(warpAge);
+
+  const navigate = useNavigate();
+  const OnClick = () => {
+    navigate("/profile-st");
+  };
+  const OnClick2 = () => {
+    navigate("/profile-st-com");
+  };
+  const OnClickBack = () => {
+    const birthDate = new Date(Years, Months - 1, Days);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    setAge(age);
+
+    navigate("/profile-st", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+      },
+    });
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   const handleChange1 = (event) => {
     setMan(event.target.value);
@@ -189,21 +202,21 @@ export function SEdit() {
             <RadioGroup
               value={man}
               onChange={handleChange1}
-              defaultValue="man"
+              defaultValue={man}
               row
             >
               <FormControlLabel
-                value="man"
+                value="男性"
                 control={<Radio />}
                 label="男性"
               ></FormControlLabel>
               <FormControlLabel
-                value="woman"
+                value="女性"
                 control={<Radio />}
                 label="女性"
               ></FormControlLabel>
               <FormControlLabel
-                value="gender"
+                value="その他"
                 control={<Radio />}
                 label="その他"
               ></FormControlLabel>
@@ -269,12 +282,13 @@ export function SEdit() {
               sx={{ width: 100 }}
               select
               multiline
-              id={years}
+              id={older}
               label="年"
               value={Years}
               onChange={(e) => setYears(e.target.value)}
+              placeholder="YYYY"
             >
-              {years.map((item, index) => (
+              {older.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
                   {item.label}
                 </MenuItem>
@@ -289,6 +303,7 @@ export function SEdit() {
               label="月"
               value={Months}
               onChange={(e) => setMonths(e.target.value)}
+              placeholder="MM"
             >
               {months.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -305,6 +320,7 @@ export function SEdit() {
               label="日"
               value={Days}
               onChange={(e) => setDays(e.target.value)}
+              placeholder="DD"
             >
               {days.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
