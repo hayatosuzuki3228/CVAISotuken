@@ -16,6 +16,7 @@ import { Addstudent } from "./Page/NewUser/addstudent";
 import { Addstudentuser } from "./Page/NewUser/addstudentuser";
 import { Addstudentgakka } from "./Page/NewUser/addstudentgakka";
 import { Addstudentkakunin } from "./Page/NewUser/addstudentkakunin";
+import { Addcompany } from "./Page/Companyadd/addcompany.jsx";
 import "normalize.css";
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/adduser" element={<Addstudentuser />} />
           <Route path="/addgakka" element={<Addstudentgakka />} />
           <Route path="/addkakunin" element={<Addstudentkakunin />} />
+          <Route path="/addcompany" element={<Addcompany />} />
           <Route path="/profile-st" element={<SProfile />} />
           <Route path="/profile-st-edit" element={<SEdit />} />
           <Route path="/profile-st-com" element={<SCompany />} />
