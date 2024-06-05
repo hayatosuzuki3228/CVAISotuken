@@ -49,6 +49,7 @@ export const selectBox2 = [
 ];
 
 export const options = [
+  { title: "なし(泣)" },
   { title: "ITパスポート" },
   { title: "情報セキュリティマネジメント" },
   { title: "基本情報技術者" },
@@ -125,10 +126,4 @@ export const selectBox1 = [
   { label: "34卒", value: "34卒" },
   { label: "35卒", value: "35卒" },
   { label: "36卒", value: "36卒" },
-];
-
-export const selectBox3 = [
-  { label: "男", value: "男" },
-  { label: "女", value: "女" },
-  { label: "その他", value: "その他" },
 ];

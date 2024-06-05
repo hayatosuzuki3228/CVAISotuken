@@ -213,6 +213,8 @@ export function Addstudent() {
               helperText={error ? "4文字以上10文字以下で入力してください" : ""}
             />
             <p></p>
+            {pass}
+            <p></p>
             {message1 && (
               <Typography
                 variant="h6"
