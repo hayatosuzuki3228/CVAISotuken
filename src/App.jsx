@@ -18,6 +18,7 @@ import { Addstudentgakka } from "./Page/NewUser/addstudentgakka";
 import { Addstudentkakunin } from "./Page/NewUser/addstudentkakunin";
 import "normalize.css";
 function App() {
+  //
   return (
     <MyProvider>
       <Router>
