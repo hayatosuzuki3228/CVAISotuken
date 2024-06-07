@@ -56,8 +56,6 @@ export function Addstudentkakunin() {
     });
   };
 
-  let ir = 30;
-
   return (
     <>
       <Box bgcolor="#66aacc" p={2}>
