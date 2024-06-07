@@ -212,6 +212,9 @@ export function Addstudent() {
               error={error || isDifferent1}
               helperText={error ? "4文字以上10文字以下で入力してください" : ""}
             />
+            <label style={{ fontSize: "9px", color: "#808080" }}>
+              半角英数字4文字以上10文字以内で入力
+            </label>
             <p></p>
             {pass}
             <p></p>

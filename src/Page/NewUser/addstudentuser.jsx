@@ -42,8 +42,8 @@ export function Addstudentuser() {
   const [message2, setMessage2] = useState("");
   const [message3, setMessage3] = useState("");
 
-  const namaeRegex = /^[\p{Script=Han}\p{Hiragana}\p{Katakana}]{2,}$/;
-  const kanamaeRegex = /^[ァ-ヶー]{2,}$/;
+  const namaeRegex = /^[一-龠あ-んァ-ヶー]{2,}$/;
+  const kanamaeRegex = /^[ァ-ヴ]{2,}$/;
   const birthdayRegex = /^[0-9]{8}$/;
 
   const onClick = () => {
@@ -64,7 +64,11 @@ export function Addstudentuser() {
   };
 
   const onClick1 = () => {
-    if (birthdayRegex.test(birthday)) {
+    if (
+      birthdayRegex.test(birthday) &&
+      kanamaeRegex.test(kanamae) &&
+      namaeRegex.test(namae)
+    ) {
       return navigate("/addgakka", {
         state: {
           email,
@@ -80,6 +84,18 @@ export function Addstudentuser() {
         },
       });
     } else {
+      {
+        !namaeRegex.test(namae)
+          ? setMessage1(
+              "2文字以上のひらがなカタカナ漢字を入力してください(スペースなし)"
+            )
+          : "";
+      }
+      {
+        !kanamaeRegex.test(kanamae)
+          ? setMessage2("2文字以上の全角カタカナを入力してください")
+          : "";
+      }
       {
         !birthdayRegex.test(birthday)
           ? setMessage3("数字のみ8文字で入力してください 例20041125")
@@ -145,6 +161,9 @@ export function Addstudentuser() {
               value={namae}
               onChange={(e) => setnamae(e.target.value)}
             />
+            <label style={{ fontSize: "9px", color: "#808080" }}>
+              全角ひらがなカタカナ漢字2文字以上で入力※スペース無し
+            </label>
             <p></p>
             {message1 && (
               <Typography
@@ -166,6 +185,9 @@ export function Addstudentuser() {
               value={kanamae}
               onChange={(e) => setkanamae(e.target.value)}
             />
+            <label style={{ fontSize: "9px", color: "#808080" }}>
+              全角カタカナ2文字以上で入力※スペース無し
+            </label>
             <p></p>
             {message2 && (
               <Typography
@@ -212,6 +234,9 @@ export function Addstudentuser() {
               value={birthday}
               onChange={handleChange}
             />
+            <label style={{ fontSize: "9px", color: "#808080" }}>
+              半角数字8文字で入力 例2023年1月1日→20230101
+            </label>
             <p></p>
             {message3 && (
               <Typography
@@ -273,6 +298,9 @@ export function Addstudentuser() {
               setSikaku(newValue);
             }}
           />
+          <label style={{ fontSize: "9px", color: "#808080" }}>
+            資格を持っていない人は無しを選んでください
+          </label>
         </Box>
       </Stack>
       <p></p>
