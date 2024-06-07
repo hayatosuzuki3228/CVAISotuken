@@ -209,13 +209,23 @@ export function Toppage() {
               <Button fullWidth style={{ fontSize: "4em" }}>
                 お知らせ
               </Button>
-              <Button fullWidth>メッセージ</Button>
-              <Button fullWidth>企業からのお知らせ</Button>
-              <Button fullWidth>ブックマーク</Button>
+              <Button fullWidth style={{ fontSize: "4em" }}>
+                メッセージ
+              </Button>
+              <Button fullWidth style={{ fontSize: "4em" }}>
+                企業からのお知らせ
+              </Button>
+              <Button fullWidth style={{ fontSize: "4em" }}>
+                ブックマーク
+              </Button>
             </Box>
             <Box border={1} borderColor={gray} width="40vw" height="70vh">
-              <Button fullWidth>就職ガイド</Button>
-              <Button fullWidth>お問い合わせ</Button>
+              <Button fullWidth style={{ fontSize: "4em" }}>
+                就職ガイド
+              </Button>
+              <Button fullWidth style={{ fontSize: "4em" }}>
+                お問い合わせ
+              </Button>
             </Box>
           </Stack>
         </Main>
