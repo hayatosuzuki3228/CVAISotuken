@@ -14,7 +14,7 @@ export function Matching() {
     navigate("/Matchtable");
   };
   return (
-    <>
+    <body>
       <Box bgcolor="#6495ed" p={2}>
         <Stack justifyContent="center" alignSelf="center">
           <h1>名産会マッチング</h1>
@@ -65,17 +65,18 @@ export function Matching() {
             <div id="b3">
               <Button
                 onClick={() =>
-                  (window.location.href = "http://abehiroshi.la.coocan.jp/")
+                  (window.location.href =
+                    "http://intra2.denpa.ac.jp/e-learning/job/")
                 }
                 sx={{
                   width: 250,
                   height: 100,
-                  fontSize: 20,
+                  fontSize: 23,
                   padding: 5,
                 }}
                 variant="contained"
               >
-                会社名と事業内容一覧表
+                就職ガイダンス
               </Button>
             </div>
             <div id="b4">
@@ -106,12 +107,12 @@ export function Matching() {
                 variant="outlined"
                 sx={{
                   width: 500,
-                  left: 50,
-                  top: 20,
+
                   backgroundColor: "lightgray",
                 }}
               />
             )}
+            className="field"
           />
           <div id="b5">
             <Button
@@ -166,7 +167,7 @@ export function Matching() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-    </>
+    </body>
   );
 }
 export default Matching;

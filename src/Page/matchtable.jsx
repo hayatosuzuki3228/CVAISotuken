@@ -59,7 +59,7 @@ function Row(props) {
         </TableCell>
         <TableCell>{row.name}</TableCell>
         {showDetail && <TableCell>{row.detail}</TableCell>}
-        <TableCell>{row.matchdo}</TableCell>
+        <TableCell align="left">{row.matchdo}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -127,7 +127,7 @@ Row.propTypes = {
 
 export function Matchtable() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [showDetail, setShowDetail] = useState(true); // 事業内容の表示状態を管理するstate
+  const [showDetail, setShowDetail] = useState(false); // 事業内容の表示状態を管理するstate
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -156,9 +156,10 @@ export function Matchtable() {
       <Button
         onClick={toggleDetail}
         variant="contained"
-        sx={{ marginBottom: "1rem" }}
+        sx={{ marginBottom: "1rem", height: 60, width: 200, fontSize: 20 }}
+        className="detailbu"
       >
-        {showDetail ? "Hide Details" : "Show Details"}
+        {showDetail ? "事業内容非表示" : "事業内容表示"}
       </Button>
       <TableContainer
         component={Paper}
@@ -177,7 +178,7 @@ export function Matchtable() {
               <TableCell>ID</TableCell>
               <TableCell>会社名</TableCell>
               {showDetail && <TableCell>事業内容</TableCell>}
-              <TableCell>マッチ度</TableCell>
+              <TableCell align="left">マッチ度</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -187,6 +188,15 @@ export function Matchtable() {
           </TableBody>
         </Table>
       </TableContainer>
+      <head>
+        <link
+          href="matchtable.css"
+          rel="stylesheet"
+          type="text/css"
+          media="all"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
     </>
   );
 }

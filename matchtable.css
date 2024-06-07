@@ -1,6 +1,6 @@
 @media screen and (min-width: 1025px) {
   .table1 {
-    margin-top: 150px; /* 上部の余白 */
+    margin-top: 100px; /* 上部の余白 */
     margin-left: 50px;
     margin-right: 50px;
     /* 他のスタイルを追加 */
@@ -8,5 +8,9 @@
   .sertch {
     top: 50px;
     margin-left: 50px;
+  }
+  .detailbu {
+    top: 50px;
+    left: 70px;
   }
 }
