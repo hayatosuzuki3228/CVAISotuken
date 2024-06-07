@@ -1,26 +1,32 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import MobileStepper from "@mui/material/MobileStepper";
-import Button from "@mui/material/Button";
 import {
   Autocomplete,
+  Button,
   Box,
   Checkbox,
   FormGroup,
   FormControlLabel,
+  InputAdornment,
+  MobileStepper,
+  TextField,
   Typography,
 } from "@mui/material";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import TextField from "@mui/material/TextField";
-import { category } from "../Companyadd/companydata";
+import { industry, occupation } from "../Companyadd/companydata";
 import companies from "../Matching/matchtable";
 import CompanyDetails from "./companysarch";
 
 export function Addcompany() {
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
 
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [capital, setCapital] = useState("");
+  const [sales, setSales] = useState("");
+  const [employees, setEmployees] = useState("");
+
+  //ステッパー
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -28,6 +34,26 @@ export function Addcompany() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  //数値入力制約
+  const valuechange = (event, setValue) => {
+    let inputValue = event.target.value;
+
+    inputValue = inputValue.replace(/[０-９]/g, (s) => {
+      return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+    });
+
+    const numericValue = inputValue.replace(/[^0-9]/g, "");
+    setValue(numericValue);
+
+    const formattedValue = addCommas(numericValue);
+
+    setValue(formattedValue);
+  };
+
+  function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   // ステップごとのコンテンツ
   const getStepContent = (step) => {
@@ -48,7 +74,7 @@ export function Addcompany() {
             <TextField label="会社名" variant="standard" sx={{ width: 400 }} />
             <Autocomplete
               sx={{ width: 400 }}
-              options={category}
+              options={industry}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
                 <TextField {...params} label="業種" variant="standard" />
@@ -56,18 +82,47 @@ export function Addcompany() {
             />
             <Autocomplete
               sx={{ width: 400 }}
-              options={category}
+              options={occupation}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
                 <TextField {...params} label="職種" variant="standard" />
               )}
+            />{" "}
+            <TextField
+              label="資本金"
+              variant="standard"
+              sx={{ width: 400 }}
+              value={capital}
+              onChange={(e) => valuechange(e, setCapital)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">百万円</InputAdornment>
+                ),
+              }}
             />
-            <TextField label="資本金" variant="standard" sx={{ width: 400 }} />
-            <TextField label="売上高" variant="standard" sx={{ width: 400 }} />
+            <TextField
+              label="売上高"
+              variant="standard"
+              sx={{ width: 400 }}
+              value={sales}
+              onChange={(e) => valuechange(e, setSales)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">百万円</InputAdornment>
+                ),
+              }}
+            />
             <TextField
               label="従業員数"
               variant="standard"
               sx={{ width: 400 }}
+              value={employees}
+              onChange={(e) => valuechange(e, setEmployees)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">人</InputAdornment>
+                ),
+              }}
             />
           </Box>
         );
@@ -97,11 +152,6 @@ export function Addcompany() {
             />
             <TextField
               label="必須資格"
-              variant="standard"
-              sx={{ width: 400 }}
-            />
-            <TextField
-              label="募集学科"
               variant="standard"
               sx={{ width: 400 }}
             />
