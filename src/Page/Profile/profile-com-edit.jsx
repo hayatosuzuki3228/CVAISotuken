@@ -88,6 +88,19 @@ export function CEdit() {
   const [comePeople, setComePeople] = useState(warpComePeople);
   const [homepage, setHomepage] = useState(warpHomepage);
 
+  const Checks =
+    Cname &&
+    CkName &&
+    place &&
+    tel &&
+    fax &&
+    info &&
+    COpen &&
+    COpenM &&
+    capital &&
+    people &&
+    comePeople;
+
   return (
     <>
       <header className="header" style={{ textAlign: "center" }}>
@@ -158,8 +171,6 @@ export function CEdit() {
                 label="企業名の変更"
                 value={Cname}
                 onChange={(e) => setCname(e.target.value)}
-                helperText={Cname !== undefined && !Cname ? "未入力です。" : ""}
-                error={Cname !== undefined && !Cname}
               />
             </Box>
             <Box>
@@ -168,10 +179,6 @@ export function CEdit() {
                 label="企業名(カタカナ)の変更"
                 value={CkName}
                 onChange={(e) => setCkName(e.target.value)}
-                helperText={
-                  CkName !== undefined && !CkName ? "未入力です。" : ""
-                }
-                error={CkName !== undefined && !CkName}
               />
             </Box>
           </Stack>
@@ -227,8 +234,6 @@ export function CEdit() {
                 label="電話番号の変更"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
-                helperText={tel !== undefined && !tel ? "未入力です" : ""}
-                error={tel !== undefined && !tel}
               />
             </Box>
             <Box>
@@ -237,8 +242,6 @@ export function CEdit() {
                 label="FAX番号の変更"
                 value={fax}
                 onChange={(e) => setFax(e.target.value)}
-                helperText={fax !== undefined && !fax ? "未入力です" : ""}
-                error={fax !== undefined && !fax}
               />
             </Box>
           </Stack>
@@ -267,8 +270,6 @@ export function CEdit() {
               label="事業内容の変更"
               value={info}
               onChange={(e) => setInfo(e.target.value)}
-              helperText={info !== undefined && !info ? "未入力です" : ""}
-              error={info !== undefined && !info}
             />
           </Box>
         </Stack>
@@ -353,10 +354,6 @@ export function CEdit() {
                 label="資本金の変更(百万円単位)"
                 value={capital}
                 onChange={(e) => setCapital(e.target.value)}
-                helperText={
-                  capital !== undefined && !capital ? "未入力です。" : ""
-                }
-                error={capital !== undefined && !capital}
               />
             </Box>
             <p>万円</p>
@@ -384,8 +381,6 @@ export function CEdit() {
               label="代表者名の変更"
               value={people}
               onChange={(e) => setPeople(e.target.value)}
-              helperText={people !== undefined && !people ? "未入力です。" : ""}
-              error={people !== undefined && !people}
             />
           </Box>
         </Stack>
@@ -414,10 +409,6 @@ export function CEdit() {
               label="企業が求める人材像の変更"
               value={comePeople}
               onChange={(e) => setComePeople(e.target.value)}
-              helperText={
-                comePeople !== undefined && !comePeople ? "未入力です" : ""
-              }
-              error={comePeople !== undefined && !comePeople}
             />
           </Box>
         </Stack>
@@ -447,7 +438,7 @@ export function CEdit() {
           </Box>
         </Stack>
 
-        <Button variant="contained" onClick={OnClickBack}>
+        <Button variant="contained" onClick={OnClickBack} disabled={!Checks}>
           情報を確定する
         </Button>
       </Stack>

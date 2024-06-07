@@ -23,6 +23,10 @@ export function SProfile() {
 
   const navigate = useNavigate();
   const OnClick = () => {
+    navigate("/");
+  };
+
+  const OnClick1 = () => {
     navigate("/profile-st-edit", {
       state: {
         name,
@@ -39,6 +43,7 @@ export function SProfile() {
       },
     });
   };
+
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
@@ -46,9 +51,11 @@ export function SProfile() {
       },
     });
   };
+
   const OnClick3 = () => {
     navigate("/profile-com");
   };
+
   const location = useLocation();
 
   const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
@@ -79,6 +86,14 @@ export function SProfile() {
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
+                    <ListItemText primary="メイン" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick1}>
                     <ListItemText primary="個人情報編集" />
                   </ListItemButton>
                 </ListItem>
@@ -148,7 +163,7 @@ export function SProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>{age !== undefined ? "${age}歳" : ""}</p>
+              <p>{age && age + "歳"}</p>
             </font>
           </div>
         </div>
@@ -173,7 +188,9 @@ export function SProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                {Years}年{Months}月{Days}日生まれ
+                {Years && Years + "年"}
+                {Months && Months + "月"}
+                {Days && Days + "日生まれ"}
               </p>
             </font>
           </div>
@@ -216,7 +233,7 @@ export function SProfile() {
         </div>
       </Box>
       <div className="div-padding">
-        <button className="button" onClick={OnClick}>
+        <button className="button" onClick={OnClick1}>
           情報を編集する
         </button>
         <button className="button">戻る</button>

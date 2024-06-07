@@ -27,16 +27,13 @@ export function SCEdit() {
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("");
-    navigate("/profile-st-edit");
+    navigate("/profile-st");
   };
   const OnClick2 = () => {
-    navigate("");
     navigate("/profile-st-com");
   };
 
   const OnClickBack = () => {
-    navigate("");
     navigate("/profile-st-com", {
       state: {
         job,
@@ -68,6 +65,8 @@ export function SCEdit() {
   const [SSubject, setSSubject] = useState(warpSSubject);
   const [KSubject, setKSubject] = useState(warpKSubject);
   const [myPower, setMyPower] = useState(warpMyPower);
+  const [Check, setCheck] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <>
@@ -90,7 +89,7 @@ export function SCEdit() {
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="個人情報編集" />
+                    <ListItemText primary="個人情報" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -122,7 +121,7 @@ export function SCEdit() {
             border="1px solid black"
             textAlign="center"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <p>希望職種</p>
           </Box>
@@ -131,7 +130,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <TextField
               fullWidth
@@ -151,7 +150,7 @@ export function SCEdit() {
             border="1px solid black"
             textAlign="center"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <p>趣味</p>
           </Box>
@@ -161,7 +160,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <TextField
               multiline
@@ -180,7 +179,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <p>特技</p>
           </Box>
@@ -190,7 +189,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <TextField
               multiline
@@ -209,7 +208,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <p>得意な科目＆苦手な科目</p>
           </Box>
@@ -219,7 +218,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <TextField
               multiline
@@ -247,12 +246,12 @@ export function SCEdit() {
           </Box>
         </Stack>
 
-        <Stack direction="row">
+        <Stack direction="row" paddingBottom={5}>
           <Box
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <p>取得した資格</p>
           </Box>
@@ -261,7 +260,7 @@ export function SCEdit() {
             flex="1"
             border="1px solid black"
             padding="10px"
-            sx={{ minWidth: 240 }}
+            sx={{ minWidth: 300 }}
           >
             <TextField
               select
@@ -280,7 +279,7 @@ export function SCEdit() {
           </Box>
         </Stack>
 
-        <Button variant="contained" onClick={OnClickBack}>
+        <Button variant="contained" onClick={OnClickBack} disabled={Check}>
           情報を確定する
         </Button>
       </Stack>

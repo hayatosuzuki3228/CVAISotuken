@@ -161,9 +161,9 @@ export function CProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                (TEL){tel}
+                {tel && "(TEL)" + tel}
                 <br />
-                (FAX){fax}
+                {fax && "(FAX)" + fax}
               </p>
             </font>
           </div>
@@ -191,7 +191,8 @@ export function CProfile() {
           <div className="half-box black">
             <font size="3.5">
               <p>
-                {COpen}/{COpenM}
+                {COpen && COpen + "年"}
+                {COpenM && COpenM + "月創業"}
               </p>
             </font>
           </div>
@@ -205,7 +206,7 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>{capital}万円</p>
+              <p>{capital && capital + "万円"}</p>
             </font>
           </div>
         </div>

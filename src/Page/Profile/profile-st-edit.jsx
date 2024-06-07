@@ -52,6 +52,9 @@ export function SEdit() {
   const [bye, setBye] = useState(warpBye);
   const [email, setEmail] = useState(warpEmail);
   const [age, setAge] = useState(warpAge);
+  const [error, setError] = useState("");
+  const [Clear, setClear] = useState("");
+  const [ClearMessage, setClearMessage] = useState("");
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -60,7 +63,7 @@ export function SEdit() {
   const OnClick2 = () => {
     navigate("/profile-st-com");
   };
-  const OnClickBack = () => {
+  const OnClickNext = () => {
     const birthDate = new Date(Years, Months - 1, Days);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
@@ -69,7 +72,7 @@ export function SEdit() {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
-    setAge(age);
+    setAge(age + "歳");
 
     navigate("/profile-st", {
       state: {
@@ -86,6 +89,30 @@ export function SEdit() {
         age,
       },
     });
+  };
+
+  const Check =
+    name &&
+    kName &&
+    man &&
+    Gak &&
+    Years &&
+    Months &&
+    Days &&
+    email &&
+    Home &&
+    bye;
+
+  const Checks = () => {
+    if (Check === true) {
+      if (name.length < 5) {
+        setError("文字数が足りません。");
+        setClear(false);
+        setClearMessage("ok");
+      }
+    } else {
+      setClearMessage("NG");
+    }
   };
 
   const [open, setOpen] = React.useState(false);
@@ -115,14 +142,6 @@ export function SEdit() {
               role="presentation"
               onClick={toggleDrawer(false)}
             >
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="個人情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
@@ -167,8 +186,6 @@ export function SEdit() {
                 label="名前の変更"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                helperText={name !== undefined && !name ? "未入力です。" : ""}
-                error={name !== undefined && !name}
               />
             </Box>
             <Box>
@@ -177,8 +194,6 @@ export function SEdit() {
                 label="名前(カタカナ)の変更"
                 value={kName}
                 onChange={(e) => setKName(e.target.value)}
-                helperText={kName !== undefined && !kName ? "未入力です。" : ""}
-                error={kName !== undefined && !kName}
               />
             </Box>
           </Stack>
@@ -241,12 +256,12 @@ export function SEdit() {
             padding="10px"
           >
             <TextField
-              sx={{ width: 300 }}
               multiline
+              select
+              sx={{ width: 300 }}
               id={selectBox}
               label="学科名"
               value={Gak}
-              select
               onChange={(e) => setGak(e.target.value)}
             >
               {selectBox.map((item, index) => (
@@ -417,15 +432,19 @@ export function SEdit() {
               label="メールアドレスの変更"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              helperText={email !== undefined && !email ? "未入力です" : ""}
-              error={email !== undefined && !email}
             />
           </Box>
         </Stack>
-
-        <Button variant="contained" onClick={OnClickBack}>
-          情報を確定する
-        </Button>
+        <div>{error}</div>
+        <button onClick={Checks}>テスト:{ClearMessage}</button>
+        <Stack direction="row" spacing={7}>
+          <Button variant="contained" onClick={OnClick}>
+            戻る
+          </Button>
+          <Button variant="contained" onClick={OnClickNext} disabled={!Clear}>
+            情報を確定する
+          </Button>
+        </Stack>
       </Stack>
     </>
   );

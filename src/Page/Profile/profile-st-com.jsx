@@ -21,6 +21,9 @@ export function SCompany() {
 
   const navigate = useNavigate();
   const OnClick = () => {
+    navigate("/");
+  };
+  const OnClick1 = () => {
     navigate("/profile-st-com-edit", {
       state: {
         job,
@@ -70,6 +73,14 @@ export function SCompany() {
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
+                    <ListItemText primary="メイン" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick1}>
                     <ListItemText primary="企業向け情報編集" />
                   </ListItemButton>
                 </ListItem>
@@ -187,7 +198,7 @@ export function SCompany() {
         </div>
       </Box>
       <div className="div-padding">
-        <button className="button" onClick={OnClick}>
+        <button className="button" onClick={OnClick1}>
           情報を編集する
         </button>
         <button className="button">戻る</button>
