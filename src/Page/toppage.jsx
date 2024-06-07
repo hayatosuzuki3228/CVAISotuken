@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
@@ -198,9 +199,25 @@ export function Toppage() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <List>
-            <ListItem>メイン画面</ListItem>
-          </List>
+          <Stack
+            direction="row"
+            alignContent="center"
+            justifyContent="center"
+            spacing={2}
+          >
+            <Box border={1} borderColor={gray} width="40vw" height="70vh">
+              <Button fullWidth style={{ fontSize: "4em" }}>
+                お知らせ
+              </Button>
+              <Button fullWidth>メッセージ</Button>
+              <Button fullWidth>企業からのお知らせ</Button>
+              <Button fullWidth>ブックマーク</Button>
+            </Box>
+            <Box border={1} borderColor={gray} width="40vw" height="70vh">
+              <Button fullWidth>就職ガイド</Button>
+              <Button fullWidth>お問い合わせ</Button>
+            </Box>
+          </Stack>
         </Main>
       </Box>
     </ThemeProvider>
