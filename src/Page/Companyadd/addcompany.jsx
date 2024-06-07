@@ -45,15 +45,32 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">企業情報登録</Typography>
-            <TextField label="会社名" variant="outlined" />
-            <TextField label="フリガナ" variant="outlined" />
-            <TextField label="事業所" variant="outlined" />
-            <TextField label="代表者名" variant="outlined" />
-            <TextField label="設立年月日" variant="outlined" />
-            <TextField label="資本金" variant="outlined" />
+            <TextField label="会社名" variant="standard" sx={{ width: 400 }} />
+            <Autocomplete
+              sx={{ width: 400 }}
+              options={category}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} label="業種" variant="standard" />
+              )}
+            />
+            <Autocomplete
+              sx={{ width: 400 }}
+              options={category}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} label="職種" variant="standard" />
+              )}
+            />
+            <TextField label="資本金" variant="standard" sx={{ width: 400 }} />
+            <TextField label="売上高" variant="standard" sx={{ width: 400 }} />
+            <TextField
+              label="従業員数"
+              variant="standard"
+              sx={{ width: 400 }}
+            />
           </Box>
         );
-
       case 1:
         return (
           <Box
@@ -66,39 +83,27 @@ export function Addcompany() {
               gap: 2,
             }}
           >
-            <Autocomplete
-              sx={{ width: 300 }}
-              options={category}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField {...params} label="業種" variant="outlined" />
-              )}
-            />
-            <Autocomplete
-              sx={{ width: 300 }}
-              options={category}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField {...params} label="職種" variant="outlined" />
-              )}
-            />
-            <Autocomplete
-              sx={{ width: 300 }}
-              options={category}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField {...params} label="エリア" variant="outlined" />
-              )}
-            />
+            <Typography variant="h5">求人条件登録</Typography>
+            <TextField label="勤務地" variant="standard" sx={{ width: 400 }} />
             <TextField
-              sx={{ width: 300 }}
               label="勤務時間"
-              variant="outlined"
+              variant="standard"
+              sx={{ width: 400 }}
             />
             <TextField
-              sx={{ width: 300 }}
               label="年間休日"
-              variant="outlined"
+              variant="standard"
+              sx={{ width: 400 }}
+            />
+            <TextField
+              label="必須資格"
+              variant="standard"
+              sx={{ width: 400 }}
+            />
+            <TextField
+              label="募集学科"
+              variant="standard"
+              sx={{ width: 400 }}
             />
           </Box>
         );
@@ -177,7 +182,7 @@ export function Addcompany() {
       default:
         return (
           <div>
-            <h2>Unknown step</h2>
+            <h2>Unknown</h2>
           </div>
         );
     }
@@ -199,7 +204,7 @@ export function Addcompany() {
             disabled={activeStep === 3}
             sx={{ mt: 2 }}
           >
-            Next
+            次へ
             {theme.direction === "rtl" ? (
               <KeyboardArrowLeft />
             ) : (
@@ -219,7 +224,7 @@ export function Addcompany() {
             ) : (
               <KeyboardArrowLeft />
             )}
-            Back
+            戻る
           </Button>
         }
       />
