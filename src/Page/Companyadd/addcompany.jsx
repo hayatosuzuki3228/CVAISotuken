@@ -6,17 +6,23 @@ import {
   Box,
   Checkbox,
   FormGroup,
+  FormControl,
+  FormLabel,
   FormControlLabel,
+  Grid,
   InputAdornment,
   MobileStepper,
   TextField,
   Typography,
+  Radio,
+  RadioGroup,
 } from "@mui/material";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { industry, occupation } from "../Companyadd/companydata";
+import { industry, occupation, person } from "../Companyadd/companydata";
 import companies from "../Matching/matchtable";
 import CompanyDetails from "./companysarch";
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 export function Addcompany() {
   const theme = useTheme();
@@ -25,6 +31,9 @@ export function Addcompany() {
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
+  const [area, setArea] = useState("");
+  const [holiday, setHoliday] = useState("");
+  const [selectperson, setSelectPerson] = useState([]);
 
   //ステッパー
   const handleNext = () => {
@@ -54,6 +63,18 @@ export function Addcompany() {
   function addCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  const handlePerson = (event) => {
+    const value = event.target.name;
+    setSelectPerson((prevSelected) => {
+      if (prevSelected.includes(value)) {
+        return prevSelected.filter((item) => item !== value);
+      } else if (prevSelected.length < 3) {
+        return [...prevSelected, value];
+      }
+      return prevSelected;
+    });
+  };
 
   // ステップごとのコンテンツ
   const getStepContent = (step) => {
@@ -139,17 +160,64 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">求人条件登録</Typography>
-            <TextField label="勤務地" variant="standard" sx={{ width: 400 }} />
             <TextField
-              label="勤務時間"
+              label="勤務地"
               variant="standard"
               sx={{ width: 400 }}
+              value={area}
             />
+            <FormControl>
+              <FormLabel sx={{ ml: -1 }}>勤務体系</FormLabel>
+              <RadioGroup row>
+                <FormControlLabel
+                  value="fulltime"
+                  control={<Radio />}
+                  label="固定時間"
+                />
+                <FormControlLabel
+                  value="variable"
+                  control={<Radio />}
+                  label="変形労働時間"
+                />
+                <FormControlLabel
+                  value="flex"
+                  control={<Radio />}
+                  label="フレックス"
+                />
+              </RadioGroup>
+            </FormControl>
             <TextField
               label="年間休日"
               variant="standard"
               sx={{ width: 400 }}
+              value={holiday}
+              onChange={(e) => valuechange(e, setHoliday)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">日</InputAdornment>
+                ),
+              }}
             />
+            <FormControl>
+              <FormLabel sx={{ ml: -1 }}>休日制度</FormLabel>
+              <RadioGroup row>
+                <FormControlLabel
+                  value="fulltwoday"
+                  control={<Radio />}
+                  label="完全週休二日制"
+                />
+                <FormControlLabel
+                  value="twoday"
+                  control={<Radio />}
+                  label="週休二日制"
+                />
+                <FormControlLabel
+                  value="other"
+                  control={<Radio />}
+                  label="その他"
+                />
+              </RadioGroup>
+            </FormControl>
             <TextField
               label="必須資格"
               variant="standard"
@@ -169,37 +237,8 @@ export function Addcompany() {
               gap: 2,
             }}
           >
-            <Typography variant="h5">福利厚生登録</Typography>
-
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="社会保険"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="退職金制度"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="確定拠出型年金"
-              />
-            </FormGroup>
-          </Box>
-        );
-      case 3:
-        return (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-              mt: "10vh",
-              gap: 2,
-            }}
-          >
             <Typography variant="h5">募集学科登録</Typography>
+
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
@@ -225,6 +264,53 @@ export function Addcompany() {
                 control={<Checkbox defaultChecked />}
                 label="機械・CADデザイン"
               />
+            </FormGroup>
+          </Box>
+        );
+      case 3:
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: "10vh",
+              gap: 2,
+            }}
+          >
+            <Typography variant="h5">求める人物像</Typography>
+            <FormLabel>当てはまる上位3つの項目を選択してください</FormLabel>
+            <FormGroup>
+              <Grid container spacing={2} justifyContent="center">
+                {person.map((person, index) => (
+                  <Grid item xs={6} key={index}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ ml: "20%", mr: -10 }}
+                          name={person}
+                          checked={selectperson.includes(person)}
+                          onChange={handlePerson}
+                          disabled={
+                            !selectperson.includes(person) &&
+                            selectperson.length >= 3
+                          }
+                        />
+                      }
+                      label={
+                        <Typography noWrap sx={{ ml: "30%", mr: 0 }}>
+                          {person}
+                        </Typography>
+                      }
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </FormGroup>
           </Box>
         );

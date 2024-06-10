@@ -1,3 +1,4 @@
+//業種
 export const industry = [
   { title: "農業，林業" },
   { title: "漁業" },
@@ -21,6 +22,7 @@ export const industry = [
   { title: "分類不能の産業" },
 ];
 
+//職種
 export const occupation = [
   { title: "事務・管理系" },
   { title: "企画・マーケティング系" },
@@ -33,4 +35,20 @@ export const occupation = [
   { title: "クリエイティブ系" },
   { title: "IT系" },
   { title: "教育・保育・公共サービス系" },
+];
+
+//求める人物像
+export const person = [
+  "真面目",
+  "コミュニケーション能力",
+  "誠実",
+  "素直",
+  "チームワーク",
+  "責任感",
+  "柔軟性",
+  "リーダーシップ",
+  "自己管理",
+  "創造力",
+  "向上心",
+  "課題解決力",
 ];
