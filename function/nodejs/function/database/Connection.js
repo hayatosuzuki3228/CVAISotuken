@@ -1,15 +1,16 @@
-function connect() {
+function pool() {
     const mysql = require("mysql2");
 
-    // データベースサーバーと接続
-    const connection = mysql.createConnection({
+    // コネクションプールの作成
+    const pool = mysql.createPool({
+        connectionLimit : 10,
         host: "localhost",
         user: "user",
         password: "user",
         database: "sotsuken",
     });
 
-    return connection;
+    return pool;
 }
 
-exports.connect = connect;
+exports.pool = pool;

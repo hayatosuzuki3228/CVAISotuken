@@ -1,5 +1,4 @@
-// const connect = require("../database/Connection.js");
-const pool = require("../database/Pool.js").pool();
+const connect = require("../database/Connection.js");
 const encryption = require("../database/Encryption.js");
 
 async function authentication(args) {
@@ -17,9 +16,6 @@ async function authentication(args) {
     }
 
     return new Promise((resolve, reject) => {
-        // sqlと接続
-        const connection = pool.connect();
-
         const sql = "SELECT email, password, salt, active FROM authentication WHERE email = (?)";
 
         // 送信
