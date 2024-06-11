@@ -1,4 +1,4 @@
-name: Deploy Function to Azure VM
+name: Deploy to Azure VM
 
 on:
   push:
@@ -16,12 +16,13 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.AZURE_VM_SSH_BACKENDPRIVATE_KEY }} >> ~/.ssh/known_hosts
+          ssh-private-key: ${{ secrets.AZURE_VM_SSH_BACKENDPRIVATE_KEY }}
 
-      - name: Copy function directory to Azure VM
+      - name: Deploy to Azure VM
         run: |
-          rsync -avz --delete ./function/ ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }}:function/
-
-      - name: Restart function service
-        run: |
-          ssh ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }} 'sudo systemctl restart your-function-service'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }} << 'EOF'
+            cd etc/CVAISotuken
+            git switch main-backend
+            git pull origin main-backend
+            npm install  # or any other build steps
+          EOF
