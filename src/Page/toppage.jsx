@@ -25,6 +25,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
+import { blueGrey } from "@mui/material/colors";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -205,28 +206,40 @@ export function Toppage() {
             justifyContent="center"
             spacing={2}
           >
-            <Box border={1} borderColor={gray} width="40vw" height="70vh">
-              <Button fullWidth style={{ fontSize: "4em" }}>
-                お知らせ
-              </Button>
-              <Button fullWidth style={{ fontSize: "4em" }}>
-                メッセージ
-              </Button>
-              <Button fullWidth style={{ fontSize: "4em" }}>
-                企業からのお知らせ
-              </Button>
-              <Button fullWidth style={{ fontSize: "4em" }}>
-                ブックマーク
-              </Button>
-            </Box>
-            <Box border={1} borderColor={gray} width="40vw" height="70vh">
-              <Button fullWidth style={{ fontSize: "4em" }}>
-                就職ガイド
-              </Button>
-              <Button fullWidth style={{ fontSize: "4em" }}>
-                お問い合わせ
-              </Button>
-            </Box>
+            <Stack direction="column">
+              <Box border={1} borderColor={gray}>
+                <Button fullWidth style={{ fontSize: "3em" }}>
+                  お知らせ
+                </Button>
+              </Box>
+              <Box border={1} borderColor={gray}>
+                <Button fullWidth style={{ fontSize: "3em" }}>
+                  メッセージ
+                </Button>
+              </Box>
+              <Box border={1} borderColor={gray}>
+                <Button fullWidth style={{ fontSize: "3em" }}>
+                  企業からのお知らせ
+                </Button>
+              </Box>
+              <Box border={1} borderColor={gray}>
+                <Button fullWidth style={{ fontSize: "3em" }}>
+                  ブックマーク
+                </Button>
+              </Box>
+            </Stack>
+            <Stack direction="column">
+              <Box border={1} borderColor={gray}>
+                <Button fullWidth style={{ fontSize: "3em" }}>
+                  就職ガイド
+                </Button>
+              </Box>
+              <Box border={1} borderColor={gray}>
+                <Button fullWidth style={{ fontSize: "3em" }}>
+                  お問い合わせ
+                </Button>
+              </Box>
+            </Stack>
           </Stack>
         </Main>
       </Box>
