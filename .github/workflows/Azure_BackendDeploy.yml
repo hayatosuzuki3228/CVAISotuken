@@ -20,8 +20,8 @@ jobs:
 
       - name: Copy function directory to Azure VM
         run: |
-          rsync -avz --delete ./function/ user@your-azure-vm-ip:/path/to/remote/function/
+          rsync -avz --delete ./function/ ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }}:function/
 
       - name: Restart function service
         run: |
-          ssh user@your-azure-vm-ip 'sudo systemctl restart your-function-service'
+          ssh ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }} 'sudo systemctl restart your-function-service'
