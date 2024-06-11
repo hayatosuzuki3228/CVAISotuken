@@ -24,6 +24,11 @@ jobs:
             cd test/CVAISotuken
             git switch main-backend
             git pull origin main-backend
-            npm install  # or any other build steps
-            pm2 restart main  # or any other command to restart your application
+            
+            # npmキャッシュをクリア
+            npm cache clean --force
+            # node_modulesフォルダを削除
+            rm -rf node_modules
+            # 再インストール
+            npm install
           EOF
