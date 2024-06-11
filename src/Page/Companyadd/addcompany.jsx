@@ -381,19 +381,7 @@ export function Addcompany() {
             <FormGroup>
               <Stack direction="row" spacing={0.1} width={255} p={1}>
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={
-                        checked.every(Boolean) ||
-                        checked1.every(Boolean) ||
-                        (checked2[0] && checked2[1]) ||
-                        (checked3[0] && checked3[1]) ||
-                        (checked4[0] && checked4[1]) ||
-                        (checked5[0] && checked5[1])
-                      }
-                      onChange={all}
-                    />
-                  }
+                  control={<Checkbox onChange={all} />}
                 ></FormControlLabel>
                 <Typography variant="h6" p={1}>
                   不問
