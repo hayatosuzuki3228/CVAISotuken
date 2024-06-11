@@ -64,8 +64,8 @@ export function SEdit() {
     navigate("/profile-st-com");
   };
   const OnClickNext = () => {
-    const regex = /^[0-9,a-z,A-Z,ア-ン]{2,}$/;
-    const regex2 = /^[0-9,a-z,A-Z,あ-ん]{2,}$/;
+    const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
+    const regex2 = /^[ァ-ヴ]{2,}$/;
     const mailRegex =
       /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 
@@ -442,9 +442,7 @@ export function SEdit() {
         </Stack>
         <div>
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
-          <br />
           {error2 && <p style={{ color: "red" }}>{error2}</p>}
-          <br />
           {error3 && <p style={{ color: "red" }}>{error3}</p>}
         </div>
         <Stack direction="row" spacing={7}>

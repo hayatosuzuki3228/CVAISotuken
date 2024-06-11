@@ -16,40 +16,16 @@ import {
   Select,
   TextField,
   Button,
+  Autocomplete,
+  Chip,
 } from "@mui/material";
 import "./styles.css";
-import { license } from "./Data";
+import { options } from "./Data";
 
 export function SCEdit() {
   useEffect(() => {
     document.title = "プロフィール";
   }, []);
-
-  const navigate = useNavigate();
-  const OnClick = () => {
-    navigate("/profile-st");
-  };
-  const OnClick2 = () => {
-    navigate("/profile-st-com");
-  };
-
-  const OnClickBack = () => {
-    navigate("/profile-st-com", {
-      state: {
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-      },
-    });
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
 
   const location = useLocation();
   const warpJob = location.state?.job || "";
@@ -65,8 +41,62 @@ export function SCEdit() {
   const [SSubject, setSSubject] = useState(warpSSubject);
   const [KSubject, setKSubject] = useState(warpKSubject);
   const [myPower, setMyPower] = useState(warpMyPower);
-  const [Check, setCheck] = useState(false);
-  const [error, setError] = useState("");
+  const [error1, setError1] = useState("");
+  const [error2, setError2] = useState("");
+  const [error3, setError3] = useState("");
+  const [error4, setError4] = useState("");
+  const [error5, setError5] = useState("");
+  const [error6, setError6] = useState("");
+
+  const navigate = useNavigate();
+  const OnClick = () => {
+    navigate("/profile-st");
+  };
+  const OnClick2 = () => {
+    navigate("/profile-st-com");
+  };
+
+  const OnClickBack = () => {
+    const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
+    if ((regex.test(job, hobby, skill, SSubject, KSubject), myPower != "")) {
+      navigate("/profile-st-com", {
+        state: {
+          job,
+          hobby,
+          skill,
+          SSubject,
+          KSubject,
+          myPower,
+        },
+      });
+    } else {
+      {
+        !regex.test(job) ? setError1("エラー：希望職種") : "";
+      }
+      {
+        !regex.test(hobby) ? setError2("エラー：趣味") : "";
+      }
+      {
+        !regex.test(skill) ? setError3("エラー：得意な科目") : "";
+      }
+      {
+        !regex.test(SSubject) ? setError4("エラー：苦手な科目") : "";
+      }
+      {
+        !regex.test(KSubject) ? setError5("エラー：取得した資格") : "";
+      }
+      {
+        myPower != "" ? setError6("エラー：保有資格") : "";
+      }
+    }
+  };
+
+  const Check = job && hobby && skill && SSubject && KSubject && myPower;
+
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   return (
     <>
@@ -138,8 +168,6 @@ export function SCEdit() {
               label="希望職種の変更"
               value={job}
               onChange={(e) => setJob(e.target.value)}
-              helperText={job !== undefined && !job ? "未入力です。" : ""}
-              error={job !== undefined && !job}
             />
           </Box>
         </Stack>
@@ -168,8 +196,6 @@ export function SCEdit() {
               label="趣味の変更"
               value={hobby}
               onChange={(e) => setHobby(e.target.value)}
-              helperText={hobby !== undefined && !hobby ? "未入力です。" : ""}
-              error={hobby !== undefined && !hobby}
             />
           </Box>
         </Stack>
@@ -197,8 +223,6 @@ export function SCEdit() {
               label="特技の変更"
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
-              helperText={skill !== undefined && !skill ? "未入力です。" : ""}
-              error={skill !== undefined && !skill}
             />
           </Box>
         </Stack>
@@ -226,10 +250,6 @@ export function SCEdit() {
               label="得意な科目の変更"
               value={SSubject}
               onChange={(e) => setSSubject(e.target.value)}
-              helperText={
-                SSubject !== undefined && !SSubject ? "未入力です。" : ""
-              }
-              error={SSubject !== undefined && !SSubject}
             />
             <p></p>
             <TextField
@@ -238,10 +258,6 @@ export function SCEdit() {
               label="苦手な科目の変更"
               value={KSubject}
               onChange={(e) => setKSubject(e.target.value)}
-              helperText={
-                KSubject !== undefined && !KSubject ? "未入力です。" : ""
-              }
-              error={KSubject !== undefined && !KSubject}
             />
           </Box>
         </Stack>
@@ -262,24 +278,48 @@ export function SCEdit() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <TextField
-              select
+            <Autocomplete
+              sx={{ maxWidth: 300 }}
               fullWidth
-              id={license}
-              value={myPower}
-              label="取得した資格"
-              onChange={(e) => setMyPower(e.target.value)}
-            >
-              {license.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              multiple
+              id="tags-outlined"
+              options={options}
+              getOptionLabel={(option) => option.title}
+              defaultValue={myPower || []}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  fullWidth
+                  {...params}
+                  variant="outlined"
+                  label="取得した資格"
+                />
+              )}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option.title}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              onChange={(event, newValue) => {
+                setMyPower(newValue);
+              }}
+            />
           </Box>
         </Stack>
 
-        <Button variant="contained" onClick={OnClickBack} disabled={Check}>
+        <div>
+          {error1 && <p style={{ color: "red" }}>{error1}</p>}
+          {error2 && <p style={{ color: "red" }}>{error2}</p>}
+          {error3 && <p style={{ color: "red" }}>{error3}</p>}
+          {error4 && <p style={{ color: "red" }}>{error4}</p>}
+          {error5 && <p style={{ color: "red" }}>{error5}</p>}
+          {error6 && <p style={{ color: "red" }}>{error6}</p>}
+        </div>
+        <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
           情報を確定する
         </Button>
       </Stack>

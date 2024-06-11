@@ -34,33 +34,6 @@ export function CEdit() {
     setOpen(newOpen);
   };
 
-  const navigate = useNavigate();
-  const OnClick = () => {
-    navigate("");
-    navigate("/profile-st-edit");
-  };
-  const OnClick2 = () => {
-    navigate("/profile-st-com");
-  };
-  const OnClickBack = () => {
-    navigate("/profile-com", {
-      state: {
-        Cname,
-        CkName,
-        place,
-        tel,
-        fax,
-        info,
-        COpen,
-        COpenM,
-        capital,
-        people,
-        comePeople,
-        homepage,
-      },
-    });
-  };
-
   const location = useLocation();
   const warpCname = location.state?.Cname || "";
   const warpCkName = location.state?.CkName || "";
@@ -88,7 +61,81 @@ export function CEdit() {
   const [comePeople, setComePeople] = useState(warpComePeople);
   const [homepage, setHomepage] = useState(warpHomepage);
 
-  const Checks =
+  const [error1, setError1] = useState("");
+  const [error2, setError2] = useState("");
+  const [error3, setError3] = useState("");
+  const [error4, setError4] = useState("");
+  const [error5, setError5] = useState("");
+  const [error6, setError6] = useState("");
+  const [error7, setError7] = useState("");
+  const [error8, setError8] = useState("");
+  const [error9, setError9] = useState("");
+
+  const navigate = useNavigate();
+  const OnClick = () => {
+    navigate("");
+    navigate("/profile-st-edit");
+  };
+  const OnClick2 = () => {
+    navigate("/profile-st-com");
+  };
+  const OnClickBack = () => {
+    const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
+    const TelRegex = /^[1-9-]{11,}$/;
+    const MoneyRegex = /^[1-9]{1,}$/;
+    if (
+      regex.test(Cname, CkName, place, info, people, comePeople) &&
+      TelRegex.test(tel, fax) &&
+      MoneyRegex.test(capital)
+    ) {
+      navigate("/profile-com", {
+        state: {
+          Cname,
+          CkName,
+          place,
+          tel,
+          fax,
+          info,
+          COpen,
+          COpenM,
+          capital,
+          people,
+          comePeople,
+          homepage,
+        },
+      });
+    } else {
+      {
+        !regex.test(Cname) ? setError1("エラー：企業名") : "";
+      }
+      {
+        !regex.test(CkName) ? setError2("エラー：企業名カタカナ") : "";
+      }
+      {
+        !regex.test(place) ? setError3("エラー：企業所在地") : "";
+      }
+      {
+        !TelRegex.test(tel) ? setError4("エラー：電話番号") : "";
+      }
+      {
+        !TelRegex.test(fax) ? setError5("エラー：FAX番号") : "";
+      }
+      {
+        !regex.test(info) ? setError6("エラー：事業内容") : "";
+      }
+      {
+        !MoneyRegex.test(capital) ? setError7("エラー：資本金") : "";
+      }
+      {
+        !regex.test(people) ? setError8("エラー：代表者名") : "";
+      }
+      {
+        !regex.test(comePeople) ? setError9("エラー：人物像") : "";
+      }
+    }
+  };
+
+  const Check =
     Cname &&
     CkName &&
     place &&
@@ -205,8 +252,6 @@ export function CEdit() {
               label="企業所在地の変更"
               value={place}
               onChange={(e) => setPlace(e.target.value)}
-              helperText={place !== undefined && !place ? "未入力です" : ""}
-              error={place !== undefined && !place}
             />
           </Box>
         </Stack>
@@ -438,7 +483,18 @@ export function CEdit() {
           </Box>
         </Stack>
 
-        <Button variant="contained" onClick={OnClickBack} disabled={!Checks}>
+        <div>
+          {error1 && <p style={{ color: "red" }}>{error1}</p>}
+          {error2 && <p style={{ color: "red" }}>{error2}</p>}
+          {error3 && <p style={{ color: "red" }}>{error3}</p>}
+          {error4 && <p style={{ color: "red" }}>{error4}</p>}
+          {error5 && <p style={{ color: "red" }}>{error5}</p>}
+          {error6 && <p style={{ color: "red" }}>{error6}</p>}
+          {error7 && <p style={{ color: "red" }}>{error7}</p>}
+          {error8 && <p style={{ color: "red" }}>{error8}</p>}
+          {error9 && <p style={{ color: "red" }}>{error9}</p>}
+        </div>
+        <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
           情報を確定する
         </Button>
       </Stack>
