@@ -35,6 +35,11 @@ export function Addcompany() {
   const [holiday, setHoliday] = useState("");
   const [selectperson, setSelectPerson] = useState([]);
 
+  const [FourYearSalary, setFourYearSalary] = useState(null);
+  const [ThreeYearSalary, setThreeYearSalary] = useState(null);
+  const [TwoYearSalary, setTwoYearSalary] = useState(null);
+  const [OneYearSalary, setOneYearSalary] = useState(null);
+
   //ステッパー
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -279,6 +284,74 @@ export function Addcompany() {
               gap: 2,
             }}
           >
+            <Typography variant="h5">給与情報</Typography>
+
+            <TextField
+              id="course-year-2"
+              label="2年課程"
+              variant="outlined"
+              value={TwoYearSalary || ""}
+              onChange={(e) => valuechange(e, setTwoYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-3"
+              label="3年課程"
+              variant="outlined"
+              value={ThreeYearSalary || ""}
+              onChange={(e) => valuechange(e, setThreeYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-4"
+              label="4年課程"
+              variant="outlined"
+              value={FourYearSalary || ""}
+              onChange={(e) => valuechange(e, setFourYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="research-course"
+              label="研究科(1年課程)"
+              variant="outlined"
+              value={OneYearSalary || ""}
+              onChange={(e) => valuechange(e, setOneYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+        );
+      case 4:
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: "10vh",
+              gap: 2,
+            }}
+          >
             <Typography variant="h5">求める人物像</Typography>
             <FormLabel>当てはまる上位3つの項目を選択してください</FormLabel>
             <FormGroup>
@@ -329,7 +402,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={4}
+        steps={5}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -337,7 +410,7 @@ export function Addcompany() {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 3}
+            disabled={activeStep === 4}
             sx={{ mt: 2 }}
           >
             次へ
