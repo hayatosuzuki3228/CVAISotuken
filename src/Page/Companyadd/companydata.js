@@ -37,6 +37,19 @@ export const occupation = [
   { title: "教育・保育・公共サービス系" },
 ];
 
+//必須資格
+export const qualification = [
+  { title: "普通自動車免許（AT限定可）" },
+  { title: "普通自動車免許" },
+  { title: "準中型自動車免許" },
+  { title: "第一種電気工事士" },
+  { title: "第二種電気工事士" },
+  { title: "電気主任技術者第3種" },
+  { title: "第1級陸上特殊無線技士" },
+  { title: "工事担任者AD･DD総合種" },
+  { title: "基本情報技術者" },
+];
+
 //求める人物像
 export const person = [
   "真面目",

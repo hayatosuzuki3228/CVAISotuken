@@ -24,21 +24,36 @@ import {
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { industry, occupation, person } from "../Companyadd/companydata";
+import {
+  industry,
+  occupation,
+  person,
+  qualification,
+} from "../Companyadd/companydata";
 import companies from "../Matching/matchtable";
 import CompanyDetails from "./companysarch";
 import { alignProperty } from "@mui/material/styles/cssUtils";
+import { Category } from "@mui/icons-material";
 
 export function Addcompany() {
   const theme = useTheme();
 
   const [activeStep, setActiveStep] = React.useState(0);
+  const [name, setName] = useState("");
+  const [selectindustry, setSelectIndustry] = useState(null);
+  const [selectoccupation, setSelectOccupation] = useState(null);
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
   const [area, setArea] = useState("");
   const [holiday, setHoliday] = useState("");
+  const [selectqualification, setSelectQualification] = "";
   const [selectperson, setSelectPerson] = useState([]);
+
+  const [FourYearSalary, setFourYearSalary] = useState(null);
+  const [ThreeYearSalary, setThreeYearSalary] = useState(null);
+  const [TwoYearSalary, setTwoYearSalary] = useState(null);
+  const [OneYearSalary, setOneYearSalary] = useState(null);
 
   //ステッパー
   const handleNext = () => {
@@ -201,9 +216,17 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">企業情報登録</Typography>
-            <TextField label="会社名" variant="standard" sx={{ width: 400 }} />
+            <TextField
+              label="会社名"
+              value={name}
+              variant="standard"
+              onChange={(e) => setName(e.target.value)}
+              sx={{ width: 400 }}
+            />
             <Autocomplete
               sx={{ width: 400 }}
+              value={selectindustry}
+              onChange={(event, newValue) => setSelectIndustry(newValue)}
               options={industry}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
@@ -212,17 +235,19 @@ export function Addcompany() {
             />
             <Autocomplete
               sx={{ width: 400 }}
+              value={selectoccupation}
+              onChange={(event, newValue) => setSelectOccupation(newValue)}
               options={occupation}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
                 <TextField {...params} label="職種" variant="standard" />
               )}
-            />{" "}
+            />
             <TextField
               label="資本金"
+              value={capital}
               variant="standard"
               sx={{ width: 400 }}
-              value={capital}
               onChange={(e) => valuechange(e, setCapital)}
               InputProps={{
                 endAdornment: (
@@ -327,10 +352,15 @@ export function Addcompany() {
                 />
               </RadioGroup>
             </FormControl>
-            <TextField
-              label="必須資格"
-              variant="standard"
+            <Autocomplete
               sx={{ width: 400 }}
+              value={selectqualification}
+              onChange={(event, newValue) => setSelectQualification(newValue)}
+              options={qualification}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} label="必須資格" variant="standard" />
+              )}
             />
           </Box>
         );
@@ -604,6 +634,74 @@ export function Addcompany() {
               gap: 2,
             }}
           >
+            <Typography variant="h5">給与情報</Typography>
+
+            <TextField
+              id="course-year-2"
+              label="2年課程"
+              variant="outlined"
+              value={TwoYearSalary || ""}
+              onChange={(e) => valuechange(e, setTwoYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-3"
+              label="3年課程"
+              variant="outlined"
+              value={ThreeYearSalary || ""}
+              onChange={(e) => valuechange(e, setThreeYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-4"
+              label="4年課程"
+              variant="outlined"
+              value={FourYearSalary || ""}
+              onChange={(e) => valuechange(e, setFourYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="research-course"
+              label="研究科(1年課程)"
+              variant="outlined"
+              value={OneYearSalary || ""}
+              onChange={(e) => valuechange(e, setOneYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+        );
+      case 4:
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: "10vh",
+              gap: 2,
+            }}
+          >
             <Typography variant="h5">求める人物像</Typography>
             <FormLabel>当てはまる上位3つの項目を選択してください</FormLabel>
             <FormGroup>
@@ -640,6 +738,26 @@ export function Addcompany() {
           </Box>
         );
 
+      case 4:
+        return (
+          <Box>
+            <Typography>会社名：{name}</Typography>
+            <Typography>
+              業種：{selectindustry ? selectindustry.title : ""}
+            </Typography>
+            <Typography>
+              職種：{selectoccupation ? selectoccupation.title : ""}
+            </Typography>
+            <Typography>資本金: {capital}百万円</Typography>
+            <Typography>売上高: {sales}百万円</Typography>
+            <Typography>従業員数: {employees}人</Typography>
+            <Typography>
+              必須資格：{selectqualification ? selectqualification.title : ""}
+            </Typography>
+            <Typography>年間休日: {holiday}日</Typography>
+            <Typography>選択された人物像: {selectperson.join(", ")}</Typography>
+          </Box>
+        );
       default:
         return (
           <div>
@@ -654,7 +772,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={4}
+        steps={5}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -662,7 +780,7 @@ export function Addcompany() {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 3}
+            disabled={activeStep === 4}
             sx={{ mt: 2 }}
           >
             次へ
