@@ -27,6 +27,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   industry,
   occupation,
+  area,
   person,
   qualification,
 } from "../Companyadd/companydata";
@@ -45,15 +46,19 @@ export function Addcompany() {
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
-  const [area, setArea] = useState("");
+  const [selectarea, setSelectArea] = useState(null);
   const [holiday, setHoliday] = useState("");
-  const [selectqualification, setSelectQualification] = "";
+  const [selectqualification, setSelectQualification] = useState(null);
   const [selectperson, setSelectPerson] = useState([]);
 
-  const [FourYearSalary, setFourYearSalary] = useState(null);
-  const [ThreeYearSalary, setThreeYearSalary] = useState(null);
-  const [TwoYearSalary, setTwoYearSalary] = useState(null);
-  const [OneYearSalary, setOneYearSalary] = useState(null);
+  const [FourYearSalary, setFourYearSalary] = useState(0);
+  const [ThreeYearSalary, setThreeYearSalary] = useState(0);
+  const [TwoYearSalary, setTwoYearSalary] = useState(0);
+  const [OneYearSalary, setOneYearSalary] = useState(0);
+  const [FourYearAllowances, setFourYearAllowances] = useState(0);
+  const [ThreeYearAllowances, setThreeYearAllowances] = useState(0);
+  const [TwoYearAllowances, setTwoYearAllowances] = useState(0);
+  const [OneYearAllowances, setOneYearAllowances] = useState(0);
 
   //ステッパー
   const handleNext = () => {
@@ -294,11 +299,15 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">求人条件登録</Typography>
-            <TextField
-              label="勤務地"
-              variant="standard"
+            <Autocomplete
               sx={{ width: 400 }}
-              value={area}
+              value={selectarea}
+              onChange={(event, newValue) => setSelectArea(newValue)}
+              options={area}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} label="勤務地" variant="standard" />
+              )}
             />
             <FormControl>
               <FormLabel sx={{ ml: -1 }}>勤務体系</FormLabel>
@@ -625,35 +634,8 @@ export function Addcompany() {
             <Typography variant="h5">給与情報</Typography>
 
             <TextField
-              id="course-year-2"
-              label="2年課程"
-              variant="outlined"
-              value={TwoYearSalary || ""}
-              onChange={(e) => valuechange(e, setTwoYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="course-year-3"
-              label="3年課程"
-              variant="outlined"
-              value={ThreeYearSalary || ""}
-              onChange={(e) => valuechange(e, setThreeYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="course-year-4"
               label="4年課程"
-              variant="outlined"
+              variant="standard"
               value={FourYearSalary || ""}
               onChange={(e) => valuechange(e, setFourYearSalary)}
               sx={{ width: 400 }}
@@ -663,12 +645,64 @@ export function Addcompany() {
                 ),
               }}
             />
+
             <TextField
-              id="research-course"
-              label="研究科(1年課程)"
-              variant="outlined"
-              value={OneYearSalary || ""}
-              onChange={(e) => valuechange(e, setOneYearSalary)}
+              label="4年課程手当"
+              variant="standard"
+              value={FourYearAllowances || ""}
+              onChange={(e) => valuechange(e, setFourYearAllowances)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+
+            <TextField
+              label="3年課程"
+              variant="standard"
+              value={ThreeYearSalary || ""}
+              onChange={(e) => valuechange(e, setThreeYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+
+            <TextField
+              label="3年課程手当"
+              variant="standard"
+              value={ThreeYearAllowances || ""}
+              onChange={(e) => valuechange(e, setThreeYearAllowances)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+
+            <TextField
+              label="2年課程"
+              variant="standard"
+              value={TwoYearSalary || ""}
+              onChange={(e) => valuechange(e, setTwoYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+
+            <TextField
+              label="2年課程手当"
+              variant="standard"
+              value={TwoYearAllowances || ""}
+              onChange={(e) => valuechange(e, setTwoYearAllowances)}
               sx={{ width: 400 }}
               InputProps={{
                 endAdornment: (
@@ -725,8 +759,7 @@ export function Addcompany() {
             </FormGroup>
           </Box>
         );
-
-      case 4:
+      case 5:
         return (
           <Box>
             <Typography>会社名：{name}</Typography>
@@ -760,7 +793,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={5}
+        steps={6}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -768,7 +801,7 @@ export function Addcompany() {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 4}
+            disabled={activeStep === 5}
             sx={{ mt: 2 }}
           >
             次へ
