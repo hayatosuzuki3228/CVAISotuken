@@ -19,20 +19,30 @@ import {
 } from "@mui/material";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { industry, occupation, person } from "../Companyadd/companydata";
+import {
+  industry,
+  occupation,
+  person,
+  qualification,
+} from "../Companyadd/companydata";
 import companies from "../Matching/matchtable";
 import CompanyDetails from "./companysarch";
 import { alignProperty } from "@mui/material/styles/cssUtils";
+import { Category } from "@mui/icons-material";
 
 export function Addcompany() {
   const theme = useTheme();
 
   const [activeStep, setActiveStep] = React.useState(0);
+  const [name, setName] = useState("");
+  const [selectindustry, setSelectIndustry] = useState(null);
+  const [selectoccupation, setSelectOccupation] = useState(null);
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
   const [area, setArea] = useState("");
   const [holiday, setHoliday] = useState("");
+  const [selectqualification, setSelectQualification] = "";
   const [selectperson, setSelectPerson] = useState([]);
 
   //ステッパー
@@ -92,9 +102,17 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">企業情報登録</Typography>
-            <TextField label="会社名" variant="standard" sx={{ width: 400 }} />
+            <TextField
+              label="会社名"
+              value={name}
+              variant="standard"
+              onChange={(e) => setName(e.target.value)}
+              sx={{ width: 400 }}
+            />
             <Autocomplete
               sx={{ width: 400 }}
+              value={selectindustry}
+              onChange={(event, newValue) => setSelectIndustry(newValue)}
               options={industry}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
@@ -103,17 +121,19 @@ export function Addcompany() {
             />
             <Autocomplete
               sx={{ width: 400 }}
+              value={selectoccupation}
+              onChange={(event, newValue) => setSelectOccupation(newValue)}
               options={occupation}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
                 <TextField {...params} label="職種" variant="standard" />
               )}
-            />{" "}
+            />
             <TextField
               label="資本金"
+              value={capital}
               variant="standard"
               sx={{ width: 400 }}
-              value={capital}
               onChange={(e) => valuechange(e, setCapital)}
               InputProps={{
                 endAdornment: (
@@ -218,10 +238,15 @@ export function Addcompany() {
                 />
               </RadioGroup>
             </FormControl>
-            <TextField
-              label="必須資格"
-              variant="standard"
+            <Autocomplete
               sx={{ width: 400 }}
+              value={selectqualification}
+              onChange={(event, newValue) => setSelectQualification(newValue)}
+              options={qualification}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} label="必須資格" variant="standard" />
+              )}
             />
           </Box>
         );
@@ -315,6 +340,26 @@ export function Addcompany() {
           </Box>
         );
 
+      case 4:
+        return (
+          <Box>
+            <Typography>会社名：{name}</Typography>
+            <Typography>
+              業種：{selectindustry ? selectindustry.title : ""}
+            </Typography>
+            <Typography>
+              職種：{selectoccupation ? selectoccupation.title : ""}
+            </Typography>
+            <Typography>資本金: {capital}百万円</Typography>
+            <Typography>売上高: {sales}百万円</Typography>
+            <Typography>従業員数: {employees}人</Typography>
+            <Typography>
+              必須資格：{selectqualification ? selectqualification.title : ""}
+            </Typography>
+            <Typography>年間休日: {holiday}日</Typography>
+            <Typography>選択された人物像: {selectperson.join(", ")}</Typography>
+          </Box>
+        );
       default:
         return (
           <div>
@@ -329,7 +374,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={4}
+        steps={5}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -337,7 +382,7 @@ export function Addcompany() {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 3}
+            disabled={activeStep === 4}
             sx={{ mt: 2 }}
           >
             次へ
