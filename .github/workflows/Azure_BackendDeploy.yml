@@ -16,7 +16,7 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.AZURE_VM_SSH_BACKENDPRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.AZURE_VM_SSH_BACKENDPRIVATE_KEY }} >> ~/.ssh/known_hosts
 
       - name: Copy function directory to Azure VM
         run: |
