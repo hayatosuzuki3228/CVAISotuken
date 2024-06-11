@@ -20,15 +20,22 @@ jobs:
 
       - name: Deploy to Azure VM
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }} << 'EOF'
+          ssh -v -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_BACKENDIP }} << 'EOF'
             cd test/CVAISotuken
             git switch main-backend
             git pull origin main-backend
-            
             # npmキャッシュをクリア
             npm cache clean --force
             # node_modulesフォルダを削除
             rm -rf node_modules
             # 再インストール
-            npm install
+            npm install > npm_install.log 2>&1  # ログをファイルにリダイレクト
+            pm2 restart main  # アプリケーションの再起動
+            exit  # SSHセッションの終了
           EOF
+
+      - name: Fetch npm install log
+        uses: actions/upload-artifact@v2
+        with:
+          name: npm-install-log
+          path: npm_install.log
