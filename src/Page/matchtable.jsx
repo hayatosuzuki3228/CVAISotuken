@@ -127,16 +127,22 @@ Row.propTypes = {
 
 export function Matchtable() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [detailSearchTerm, setDetailSearchTerm] = useState(""); // 詳細検索用の状態
   const [showDetail, setShowDetail] = useState(false); // 事業内容の表示状態を管理するstate
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleDetailSearch = (event) => {
+    setDetailSearchTerm(event.target.value);
+  };
+
   const filteredRows = rows.filter(
     (row) =>
-      row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      row.name.toLowerCase().includes(searchTerm.toLowerCase())
+      (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase())
   );
 
   const toggleDetail = () => {
@@ -145,14 +151,32 @@ export function Matchtable() {
 
   return (
     <>
-      <TextField
-        label="IDまたは会社名入力"
-        value={searchTerm}
-        onChange={handleSearch}
-        variant="outlined"
-        sx={{ marginBottom: "1rem", width: 500 }}
-        className="sertch"
-      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          marginBottom: "1rem",
+        }}
+      >
+        <TextField
+          label="IDまたは会社名入力"
+          value={searchTerm}
+          onChange={handleSearch}
+          variant="outlined"
+          sx={{ marginBottom: "1rem", width: 500 }}
+          className="sertch"
+        />
+
+        <TextField
+          label="事業内容入力"
+          value={detailSearchTerm}
+          onChange={handleDetailSearch}
+          variant="outlined"
+          sx={{ marginBottom: "1rem", width: 500 }}
+          className="detailSearch"
+        />
+      </Box>
       <Button
         onClick={toggleDetail}
         variant="contained"
