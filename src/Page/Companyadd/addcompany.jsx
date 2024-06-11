@@ -16,9 +16,14 @@ import {
   Typography,
   Radio,
   RadioGroup,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Stack,
 } from "@mui/material";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   industry,
   occupation,
@@ -44,6 +49,11 @@ export function Addcompany() {
   const [holiday, setHoliday] = useState("");
   const [selectqualification, setSelectQualification] = "";
   const [selectperson, setSelectPerson] = useState([]);
+
+  const [FourYearSalary, setFourYearSalary] = useState(null);
+  const [ThreeYearSalary, setThreeYearSalary] = useState(null);
+  const [TwoYearSalary, setTwoYearSalary] = useState(null);
+  const [OneYearSalary, setOneYearSalary] = useState(null);
 
   //ステッパー
   const handleNext = () => {
@@ -86,6 +96,18 @@ export function Addcompany() {
     });
   };
 
+  //チェックボックス連動
+  const [checked, setChecked] = React.useState([true, false]);
+
+  const comit = (event) => {
+    setChecked([event.target.checked, event.target.checked]);
+  };
+  const comit4 = (event) => {
+    setChecked([event.target.checked, checked[1]]);
+  };
+  const comit2 = (event) => {
+    setChecked([checked[0], event.target.checked]);
+  };
   // ステップごとのコンテンツ
   const getStepContent = (step) => {
     switch (step) {
@@ -265,34 +287,230 @@ export function Addcompany() {
             <Typography variant="h5">募集学科登録</Typography>
 
             <FormGroup>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="コンピューター・IT"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="ゲーム・CG"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="映像・音響"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="電気"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="情報通信"
-              />
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="機械・CADデザイン"
-              />
+              <Stack direction="row" spacing={0.1} width={255} p={1}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked[0] && checked[1]}
+                      indeterminate={checked[0] !== checked[1]}
+                      onChange={comit}
+                    />
+                  }
+                />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    コンピューター・IT
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControlLabel
+                      control={
+                        <Checkbox checked={checked[0]} onChange={comit4} />
+                      }
+                      label="4年"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox checked={checked[1]} onChange={comit2} />
+                      }
+                      label="2年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="3年・2年・1年"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </Stack>
+              <Stack direction="row" spacing={0.1} width={255} p={1}>
+                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    ゲーム・CG
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="4年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年+1年"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </Stack>
+              <Stack direction="row" spacing={0.1} width={260} p={1}>
+                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    映像・音響
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年+1年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </Stack>
+              <Stack direction="row" spacing={0.1} width={260} p={1}>
+                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    電気
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年+1年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </Stack>
+              <Stack direction="row" spacing={0.1} width={260} p={1}>
+                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    情報通信
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年+1年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </Stack>
+              <Stack direction="row" spacing={0.1} width={260} p={1}>
+                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    機械・CADデザイン
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年+1年"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="2年"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              </Stack>
             </FormGroup>
           </Box>
         );
       case 3:
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: "10vh",
+              gap: 2,
+            }}
+          >
+            <Typography variant="h5">給与情報</Typography>
+
+            <TextField
+              id="course-year-2"
+              label="2年課程"
+              variant="outlined"
+              value={TwoYearSalary || ""}
+              onChange={(e) => valuechange(e, setTwoYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-3"
+              label="3年課程"
+              variant="outlined"
+              value={ThreeYearSalary || ""}
+              onChange={(e) => valuechange(e, setThreeYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-4"
+              label="4年課程"
+              variant="outlined"
+              value={FourYearSalary || ""}
+              onChange={(e) => valuechange(e, setFourYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="research-course"
+              label="研究科(1年課程)"
+              variant="outlined"
+              value={OneYearSalary || ""}
+              onChange={(e) => valuechange(e, setOneYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+        );
+      case 4:
         return (
           <Box
             sx={{
