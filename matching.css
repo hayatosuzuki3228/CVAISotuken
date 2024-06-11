@@ -7,12 +7,17 @@
   }
   #hart {
     position: relative;
-    left: 1080px;
+    left: 1040px;
+    top: 5px;
+  }
+  #mylist {
+    position: relative;
+    left: 1030px;
     top: 5px;
   }
   #setting {
     position: relative;
-    left: 1090px;
+    left: 1020px;
     top: 5px;
   }
   div.menu {

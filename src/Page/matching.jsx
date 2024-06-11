@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
+import PersonIcon from "@mui/icons-material/Person";
 import companies from "../const/companies";
 const options = companies.map((company) => ({
   label: company.name,
@@ -32,6 +33,14 @@ export function Matching() {
               onClick={() => navigate("/Conditions")}
             >
               <FavoriteIcon sx={{ color: "#ff1493", fontSize: 60 }} />
+            </IconButton>
+          </div>
+          <div id="mylist">
+            <IconButton
+              aria-label="マイリスト"
+              onClick={() => navigate("/mylist")}
+            >
+              <PersonIcon sx={{ color: "black", fontSize: 60 }} />
             </IconButton>
           </div>
           <div id="setting">
