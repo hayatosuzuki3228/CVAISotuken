@@ -27,7 +27,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   industry,
   occupation,
-  area,
   person,
   qualification,
 } from "../Companyadd/companydata";
@@ -46,19 +45,15 @@ export function Addcompany() {
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
-  const [selectarea, setSelectArea] = useState(null);
+  const [area, setArea] = useState("");
   const [holiday, setHoliday] = useState("");
-  const [selectqualification, setSelectQualification] = useState(null);
+  const [selectqualification, setSelectQualification] = "";
   const [selectperson, setSelectPerson] = useState([]);
 
-  const [FourYearSalary, setFourYearSalary] = useState(0);
-  const [ThreeYearSalary, setThreeYearSalary] = useState(0);
-  const [TwoYearSalary, setTwoYearSalary] = useState(0);
-  const [OneYearSalary, setOneYearSalary] = useState(0);
-  const [FourYearAllowances, setFourYearAllowances] = useState(0);
-  const [ThreeYearAllowances, setThreeYearAllowances] = useState(0);
-  const [TwoYearAllowances, setTwoYearAllowances] = useState(0);
-  const [OneYearAllowances, setOneYearAllowances] = useState(0);
+  const [FourYearSalary, setFourYearSalary] = useState(null);
+  const [ThreeYearSalary, setThreeYearSalary] = useState(null);
+  const [TwoYearSalary, setTwoYearSalary] = useState(null);
+  const [OneYearSalary, setOneYearSalary] = useState(null);
 
   //ステッパー
   const handleNext = () => {
@@ -299,15 +294,11 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">求人条件登録</Typography>
-            <Autocomplete
+            <TextField
+              label="勤務地"
+              variant="standard"
               sx={{ width: 400 }}
-              value={selectarea}
-              onChange={(event, newValue) => setSelectArea(newValue)}
-              options={area}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField {...params} label="勤務地" variant="standard" />
-              )}
+              value={area}
             />
             <FormControl>
               <FormLabel sx={{ ml: -1 }}>勤務体系</FormLabel>
@@ -390,7 +381,23 @@ export function Addcompany() {
             <FormGroup>
               <Stack direction="row" spacing={0.1} width={255} p={1}>
                 <FormControlLabel
-                  control={<Checkbox onChange={all} />}
+                  control={
+                    <Checkbox
+                      checked={
+                        checked.every(Boolean) &&
+                        checked1.every(Boolean) &&
+                        checked2[0] &&
+                        checked2[1] &&
+                        checked3[0] &&
+                        checked3[1] &&
+                        checked4[0] &&
+                        checked4[1] &&
+                        checked5[0] &&
+                        checked5[1]
+                      }
+                      onChange={all}
+                    />
+                  }
                 ></FormControlLabel>
                 <Typography variant="h6" p={1}>
                   不問
@@ -634,60 +641,9 @@ export function Addcompany() {
             <Typography variant="h5">給与情報</Typography>
 
             <TextField
-              label="4年課程"
-              variant="standard"
-              value={FourYearSalary || ""}
-              onChange={(e) => valuechange(e, setFourYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-
-            <TextField
-              label="4年課程手当"
-              variant="standard"
-              value={FourYearAllowances || ""}
-              onChange={(e) => valuechange(e, setFourYearAllowances)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-
-            <TextField
-              label="3年課程"
-              variant="standard"
-              value={ThreeYearSalary || ""}
-              onChange={(e) => valuechange(e, setThreeYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-
-            <TextField
-              label="3年課程手当"
-              variant="standard"
-              value={ThreeYearAllowances || ""}
-              onChange={(e) => valuechange(e, setThreeYearAllowances)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-
-            <TextField
+              id="course-year-2"
               label="2年課程"
-              variant="standard"
+              variant="outlined"
               value={TwoYearSalary || ""}
               onChange={(e) => valuechange(e, setTwoYearSalary)}
               sx={{ width: 400 }}
@@ -697,12 +653,38 @@ export function Addcompany() {
                 ),
               }}
             />
-
             <TextField
-              label="2年課程手当"
-              variant="standard"
-              value={TwoYearAllowances || ""}
-              onChange={(e) => valuechange(e, setTwoYearAllowances)}
+              id="course-year-3"
+              label="3年課程"
+              variant="outlined"
+              value={ThreeYearSalary || ""}
+              onChange={(e) => valuechange(e, setThreeYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="course-year-4"
+              label="4年課程"
+              variant="outlined"
+              value={FourYearSalary || ""}
+              onChange={(e) => valuechange(e, setFourYearSalary)}
+              sx={{ width: 400 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">円</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="research-course"
+              label="研究科(1年課程)"
+              variant="outlined"
+              value={OneYearSalary || ""}
+              onChange={(e) => valuechange(e, setOneYearSalary)}
               sx={{ width: 400 }}
               InputProps={{
                 endAdornment: (
@@ -759,7 +741,8 @@ export function Addcompany() {
             </FormGroup>
           </Box>
         );
-      case 5:
+
+      case 4:
         return (
           <Box>
             <Typography>会社名：{name}</Typography>
@@ -793,7 +776,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={6}
+        steps={5}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -801,7 +784,7 @@ export function Addcompany() {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 5}
+            disabled={activeStep === 4}
             sx={{ mt: 2 }}
           >
             次へ
