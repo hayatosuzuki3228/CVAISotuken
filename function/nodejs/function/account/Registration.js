@@ -1,7 +1,8 @@
 // もろもろインポート
 const crypto = require("crypto");
 
-const connect = require("../database/Connection.js");
+// const connect = require("../database/Connection.js");
+const connect = require("../database/Pool.js").pool();
 const encryption = require("../database/Encryption.js");
 
 async function registration(args) {
@@ -35,98 +36,72 @@ async function registration(args) {
     const hashedPassword = encryption.encryption(args.password, salt)
 
     // 計算が成功しているのであればデータベースに送信
-    if(hashedPassword !== false) {
-        // sqlと接続
-        const connection = connect.connect();
-
-
-        // SQLを記述
-        const authSql = "INSERT INTO authentication(email, password, salt, active) VALUES(?, ?, ?, true)";
-        const profileSql = "INSERT INTO user_profile(name, furigana, sex, birthday, residence, qualification) VALUES(?, ?, ?, ?, ?, ?)";
-        const checkEmailSql = "SELECT COUNT(*) AS count FROM authentication WHERE email = ?";
-
-        const sql_array = [checkEmailSql, authSql, profileSql]
-        const args_array = [[args.email], [args.email, hashedPassword, salt], [args.name, args.furigana, args.sex, args.birthday, args.residence, args.qualification]]
-
-        return new Promise(async(resolve, reject) => {
-
-            for(let i = 0;i<sql_array.length;i++){
-                connection.execute(
-                    sql_array[i],
-                    args_array[i],
-                    (error, result) => {
-                        if(result === undefined){
-                            reject({"status":false, "message":"Failed to send information"});;
-                        }
-                        if ((result[0].count > 0) && i == 0) {
-                            console.log("The email address has already been used");
-                            resolve({"status":false, "message":"The email address has already been used."});
-                        }
-                    }
-                );
-            }
-
-            // メールアドレスの判別
-            /*
-            connection.query (
-                checkEmailSql,
-                [args.email],
-                (error, result) => {
-                    if(result === undefined){
-                        reject(error);
-                    }
-                // すでにメールアドレスが存在する場合
-                if (result[0].count > 0) {
-                    console.log("The email address has already been used");
-                    resolve({"status":false, "message":"The email address has already been used."});
-                }
-            }
-        );
-
-
-            // 送信(authServer)
-            connection.query (
-                authSql,
-                [args.email, hashedPassword, salt],
-                (error, results) => {
-                    // 送信失敗時にエラーを送信
-                    if (results === undefined) {
-                        // 送信失敗時のエラー表示
-                        reject({"status":false, "message":"Failed to send information"});
-                    }
-                }
-            );
+    if(!hashedPassword) return {"status" : false, "value": "unsuccessfully password hash"};
     
-        
-            // 送信(infoSever)
-            connection.query (
-                profileSql,
-                [args.name, args.furigana, args.sex, args.birthday, args.residence, args.qualification],
-                (error, results) => {
-                    // 送信失敗時にエラーを送信
-                    if (results === undefined) {
-                        // 送信失敗時のエラー表示
-                        reject({"status":false, "message":"Failed to send information"});
-                    }
-                }
-            );
-            */
 
-            // コミット
-            connection.commit((error) => {
-                if(error) {
-                    connection.rollback(() => {
-                        reject(error);
+    // SQLを記述
+    const checkEmailSql = "SELECT COUNT(*) AS count FROM authentication WHERE email = ?";
+    const authSql = "INSERT INTO authentication(email, password, salt, active) VALUES(?, ?, ?, true)";
+    const profileSql = "INSERT INTO user_profile(name, furigana, sex, birthday, residence, qualification) VALUES(?, ?, ?, ?, ?, ?)";
+    
+    
+    return new Promise(async(resolve, reject) => {
+        // sqlと接続
+        connect.getConnection((err, connection) => {
+            connection.beginTransaction(function(err) {
+                connection.execute(
+                    checkEmailSql,
+                    [args.email],
+                    (error, result) => {
+                        console.log(result);
+                        if (result[0].count > 0) {
+                            connection.rollback(() => {
+                                reject(new Error("The email address has already been used"));
+                            });
+                            return;
+                        }
+                        connection.execute(
+                            authSql,
+                            [args.email, hashedPassword, salt],
+                            (error, result) => {
+                                if(error) {
+                                    connection.rollback(() => {
+                                        reject(new Error("The process ended unsually"));
+                                    });
+                                    return;
+                                }
+                                connection.execute(
+                                    profileSql,
+                                    [args.name, args.furigana, args.sex, args.birthday, args.residence, args.qualification],
+                                    (error, result) => {
+                                        if(error) {
+                                            connection.rollback(() => {
+                                                reject(new Error("The process ended unsually"));
+                                            });
+                                            return;
+                                        }
+                                        // コミット
+                                        connection.commit((error) => {
+                                            if(error) {
+                                                connection.rollback(() => {
+                                                    reject(error);
+                                                });
+                                                resolve({"status":false, "message":"The process ended unsually"});
+                                                return;
+                                            }
+                                            
+                                            resolve({"status":true, "message":"The process successfully completed"});
+                                            
+                                        }); 
+                                    });
+                            });
                     });
-                    resolve({"status":false, "message":"The process ended unsually"});
-                } else {
-                    resolve({"status":true, "message":"The process successfully completed"});
-                }
             });
-
             
+            // コネクションの返却
+            connection.release();
         });
-    }
+    });       
 }
 
 exports.registration =  registration;

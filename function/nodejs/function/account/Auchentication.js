@@ -1,4 +1,5 @@
-const connect = require("../database/Connection.js");
+// const connect = require("../database/Connection.js");
+const pool = require("../database/Pool.js").pool();
 const encryption = require("../database/Encryption.js");
 
 async function authentication(args) {
@@ -17,37 +18,43 @@ async function authentication(args) {
 
     return new Promise((resolve, reject) => {
         // sqlと接続
-        const connection = connect.connect();
+        const connection = pool.connect();
 
         const sql = "SELECT email, password, salt, active FROM authentication WHERE email = (?)";
 
         // 送信
-        connection.execute(
-            sql,
-            [args.email],
-            (error, results) => {
-                // 送信失敗時にエラーを送信
-                if (error) {
-                    reject(error); // エラーがあればrejectする
-                    return;
-                }
+        connect.getConnection((err, connection) => {
+            connection.execute(
+                sql,
+                [args.email],
+                (error, results) => {
+                    // 送信失敗時にエラーを送信
+                    if (error) {
+                        connection.rollback(() => {
+                            reject(error); // エラーがあればrejectする
+                            });
+                            return;
+                    }
 
-                if (results.length === 0) {
-                    resolve({"status": false, "result": "User not found :( "}); // ユーザーが見つからない場合はfalseを返す
-                    return;
-                }
+                    if (results.length === 0) {
+                        resolve({"status": false, "result": "User not found :( "}); // ユーザーが見つからない場合はfalseを返す
+                        return;
+                    }
 
-                // 入力されたパスワードをハッシュ化
-                const hashedPassword = encryption.encryption(args.password, results[0].salt);
+                    // 入力されたパスワードをハッシュ化
+                    const hashedPassword = encryption.encryption(args.password, results[0].salt);
 
-                // データベースのものと一致したアクティブなアカウントがあった場合trueを返す
-                if(results[0].active && results[0].password === hashedPassword) {
-                    resolve({"status": true, "result": "User is active :)"});
-                } else {
-                    resolve({"status": false, "result": "User is not active"});
+                    // データベースのものと一致したアクティブなアカウントがあった場合trueを返す
+                    if(results[0].active && results[0].password === hashedPassword) {
+                        resolve({"status": true, "result": "User is active :)"});
+                    } else {
+                        resolve({"status": false, "result": "User is not active"});
+                    }
+
+                    connection.release();
                 }
-            }
-        );
+            );
+        });
     });
 }
 

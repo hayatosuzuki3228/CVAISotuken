@@ -1,4 +1,6 @@
-const connect = require("../database/Connection.js");
+// const connect = require("../database/Connection.js");
+const connect = require("../database/Pool.js").pool();
+
 
 async function updateprofile(args) {
     // user_idが入力されてないときにエラーを吐く
@@ -49,23 +51,27 @@ async function updateprofile(args) {
 
     return new Promise((resolve, reject) => {
         // sqlと接続
-        const connection = connect.connect("user");
-    
-        // 送信
-        connection.execute(
-            updateSql,
-            [...keywords, args.userId],
-            (error, results) => {
-                // 送信失敗時にエラーを送信
-                if (error) {
-                    reject(error); // エラーがあればrejectする
-                    return;
-                }
+        connect.getConnection((err, connection) => {
+            // 送信
+            connection.execute(
+                updateSql,
+                [...keywords, args.userId],
+                (error, results) => {
+                    // 送信失敗時にエラーを送信
+                    if (error) {
+                        connection.rollback(() => {
+                        reject(error); // エラーがあればrejectする
+                        });
+                        return;
+                    }
 
-                // データの取得が終了したらresolveする
-                resolve(results);
-            }
-        );
+                    // データの取得が終了したらresolveする
+                    resolve(results);
+                }
+            );
+            // コネクションの返却
+            connection.release();
+        });
     });
 }
 

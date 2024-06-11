@@ -26,8 +26,10 @@ async function information(args) {
             (error, results) => {
                 // 送信失敗時にエラーを送信
                 if (error) {
-                    reject(error); // エラーがあればrejectする
-                    return;
+                    connection.rollback(() => {
+                        reject(error); // エラーがあればrejectする
+                        });
+                        return;
                 }
 
                 if (results.length === 0) {
