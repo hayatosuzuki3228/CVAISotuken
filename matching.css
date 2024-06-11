@@ -1,4 +1,3 @@
-/* PC向け */
 @media screen and (min-width: 1025px) {
   body {
     margin: 0;
@@ -6,11 +5,22 @@
     height: 100%;
     overflow: hidden;
   }
+  #hart {
+    position: relative;
+    left: 1080px;
+    top: 5px;
+  }
+  #setting {
+    position: relative;
+    left: 1090px;
+    top: 5px;
+  }
   div.menu {
     display: flex;
     flex-direction: column;
     float: left;
-    position: fixed;
+    position: relative;
+    left: 0px;
     width: 20%;
     margin: 0;
     background-color: rgb(227, 241, 241);
