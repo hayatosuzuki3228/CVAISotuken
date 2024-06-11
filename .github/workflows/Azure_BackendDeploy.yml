@@ -25,4 +25,5 @@ jobs:
             git switch main-backend
             git pull origin main-backend
             npm install  # or any other build steps
+            pm2 restart main  # or any other command to restart your application
           EOF
