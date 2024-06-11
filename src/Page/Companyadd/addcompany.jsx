@@ -102,16 +102,107 @@ export function Addcompany() {
   };
 
   //チェックボックス連動
-  const [checked, setChecked] = React.useState([true, false]);
+  const [checked, setChecked] = React.useState([false, false, false]);
 
   const comit = (event) => {
-    setChecked([event.target.checked, event.target.checked]);
+    setChecked([
+      event.target.checked,
+      event.target.checked,
+      event.target.checked,
+    ]);
   };
   const comit4 = (event) => {
-    setChecked([event.target.checked, checked[1]]);
+    setChecked([event.target.checked, checked[1], checked[2]]);
   };
   const comit2 = (event) => {
-    setChecked([checked[0], event.target.checked]);
+    setChecked([checked[0], event.target.checked, checked[2]]);
+  };
+  const comit321 = (event) => {
+    setChecked([checked[0], checked[1], event.target.checked]);
+  };
+
+  const [checked1, setChecked1] = React.useState([false, false, false]);
+
+  const game = (event) => {
+    setChecked1([
+      event.target.checked,
+      event.target.checked,
+      event.target.checked,
+    ]);
+  };
+  const game4 = (event) => {
+    setChecked1([event.target.checked, checked1[1], checked1[2]]);
+  };
+  const game2 = (event) => {
+    setChecked1([checked1[0], event.target.checked, checked1[2]]);
+  };
+  const game321 = (event) => {
+    setChecked1([checked1[0], checked1[1], event.target.checked]);
+  };
+
+  const [checked2, setChecked2] = React.useState([false, false]);
+
+  const eizo = (event) => {
+    setChecked2([event.target.checked, event.target.checked]);
+  };
+  const eizo3 = (event) => {
+    setChecked2([event.target.checked, checked2[1]]);
+  };
+  const eizo2 = (event) => {
+    setChecked2([checked2[0], event.target.checked]);
+  };
+
+  const [checked3, setChecked3] = React.useState([false, false]);
+
+  const denki = (event) => {
+    setChecked3([event.target.checked, event.target.checked]);
+  };
+  const denki3 = (event) => {
+    setChecked3([event.target.checked, checked3[1]]);
+  };
+  const denki2 = (event) => {
+    setChecked3([checked3[0], event.target.checked]);
+  };
+
+  const [checked4, setChecked4] = React.useState([false, false]);
+
+  const tsusin = (event) => {
+    setChecked4([event.target.checked, event.target.checked]);
+  };
+  const tsusin3 = (event) => {
+    setChecked4([event.target.checked, checked4[1]]);
+  };
+  const tsusin2 = (event) => {
+    setChecked4([checked4[0], event.target.checked]);
+  };
+
+  const [checked5, setChecked5] = React.useState([false, false]);
+
+  const kikai = (event) => {
+    setChecked5([event.target.checked, event.target.checked]);
+  };
+  const kikai3 = (event) => {
+    setChecked5([event.target.checked, checked5[1]]);
+  };
+  const kikai2 = (event) => {
+    setChecked5([checked5[0], event.target.checked]);
+  };
+
+  const all = (event) => {
+    setChecked([
+      event.target.checked,
+      event.target.checked,
+      event.target.checked,
+    ]);
+    setChecked1([
+      event.target.checked,
+      event.target.checked,
+      event.target.checked,
+    ]);
+    setChecked2([event.target.checked, event.target.checked]);
+    setChecked3([event.target.checked, event.target.checked]);
+    setChecked4([event.target.checked, event.target.checked]);
+    setChecked5([event.target.checked, event.target.checked]);
   };
 
   // ステップごとのコンテンツ
@@ -301,8 +392,30 @@ export function Addcompany() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={checked[0] && checked[1]}
-                      indeterminate={checked[0] !== checked[1]}
+                      checked={
+                        checked.every(Boolean) ||
+                        checked1.every(Boolean) ||
+                        (checked2[0] && checked2[1]) ||
+                        (checked3[0] && checked3[1]) ||
+                        (checked4[0] && checked4[1]) ||
+                        (checked5[0] && checked5[1])
+                      }
+                      onChange={all}
+                    />
+                  }
+                ></FormControlLabel>
+                <Typography variant="h6" p={1}>
+                  不問
+                </Typography>
+              </Stack>
+              <Stack direction="row" spacing={0.1} width={255} p={1}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked.every(Boolean)}
+                      indeterminate={
+                        checked.some(Boolean) && !checked.every(Boolean)
+                      }
                       onChange={comit}
                     />
                   }
@@ -329,14 +442,26 @@ export function Addcompany() {
                       label="2年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
-                      label="3年・2年・1年"
+                      control={
+                        <Checkbox checked={checked[2]} onChange={comit321} />
+                      }
+                      label="3年・2年＋1年"
                     />
                   </AccordionDetails>
                 </Accordion>
               </Stack>
               <Stack direction="row" spacing={0.1} width={255} p={1}>
-                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked1.every(Boolean)}
+                      indeterminate={
+                        checked1.some(Boolean) && !checked1.every(Boolean)
+                      }
+                      onChange={game}
+                    />
+                  }
+                />
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -347,22 +472,36 @@ export function Addcompany() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked1[0]} onChange={game4} />
+                      }
                       label="4年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked1[1]} onChange={game2} />
+                      }
                       label="2年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked1[2]} onChange={game321} />
+                      }
                       label="2年+1年"
                     />
                   </AccordionDetails>
                 </Accordion>
               </Stack>
               <Stack direction="row" spacing={0.1} width={260} p={1}>
-                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked2[0] && checked2[1]}
+                      indeterminate={checked2[0] !== checked2[1]}
+                      onChange={eizo}
+                    />
+                  }
+                />
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -373,18 +512,30 @@ export function Addcompany() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked2[0]} onChange={eizo3} />
+                      }
                       label="2年+1年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked2[1]} onChange={eizo2} />
+                      }
                       label="2年"
                     />
                   </AccordionDetails>
                 </Accordion>
               </Stack>
               <Stack direction="row" spacing={0.1} width={260} p={1}>
-                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked3[0] && checked3[1]}
+                      indeterminate={checked3[0] !== checked3[1]}
+                      onChange={denki}
+                    />
+                  }
+                />
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -395,18 +546,30 @@ export function Addcompany() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked3[0]} onChange={denki3} />
+                      }
                       label="2年+1年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked3[1]} onChange={denki2} />
+                      }
                       label="2年"
                     />
                   </AccordionDetails>
                 </Accordion>
               </Stack>
               <Stack direction="row" spacing={0.1} width={260} p={1}>
-                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked4[0] && checked4[1]}
+                      indeterminate={checked4[0] !== checked4[1]}
+                      onChange={tsusin}
+                    />
+                  }
+                />
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -417,18 +580,30 @@ export function Addcompany() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked4[0]} onChange={tsusin3} />
+                      }
                       label="2年+1年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked4[1]} onChange={tsusin2} />
+                      }
                       label="2年"
                     />
                   </AccordionDetails>
                 </Accordion>
               </Stack>
               <Stack direction="row" spacing={0.1} width={260} p={1}>
-                <FormControlLabel control={<Checkbox defaultChecked />} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked5[0] && checked5[1]}
+                      indeterminate={checked5[0] !== checked5[1]}
+                      onChange={kikai}
+                    />
+                  }
+                />
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -439,11 +614,15 @@ export function Addcompany() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked5[0]} onChange={kikai3} />
+                      }
                       label="2年+1年"
                     />
                     <FormControlLabel
-                      control={<Checkbox defaultChecked />}
+                      control={
+                        <Checkbox checked={checked5[1]} onChange={kikai2} />
+                      }
                       label="2年"
                     />
                   </AccordionDetails>
