@@ -16,7 +16,7 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
+  //
   const signup = () => {
     navigate("/Addstudent");
   };
