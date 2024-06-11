@@ -52,9 +52,9 @@ export function SEdit() {
   const [bye, setBye] = useState(warpBye);
   const [email, setEmail] = useState(warpEmail);
   const [age, setAge] = useState(warpAge);
-  const [error, setError] = useState("");
-  const [Clear, setClear] = useState("");
-  const [ClearMessage, setClearMessage] = useState("");
+  const [error1, setError1] = useState("");
+  const [error2, setError2] = useState("");
+  const [error3, setError3] = useState("");
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -64,31 +64,48 @@ export function SEdit() {
     navigate("/profile-st-com");
   };
   const OnClickNext = () => {
-    const birthDate = new Date(Years, Months - 1, Days);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
+    const regex = /^[0-9,a-z,A-Z,ア-ン]{2,}$/;
+    const regex2 = /^[0-9,a-z,A-Z,あ-ん]{2,}$/;
+    const mailRegex =
+      /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+    if (regex.test(name) && regex2.test(kName) && mailRegex.test(email)) {
+      const birthDate = new Date(Years, Months - 1, Days);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      setAge(age + "歳");
+
+      navigate("/profile-st", {
+        state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
+        },
+      });
+    } else {
+      {
+        !regex.test(name) ? setError1("エラー：名前") : "";
+      }
+      {
+        !regex2.test(kName) ? setError2("エラー：カタカナ") : "";
+      }
+      {
+        !mailRegex.test(email) ? setError3("エラー：メール") : "";
+      }
     }
-    setAge(age + "歳");
-
-    navigate("/profile-st", {
-      state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-      },
-    });
   };
 
   const Check =
@@ -102,18 +119,6 @@ export function SEdit() {
     email &&
     Home &&
     bye;
-
-  const Checks = () => {
-    if (Check === true) {
-      if (name.length < 5) {
-        setError("文字数が足りません。");
-        setClear(false);
-        setClearMessage("ok");
-      }
-    } else {
-      setClearMessage("NG");
-    }
-  };
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -435,13 +440,18 @@ export function SEdit() {
             />
           </Box>
         </Stack>
-        <div>{error}</div>
-        <button onClick={Checks}>テスト:{ClearMessage}</button>
+        <div>
+          {error1 && <p style={{ color: "red" }}>{error1}</p>}
+          <br />
+          {error2 && <p style={{ color: "red" }}>{error2}</p>}
+          <br />
+          {error3 && <p style={{ color: "red" }}>{error3}</p>}
+        </div>
         <Stack direction="row" spacing={7}>
           <Button variant="contained" onClick={OnClick}>
             戻る
           </Button>
-          <Button variant="contained" onClick={OnClickNext} disabled={!Clear}>
+          <Button variant="contained" onClick={OnClickNext} disabled={!Check}>
             情報を確定する
           </Button>
         </Stack>
