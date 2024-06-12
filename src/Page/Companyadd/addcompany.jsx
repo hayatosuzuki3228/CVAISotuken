@@ -762,31 +762,68 @@ export function Addcompany() {
         );
       case 5:
         return (
-          <Box>
-            <Typography>会社名：{name}</Typography>
-            <Typography>
-              業種：{selectindustry ? selectindustry.title : ""}
-            </Typography>
-            <Typography>
-              職種：{selectoccupation ? selectoccupation.title : ""}
-            </Typography>
-            <Typography>資本金: {capital}百万円</Typography>
-            <Typography>売上高: {sales}百万円</Typography>
-            <Typography>従業員数: {employees}人</Typography>
-            <Typography>
-              勤務地: {selectarea.map((area) => area.title).join(", ")}
-            </Typography>
-            <Typography>
-              必須資格:{" "}
-              {selectqualification
-                .map((qualification) => qualification.title)
-                .join(", ")}
-            </Typography>
-            <Typography>勤務体系: {worktime}</Typography>
-            <Typography>年間休日: {holiday}日</Typography>
-            <Typography>勤務体系: {holidaysystem}</Typography>
-            <Typography>選択された人物像: {selectperson.join(", ")}</Typography>
-          </Box>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            mt="10vh"
+            spacing={2}
+            sx={{ paddingLeft: "35%" }}
+          >
+            <Grid item sx={{ mr: "53%" }}>
+              <Typography variant="h5">入力確認</Typography>
+            </Grid>
+            <Grid item container direction="column" spacing={2}>
+              <Grid item>
+                <Typography>会社名：{name}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>
+                  業種：{selectindustry ? selectindustry.title : ""}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography>
+                  職種：{selectoccupation ? selectoccupation.title : ""}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography>資本金：{capital}百万円</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>売上高：{sales}百万円</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>従業員数：{employees}人</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>
+                  勤務地：{selectarea.map((area) => area.title).join(", ")}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography>
+                  必須資格：{" "}
+                  {selectqualification
+                    .map((qualification) => qualification.title)
+                    .join(", ")}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography>勤務体系：{worktime}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>年間休日：{holiday}日</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>休日体系：{holidaysystem}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography>求める人物像：{selectperson.join(", ")}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
         );
       default:
         return (
