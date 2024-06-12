@@ -29,6 +29,7 @@ import {
   occupation,
   person,
   qualification,
+  area,
 } from "../Companyadd/companydata";
 import companies from "../Matching/matchtable";
 import CompanyDetails from "./companysarch";
@@ -45,9 +46,11 @@ export function Addcompany() {
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
-  const [area, setArea] = useState("");
+  const [selectarea, setSelectArea] = useState([]);
+  const [worktime, setWorktime] = useState("");
   const [holiday, setHoliday] = useState("");
-  const [selectqualification, setSelectQualification] = "";
+  const [holidaysystem, setHolidaysystem] = useState("");
+  const [selectqualification, setSelectQualification] = useState([]);
   const [selectperson, setSelectPerson] = useState([]);
 
   const [FourYearSalary, setFourYearSalary] = useState(null);
@@ -294,27 +297,37 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">求人条件登録</Typography>
-            <TextField
-              label="勤務地"
-              variant="standard"
+            <Autocomplete
+              multiple
+              limitTags={3}
               sx={{ width: 400 }}
-              value={area}
+              value={selectarea}
+              onChange={(event, newValue) => setSelectArea(newValue)}
+              options={area}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} label="勤務地" variant="standard" />
+              )}
             />
             <FormControl>
               <FormLabel sx={{ ml: -1 }}>勤務体系</FormLabel>
-              <RadioGroup row>
+              <RadioGroup
+                row
+                value={worktime}
+                onChange={(event, newValue) => setWorktime(newValue)}
+              >
                 <FormControlLabel
-                  value="fulltime"
+                  value="固定時間"
                   control={<Radio />}
                   label="固定時間"
                 />
                 <FormControlLabel
-                  value="variable"
+                  value="変形労働時間"
                   control={<Radio />}
                   label="変形労働時間"
                 />
                 <FormControlLabel
-                  value="flex"
+                  value="フレックス"
                   control={<Radio />}
                   label="フレックス"
                 />
@@ -334,25 +347,31 @@ export function Addcompany() {
             />
             <FormControl>
               <FormLabel sx={{ ml: -1 }}>休日制度</FormLabel>
-              <RadioGroup row>
+              <RadioGroup
+                row
+                value={holidaysystem}
+                onChange={(event, newValue) => setHolidaysystem(newValue)}
+              >
                 <FormControlLabel
-                  value="fulltwoday"
+                  value="完全週休二日生制"
                   control={<Radio />}
                   label="完全週休二日制"
                 />
                 <FormControlLabel
-                  value="twoday"
+                  value="週休二日制"
                   control={<Radio />}
                   label="週休二日制"
                 />
                 <FormControlLabel
-                  value="other"
+                  value="その他"
                   control={<Radio />}
                   label="その他"
                 />
               </RadioGroup>
             </FormControl>
             <Autocomplete
+              multiple
+              limitTags={1}
               sx={{ width: 400 }}
               value={selectqualification}
               onChange={(event, newValue) => setSelectQualification(newValue)}
@@ -741,8 +760,7 @@ export function Addcompany() {
             </FormGroup>
           </Box>
         );
-
-      case 4:
+      case 5:
         return (
           <Box>
             <Typography>会社名：{name}</Typography>
@@ -756,9 +774,17 @@ export function Addcompany() {
             <Typography>売上高: {sales}百万円</Typography>
             <Typography>従業員数: {employees}人</Typography>
             <Typography>
-              必須資格：{selectqualification ? selectqualification.title : ""}
+              勤務地: {selectarea.map((area) => area.title).join(", ")}
             </Typography>
+            <Typography>
+              必須資格:{" "}
+              {selectqualification
+                .map((qualification) => qualification.title)
+                .join(", ")}
+            </Typography>
+            <Typography>勤務体系: {worktime}</Typography>
             <Typography>年間休日: {holiday}日</Typography>
+            <Typography>勤務体系: {holidaysystem}</Typography>
             <Typography>選択された人物像: {selectperson.join(", ")}</Typography>
           </Box>
         );
@@ -776,7 +802,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={5}
+        steps={6}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -784,7 +810,7 @@ export function Addcompany() {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === 4}
+            disabled={activeStep === 5}
             sx={{ mt: 2 }}
           >
             次へ
