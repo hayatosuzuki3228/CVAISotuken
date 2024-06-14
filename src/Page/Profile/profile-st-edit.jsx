@@ -40,6 +40,8 @@ export function SEdit() {
   const warpBye = location.state?.bye || "";
   const warpEmail = location.state?.email || "";
   const warpAge = location.state?.age || "";
+  const { job, hobby, skill, SSubject, KSubject, myPower } =
+    location.state || {};
 
   const [name, setName] = useState(warpName);
   const [kName, setKName] = useState(warpKName);
@@ -58,7 +60,16 @@ export function SEdit() {
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("/profile-st");
+    navigate("/profile-st", {
+      state: {
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+      },
+    });
   };
   const OnClick2 = () => {
     navigate("/profile-st-com");
@@ -93,6 +104,12 @@ export function SEdit() {
           Home,
           bye,
           age,
+          job,
+          hobby,
+          skill,
+          SSubject,
+          KSubject,
+          myPower,
         },
       });
     } else {

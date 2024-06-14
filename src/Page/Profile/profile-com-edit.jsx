@@ -81,10 +81,12 @@ export function CEdit() {
   };
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    const TelRegex = /^[1-9-]{11,}$/;
-    const MoneyRegex = /^[1-9]{1,}$/;
+    const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
+    const TelRegex = /^[0-9-]{11,}$/;
+    const MoneyRegex = /^[0-9]{1,}$/;
     if (
-      regex.test(Cname, CkName, place, info, people, comePeople) &&
+      regex.test(Cname, place, info, people, comePeople) &&
+      KanaRegex.test(CkName) &&
       TelRegex.test(tel, fax) &&
       MoneyRegex.test(capital)
     ) {
@@ -106,31 +108,33 @@ export function CEdit() {
       });
     } else {
       {
-        !regex.test(Cname) ? setError1("エラー：企業名") : "";
+        !regex.test(Cname) ? setError1("エラー：企業名") : setError1("");
       }
       {
-        !regex.test(CkName) ? setError2("エラー：企業名カタカナ") : "";
+        !KanaRegex.test(CkName)
+          ? setError2("エラー：企業名カタカナ")
+          : setError2("");
       }
       {
-        !regex.test(place) ? setError3("エラー：企業所在地") : "";
+        !regex.test(place) ? setError3("エラー：企業所在地") : setError3("");
       }
       {
-        !TelRegex.test(tel) ? setError4("エラー：電話番号") : "";
+        !TelRegex.test(tel) ? setError4("エラー：電話番号") : setError4("");
       }
       {
-        !TelRegex.test(fax) ? setError5("エラー：FAX番号") : "";
+        !TelRegex.test(fax) ? setError5("エラー：FAX番号") : setError5("");
       }
       {
-        !regex.test(info) ? setError6("エラー：事業内容") : "";
+        !regex.test(info) ? setError6("エラー：事業内容") : setError6("");
       }
       {
-        !MoneyRegex.test(capital) ? setError7("エラー：資本金") : "";
+        !MoneyRegex.test(capital) ? setError7("エラー：資本金") : setError7("");
       }
       {
-        !regex.test(people) ? setError8("エラー：代表者名") : "";
+        !regex.test(people) ? setError8("エラー：代表者名") : setError8("");
       }
       {
-        !regex.test(comePeople) ? setError9("エラー：人物像") : "";
+        !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("");
       }
     }
   };

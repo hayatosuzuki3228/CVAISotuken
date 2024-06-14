@@ -221,6 +221,7 @@ export const Bye = [
 ];
 
 export const options = [
+  { title: "特になし", id: 0 },
   { title: "ITパスポート", id: 1 },
   { title: "情報セキュリティマネジメント", id: 2 },
   { title: "基本情報技術者", id: 3 },

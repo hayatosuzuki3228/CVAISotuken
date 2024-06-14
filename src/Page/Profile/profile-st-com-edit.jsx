@@ -37,6 +37,8 @@ export function SCEdit() {
   const warpSSubject = location.state?.SSubject || "";
   const warpKSubject = location.state?.KSubject || "";
   const warpMyPower = location.state?.myPower || null;
+  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
+    location.state || {};
 
   const [job, setJob] = useState(warpJob);
   const [hobby, setHobby] = useState(warpHobby);
@@ -53,10 +55,38 @@ export function SCEdit() {
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("/profile-st");
+    navigate("/profile-st", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+      },
+    });
   };
   const OnClick2 = () => {
-    navigate("/profile-st-com");
+    navigate("/profile-st-com", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+      },
+    });
   };
 
   const OnClickBack = () => {
@@ -64,12 +94,24 @@ export function SCEdit() {
     if ((regex.test(job, hobby, skill, SSubject, KSubject), myPower != "")) {
       navigate("/profile-st-com", {
         state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
           job,
           hobby,
           skill,
           SSubject,
           KSubject,
           myPower,
+          Gak,
         },
       });
     } else {
@@ -94,7 +136,7 @@ export function SCEdit() {
     }
   };
 
-  const Check = /*job && hobby && skill && SSubject && KSubject &&*/ myPower;
+  const Check = job && hobby && skill && SSubject && KSubject && myPower;
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -289,7 +331,10 @@ export function SCEdit() {
               id="checkbox"
               options={options}
               disableCloseOnSelect
+              isOptionEqualToValue={(option, value) => option.id === value.id}
               getOptionLabel={(option) => option.title}
+              defaultValue={myPower || []}
+              defaultChecked={myPower || []}
               renderOption={(props, option, { selected }) => (
                 <li {...props} key={option.id}>
                   <Checkbox
@@ -301,6 +346,15 @@ export function SCEdit() {
                   {option.title}
                 </li>
               )}
+              /*renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option.title}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }*/
               renderInput={(params) => (
                 <TextField {...params} label="取得資格の選択" />
               )}

@@ -40,6 +40,12 @@ export function SProfile() {
         Home,
         bye,
         age,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
       },
     });
   };
@@ -47,7 +53,23 @@ export function SProfile() {
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
+        name,
+        kName,
+        man,
         Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
       },
     });
   };
@@ -58,8 +80,25 @@ export function SProfile() {
 
   const location = useLocation();
 
-  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
-    location.state || {};
+  const {
+    name,
+    kName,
+    man,
+    Gak,
+    Years,
+    Months,
+    Days,
+    email,
+    Home,
+    bye,
+    age,
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+  } = location.state || {};
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);

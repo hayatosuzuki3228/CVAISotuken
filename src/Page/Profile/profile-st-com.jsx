@@ -27,6 +27,41 @@ export function SCompany() {
   const OnClick1 = () => {
     navigate("/profile-st-com-edit", {
       state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+        Gak,
+      },
+    });
+  };
+  const OnClick2 = () => {
+    navigate("/profile-st", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
         job,
         hobby,
         skill,
@@ -36,17 +71,27 @@ export function SCompany() {
       },
     });
   };
-  const OnClick2 = () => {
-    navigate("/profile-st", {
-      state: {
-        Gak,
-      },
-    });
-  };
 
   const location = useLocation();
-  const { job, hobby, skill, SSubject, KSubject, myPower, Gak } =
-    location.state || {};
+  const {
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+    name,
+    kName,
+    man,
+    Gak,
+    Years,
+    Months,
+    Days,
+    email,
+    Home,
+    bye,
+    age,
+  } = location.state || {};
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -191,7 +236,13 @@ export function SCompany() {
               <p>取得した資格</p>
             </font>
           </div>
-          <div className="half-box black">{myPower}</div>
+          <div className="half-box black">
+            {myPower
+              ? myPower.map((option, index) => (
+                  <Typography key={index}>{option.title}</Typography>
+                ))
+              : null}
+          </div>
         </div>
       </Box>
       <div className="div-padding">
