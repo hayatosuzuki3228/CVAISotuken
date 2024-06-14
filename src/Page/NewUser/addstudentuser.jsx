@@ -93,7 +93,9 @@ export function Addstudentuser() {
       }
       {
         !kanamaeRegex.test(kanamae)
-          ? setMessage2("2文字以上の全角カタカナを入力してください")
+          ? setMessage2(
+              "2文字以上の全角カタカナを入力してください(スペースなし)"
+            )
           : "";
       }
       {
