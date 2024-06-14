@@ -1,3 +1,4 @@
+//#region import
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
@@ -42,11 +43,13 @@ import CompanyDetails from "./companysarch";
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import { Category } from "@mui/icons-material";
 
+//#endregion
 export function Addcompany() {
   const navigate = useNavigate();
 
   const theme = useTheme();
 
+  //#region 定数
   const [activeStep, setActiveStep] = React.useState(0);
   const [open, setOpen] = useState(false);
 
@@ -71,6 +74,7 @@ export function Addcompany() {
   const [ThreeYearAllowances, setThreeYearAllowances] = useState(null);
   const [TwoYearAllowances, setTwoYearAllowances] = useState(null);
   const [OneYearAllowances, setOneYearAllowances] = useState(null);
+  //#endregion
 
   //ステッパー
   const handleNext = () => {
@@ -127,24 +131,30 @@ export function Addcompany() {
     });
   };
 
-  //チェックボックス連動
-  const [checked, setChecked] = React.useState([false, false, false]);
+  //#region 学科チェック連動
+  const [checked, setChecked] = React.useState([false, false, false, false]);
 
   const comit = (event) => {
     setChecked([
       event.target.checked,
       event.target.checked,
       event.target.checked,
+      event.target.checked,
     ]);
   };
   const comit4 = (event) => {
-    setChecked([event.target.checked, checked[1], checked[2]]);
+    setChecked([event.target.checked, checked[1], checked[2], checked[3]]);
   };
   const comit2 = (event) => {
-    setChecked([checked[0], event.target.checked, checked[2]]);
+    setChecked([checked[0], event.target.checked, checked[2], checked[3]]);
   };
+
+  const comit3 = (event) => {
+    setChecked([checked[0], checked[1], event.target.checked, checked[3]]);
+  };
+
   const comit321 = (event) => {
-    setChecked([checked[0], checked[1], event.target.checked]);
+    setChecked([checked[0], checked[1], checked[2], event.target.checked]);
   };
 
   const [checked1, setChecked1] = React.useState([false, false, false]);
@@ -229,6 +239,96 @@ export function Addcompany() {
     setChecked3([event.target.checked, event.target.checked]);
     setChecked4([event.target.checked, event.target.checked]);
     setChecked5([event.target.checked, event.target.checked]);
+  };
+  //#endregion
+
+  //gakka
+
+  const generateSelectedCoursesText = (
+    checked,
+    checked1,
+    checked2,
+    checked3,
+    checked4,
+    checked5
+  ) => {
+    const allChecked =
+      checked.every(Boolean) &&
+      checked1.every(Boolean) &&
+      checked2.every(Boolean) &&
+      checked3.every(Boolean) &&
+      checked4.every(Boolean) &&
+      checked5.every(Boolean);
+
+    if (allChecked) {
+      return "不問";
+    }
+
+    const courses = [];
+
+    if (checked.every(Boolean)) {
+      courses.push("コンピューター・IT");
+    } else {
+      const subCourses = [];
+      if (checked[0]) subCourses.push("4年");
+      if (checked[1]) subCourses.push("2年");
+      if (checked[2]) subCourses.push("3年");
+      if (checked[3]) subCourses.push("3年・2年＋1年");
+      if (subCourses.length > 0)
+        courses.push(`コンピューター・IT(${subCourses.join("、")})`);
+    }
+
+    if (checked1.every(Boolean)) {
+      courses.push("ゲーム・CG");
+    } else {
+      const subCourses = [];
+      if (checked1[0]) subCourses.push("4年");
+      if (checked1[1]) subCourses.push("2年");
+      if (checked1[2]) subCourses.push("2年+1年");
+      if (subCourses.length > 0)
+        courses.push(`ゲーム・CG(${subCourses.join("、")})`);
+    }
+
+    if (checked2.every(Boolean)) {
+      courses.push("映像・音響");
+    } else {
+      const subCourses = [];
+      if (checked2[0]) subCourses.push("2年+1年");
+      if (checked2[1]) subCourses.push("2年");
+      if (subCourses.length > 0)
+        courses.push(`映像・音響(${subCourses.join("、")})`);
+    }
+
+    if (checked3.every(Boolean)) {
+      courses.push("電気");
+    } else {
+      const subCourses = [];
+      if (checked3[0]) subCourses.push("2年+1年");
+      if (checked3[1]) subCourses.push("2年");
+      if (subCourses.length > 0) courses.push(`電気(${subCourses.join("、")})`);
+    }
+
+    if (checked4.every(Boolean)) {
+      courses.push("情報通信");
+    } else {
+      const subCourses = [];
+      if (checked4[0]) subCourses.push("2年+1年");
+      if (checked4[1]) subCourses.push("2年");
+      if (subCourses.length > 0)
+        courses.push(`情報通信(${subCourses.join("、")})`);
+    }
+
+    if (checked5.every(Boolean)) {
+      courses.push("機械・CADデザイン");
+    } else {
+      const subCourses = [];
+      if (checked5[0]) subCourses.push("2年+1年");
+      if (checked5[1]) subCourses.push("2年");
+      if (subCourses.length > 0)
+        courses.push(`機械・CADデザイン(${subCourses.join("、")})`);
+    }
+
+    return courses.length > 0 ? courses.join("、") : "不問";
   };
 
   // ステップごとのコンテンツ
@@ -434,7 +534,7 @@ export function Addcompany() {
             <Typography variant="h5">募集学科登録</Typography>
 
             <FormGroup>
-              <Stack direction="row" spacing={0.1} width={255} p={1}>
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -454,11 +554,11 @@ export function Addcompany() {
                     />
                   }
                 ></FormControlLabel>
-                <Typography variant="h6" p={1}>
+                <Typography variant="h6" p={1} pl={2}>
                   不問
                 </Typography>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={255} p={1}>
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -470,7 +570,9 @@ export function Addcompany() {
                     />
                   }
                 />
-                <Accordion>
+                <Accordion
+                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -487,20 +589,28 @@ export function Addcompany() {
                     />
                     <FormControlLabel
                       control={
+                        <Checkbox checked={checked[2]} onChange={comit3} />
+                      }
+                      label="3年"
+                    />
+                    <FormControlLabel
+                      control={
                         <Checkbox checked={checked[1]} onChange={comit2} />
                       }
                       label="2年"
                     />
+
                     <FormControlLabel
                       control={
-                        <Checkbox checked={checked[2]} onChange={comit321} />
+                        <Checkbox checked={checked[3]} onChange={comit321} />
                       }
                       label="3年・2年＋1年"
                     />
                   </AccordionDetails>
                 </Accordion>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={255} p={1}>
+
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -512,7 +622,9 @@ export function Addcompany() {
                     />
                   }
                 />
-                <Accordion>
+                <Accordion
+                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -542,7 +654,7 @@ export function Addcompany() {
                   </AccordionDetails>
                 </Accordion>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={260} p={1}>
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -552,7 +664,9 @@ export function Addcompany() {
                     />
                   }
                 />
-                <Accordion>
+                <Accordion
+                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -576,7 +690,7 @@ export function Addcompany() {
                   </AccordionDetails>
                 </Accordion>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={260} p={1}>
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -586,7 +700,9 @@ export function Addcompany() {
                     />
                   }
                 />
-                <Accordion>
+                <Accordion
+                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -610,7 +726,7 @@ export function Addcompany() {
                   </AccordionDetails>
                 </Accordion>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={260} p={1}>
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -620,7 +736,9 @@ export function Addcompany() {
                     />
                   }
                 />
-                <Accordion>
+                <Accordion
+                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -644,7 +762,7 @@ export function Addcompany() {
                   </AccordionDetails>
                 </Accordion>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={260} p={1}>
+              <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -654,7 +772,9 @@ export function Addcompany() {
                     />
                   }
                 />
-                <Accordion>
+                <Accordion
+                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -681,7 +801,15 @@ export function Addcompany() {
             </FormGroup>
           </Box>
         );
+
       case 3:
+        // コンピューター・ITの3年のチェック
+        const isComputerIT3YearSelected = checked[2];
+        // コンピューター・ITまたはゲーム・CGの4年のチェック
+        const isFourYearSelected = checked[0] || checked1[0];
+        // コンピューター・ITの2年のチェック
+        const isTwoYearSelected = checked[1];
+        const isItSelected = checked[3];
         return (
           <Box
             sx={{
@@ -695,86 +823,99 @@ export function Addcompany() {
           >
             <Typography variant="h5">給与情報</Typography>
 
-            <TextField
-              id="salary-2"
-              label="2年課程基本給"
-              variant="standard"
-              value={TwoYearSalary || ""}
-              onChange={(e) => valuechange(e, setTwoYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="allowances-2"
-              label="2年課程諸手当"
-              variant="standard"
-              value={TwoYearAllowances || ""}
-              onChange={(e) => valuechange(e, setTwoYearAllowances)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="salary-3"
-              label="3年課程基本給"
-              variant="standard"
-              value={ThreeYearSalary || ""}
-              onChange={(e) => valuechange(e, setThreeYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="allowances-3"
-              label="3年課程諸手当"
-              variant="standard"
-              value={ThreeYearAllowances || ""}
-              onChange={(e) => valuechange(e, setThreeYearAllowances)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="salary-4"
-              label="4年課程基本給"
-              variant="standard"
-              value={FourYearSalary || ""}
-              onChange={(e) => valuechange(e, setFourYearSalary)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              id="allowances-4"
-              label="4年課程諸手当"
-              variant="standard"
-              value={FourYearAllowances || ""}
-              onChange={(e) => valuechange(e, setFourYearAllowances)}
-              sx={{ width: 400 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">円</InputAdornment>
-                ),
-              }}
-            />
+            {isTwoYearSelected && (
+              <>
+                <TextField
+                  id="salary-2"
+                  label="2年課程基本給"
+                  variant="standard"
+                  value={TwoYearSalary || ""}
+                  onChange={(e) => valuechange(e, setTwoYearSalary)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="allowances-2"
+                  label="2年課程諸手当"
+                  variant="standard"
+                  value={TwoYearAllowances || ""}
+                  onChange={(e) => valuechange(e, setTwoYearAllowances)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
+            {isComputerIT3YearSelected && (
+              <>
+                <TextField
+                  id="salary-3"
+                  label="3年課程基本給"
+                  variant="standard"
+                  value={ThreeYearSalary || ""}
+                  onChange={(e) => valuechange(e, setThreeYearSalary)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="allowances-3"
+                  label="3年課程諸手当"
+                  variant="standard"
+                  value={ThreeYearAllowances || ""}
+                  onChange={(e) => valuechange(e, setThreeYearAllowances)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
+            {isFourYearSelected && (
+              <>
+                <TextField
+                  id="salary-4"
+                  label="4年課程基本給"
+                  variant="standard"
+                  value={FourYearSalary || ""}
+                  onChange={(e) => valuechange(e, setFourYearSalary)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="allowances-4"
+                  label="4年課程諸手当"
+                  variant="standard"
+                  value={FourYearAllowances || ""}
+                  onChange={(e) => valuechange(e, setFourYearAllowances)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
           </Box>
         );
+
       case 4:
         return (
           <Box
@@ -823,6 +964,15 @@ export function Addcompany() {
           </Box>
         );
       case 5:
+        const selectedCoursesText = generateSelectedCoursesText(
+          checked,
+          checked1,
+          checked2,
+          checked3,
+          checked4,
+          checked5
+        );
+
         return (
           <Grid
             container
@@ -866,7 +1016,7 @@ export function Addcompany() {
               </Grid>
               <Grid item>
                 <Typography>
-                  必須資格：{" "}
+                  必須資格：
                   {selectqualification
                     .map((qualification) => qualification.title)
                     .join(", ")}
@@ -882,8 +1032,11 @@ export function Addcompany() {
                 <Typography>休日体系：{holidaysystem}</Typography>
               </Grid>
               <Grid item>
+                <Typography>募集学科：{selectedCoursesText}</Typography>
+              </Grid>
+              <Grid item>
                 <Typography>基本給2年：{TwoYearSalary}円</Typography>
-              </Grid>{" "}
+              </Grid>
               <Grid item>
                 <Typography>諸手当2年：{TwoYearAllowances}円</Typography>
               </Grid>
@@ -905,6 +1058,7 @@ export function Addcompany() {
             </Grid>
           </Grid>
         );
+
       default:
         return (
           <div>
