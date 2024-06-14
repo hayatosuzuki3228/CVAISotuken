@@ -22,7 +22,6 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "c:/Users/user/CVAISotuken/src/const/color";
 import "normalize.css";
@@ -153,7 +152,7 @@ export function Companyinformation() {
               </IconButton>
               <Box />
               <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム
+                名産会マッチングシステム／企業情報
               </Typography>
             </Box>
             <Button color="inherit" onClick={() => navigate("/Loginpage")}>
@@ -199,6 +198,22 @@ export function Companyinformation() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
+          <Typography
+            style={{ fontSize: "2em", textAlign: "left" }}
+            sx={{ mx: 4 }}
+          >
+            株式会社〇〇〇〇
+          </Typography>
+          <p></p>
+          <Stack
+            width="100%"
+            direction="row"
+            spacing={10}
+            justifyContent="center"
+          >
+            <Typography style={{ fontSize: "1.5em" }}>業種</Typography>
+            <Typography style={{ fontSize: "1.5em" }}>職種</Typography>
+          </Stack>
         </Main>
       </Box>
     </ThemeProvider>

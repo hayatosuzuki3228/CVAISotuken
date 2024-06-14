@@ -122,9 +122,11 @@ export function Addstudent() {
 
   return (
     <>
-      <Box bgcolor="#66aacc" p={2}>
+      <Box bgcolor="#21a7dd" p={2}>
         <Stack justifyContent="center" alignItems="center">
-          <h1>新規登録</h1>
+          <Typography fontSize={30} color="white">
+            新規登録
+          </Typography>
         </Stack>
       </Box>
       <Stack
