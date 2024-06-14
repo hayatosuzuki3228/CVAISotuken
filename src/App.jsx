@@ -7,6 +7,7 @@ import { Conditions2 } from "./Page/Conditions2";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login";
 import { TestPage } from "./Page/TestPage";
+import { Matchdo } from "./Page/matchdo";
 import "normalize.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Matching />} />
         <Route path="/Matchscore" element={<Matchscore />} />
         <Route path="/Conditions" element={<Conditions />} />
+        <Route path="/Matchdo" element={<Matchdo />} />
         <Route path="/Conditions2" element={<Conditions2 />} />
         <Route path="/LoginPage" element={<LoginPage />} />
         <Route path="/Testpage" element={<TestPage />} />

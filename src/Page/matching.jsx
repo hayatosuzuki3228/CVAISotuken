@@ -30,7 +30,7 @@ export function Matching() {
           <div id="hart">
             <IconButton
               aria-label="ハート"
-              onClick={() => navigate("/Conditions")}
+              onClick={() => navigate("/Matchdo")}
             >
               <FavoriteIcon sx={{ color: "#ff1493", fontSize: 60 }} />
             </IconButton>
@@ -45,7 +45,7 @@ export function Matching() {
           </div>
           <div id="setting">
             <IconButton aria-label="設定" onClick={() => navigate("/Setting")}>
-              <SettingsIcon sx={{ color: "696969", fontSize: 60 }} />
+              <SettingsIcon sx={{ color: "gray", fontSize: 60 }} />
             </IconButton>
           </div>
         </Stack>
