@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Drawer,
@@ -18,9 +17,13 @@ import {
   Button,
   Autocomplete,
   Chip,
+  Checkbox,
 } from "@mui/material";
 import "./styles.css";
 import { options } from "./Data";
+import MenuIcon from "@mui/icons-material/Menu";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 export function SCEdit() {
   useEffect(() => {
@@ -33,7 +36,7 @@ export function SCEdit() {
   const warpSkill = location.state?.skill || "";
   const warpSSubject = location.state?.SSubject || "";
   const warpKSubject = location.state?.KSubject || "";
-  const warpMyPower = location.state?.myPower || "";
+  const warpMyPower = location.state?.myPower || null;
 
   const [job, setJob] = useState(warpJob);
   const [hobby, setHobby] = useState(warpHobby);
@@ -91,7 +94,9 @@ export function SCEdit() {
     }
   };
 
-  const Check = job && hobby && skill && SSubject && KSubject && myPower;
+  const Check = /*job && hobby && skill && SSubject && KSubject &&*/ myPower;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -279,31 +284,26 @@ export function SCEdit() {
             sx={{ minWidth: 300 }}
           >
             <Autocomplete
-              sx={{ maxWidth: 300 }}
-              fullWidth
+              sx={{ width: 300 }}
               multiple
-              id="tags-outlined"
+              id="checkbox"
               options={options}
+              disableCloseOnSelect
               getOptionLabel={(option) => option.title}
-              defaultValue={myPower || []}
-              filterSelectedOptions
-              renderInput={(params) => (
-                <TextField
-                  fullWidth
-                  {...params}
-                  variant="outlined"
-                  label="取得した資格"
-                />
-              )}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    variant="outlined"
-                    label={option.title}
-                    {...getTagProps({ index })}
+              renderOption={(props, option, { selected }) => (
+                <li {...props} key={option.id}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
                   />
-                ))
-              }
+                  {option.title}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField {...params} label="取得資格の選択" />
+              )}
               onChange={(event, newValue) => {
                 setMyPower(newValue);
               }}

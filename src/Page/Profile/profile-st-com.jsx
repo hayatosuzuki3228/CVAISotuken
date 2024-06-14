@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  Typography,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -190,11 +191,7 @@ export function SCompany() {
               <p>取得した資格</p>
             </font>
           </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{myPower}</p>
-            </font>
-          </div>
+          <div className="half-box black">{myPower}</div>
         </div>
       </Box>
       <div className="div-padding">
