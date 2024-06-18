@@ -9,7 +9,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { primarycolor, gray } from "../const/color";
+import { primarycolor, gray } from "../../const/color";
 
 export function LoginPage() {
   const [address, setAddress] = useState("");
@@ -18,9 +18,12 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const signup = () => {
-    navigate("/Testpage");
+    navigate("/Addstudent");
   };
 
+  const Lostpass = () => {
+    navigate("/Lostpass");
+  };
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
   };
@@ -145,7 +148,7 @@ export function LoginPage() {
             <Button
               fullWidth
               sx={{ mt: 0, mb: 2, color: primarycolor }}
-              onClick={signup}
+              onClick={Lostpass}
             >
               パスワードを忘れた方はこちら
             </Button>

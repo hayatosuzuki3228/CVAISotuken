@@ -1,0 +1,119 @@
+.header {
+  background-color: #21a7dd;
+  padding: 40px;
+  display: flex;
+}
+
+.header div {
+  text-align: left;
+}
+
+.header h1 {
+  margin: auto;
+  text-align: center;
+}
+
+.info {
+  display: flex;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: -40px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.black {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.half-box {
+  flex: 1;
+}
+
+.div-padding {
+  display: flex;
+  padding-top: 3%;
+  /*padding: 20px;*/
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-bottom: 5%;
+  justify-content: space-between;
+}
+
+.button {
+  width: 220px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 15px;
+  background-color: rgb(255, 254, 226);
+  text-align: center;
+}
+
+.button-size {
+  size: 24px;
+  background-color: #d0e8ff;
+}
+
+/*ここからバーガーメニュー*/
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: #373a47;
+}
+
+.bm-burger-bars-hover {
+  background: #005b99;
+}
+
+.bm-cross-button {
+  height: 36px;
+  width: 36px;
+}
+
+.bm-cross {
+  height: 2%;
+  width: 2%;
+  background: #373a47;
+}
+
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+.bm-menu {
+  background: rgb(181, 236, 255);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+  overflow: hidden;
+}
+
+.bm-menu element {
+  overflow: hidden;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  outline: none;
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}

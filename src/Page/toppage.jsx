@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
@@ -21,6 +22,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
+import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
@@ -85,12 +87,44 @@ const menuItems = [
   {
     text: "マッチング",
     icon: <ContentPasteSearchIcon />,
-    link: "/Conditions",
+    link: "/Matching",
     isNavigate: true,
   },
-  { text: "プロフィール", icon: <PersonIcon />, link: null },
+  { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
   { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
 ];
+
+//Boxのボーダーにテキストを追加
+const CustomBox = styled(Box)({
+  position: "relative",
+  "&::before": {
+    content: '"お知らせ"',
+    position: "absolute",
+    top: "-13px", // Adjust as necessary
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "#fff", // Background color to overlay on border
+    padding: "0 4px", // Adjust padding as necessary
+    zIndex: 1,
+    fontSize: "18px",
+  },
+  padding: "16px",
+});
+const CustomBox1 = styled(Box)({
+  position: "relative",
+  "&::before": {
+    content: '"企業からのお知らせ"',
+    position: "absolute",
+    top: "-13px", // Adjust as necessary
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "#fff", // Background color to overlay on border
+    padding: "0 4px", // Adjust padding as necessary
+    zIndex: 1,
+    fontSize: "20px",
+  },
+  padding: "16px",
+});
 
 export function Toppage() {
   const navigate = useNavigate();
@@ -198,9 +232,103 @@ export function Toppage() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <List>
-            <ListItem>メイン画面</ListItem>
-          </List>
+          <Stack
+            direction="row"
+            alignContent="center"
+            justifyContent="center"
+            spacing={2}
+            height="100%"
+          >
+            <Box
+              border={1}
+              borderColor={gray}
+              sx={{ borderRadius: 4 }}
+              width="100%"
+              height="100%"
+            >
+              <CustomBox></CustomBox>
+            </Box>
+            <Box
+              border={1}
+              borderColor={gray}
+              sx={{ borderRadius: 4 }}
+              width="100%"
+              height="100%"
+            >
+              <CustomBox1></CustomBox1>
+            </Box>
+            <Stack direction="column" width="85%" height="100%">
+              <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
+                <p></p>
+                <Box
+                  border={2}
+                  sx={{
+                    borderRadius: 8,
+                  }}
+                  backgroundColor="#ADD8E6"
+                >
+                  <Button
+                    fullWidth
+                    style={{ fontSize: "3em" }}
+                    sx={{ borderRadius: 8 }}
+                  >
+                    メッセージ
+                  </Button>
+                </Box>
+                <p></p>
+                <Box
+                  border={2}
+                  sx={{
+                    borderRadius: 8,
+                  }}
+                  backgroundColor="#ADD8E6"
+                >
+                  <Button
+                    fullWidth
+                    style={{ fontSize: "3em" }}
+                    sx={{
+                      borderRadius: 8,
+                    }}
+                  >
+                    ブックマーク
+                  </Button>
+                </Box>
+              </Box>
+              <p></p>
+              <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
+                <Box
+                  border={2}
+                  backgroundColor="#98FB98"
+                  sx={{ borderRadius: 8 }}
+                >
+                  <Button
+                    fullWidth
+                    style={{ fontSize: "3em" }}
+                    sx={{
+                      borderRadius: 8,
+                      color: "black",
+                    }}
+                  >
+                    就職ガイド
+                  </Button>
+                </Box>
+                <p></p>
+                <Box
+                  border={2}
+                  backgroundColor="#98FB98"
+                  sx={{ borderRadius: 8 }}
+                >
+                  <Button
+                    fullWidth
+                    style={{ fontSize: "3em" }}
+                    sx={{ borderRadius: 8, color: "black" }}
+                  >
+                    お問い合わせ
+                  </Button>
+                </Box>
+              </Box>
+            </Stack>
+          </Stack>
         </Main>
       </Box>
     </ThemeProvider>

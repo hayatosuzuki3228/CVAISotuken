@@ -189,7 +189,7 @@ export function Matching() {
           </div>
           <div id="b7">
             <Button
-              onClick={onClick}
+              onClick={() => navigate("/Conditions")}
               sx={{
                 width: 400,
                 height: 150,
