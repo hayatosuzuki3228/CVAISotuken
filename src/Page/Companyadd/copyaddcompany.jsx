@@ -168,15 +168,16 @@ export function Addcompany() {
       event.target.checked,
     ]);
   };
-  const game4 = (event) => {
-    setGameCheck([event.target.checked, gamecheck[1], gamecheck[2]]);
+
+  const updateGameCheck = (index) => (event) => {
+    const newGameCheck = [...gamecheck];
+    newGameCheck[index] = event.target.checked;
+    setGameCheck(newGameCheck);
   };
-  const game2 = (event) => {
-    setGameCheck([gamecheck[0], event.target.checked, gamecheck[2]]);
-  };
-  const game21 = (event) => {
-    setGameCheck([gamecheck[0], gamecheck[1], event.target.checked]);
-  };
+
+  const game4 = updateGameCheck(0);
+  const game2 = updateGameCheck(1);
+  const game21 = updateGameCheck(2);
 
   const [eizocheck, setEizoCheck] = React.useState([false, false]);
 
