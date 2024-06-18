@@ -5,9 +5,9 @@ import { Container, Typography, Box, Paper, Alert } from "@mui/material";
 export function Matchdo() {
   const [jobData, setJobData] = useState({
     department: "",
-    location: "",
-    features: "",
-    qualifications: "",
+    location: [],
+    features: [],
+    qualifications: [],
   });
   const [showAlert, setShowAlert] = useState(false);
 
@@ -21,7 +21,7 @@ export function Matchdo() {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box my={4}>
           <Typography variant="h5" component="h1" gutterBottom>
             マッチ度を算出するための情報を登録してください

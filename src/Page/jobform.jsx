@@ -9,9 +9,9 @@ const qualificationsOptions = ["a", "b", "c"];
 const JobForm = ({ onSave, initialData }) => {
   const [formData, setFormData] = useState({
     department: "",
-    location: "",
-    features: "",
-    qualifications: "",
+    location: [],
+    features: [],
+    qualifications: [],
   });
 
   useEffect(() => {
@@ -46,6 +46,7 @@ const JobForm = ({ onSave, initialData }) => {
       </Box>
       <Box mb={2}>
         <Autocomplete
+          multiple
           options={locationOptions}
           value={formData.location}
           onChange={handleChange("location")}
@@ -56,6 +57,7 @@ const JobForm = ({ onSave, initialData }) => {
       </Box>
       <Box mb={2}>
         <Autocomplete
+          multiple
           options={featuresOptions}
           value={formData.features}
           onChange={handleChange("features")}
@@ -66,6 +68,7 @@ const JobForm = ({ onSave, initialData }) => {
       </Box>
       <Box mb={2}>
         <Autocomplete
+          multiple
           options={qualificationsOptions}
           value={formData.qualifications}
           onChange={handleChange("qualifications")}

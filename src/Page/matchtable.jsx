@@ -39,22 +39,11 @@ function convertCompanyData(company) {
 // マッチ度を計算する関数
 function calculateMatchScore(company) {
   let score = 0;
-  /* if (company.category === matchscore.industry) score += 10;
-  if (company.job_type === matchscore.jobType) score += 10;
-  if (company.capital === matchscore.capital) score += 10;
-  if (company.qualification === matchscore.qualification) score += 10;
-  if (company.personality === matchscore.personality) score += 10;
-  if (company.characteristics === matchscore.characteristics) score += 10;
-  if (company.recruitment_grade === matchscore.recruitmentGrade) score += 10;
-  if (company.work_location === matchscore.location) score += 10;
-  if (company.bonus === matchscore.bonus) score += 10;
-  if (company.initial_salary === matchscore.initialSalary) score += 10;
-  if (company.allowances === matchscore.allowances) score += 10;
-  if (company.welfare === matchscore.welfare) score += 10;
-  if (company.number_of_employees === matchscore.employees) score += 10;
-  if (company.amount_of_sales === matchscore.sales) score += 10;
-  if (company.holidays === matchscore.holidays) score += 10;
-  if (company.working_hours === matchscore.workingHours) score += 10;*/
+  /* if (company.category === matchdo.department) score += 10;
+  if (company.job_type === matchdo.location) score += 10;
+  if (company.job_type === matchdo.features) score += 10;
+  if (company.job_type === matchdo.qualifications) score += 10;
+  */
   return score;
 }
 const rows = companies.map(convertCompanyData);
