@@ -237,11 +237,15 @@ export function SCompany() {
             </font>
           </div>
           <div className="half-box black">
-            {myPower
-              ? myPower.map((option, index) => (
-                  <Typography key={index}>{option.title}</Typography>
-                ))
-              : null}
+            <font size="3.5">
+              {myPower
+                ? myPower.map((option, index) => (
+                    <Typography key={index} textAlign="center">
+                      {option.title}
+                    </Typography>
+                  ))
+                : null}
+            </font>
           </div>
         </div>
       </Box>

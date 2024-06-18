@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  Autocomplete,
   Box,
+  Button,
+  Chip,
+  Checkbox,
   Drawer,
   Divider,
   List,
@@ -14,10 +18,6 @@ import {
   Stack,
   Select,
   TextField,
-  Button,
-  Autocomplete,
-  Chip,
-  Checkbox,
 } from "@mui/material";
 import "./styles.css";
 import { options } from "./Data";
@@ -36,7 +36,7 @@ export function SCEdit() {
   const warpSkill = location.state?.skill || "";
   const warpSSubject = location.state?.SSubject || "";
   const warpKSubject = location.state?.KSubject || "";
-  const warpMyPower = location.state?.myPower || null;
+  const warpMyPower = location.state?.myPower || [];
   const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
     location.state || {};
 
@@ -91,7 +91,7 @@ export function SCEdit() {
 
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    if ((regex.test(job, hobby, skill, SSubject, KSubject), myPower != "")) {
+    if (regex.test(job, hobby, skill, SSubject, KSubject) && myPower != "") {
       navigate("/profile-st-com", {
         state: {
           name,
@@ -116,22 +116,22 @@ export function SCEdit() {
       });
     } else {
       {
-        !regex.test(job) ? setError1("エラー：希望職種") : "";
+        !regex.test(job) ? setError1("エラー：希望職種") : setError1("");
       }
       {
-        !regex.test(hobby) ? setError2("エラー：趣味") : "";
+        !regex.test(hobby) ? setError2("エラー：趣味") : setError2("");
       }
       {
-        !regex.test(skill) ? setError3("エラー：得意な科目") : "";
+        !regex.test(skill) ? setError3("エラー：特技") : setError3("");
       }
       {
-        !regex.test(SSubject) ? setError4("エラー：苦手な科目") : "";
+        !regex.test(SSubject) ? setError4("エラー：得意な科目") : setError4("");
       }
       {
-        !regex.test(KSubject) ? setError5("エラー：取得した資格") : "";
+        !regex.test(KSubject) ? setError5("エラー：苦手な科目") : setError5("");
       }
       {
-        myPower != "" ? setError6("エラー：保有資格") : "";
+        myPower != "" ? setError6("エラー：保有資格") : setError6("");
       }
     }
   };
@@ -143,6 +143,14 @@ export function SCEdit() {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
+  };
+
+  const handleChange = (event, newValue) => {
+    if (newValue.some((option) => option.id === 0)) {
+      setMyPower([options.find((option) => option.id === 0)]);
+    } else {
+      setMyPower(newValue);
+    }
   };
 
   return (
@@ -335,6 +343,7 @@ export function SCEdit() {
               getOptionLabel={(option) => option.title}
               defaultValue={myPower || []}
               defaultChecked={myPower || []}
+              value={myPower}
               renderOption={(props, option, { selected }) => (
                 <li {...props} key={option.id}>
                   <Checkbox
@@ -342,25 +351,18 @@ export function SCEdit() {
                     checkedIcon={checkedIcon}
                     style={{ marginRight: 8 }}
                     checked={selected}
+                    disabled={
+                      myPower.some((selectOption) => selectOption.id === 0) &&
+                      option.id !== 0
+                    }
                   />
                   {option.title}
                 </li>
               )}
-              /*renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    variant="outlined"
-                    label={option.title}
-                    {...getTagProps({ index })}
-                  />
-                ))
-              }*/
               renderInput={(params) => (
                 <TextField {...params} label="取得資格の選択" />
               )}
-              onChange={(event, newValue) => {
-                setMyPower(newValue);
-              }}
+              onChange={handleChange}
             />
           </Box>
         </Stack>
@@ -373,9 +375,14 @@ export function SCEdit() {
           {error5 && <p style={{ color: "red" }}>{error5}</p>}
           {error6 && <p style={{ color: "red" }}>{error6}</p>}
         </div>
-        <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
-          情報を確定する
-        </Button>
+        <Stack direction="row" spacing={7}>
+          <Button variant="contained" onClick={OnClick2}>
+            戻る
+          </Button>
+          <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
+            情報を確定する
+          </Button>
+        </Stack>
       </Stack>
     </>
   );

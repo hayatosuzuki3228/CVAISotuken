@@ -70,25 +70,48 @@ export function CEdit() {
   const [error7, setError7] = useState("");
   const [error8, setError8] = useState("");
   const [error9, setError9] = useState("");
+  const [error10, setError10] = useState("");
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("");
     navigate("/profile-st-edit");
   };
   const OnClick2 = () => {
     navigate("/profile-st-com");
+  };
+  const OnClick3 = () => {
+    navigate("/profile-com");
   };
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
     const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
     const TelRegex = /^[0-9-]{11,}$/;
     const MoneyRegex = /^[0-9]{1,}$/;
+    const PageRegex =
+      /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
+
+    const isValidCname = regex.test(Cname);
+    const isValidPlace = regex.test(place);
+    const isValidInfo = regex.test(info);
+    const isValidPeople = regex.test(people);
+    const isValidComePeople = regex.test(comePeople);
+    const isValidCkName = KanaRegex.test(CkName);
+    const isValidTel = TelRegex.test(tel);
+    const isValidFax = TelRegex.test(fax); // FAX番号も同じ正規表現を使用
+    const isValidCapital = MoneyRegex.test(capital);
+    const isValidHomepage = PageRegex.test(homepage) || homepage === "";
+
     if (
-      regex.test(Cname, place, info, people, comePeople) &&
-      KanaRegex.test(CkName) &&
-      TelRegex.test(tel, fax) &&
-      MoneyRegex.test(capital)
+      isValidCname &&
+      isValidPlace &&
+      isValidInfo &&
+      isValidPeople &&
+      isValidComePeople &&
+      isValidCkName &&
+      isValidTel &&
+      isValidFax &&
+      isValidCapital &&
+      isValidHomepage
     ) {
       navigate("/profile-com", {
         state: {
@@ -135,6 +158,11 @@ export function CEdit() {
       }
       {
         !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("");
+      }
+      {
+        !PageRegex.test(homepage)
+          ? setError10("エラー：ホームページ")
+          : setError10("");
       }
     }
   };
@@ -497,10 +525,16 @@ export function CEdit() {
           {error7 && <p style={{ color: "red" }}>{error7}</p>}
           {error8 && <p style={{ color: "red" }}>{error8}</p>}
           {error9 && <p style={{ color: "red" }}>{error9}</p>}
+          {error10 && <p style={{ color: "red" }}>{error10}</p>}
         </div>
-        <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
-          情報を確定する
-        </Button>
+        <Stack direction="row" spacing={7}>
+          <Button variant="contained" onClick={OnClick3}>
+            戻る
+          </Button>
+          <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
+            情報を確定する
+          </Button>
+        </Stack>
       </Stack>
     </>
   );
