@@ -507,7 +507,7 @@ export function CEdit() {
           >
             <TextField
               fullWidth
-              label="代表者名の変更"
+              label="ホームページ等の追加・変更"
               value={homepage}
               onChange={(e) => setHomepage(e.target.value)}
               helperText="ここは任意です"

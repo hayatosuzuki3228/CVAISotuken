@@ -245,7 +245,9 @@ export function CProfile() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              <p>{homepage && <Link to={homepage}>https://{homepage}</Link>}</p>
+              <p>
+                <a href={homepage}>{homepage}</a>
+              </p>
             </font>
           </div>
         </div>
