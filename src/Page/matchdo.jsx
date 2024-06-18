@@ -42,9 +42,11 @@ export function Matchdo() {
                 <Box mt={4} p={3} border={1} borderRadius={2}>
                   <Typography variant="h6">登録したマッチ度情報</Typography>
                   <Typography>募集学科情報: {jobData.department}</Typography>
-                  <Typography>勤務地: {jobData.location}</Typography>
-                  <Typography>特長: {jobData.features}</Typography>
-                  <Typography>資格: {jobData.qualifications}</Typography>
+                  <Typography>勤務地: {jobData.location.join(",")}</Typography>
+                  <Typography>特長: {jobData.features.join(",")} </Typography>
+                  <Typography>
+                    資格: {jobData.qualifications.join(",")}
+                  </Typography>
                 </Box>
               </Paper>
             )}

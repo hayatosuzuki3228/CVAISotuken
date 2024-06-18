@@ -39,8 +39,9 @@ function convertCompanyData(company) {
 // マッチ度を計算する関数
 function calculateMatchScore(company) {
   let score = 0;
-  /* if (company.category === matchdo.department) score += 10;
-  if (company.job_type === matchdo.location) score += 10;
+
+  /* if (company.category === matchdo.department) score = 0;
+  if (company.job_type === matchdo.location) score = 0;
   if (company.job_type === matchdo.features) score += 10;
   if (company.job_type === matchdo.qualifications) score += 10;
   */

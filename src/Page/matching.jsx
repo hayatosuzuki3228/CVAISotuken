@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -12,16 +12,30 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import companies from "../const/companies";
+
 const options = companies.map((company) => ({
   label: company.name,
+  id: company.id, // 企業IDを追加
 }));
 
 export function Matching() {
   const navigate = useNavigate();
+  const [selectedCompany, setSelectedCompany] = useState(null);
+
+  const handleCompanyChange = (event, value) => {
+    setSelectedCompany(value);
+  };
+
+  const handleCompanyInfoClick = () => {
+    if (selectedCompany && selectedCompany.id) {
+      navigate(`/companyinformation`);
+    }
+  };
 
   const onClick = () => {
     navigate("/Matchtable");
   };
+
   return (
     <body>
       <Box bgcolor="#6495ed" p={2}>
@@ -51,8 +65,8 @@ export function Matching() {
         </Stack>
       </Box>
 
-      <div class="gamen">
-        <div class="menu">
+      <div className="gamen">
+        <div className="menu">
           <Stack
             direction="column"
             spacing={2}
@@ -127,10 +141,11 @@ export function Matching() {
           </Stack>
         </div>
 
-        <div class="main">
+        <div className="main">
           <Autocomplete
             options={options}
             getOptionLabel={(option) => option.label}
+            onChange={handleCompanyChange}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -138,7 +153,6 @@ export function Matching() {
                 variant="outlined"
                 sx={{
                   width: 500,
-
                   backgroundColor: "lightgray",
                 }}
               />
@@ -147,7 +161,7 @@ export function Matching() {
           />
           <div id="b5">
             <Button
-              onClick={onClick}
+              onClick={handleCompanyInfoClick}
               sx={{
                 width: 700,
                 height: 150,
@@ -201,4 +215,5 @@ export function Matching() {
     </body>
   );
 }
+
 export default Matching;
