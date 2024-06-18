@@ -353,16 +353,17 @@ export function Companyinformation() {
             </Box>
             <Box display="flex" width="85%" border={1} p={2}>
               <Typography style={{ fontSize: "1.5em" }}>
+                給与
                 <Stack display="flex" direction="row">
                   4年課程基本給:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Four_year_course_basic_salary}
                   </Typography>
-                  4年課程諸手当:
+                  +4年課程諸手当:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Four_year_course_allowances}
                   </Typography>
-                  4年課程総合計:
+                  =4年課程総合計:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Four_year_course_salary_total}
                   </Typography>
@@ -372,11 +373,11 @@ export function Companyinformation() {
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Three_year_course_basic_salary}
                   </Typography>
-                  3年課程諸手当:
+                  +3年課程諸手当:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Three_year_course_allowances}
                   </Typography>
-                  3年課程総合計:
+                  =3年課程総合計:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Three_year_course_salary_total}
                   </Typography>
@@ -386,11 +387,11 @@ export function Companyinformation() {
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Two_year_course_basic_salary}
                   </Typography>
-                  2年課程諸手当:
+                  +2年課程諸手当:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Two_year_course_allowances}
                   </Typography>
-                  2年課程総合計:
+                  =2年課程総合計:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.Two_year_course_salary_total}
                   </Typography>
@@ -400,11 +401,11 @@ export function Companyinformation() {
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.One_year_course_basic_salary}
                   </Typography>
-                  1年課程諸手当:
+                  +1年課程諸手当:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.One_year_course_allowances}
                   </Typography>
-                  1年課程総合計:
+                  =1年課程総合計:
                   <Typography style={{ fontSize: "1em" }} key={company.id}>
                     {company.One_year_course_salary_total}
                   </Typography>
@@ -445,7 +446,7 @@ export function Companyinformation() {
               <Typography style={{ fontSize: "1.5em" }}>
                 ホームページ
                 <Typography style={{ fontSize: "1em" }} key={company.id}>
-                  {company.website}
+                  <a href={company.website}>{company.website}</a>
                 </Typography>
               </Typography>
             </Box>
