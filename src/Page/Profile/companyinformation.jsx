@@ -23,14 +23,13 @@ import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
-import { gray, primarycolor } from "c:/Users/user/CVAISotuken/src/const/color";
+import { gray, primarycolor } from "../../const/color";
 import "normalize.css";
 const drawerWidth = 240;
-import { Link } from "react-router-dom";
 
-import { companies } from "C:/Users/user/CVAISotuken/src/const/companies";
+import { companies } from "../../const/companies";
 
-const company = companies.find((company) => company.id === 1);
+const company = companies.find((company) => company.id === 16);
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
