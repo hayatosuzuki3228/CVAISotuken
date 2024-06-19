@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -11,8 +11,8 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import companies from "../const/companies";
-
+import companies from "C:/Users/user/CVAISotuken/src/const/companies.js";
+import MyContext from "../../provider/provider";
 const options = companies.map((company) => ({
   label: company.name,
   id: company.id, // 企業IDを追加
@@ -21,15 +21,13 @@ const options = companies.map((company) => ({
 export function Matching() {
   const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
-
-  const handleCompanyChange = (event, value) => {
-    setSelectedCompany(value);
+  const { providerid, setproviderid } = useContext(MyContext);
+  const handleCompanyChange = (value) => {
+    setproviderid(value.id);
   };
 
   const handleCompanyInfoClick = () => {
-    if (selectedCompany && selectedCompany.id) {
-      navigate(`/companyinformation`);
-    }
+    navigate(`/companyinformation`);
   };
 
   const onClick = () => {

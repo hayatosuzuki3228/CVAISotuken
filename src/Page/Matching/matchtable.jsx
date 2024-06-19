@@ -14,12 +14,16 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TextField from "@mui/material/TextField";
-import companies from "../const/companies";
+import Button from "@mui/material/Button"; // Buttonをインポート
+import companies from "C:/Users/user/CVAISotuken/src/const/companies.js";
+
 function convertCompanyData(company) {
+  const matchScore = calculateMatchScore(company);
   return {
     id: company.id.toString(), // IDを文字列に変換
     name: company.name,
-    matchdo: 90, // マッチ度の初期値
+    detail: company.detail,
+    matchdo: matchScore,
     history: [
       {
         industry: company.category,
@@ -32,11 +36,21 @@ function convertCompanyData(company) {
     ],
   };
 }
+// マッチ度を計算する関数
+function calculateMatchScore(company) {
+  let score = 0;
 
+  /* if (company.category === matchdo.department) score = 0;
+  if (company.job_type === matchdo.location) score = 0;
+  if (company.job_type === matchdo.features) score += 10;
+  if (company.job_type === matchdo.qualifications) score += 10;
+  */
+  return score;
+}
 const rows = companies.map(convertCompanyData);
 
 function Row(props) {
-  const { row } = props;
+  const { row, showDetail } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -55,10 +69,14 @@ function Row(props) {
           {row.id}
         </TableCell>
         <TableCell>{row.name}</TableCell>
-        <TableCell>{row.matchdo}</TableCell>
+        {showDetail && <TableCell>{row.detail}</TableCell>}
+        <TableCell align="left">{row.matchdo}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={showDetail ? 5 : 4}
+        >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
@@ -76,8 +94,8 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.history.map((historyRow, index) => (
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {historyRow.industry}
                       </TableCell>
@@ -102,6 +120,7 @@ Row.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    detail: PropTypes.string.isRequired,
     matchdo: PropTypes.number.isRequired,
 
     history: PropTypes.arrayOf(
@@ -115,31 +134,69 @@ Row.propTypes = {
       })
     ).isRequired,
   }).isRequired,
+  showDetail: PropTypes.bool.isRequired,
 };
 
 export function Matchtable() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [detailSearchTerm, setDetailSearchTerm] = useState(""); // 詳細検索用の状態
+  const [showDetail, setShowDetail] = useState(false); // 事業内容の表示状態を管理するstate
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleDetailSearch = (event) => {
+    setDetailSearchTerm(event.target.value);
+  };
+
   const filteredRows = rows.filter(
     (row) =>
-      row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      row.name.toLowerCase().includes(searchTerm.toLowerCase())
+      (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase())
   );
+
+  const toggleDetail = () => {
+    setShowDetail((prevShowDetail) => !prevShowDetail);
+  };
 
   return (
     <>
-      <TextField
-        label="IDまたは会社名入力"
-        value={searchTerm}
-        onChange={handleSearch}
-        variant="outlined"
-        sx={{ marginBottom: "1rem", width: 500 }}
-        className="sertch"
-      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          marginBottom: "1rem",
+        }}
+      >
+        <TextField
+          label="IDまたは会社名入力"
+          value={searchTerm}
+          onChange={handleSearch}
+          variant="outlined"
+          sx={{ marginBottom: "1rem", width: 500 }}
+          className="sertch"
+        />
+
+        <TextField
+          label="事業内容入力"
+          value={detailSearchTerm}
+          onChange={handleDetailSearch}
+          variant="outlined"
+          sx={{ marginBottom: "1rem", width: 500 }}
+          className="detailSearch"
+        />
+      </Box>
+      <Button
+        onClick={toggleDetail}
+        variant="contained"
+        sx={{ marginBottom: "1rem", height: 60, width: 200, fontSize: 20 }}
+        className="detailbu"
+      >
+        {showDetail ? "事業内容非表示" : "事業内容表示"}
+      </Button>
       <TableContainer
         component={Paper}
         className="table1"
@@ -154,19 +211,19 @@ export function Matchtable() {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>会社ID</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell>会社名</TableCell>
-              <TableCell>マッチ度</TableCell>
+              {showDetail && <TableCell>事業内容</TableCell>}
+              <TableCell align="left">マッチ度</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredRows.map((row) => (
-              <Row key={row.id} row={row} />
+              <Row key={row.id} row={row} showDetail={showDetail} />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-
       <head>
         <link
           href="matchtable.css"

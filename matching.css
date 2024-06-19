@@ -80,6 +80,7 @@
   }
 }
 /* タブレット向け */
+
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .btn {
     position: absolute;
@@ -89,6 +90,7 @@
   }
 }
 /* スマートフォン向け */
+
 @media screen and(max-width: 768px) {
   .btn {
     position: absolute;
