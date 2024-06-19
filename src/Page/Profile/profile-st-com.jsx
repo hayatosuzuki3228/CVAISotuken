@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import MyContext from "../../provider/provider";
 
 export function SCompany() {
   useEffect(() => {
@@ -47,6 +48,7 @@ export function SCompany() {
         Gak,
       },
     });
+    setprovidername(providerSaveName);
   };
   const OnClick2 = () => {
     navigate("/profile-st", {
@@ -92,6 +94,13 @@ export function SCompany() {
     bye,
     age,
   } = location.state || {};
+
+  const {
+    providername,
+    setprovidername,
+    providerSaveName,
+    setProviderSaveName,
+  } = useContext(MyContext);
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -248,7 +257,24 @@ export function SCompany() {
             </font>
           </div>
         </div>
+
+        <div className="info" style={{ textAlign: "center" }}>
+          <div className="half-box black">
+            <font size="3.5">
+              <p>お試しプロバイダー</p>
+            </font>
+          </div>
+          <div className="half-box black">
+            <font size="3.5">
+              <p>
+                {providerSaveName}
+                <br />
+              </p>
+            </font>
+          </div>
+        </div>
       </Box>
+
       <div className="div-padding">
         <button className="button" onClick={OnClick1}>
           情報を編集する

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Autocomplete,
@@ -24,11 +24,19 @@ import { options } from "./Data";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import MyContext from "../../provider/provider";
 
 export function SCEdit() {
   useEffect(() => {
     document.title = "プロフィール";
   }, []);
+
+  const {
+    providername,
+    setprovidername,
+    providerSaveName,
+    setProviderSaveName,
+  } = useContext(MyContext);
 
   const location = useLocation();
   const warpJob = location.state?.job || "";
@@ -91,7 +99,9 @@ export function SCEdit() {
 
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    if (regex.test(job, hobby, skill, SSubject, KSubject) && myPower != "") {
+    if (
+      /*regex.test(job, hobby, skill, SSubject, KSubject) &&*/ myPower != ""
+    ) {
       navigate("/profile-st-com", {
         state: {
           name,
@@ -114,6 +124,7 @@ export function SCEdit() {
           Gak,
         },
       });
+      setProviderSaveName(providername);
     } else {
       {
         !regex.test(job) ? setError1("エラー：希望職種") : setError1("");
@@ -136,7 +147,9 @@ export function SCEdit() {
     }
   };
 
-  const Check = job && hobby && skill && SSubject && KSubject && myPower;
+  const Check =
+    /*job && hobby && skill && SSubject && KSubject &&*/ myPower &&
+    providername;
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -363,6 +376,31 @@ export function SCEdit() {
                 <TextField {...params} label="取得資格の選択" />
               )}
               onChange={handleChange}
+            />
+          </Box>
+        </Stack>
+
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>お試しプロバイダー</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <TextField
+              fullWidth
+              multiline
+              label="お試しプロバイダーの枠"
+              value={providername}
+              onChange={(e) => setprovidername(e.target.value)}
             />
           </Box>
         </Stack>
