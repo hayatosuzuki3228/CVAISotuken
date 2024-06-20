@@ -29,7 +29,7 @@ const drawerWidth = 240;
 
 import { companies } from "../../const/companies";
 
-const company = companies.find((company) => company.id === 16);
+const company = companies.find((company) => company.id === 1);
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
