@@ -68,7 +68,10 @@ export function CProfile() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -114,7 +117,13 @@ export function CProfile() {
         <h1>企業プロフィール</h1>
       </header>
 
-      <Box my={4} alignContent="center" component="section" gap={4} p={2}>
+      <Box // メインコンテンツ
+        my={4}
+        alignContent="center"
+        component="section"
+        gap={4}
+        p={2}
+      >
         <div className="info" style={{ textAlign: "center" }}>
           <div className="half-box black">
             <font size="3.5">

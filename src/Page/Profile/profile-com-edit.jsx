@@ -76,12 +76,16 @@ export function CEdit() {
   const OnClick = () => {
     navigate("/profile-st-edit");
   };
+
   const OnClick2 = () => {
     navigate("/profile-st-com");
   };
+
   const OnClick3 = () => {
     navigate("/profile-com");
   };
+
+  // profile-com に飛ぶ
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
     const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
@@ -167,7 +171,7 @@ export function CEdit() {
     }
   };
 
-  const Check =
+  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
     Cname &&
     CkName &&
     place &&
@@ -182,7 +186,10 @@ export function CEdit() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -219,7 +226,7 @@ export function CEdit() {
         <h1>プロフィール編集</h1>
       </header>
 
-      <Stack
+      <Stack // メインコンテンツ
         justifyContent="center"
         alignItems="center"
         textAlign="center"
@@ -515,7 +522,7 @@ export function CEdit() {
           </Box>
         </Stack>
 
-        <div>
+        <div /* エラーの表示 */>
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
           {error2 && <p style={{ color: "red" }}>{error2}</p>}
           {error3 && <p style={{ color: "red" }}>{error3}</p>}
@@ -527,11 +534,22 @@ export function CEdit() {
           {error9 && <p style={{ color: "red" }}>{error9}</p>}
           {error10 && <p style={{ color: "red" }}>{error10}</p>}
         </div>
-        <Stack direction="row" spacing={7}>
-          <Button variant="contained" onClick={OnClick3}>
+
+        <Stack // ボタンの表示
+          direction="row"
+          spacing={7}
+        >
+          <Button // profile-com に飛ぶ(データの保存を行わない)
+            variant="contained"
+            onClick={OnClick3}
+          >
             戻る
           </Button>
-          <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
+          <Button // profile-comに飛ぶ(データの保存を行う)
+            variant="contained"
+            onClick={OnClickBack}
+            disabled={!Check}
+          >
             情報を確定する
           </Button>
         </Stack>

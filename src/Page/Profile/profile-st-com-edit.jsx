@@ -97,11 +97,10 @@ export function SCEdit() {
     });
   };
 
+  /* profile-st-com に飛ぶ */
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    if (
-      /*regex.test(job, hobby, skill, SSubject, KSubject) &&*/ myPower != ""
-    ) {
+    if (regex.test(job, hobby, skill, SSubject, KSubject) && myPower != "") {
       navigate("/profile-st-com", {
         state: {
           name,
@@ -147,9 +146,8 @@ export function SCEdit() {
     }
   };
 
-  const Check =
-    /*job && hobby && skill && SSubject && KSubject &&*/ myPower &&
-    providername;
+  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
+    job && hobby && skill && SSubject && KSubject && myPower && providername;
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -168,7 +166,10 @@ export function SCEdit() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header /*ヘッダー部分*/
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -205,7 +206,7 @@ export function SCEdit() {
         <h1>プロフィール編集画面</h1>
       </header>
 
-      <Stack
+      <Stack /*メインコンテンツ*/
         justifyContent="center"
         alignItems="center"
         textAlign="center"
@@ -224,7 +225,6 @@ export function SCEdit() {
             <p>希望職種</p>
           </Box>
           <Box
-            //paddingBottom={2}
             flex="1"
             border="1px solid black"
             padding="10px"
@@ -252,7 +252,6 @@ export function SCEdit() {
           </Box>
 
           <Box
-            //paddingBottom={2}
             flex="1"
             border="1px solid black"
             padding="10px"
@@ -279,7 +278,6 @@ export function SCEdit() {
           </Box>
 
           <Box
-            //paddingBottom={2}
             flex="1"
             border="1px solid black"
             padding="10px"
@@ -380,7 +378,7 @@ export function SCEdit() {
           </Box>
         </Stack>
 
-        <Stack direction="row" paddingBottom={5}>
+        <Stack /* 後々消す */ direction="row" paddingBottom={5}>
           <Box
             flex="1"
             border="1px solid black"
@@ -405,7 +403,7 @@ export function SCEdit() {
           </Box>
         </Stack>
 
-        <div>
+        <div /*エラーを表示する*/>
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
           {error2 && <p style={{ color: "red" }}>{error2}</p>}
           {error3 && <p style={{ color: "red" }}>{error3}</p>}
@@ -413,11 +411,18 @@ export function SCEdit() {
           {error5 && <p style={{ color: "red" }}>{error5}</p>}
           {error6 && <p style={{ color: "red" }}>{error6}</p>}
         </div>
-        <Stack direction="row" spacing={7}>
-          <Button variant="contained" onClick={OnClick2}>
+        <Stack direction="row" spacing={7} /*ボタンを表示する*/>
+          <Button /* profile-st-com に飛ぶ(データの保存を行わない) */
+            variant="contained"
+            onClick={OnClick2}
+          >
             戻る
           </Button>
-          <Button variant="contained" onClick={OnClickBack} disabled={!Check}>
+          <Button /* profile-st-com に飛ぶ(データの保存を行う) */
+            variant="contained"
+            onClick={OnClickBack}
+            disabled={!Check}
+          >
             情報を確定する
           </Button>
         </Stack>

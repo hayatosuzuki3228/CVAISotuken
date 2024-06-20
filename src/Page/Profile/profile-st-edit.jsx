@@ -71,9 +71,12 @@ export function SEdit() {
       },
     });
   };
+
   const OnClick2 = () => {
     navigate("/profile-st-com");
   };
+
+  // profile-st に飛ぶ
   const OnClickNext = () => {
     const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
     const regex2 = /^[ァ-ヴ]{2,}$/;
@@ -125,7 +128,7 @@ export function SEdit() {
     }
   };
 
-  const Check =
+  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
     name &&
     kName &&
     man &&
@@ -148,7 +151,10 @@ export function SEdit() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -177,7 +183,7 @@ export function SEdit() {
         <h1>プロフィール編集</h1>
       </header>
 
-      <Stack
+      <Stack // メインコンテンツ
         justifyContent="center"
         alignItems="center"
         textAlign="center"
@@ -457,16 +463,28 @@ export function SEdit() {
             />
           </Box>
         </Stack>
-        <div>
+
+        <div /* エラーの表示 */>
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
           {error2 && <p style={{ color: "red" }}>{error2}</p>}
           {error3 && <p style={{ color: "red" }}>{error3}</p>}
         </div>
-        <Stack direction="row" spacing={7}>
-          <Button variant="contained" onClick={OnClick}>
+
+        <Stack // ボタンの表示
+          direction="row"
+          spacing={7}
+        >
+          <Button // profile-st に飛ぶ(データの保存を行わない)
+            variant="contained"
+            onClick={OnClick}
+          >
             戻る
           </Button>
-          <Button variant="contained" onClick={OnClickNext} disabled={!Check}>
+          <Button // profile-st に飛ぶ(データの保存を行う)
+            variant="contained"
+            onClick={OnClickNext}
+            disabled={!Check}
+          >
             情報を確定する
           </Button>
         </Stack>

@@ -109,7 +109,10 @@ export function SCompany() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -154,7 +157,13 @@ export function SCompany() {
         <h1>企業向けプロフィール</h1>
       </header>
 
-      <Box my={4} alignContent="center" component="section" gap={4} p={2}>
+      <Box // メインコンテンツ
+        my={4}
+        alignContent="center"
+        component="section"
+        gap={4}
+        p={2}
+      >
         <div className="info" style={{ textAlign: "center" }}>
           <div className="half-box black">
             <font size="3.5">
@@ -247,13 +256,15 @@ export function SCompany() {
           </div>
           <div className="half-box black">
             <font size="3.5">
-              {myPower
-                ? myPower.map((option, index) => (
-                    <Typography key={index} textAlign="center">
-                      {option.title}
-                    </Typography>
-                  ))
-                : null}
+              <p>
+                {myPower
+                  ? myPower.map((option, index) => (
+                      <Typography key={index} textAlign="center">
+                        {option.title}
+                      </Typography>
+                    ))
+                  : null}
+              </p>
             </font>
           </div>
         </div>
