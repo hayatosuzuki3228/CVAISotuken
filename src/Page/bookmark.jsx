@@ -22,9 +22,13 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -126,7 +130,7 @@ const CustomBox1 = styled(Box)({
   padding: "16px",
 });
 
-export function Toppage() {
+export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -161,10 +165,6 @@ export function Toppage() {
     },
   });
 
-  const onClick = () => {
-    return navigate("/bookmark");
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
@@ -190,7 +190,7 @@ export function Toppage() {
               </IconButton>
               <Box />
               <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム
+                名産会マッチングシステム/ブックマーク
               </Typography>
             </Box>
             <Button color="inherit" onClick={() => navigate("/Loginpage")}>
@@ -236,104 +236,27 @@ export function Toppage() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <Stack
-            direction="row"
-            alignContent="center"
-            justifyContent="center"
-            spacing={2}
-            height="100%"
-          >
-            <Box
-              border={1}
-              borderColor={gray}
-              sx={{ borderRadius: 4 }}
-              width="100%"
-              height="100%"
-            >
-              <CustomBox></CustomBox>
-            </Box>
-            <Box
-              border={1}
-              borderColor={gray}
-              sx={{ borderRadius: 4 }}
-              width="100%"
-              height="100%"
-            >
-              <CustomBox1></CustomBox1>
-            </Box>
-            <Stack direction="column" width="85%" height="100%">
-              <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
-                <p></p>
-                <Box
-                  border={2}
-                  sx={{
-                    borderRadius: 8,
-                  }}
-                  backgroundColor="#ADD8E6"
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{ borderRadius: 8 }}
-                  >
-                    メッセージ
-                  </Button>
-                </Box>
-                <p></p>
-                <Box
-                  border={2}
-                  sx={{
-                    borderRadius: 8,
-                  }}
-                  backgroundColor="#ADD8E6"
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{
-                      borderRadius: 8,
-                    }}
-                    onClick={onClick}
-                  >
-                    ブックマーク
-                  </Button>
-                </Box>
-              </Box>
-              <p></p>
-              <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
-                <Box
-                  border={2}
-                  backgroundColor="#98FB98"
-                  sx={{ borderRadius: 8 }}
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{
-                      borderRadius: 8,
-                      color: "black",
-                    }}
-                  >
-                    就職ガイド
-                  </Button>
-                </Box>
-                <p></p>
-                <Box
-                  border={2}
-                  backgroundColor="#98FB98"
-                  sx={{ borderRadius: 8 }}
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{ borderRadius: 8, color: "black" }}
-                  >
-                    お問い合わせ
-                  </Button>
-                </Box>
-              </Box>
-            </Stack>
-          </Stack>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+              sx={{ height: 140 }}
+              image="../../src/assets/icon.png"
+              title="icon"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                NKC
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                名古屋工学院専門学校
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">
+                <FavoriteIcon></FavoriteIcon>
+              </Button>
+              <Button size="small">学校情報</Button>
+            </CardActions>
+          </Card>
         </Main>
       </Box>
     </ThemeProvider>
