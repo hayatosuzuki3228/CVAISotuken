@@ -11,8 +11,9 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import companies from "C:/Users/user/CVAISotuken/src/const/companies.js";
+import companies from "C:/Users/user/CVAISotuken/src/const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
+
 const options = companies.map((company) => ({
   label: company.name,
   id: company.id, // 企業IDを追加
@@ -22,8 +23,13 @@ export function Matching() {
   const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
   const { providerid, setproviderid } = useContext(MyContext);
-  const handleCompanyChange = (value) => {
-    setproviderid(value.id);
+
+  const handleCompanyChange = (event, value) => {
+    if (value) {
+      setproviderid(value.id);
+      console.log("Selected company ID:", value.id);
+    }
+    console.log("Provider ID:", providerid);
   };
 
   const handleCompanyInfoClick = () => {
@@ -35,7 +41,7 @@ export function Matching() {
   };
 
   return (
-    <body>
+    <div>
       <Box bgcolor="#6495ed" p={2}>
         <Stack direction="row" justifyContent="flex-start" alignSelf="center">
           <h1>名産会マッチング</h1>
@@ -210,7 +216,7 @@ export function Matching() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-    </body>
+    </div>
   );
 }
 
