@@ -11,10 +11,18 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
 import "./styles.css";
+
+/* 名前、メールアドレス　<= プロバイダー使う
+   年齢、生年月日、 <= 使うか怪しい
+   学科名、年齢、居住地、卒業予定年度、性別 <= いらん
+*/
 
 export function SProfile() {
   useEffect(() => {
@@ -125,17 +133,17 @@ export function SProfile() {
               onClick={toggleDrawer(false)}
             >
               <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
+              <br />
+              <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
                     <ListItemText primary="メイン" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick1}>
-                    <ListItemText primary="個人情報編集" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -162,129 +170,173 @@ export function SProfile() {
         <h1>プロフィール</h1>
       </header>
 
-      <Box // メインコンテンツ
-        my={4}
-        alignContent="center"
-        component="section"
-        gap={4}
-        p={2}
-      >
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                氏名
-                <br />
-                カタカナ
-              </p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                {name}
-                <br />
-                {kName}
-              </p>
-            </font>
-          </div>
-        </div>
+      <Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              名前
+              <br />
+              <br />
+              カタカナ
+            </p>
+          </Box>
+          <Stack
+            //spacing={2}
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {name}
+              <br />
+              <br />
+              {kName}
+            </p>
+          </Stack>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>性別</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{man}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>学科名</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{Gak}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>年齢</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{age && age + "歳"}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>生年月日</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {Years && Years + "年"}
+              {Months && Months + "月"}
+              {Days && Days + "日生まれ"}
+            </p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>メールアドレス</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{email}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>居住地</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{Home}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>卒業予定年度</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{bye}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>性別</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{man}</p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>年齢</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{age && age + "歳"}</p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>学科名</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{Gak}</p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>生年月日</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                {Years && Years + "年"}
-                {Months && Months + "月"}
-                {Days && Days + "日生まれ"}
-              </p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>メールアドレス</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{email}</p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>居住地域</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{Home}</p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>卒業予定年度</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{bye}</p>
-            </font>
-          </div>
-        </div>
-      </Box>
-      <div className="div-padding">
-        <button className="button" onClick={OnClick1}>
-          情報を編集する
-        </button>
-        <button className="button">戻る</button>
-      </div>
+        <Box>
+          <Button variant="contained" size="large" onClick={OnClick1}>
+            情報を編集する
+          </Button>
+        </Box>
+      </Stack>
     </>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useHistory } from "react-router-dom";
 import {
   Box,
+  Button,
   Drawer,
   Divider,
   List,
@@ -11,15 +12,46 @@ import {
   ListItemText,
   IconButton,
   Typography,
+  Stack,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import MyContext from "../../provider/provider";
 
+/* 
+全部プロバイダーいらない
+ゴリ押しで戻るボタン押しても内容残るようにする
+*/
+
 export function SCompany() {
   useEffect(() => {
     document.title = "企業向けプロフィール";
   }, []);
+
+  const location = useLocation();
+  const {
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+    name,
+    kName,
+    man,
+    Gak,
+    Years,
+    Months,
+    Days,
+    email,
+    Home,
+    bye,
+    age,
+    TestData,
+  } = location.state || {};
+
+  const warpTestTrans = location.state?.TestTrans || "";
+  const [TestTrans, setTestTrans] = useState("");
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -46,9 +78,10 @@ export function SCompany() {
         KSubject,
         myPower,
         Gak,
+        TestData,
+        TestTrans,
       },
     });
-    setprovidername(providerSaveName);
   };
   const OnClick2 = () => {
     navigate("/profile-st", {
@@ -73,34 +106,6 @@ export function SCompany() {
       },
     });
   };
-
-  const location = useLocation();
-  const {
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-  } = location.state || {};
-
-  const {
-    providername,
-    setprovidername,
-    providerSaveName,
-    setProviderSaveName,
-  } = useContext(MyContext);
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -128,6 +133,14 @@ export function SCompany() {
               role="presentation"
               onClick={toggleDrawer(false)}
             >
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
+              <br />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
@@ -157,141 +170,139 @@ export function SCompany() {
         <h1>企業向けプロフィール</h1>
       </header>
 
-      <Box // メインコンテンツ
-        my={4}
-        alignContent="center"
-        component="section"
-        gap={4}
-        p={2}
+      <Stack // メインコンテンツ
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        paddingTop="5%"
+        spacing={2}
       >
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>希望職種</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{job}</p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>希望職種</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {job}
+              {TestData}
+            </p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>趣味</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{hobby}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>特技</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{skill}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>得意科目</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{SSubject}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>苦手科目</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{KSubject}</p>
+          </Box>
+        </Stack>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>保有資格</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {myPower
+                ? myPower.map((option, index) => (
+                    <Typography key={index} textAlign="center">
+                      {option.title}
+                    </Typography>
+                  ))
+                : null}
+            </p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>学科名</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{Gak}</p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>趣味</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{hobby}</p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>特技</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>{skill}</p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>得意な科目</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                {SSubject}
-                <br />
-              </p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>苦手な科目</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                {KSubject}
-                <br />
-              </p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>取得した資格</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                {myPower
-                  ? myPower.map((option, index) => (
-                      <Typography key={index} textAlign="center">
-                        {option.title}
-                      </Typography>
-                    ))
-                  : null}
-              </p>
-            </font>
-          </div>
-        </div>
-
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>お試しプロバイダー</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                {providerSaveName}
-                <br />
-              </p>
-            </font>
-          </div>
-        </div>
-      </Box>
-
-      <div className="div-padding">
-        <button className="button" onClick={OnClick1}>
-          情報を編集する
-        </button>
-        <button className="button">戻る</button>
-      </div>
+        <Box className="div-padding">
+          <Button variant="contained" size="large" onClick={OnClick1}>
+            情報を編集する
+          </Button>
+        </Box>
+      </Stack>
     </>
   );
 }
