@@ -26,14 +26,21 @@ export function Matching() {
 
   const handleCompanyChange = (event, value) => {
     if (value) {
+      setSelectedCompany(value);
       setproviderid(value.id);
       console.log("Selected company ID:", value.id);
+    } else {
+      setSelectedCompany(null);
     }
     console.log("Provider ID:", providerid);
   };
 
   const handleCompanyInfoClick = () => {
-    navigate(`/companyinformation`);
+    if (selectedCompany) {
+      navigate(`/companyinformation`);
+    } else {
+      alert("企業を選択してください");
+    }
   };
 
   const onClick = () => {

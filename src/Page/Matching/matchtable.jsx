@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -19,6 +20,7 @@ import companies from "C:/Users/user/CVAISotuken/src/const/companies.js";
 
 function convertCompanyData(company) {
   const matchScore = calculateMatchScore(company);
+
   return {
     id: company.id.toString(), // IDを文字列に変換
     name: company.name,
@@ -68,7 +70,15 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
-        <TableCell>{row.name}</TableCell>
+        <TableCell>
+          <Link
+            to="/Companyinformation"
+            style={{ textDecoration: "none", color: "blue" }}
+          >
+            {row.name}
+          </Link>
+        </TableCell>
+
         {showDetail && <TableCell>{row.detail}</TableCell>}
         <TableCell align="left">{row.matchdo}</TableCell>
       </TableRow>
