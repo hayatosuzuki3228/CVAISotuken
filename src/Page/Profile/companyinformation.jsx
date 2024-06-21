@@ -24,12 +24,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
+import { companies } from "../../const/companies";
 import "normalize.css";
 const drawerWidth = 240;
 
-import { companies } from "../../const/companies";
-
-const company = companies.find((company) => company.id === 1);
+const company = companies.find((company) => company.id === 51);
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
