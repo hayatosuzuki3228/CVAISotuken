@@ -261,7 +261,7 @@ export function Toppage() {
               <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
                 <p></p>
                 <Box
-                  border={1}
+                  border={2}
                   sx={{
                     borderRadius: 8,
                   }}
@@ -277,7 +277,7 @@ export function Toppage() {
                 </Box>
                 <p></p>
                 <Box
-                  border={1}
+                  border={2}
                   sx={{
                     borderRadius: 8,
                   }}
@@ -297,7 +297,7 @@ export function Toppage() {
               <p></p>
               <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
                 <Box
-                  border={1}
+                  border={2}
                   backgroundColor="#98FB98"
                   sx={{ borderRadius: 8 }}
                 >
@@ -314,7 +314,7 @@ export function Toppage() {
                 </Box>
                 <p></p>
                 <Box
-                  border={1}
+                  border={2}
                   backgroundColor="#98FB98"
                   sx={{ borderRadius: 8 }}
                 >
