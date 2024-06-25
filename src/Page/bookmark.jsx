@@ -166,7 +166,7 @@ export function Bookmark() {
       },
     },
   });
-  const bookmark = [1, 3, 15, 20, 50];
+  const bookmark = [1, 3, 15, 20, 50, 65, 66, 71, 88, 100];
 
   const { providerid, setproviderid } = useContext(MyContext);
 
@@ -272,6 +272,7 @@ export function Bookmark() {
                             WebkitBoxOrient: "vertical",
                             WebkitLineClamp: 2,
                             textOverflow: "ellipsis",
+                            height: 58,
                           }}
                         >
                           {company?.name}
