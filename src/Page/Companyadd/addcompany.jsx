@@ -7,6 +7,7 @@ import {
   Button,
   Box,
   Checkbox,
+  Divider,
   Dialog,
   DialogActions,
   DialogContent,
@@ -126,15 +127,8 @@ export function Addcompany() {
     );
   };
 
-  const valid3 = () => {
-    return (
-      FourYearSalary !== "" &&
-      FourYearAllowances !== "" &&
-      ThreeYearSalary !== "" &&
-      ThreeYearAllowances !== "" &&
-      TwoYearSalary !== "" &&
-      TwoYearAllowances !== ""
-    );
+  const valid4 = () => {
+    return selectperson.length === 3;
   };
 
   const nextdisabled = () => {
@@ -145,8 +139,8 @@ export function Addcompany() {
         return !valid1();
       case 2:
         return !valid2();
-      case 3:
-        return !valid3();
+      case 4:
+        return !valid4();
       default:
         return false;
     }
@@ -412,7 +406,7 @@ export function Addcompany() {
               gap: 2,
             }}
           >
-            <Typography variant="h5">企業情報登録</Typography>
+            <Typography variant="h5">企業情報</Typography>
             <TextField
               id="companyname"
               label="会社名"
@@ -512,7 +506,7 @@ export function Addcompany() {
               gap: 2,
             }}
           >
-            <Typography variant="h5">求人条件登録</Typography>
+            <Typography variant="h5">求人条件</Typography>
             <Autocomplete
               id="area"
               multiple
@@ -628,7 +622,7 @@ export function Addcompany() {
               gap: 2,
             }}
           >
-            <Typography variant="h5">募集学科登録</Typography>
+            <Typography variant="h5">募集学科</Typography>
             <FormGroup>
               <Stack direction="row" spacing={0.1} width={400} p={1}>
                 <FormControlLabel
@@ -1068,95 +1062,123 @@ export function Addcompany() {
         );
 
         return (
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            mt="10vh"
-            spacing={2}
-            sx={{ paddingLeft: "35%" }}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: "10vh",
+              gap: 2,
+            }}
           >
-            <Grid item sx={{ mr: "53%" }}>
-              <Typography variant="h5">入力確認</Typography>
-            </Grid>
-            <Grid item container direction="column" spacing={2}>
+            <Typography variant="h5">登録確認</Typography>
+            <List sx={{ width: 500, margin: "auto" }}>
+              <ListItem>
+                <ListItemText primary={`会社名　　：　${name}`} />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText
+                  primary={`業種　　　：　${
+                    selectindustry ? selectindustry.title : ""
+                  }`}
+                />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText
+                  primary={`職種　　　：　${
+                    selectoccupation ? selectoccupation.title : ""
+                  }`}
+                />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={`資本金　　：　${capital}百万円`} />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={`売上高　　：　${sales}百万円`} />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={`従業員数　：　${employees}人`} />
+              </ListItem>{" "}
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText
+                  primary={`勤務地　　：　${selectarea
+                    .map((area) => area.title)
+                    .join(", ")}`}
+                />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText
+                  primary={`必須資格　：　${selectqualification
+                    .map((qualification) => qualification.title)
+                    .join(", ")}`}
+                />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={`勤務体系　：　${worktime}`} />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={`年間休日　：　${holiday}日`} />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={`休日体系　：　${holidaysystem}`} />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText
+                  primary={`募集学科　：　${selectedCoursesText}`}
+                />
+              </ListItem>
+              <Divider component="li" />
               <List>
                 <ListItem>
-                  <ListItemText primary={`会社名：${name}`} />
-                </ListItem>
-                <ListItem>
                   <ListItemText
-                    primary={`業種：${
-                      selectindustry ? selectindustry.title : ""
-                    }`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`職種：${
-                      selectoccupation ? selectoccupation.title : ""
-                    }`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`資本金：${capital}百万円`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`売上高：${sales}百万円`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`従業員数：${employees}人`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`勤務地：${selectarea
-                      .map((area) => area.title)
-                      .join(", ")}`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`必須資格：${selectqualification
-                      .map((qualification) => qualification.title)
-                      .join(", ")}`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`勤務体系：${worktime}`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`年間休日：${holiday}日`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`休日体系：${holidaysystem}`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={`募集学科：${selectedCoursesText}`} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`基本給（2年）：${TwoYearSalary}円 / 諸手当：${TwoYearAllowances}円`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`基本給（3年）：${ThreeYearSalary}円 / 諸手当：${ThreeYearAllowances}円`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`基本給（4年）：${FourYearSalary}円 / 諸手当：${FourYearAllowances}円`}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={`求める人物像：${selectperson.join(", ")}`}
+                    primary="　※募集しない学科がある場合、0円と表示されます"
+                    primaryTypographyProps={{
+                      sx: {
+                        color: "rgba(0, 0, 0, 0.54)",
+                        fontSize: "0.8rem",
+                        lineHeight: "0.6",
+                      },
+                    }}
                   />
                 </ListItem>
               </List>
-            </Grid>
-          </Grid>
+              <ListItem>
+                <ListItemText
+                  primary={`4年過程基本給 ： ${FourYearSalary}円 / 諸手当 ： ${FourYearAllowances}円`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`3年過程基本給 ： ${ThreeYearSalary}円 / 諸手当 ： ${ThreeYearAllowances}円`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`2年過程基本給 ： ${TwoYearSalary}円 / 諸手当 ： ${TwoYearAllowances}円`}
+                />
+                <Divider component="li" />
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemText
+                  primary={`求める人物像　： ${selectperson.join(", ")}`}
+                />
+              </ListItem>
+              <Divider component="li" />
+            </List>
+          </Box>
         );
 
       default:
