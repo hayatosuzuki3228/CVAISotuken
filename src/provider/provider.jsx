@@ -13,6 +13,8 @@ export const MyProvider = ({ children }) => {
     setprovidermail,
     providername,
     setprovidername,
+    providerid,
+    setproviderid,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

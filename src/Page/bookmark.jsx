@@ -172,11 +172,7 @@ export function Bookmark() {
   const { providerid, setproviderid } = useContext(MyContext);
 
   const handleCompanyChange = (event, company) => {
-    if (company) {
-      setproviderid(company.id);
-      console.log("Selected company ID:", company.id);
-    }
-    console.log("Provider ID:", providerid);
+    return navigate("/companyinformation", setproviderid(company.id));
   };
 
   return (
