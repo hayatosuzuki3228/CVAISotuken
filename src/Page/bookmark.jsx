@@ -166,13 +166,12 @@ export function Bookmark() {
       },
     },
   });
-
-  const company = companies.find((company) => company.id === 1);
+  const bookmark = [1, 3, 15, 20];
 
   const { providerid, setproviderid } = useContext(MyContext);
 
-  const handleCompanyChange = (event, company) => {
-    return navigate("/companyinformation", setproviderid(company.id));
+  const handleCompanyChange = (event, companies) => {
+    return navigate("/companyinformation", setproviderid(companies.id));
   };
 
   return (
@@ -252,34 +251,42 @@ export function Bookmark() {
             flexWrap="wrap"
             sx={{ marginLeft: 6 }}
           >
-            <Box p={1}>
-              <Card sx={{ width: 180 }} key={company.id}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image="../../src/assets/icon.png"
-                  title="icon"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5">
-                    {company.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {company.appeal}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">
-                    <FavoriteIcon></FavoriteIcon>
-                  </Button>
-                  <Button
-                    size="small"
-                    onClick={(event) => handleCompanyChange(event, company)}
-                  >
-                    学校情報
-                  </Button>
-                </CardActions>
-              </Card>
-            </Box>
+            {bookmark.map((item, index) => {
+              const company = companies.find(
+                (company) => company.id === item.id
+              );
+              return (
+                <Typography key={item.id}>
+                  <Box p={1}>
+                    <Card sx={{ width: 180 }} key={company?.id}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image="../../src/assets/icon.png"
+                        title="icon"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5">
+                          {company?.name}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">
+                          <FavoriteIcon></FavoriteIcon>
+                        </Button>
+                        <Button
+                          size="small"
+                          onClick={(event) =>
+                            handleCompanyChange(event, companies)
+                          }
+                        >
+                          学校情報
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Box>
+                </Typography>
+              );
+            })}
           </Stack>
         </Main>
       </Box>

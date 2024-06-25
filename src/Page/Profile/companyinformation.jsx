@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -24,11 +24,10 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
+import MyContext from "../../provider/provider";
 import { companies } from "../../const/companies";
 import "normalize.css";
 const drawerWidth = 240;
-
-const company = companies.find((company) => company.id === 51);
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -98,6 +97,8 @@ const menuItems = [
 export function Companyinformation() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { providerid } = useContext(MyContext); // Contextからprovideridを取得
+  const company = companies.find((company) => company.id === providerid); // companyを取得
 
   const toggleDrawer = () => {
     setOpen(!open);
