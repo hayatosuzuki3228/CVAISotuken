@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -17,12 +17,13 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button"; // Buttonをインポート
 import companies from "C:/Users/user/CVAISotuken/src/const/companies.js";
+import MyContext from "../../provider/provider";
 
 function convertCompanyData(company) {
   const matchScore = calculateMatchScore(company);
 
   return {
-    id: company.id.toString(), // IDを文字列に変換
+    id: company.id.toString(),
     name: company.name,
     detail: company.detail,
     matchdo: matchScore,
@@ -55,6 +56,18 @@ function Row(props) {
   const { row, showDetail } = props;
   const [open, setOpen] = React.useState(false);
 
+  const navigate = useNavigate();
+  const { setproviderid } = useContext(MyContext);
+  const handleCompanyChange = () => {
+    const numericId = parseInt(row.id, 10); // IDを数字型に変換
+    setproviderid(numericId);
+    console.log(row.id);
+    return navigate("/companyinformation");
+  };
+  const handleLinkClick = () => {
+    // リンクをクリックしたときに実行したい関数の処理を記述
+  };
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -71,12 +84,12 @@ function Row(props) {
           {row.id}
         </TableCell>
         <TableCell>
-          <Link
-            to="/Companyinformation"
+          <Button
+            onClick={handleCompanyChange}
             style={{ textDecoration: "none", color: "blue" }}
           >
             {row.name}
-          </Link>
+          </Button>
         </TableCell>
 
         {showDetail && <TableCell>{row.detail}</TableCell>}
