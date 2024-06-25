@@ -166,12 +166,12 @@ export function Bookmark() {
       },
     },
   });
-  const bookmark = [1, 3, 15, 20];
+  const bookmark = [1, 3, 15, 20, 50];
 
   const { providerid, setproviderid } = useContext(MyContext);
 
-  const handleCompanyChange = (event, companies) => {
-    return navigate("/companyinformation", setproviderid(companies.id));
+  const handleCompanyChange = (event, item) => {
+    return navigate("/companyinformation", setproviderid(item));
   };
 
   return (
@@ -252,11 +252,9 @@ export function Bookmark() {
             sx={{ marginLeft: 6 }}
           >
             {bookmark.map((item, index) => {
-              const company = companies.find(
-                (company) => company.id === item.id
-              );
+              const company = companies.find((company) => company.id === item);
               return (
-                <Typography key={item.id}>
+                <Typography key={item}>
                   <Box p={1}>
                     <Card sx={{ width: 180 }} key={company?.id}>
                       <CardMedia
@@ -265,7 +263,17 @@ export function Bookmark() {
                         title="icon"
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h5">
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          sx={{
+                            display: "-webkit-box",
+                            overflow: "hidden",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 2,
+                            textOverflow: "ellipsis",
+                          }}
+                        >
                           {company?.name}
                         </Typography>
                       </CardContent>
@@ -275,9 +283,7 @@ export function Bookmark() {
                         </Button>
                         <Button
                           size="small"
-                          onClick={(event) =>
-                            handleCompanyChange(event, companies)
-                          }
+                          onClick={(event) => handleCompanyChange(event, item)}
                         >
                           学校情報
                         </Button>
