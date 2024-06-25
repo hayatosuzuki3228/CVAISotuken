@@ -42,10 +42,6 @@ import {
   qualification,
   area,
 } from "../Companyadd/companydata";
-import companies from "../Matching/matchtable";
-import CompanyDetails from "./companysarch";
-import { alignProperty } from "@mui/material/styles/cssUtils";
-import { Category } from "@mui/icons-material";
 
 //#endregion
 export function Addcompany() {
