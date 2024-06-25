@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -29,6 +29,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import MyContext from "../provider/provider";
+import { companies } from "../const/companies";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -165,6 +167,18 @@ export function Bookmark() {
     },
   });
 
+  const company = companies.find((company) => company.id === 1);
+
+  const { providerid, setproviderid } = useContext(MyContext);
+
+  const handleCompanyChange = (event, company) => {
+    if (company) {
+      setproviderid(company.id);
+      console.log("Selected company ID:", company.id);
+    }
+    console.log("Provider ID:", providerid);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
@@ -236,27 +250,41 @@ export function Bookmark() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              sx={{ height: 140 }}
-              image="../../src/assets/icon.png"
-              title="icon"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                NKC
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                名古屋工学院専門学校
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">
-                <FavoriteIcon></FavoriteIcon>
-              </Button>
-              <Button size="small">学校情報</Button>
-            </CardActions>
-          </Card>
+          <Stack
+            direction="row"
+            width="100%"
+            flexWrap="wrap"
+            sx={{ marginLeft: 6 }}
+          >
+            <Box p={1}>
+              <Card sx={{ width: 180 }} key={company.id}>
+                <CardMedia
+                  sx={{ height: 140 }}
+                  image="../../src/assets/icon.png"
+                  title="icon"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5">
+                    {company.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {company.appeal}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">
+                    <FavoriteIcon></FavoriteIcon>
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={(event) => handleCompanyChange(event, company)}
+                  >
+                    学校情報
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
+          </Stack>
         </Main>
       </Box>
     </ThemeProvider>
