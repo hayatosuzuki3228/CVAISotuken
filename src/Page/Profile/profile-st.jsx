@@ -170,7 +170,14 @@ export function SProfile() {
         <h1>プロフィール</h1>
       </header>
 
-      <Stack>
+      <Stack
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        paddingTop="5%"
+        paddingBottom="5%"
+        spacing={2}
+      >
         <Stack direction="row">
           <Box
             flex="1"

@@ -27,10 +27,6 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 export function SCEdit() {
-  useEffect(() => {
-    document.title = "プロフィール";
-  }, []);
-
   const location = useLocation();
   const warpJob = location.state?.job || "";
   const warpHobby = location.state?.hobby || "";
@@ -62,6 +58,7 @@ export function SCEdit() {
   const [myPower, setMyPower] = useState(warpMyPower);
 
   const [TestData, setTestData] = useState(warpTestData);
+  const [BackData, setBackData] = useState(warpJob);
 
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
@@ -69,8 +66,27 @@ export function SCEdit() {
   const [error4, setError4] = useState("");
   const [error5, setError5] = useState("");
   const [error6, setError6] = useState("");
+  const [OneMoreClick, setOneMoreClick] = useState("");
+
+  useEffect(() => {
+    document.title = "プロフィール";
+    setBackData(warpJob);
+  }, []);
+
+  useEffect(() => {
+    if (!job) {
+      setJob(TestData);
+    } else {
+      setJob(job);
+    }
+  }, [TestData]);
+
+  useEffect(() => {
+    setTestData(job);
+  }, [job]);
 
   const navigate = useNavigate();
+  /* profile-st に飛ぶ */
   const OnClick = () => {
     navigate("/profile-st", {
       state: {
@@ -88,6 +104,8 @@ export function SCEdit() {
       },
     });
   };
+
+  /* profile-st-com に飛ぶ(戻るボタン) */
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
@@ -103,58 +121,57 @@ export function SCEdit() {
         bye,
         age,
         TestData,
+        BackData,
       },
     });
   };
 
-  /* profile-st-com に飛ぶ */
+  /* profile-st-com に飛ぶ(情報を確定するボタン) */
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
     if (
-      regex.test(job /*hobby, skill, SSubject, KSubject*/) /*&& myPower != ""*/
+      regex.test(job) /* &&
+      
+      regex.test(hobby) &&
+      regex.test(skill) &&
+      regex.test(SSubject) &&
+      regex.test(KSubject) &&
+      myPower !== "" */
     ) {
-      setTestData(job);
-      navigate("/profile-st-com", {
-        state: {
-          name,
-          kName,
-          man,
-          Gak,
-          Years,
-          Months,
-          Days,
-          email,
-          Home,
-          bye,
-          age,
-          job,
-          hobby,
-          skill,
-          SSubject,
-          KSubject,
-          myPower,
-          Gak,
-          TestData,
-        },
-      });
-    } else {
-      {
-        !regex.test(job) ? setError1("エラー：希望職種") : setError1("");
-      }
-      {
-        !regex.test(hobby) ? setError2("エラー：趣味") : setError2("");
-      }
-      {
-        !regex.test(skill) ? setError3("エラー：特技") : setError3("");
-      }
-      {
-        !regex.test(SSubject) ? setError4("エラー：得意な科目") : setError4("");
-      }
-      {
-        !regex.test(KSubject) ? setError5("エラー：苦手な科目") : setError5("");
-      }
-      {
-        myPower != "" ? setError6("エラー：保有資格") : setError6("");
+      if (TestData === job) {
+        navigate("/profile-st-com", {
+          state: {
+            name,
+            kName,
+            man,
+            Gak,
+            Years,
+            Months,
+            Days,
+            email,
+            Home,
+            bye,
+            age,
+            job,
+            hobby,
+            skill,
+            SSubject,
+            KSubject,
+            myPower,
+            Gak,
+            TestData,
+          },
+        });
+      } else {
+        setError1(!regex.test(job) ? "エラー：希望職種" : "");
+        /*setError2(!regex.test(hobby) ? "エラー：趣味" : "");
+        setError3(!regex.test(skill) ? "エラー：特技" : "");
+        setError4(!regex.test(SSubject) ? "エラー：得意な科目" : "");
+        setError5(!regex.test(KSubject) ? "エラー：苦手な科目" : "");
+        setError6(myPower === "" ? "エラー：保有資格" : "");*/
+        if (setError1 === "") {
+          setOneMoreClick("OK");
+        }
       }
     }
   };
@@ -223,7 +240,7 @@ export function SCEdit() {
         justifyContent="center"
         alignItems="center"
         textAlign="center"
-        paddingTop="3%"
+        paddingTop="5%"
         paddingBottom="7%"
         spacing={2}
       >
@@ -248,7 +265,9 @@ export function SCEdit() {
               multiline
               label="希望職種の変更"
               value={job}
-              onChange={(e) => setJob(e.target.value)}
+              onChange={(e) => {
+                setJob(e.target.value);
+              }}
             />
           </Box>
         </Stack>
@@ -390,6 +409,12 @@ export function SCEdit() {
             />
           </Box>
         </Stack>
+        <Stack direction="column" spacing={2}>
+          TestData: {TestData}
+          <br />
+          <br />
+          BackData: {BackData}
+        </Stack>
 
         <div /*エラーを表示する*/>
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
@@ -398,6 +423,7 @@ export function SCEdit() {
           {error4 && <p style={{ color: "red" }}>{error4}</p>}
           {error5 && <p style={{ color: "red" }}>{error5}</p>}
           {error6 && <p style={{ color: "red" }}>{error6}</p>}
+          {OneMoreClick && <p style={{ color: "green" }}>{OneMoreClick}</p>}
         </div>
         <Stack direction="row" spacing={7} /*ボタンを表示する*/>
           <Button /* profile-st-com に飛ぶ(データの保存を行わない) */

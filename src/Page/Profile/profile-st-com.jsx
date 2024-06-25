@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate, useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -48,10 +48,8 @@ export function SCompany() {
     bye,
     age,
     TestData,
+    BackData,
   } = location.state || {};
-
-  const warpTestTrans = location.state?.TestTrans || "";
-  const [TestTrans, setTestTrans] = useState("");
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -79,7 +77,7 @@ export function SCompany() {
         myPower,
         Gak,
         TestData,
-        TestTrans,
+        BackData,
       },
     });
   };
@@ -175,6 +173,7 @@ export function SCompany() {
         alignItems="center"
         textAlign="center"
         paddingTop="5%"
+        paddingBottom="5%"
         spacing={2}
       >
         <Stack direction="row">
@@ -193,11 +192,20 @@ export function SCompany() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {job}
-              {TestData}
+              Result: {(job === TestData) !== "" ? job : TestData}
+              <br />
+              <br />
+              job: {job}
+              <br />
+              <br />
+              TestData: {TestData}
+              <br />
+              <br />
+              BackData: {BackData}
             </p>
           </Box>
         </Stack>
+
         <Stack direction="row">
           <Box
             flex="1"
@@ -216,6 +224,7 @@ export function SCompany() {
             <p>{hobby}</p>
           </Box>
         </Stack>
+
         <Stack direction="row">
           <Box
             flex="1"
@@ -234,6 +243,7 @@ export function SCompany() {
             <p>{skill}</p>
           </Box>
         </Stack>
+
         <Stack direction="row">
           <Box
             flex="1"
@@ -252,6 +262,7 @@ export function SCompany() {
             <p>{SSubject}</p>
           </Box>
         </Stack>
+
         <Stack direction="row">
           <Box
             flex="1"
@@ -270,7 +281,8 @@ export function SCompany() {
             <p>{KSubject}</p>
           </Box>
         </Stack>
-        <Stack direction="row">
+
+        <Stack direction="row" paddingBottom={5}>
           <Box
             flex="1"
             border="1px solid black"
@@ -297,7 +309,7 @@ export function SCompany() {
           </Box>
         </Stack>
 
-        <Box className="div-padding">
+        <Box>
           <Button variant="contained" size="large" onClick={OnClick1}>
             情報を編集する
           </Button>
