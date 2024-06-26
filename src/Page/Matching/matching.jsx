@@ -7,6 +7,7 @@ import {
   TextField,
   Autocomplete,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -53,25 +54,34 @@ export function Matching() {
         <Stack direction="row" justifyContent="flex-start" alignSelf="center">
           <h1>名産会マッチング</h1>
           <div id="hart">
-            <IconButton
-              aria-label="ハート"
-              onClick={() => navigate("/Matchdo")}
-            >
-              <FavoriteIcon sx={{ color: "#ff1493", fontSize: 60 }} />
-            </IconButton>
+            <Tooltip title="マッチ度">
+              <IconButton
+                aria-label="ハート"
+                onClick={() => navigate("/Matchdo")}
+              >
+                <FavoriteIcon sx={{ color: "#ff1493", fontSize: 60 }} />
+              </IconButton>
+            </Tooltip>
           </div>
           <div id="mylist">
-            <IconButton
-              aria-label="マイリスト"
-              onClick={() => navigate("/mylist")}
-            >
-              <PersonIcon sx={{ color: "black", fontSize: 60 }} />
-            </IconButton>
+            <Tooltip title="ブックマーク">
+              <IconButton
+                aria-label="マイリスト"
+                onClick={() => navigate("/mylist")}
+              >
+                <PersonIcon sx={{ color: "black", fontSize: 60 }} />
+              </IconButton>
+            </Tooltip>
           </div>
           <div id="setting">
-            <IconButton aria-label="設定" onClick={() => navigate("/Setting")}>
-              <SettingsIcon sx={{ color: "gray", fontSize: 60 }} />
-            </IconButton>
+            <Tooltip title="設定">
+              <IconButton
+                aria-label="設定"
+                onClick={() => navigate("/Setting")}
+              >
+                <SettingsIcon sx={{ color: "gray", fontSize: 60 }} />
+              </IconButton>
+            </Tooltip>
           </div>
         </Stack>
       </Box>
@@ -157,6 +167,7 @@ export function Matching() {
             options={options}
             getOptionLabel={(option) => option.label}
             onChange={handleCompanyChange}
+            noOptionsText="企業候補がありません。"
             renderInput={(params) => (
               <TextField
                 {...params}

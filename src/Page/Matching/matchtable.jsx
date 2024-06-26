@@ -48,6 +48,7 @@ function calculateMatchScore(company) {
   if (company.job_type === matchdo.features) score += 10;
   if (company.job_type === matchdo.qualifications) score += 10;
   */
+  if (company.work_location.includes("愛知県")) score += 10;
   return score;
 }
 const rows = companies.map(convertCompanyData);
@@ -86,7 +87,7 @@ function Row(props) {
         <TableCell>
           <Button
             onClick={handleCompanyChange}
-            style={{ textDecoration: "none", color: "blue" }}
+            style={{ textDecoration: "none", color: "blue", padding: "0" }}
           >
             {row.name}
           </Button>
