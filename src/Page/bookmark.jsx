@@ -32,6 +32,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
 import { companies } from "../const/companies";
 import "normalize.css";
+import { colors } from "@mui/material";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -185,6 +186,12 @@ export function Bookmark() {
     );
   };
 
+  const buttonStyle = {
+    backgroundColor: "white",
+    color: "pink",
+    cursor: "pointer",
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
@@ -260,7 +267,7 @@ export function Bookmark() {
             direction="row"
             width="98%"
             flexWrap="wrap"
-            sx={{ marginLeft: 6 }}
+            sx={{ marginLeft: 7 }}
           >
             {bookmark.map((item, index) => {
               const company = companies.find((company) => company.id === item);
@@ -293,6 +300,7 @@ export function Bookmark() {
                         <Button
                           size="small"
                           onClick={() => removeBookmark(item)}
+                          style={buttonStyle}
                         >
                           <FavoriteIcon></FavoriteIcon>
                         </Button>
