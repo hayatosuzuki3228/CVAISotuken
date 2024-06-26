@@ -22,6 +22,7 @@ import {
   ListItem,
   ListItemText,
   InputAdornment,
+  IconButton,
   MobileStepper,
   TextField,
   Typography,
@@ -35,6 +36,8 @@ import {
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import {
   industry,
   occupation,
@@ -81,7 +84,7 @@ export function Addcompany() {
   const [open, setOpen] = useState(false);
 
   const handleNext = () => {
-    if (activeStep === 5) {
+    if (activeStep === 6) {
       setOpen(true);
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -185,6 +188,35 @@ export function Addcompany() {
       return prevSelected;
     });
   };
+
+  //#region picture
+  const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [zoom, setZoom] = useState(1);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    setImage(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreviewUrl(reader.result);
+      setZoom(1);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleZoomIn = () => {
+    setZoom((prevZoom) => prevZoom + 0.1);
+  };
+
+  const handleZoomOut = () => {
+    setZoom((prevZoom) => Math.max(0.1, prevZoom - 0.1));
+  };
+  //#endregion
 
   //#region 学科チェック連動
   const [itcheck, setItCheck] = React.useState([false, false, false, false]);
@@ -1048,6 +1080,82 @@ export function Addcompany() {
           </Box>
         );
       case 5:
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: "10vh",
+              gap: 2,
+            }}
+          >
+            <Typography variant="h5">画像のアップロード（任意）</Typography>
+            <Typography variant="h7">
+              企業一覧に表示する画像として使用します
+              <br />
+              プロフィールで変更することも可能です
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              画像ファイル（.jpg, .jpeg, .png）のみアップロードできます
+            </Typography>
+            <input
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              onChange={handleImageChange}
+            />
+
+            {previewUrl && (
+              <Box
+                sx={{
+                  border: "2px solid black",
+                  padding: "10px",
+                  width: 300,
+                  height: 300,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: 2,
+                  position: "relative",
+                }}
+              >
+                <IconButton
+                  onClick={handleZoomIn}
+                  disabled={zoom >= 5}
+                  style={{ position: "absolute", top: 0, left: 0 }}
+                >
+                  <ZoomInIcon />
+                </IconButton>
+                <IconButton
+                  onClick={handleZoomOut}
+                  disabled={zoom <= 0.1}
+                  style={{ position: "absolute", top: 0, right: 0 }}
+                >
+                  <ZoomOutIcon />
+                </IconButton>
+                <div
+                  style={{
+                    width: `calc(100% * ${zoom})`,
+                    height: `calc(100% * ${zoom})`,
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+              </Box>
+            )}
+          </Box>
+        );
+      case 6:
         const selectedCoursesText = generateSelectedCoursesText(
           itcheck,
           gamecheck,
@@ -1191,7 +1299,7 @@ export function Addcompany() {
       <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
-        steps={6}
+        steps={7}
         position="static"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
@@ -1202,7 +1310,7 @@ export function Addcompany() {
             disabled={nextdisabled()}
             sx={{ mt: 2 }}
           >
-            {activeStep === 5 ? "登録" : "次へ"}
+            {activeStep === 6 ? "登録" : "次へ"}
             {theme.direction === "rtl" ? (
               <KeyboardArrowLeft />
             ) : (
