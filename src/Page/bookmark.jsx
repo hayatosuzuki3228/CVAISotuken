@@ -166,7 +166,14 @@ export function Bookmark() {
       },
     },
   });
-  const bookmark = [1, 3, 15, 20, 50, 65, 66, 71, 88, 100];
+  const [bookmark, setBookmark] = useState([
+    1, 3, 15, 20, 50, 65, 66, 71, 88, 100, 101, 102, 111, 104, 105, 106, 107,
+  ]);
+
+  const removeBookmark = (id) => {
+    const updatedBookmark = bookmark.filter((bookmark) => bookmark !== id);
+    setBookmark(updatedBookmark);
+  };
 
   const { providerid, setproviderid } = useContext(MyContext);
 
@@ -251,7 +258,7 @@ export function Bookmark() {
           <DrawerHeader />
           <Stack
             direction="row"
-            width="100%"
+            width="98%"
             flexWrap="wrap"
             sx={{ marginLeft: 6 }}
           >
@@ -283,14 +290,17 @@ export function Bookmark() {
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Button size="small">
+                        <Button
+                          size="small"
+                          onClick={() => removeBookmark(item)}
+                        >
                           <FavoriteIcon></FavoriteIcon>
                         </Button>
                         <Button
                           size="small"
                           onClick={(event) => handleCompanyChange(event, item)}
                         >
-                          学校情報
+                          企業情報
                         </Button>
                       </CardActions>
                     </Card>
