@@ -31,6 +31,11 @@ import CardMedia from "@mui/material/CardMedia";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
 import { companies } from "../const/companies";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -167,9 +172,25 @@ export function Bookmark() {
     },
   });
 
-  const removeBookmark = (id) => {
-    const updatedBookmark = bookmark.filter((bookmark) => bookmark !== id);
+  const [open1, setOpen1] = useState(false);
+  const [removeid, setRemoveid] = useState();
+
+  const handleClickOpen = (id) => {
+    setOpen1(true);
+    setRemoveid(id);
+  };
+
+  const handleClose = () => {
+    setOpen1(false);
+  };
+
+  const handleConfirmDelete = () => {
+    const updatedBookmark = bookmark.filter(
+      (bookmark) => bookmark !== removeid
+    );
     setBookmark(updatedBookmark);
+    console.log("アイテムを削除しました");
+    handleClose();
   };
 
   const { providerid, setproviderid } = useContext(MyContext);
@@ -262,7 +283,7 @@ export function Bookmark() {
           <DrawerHeader />
           <Stack
             direction="row"
-            width="98%"
+            width="97%"
             flexWrap="wrap"
             sx={{ marginLeft: 7 }}
           >
@@ -296,7 +317,7 @@ export function Bookmark() {
                       <CardActions>
                         <Button
                           size="small"
-                          onClick={() => removeBookmark(item)}
+                          onClick={() => handleClickOpen(item)}
                           style={buttonStyle}
                         >
                           <FavoriteIcon></FavoriteIcon>
@@ -314,6 +335,27 @@ export function Bookmark() {
               );
             })}
           </Stack>
+          <Dialog
+            open={open1}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">削除の確認</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                このブックマークを削除してもよろしいですか？
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmDelete} color="primary" autoFocus>
+                削除
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Main>
       </Box>
     </ThemeProvider>
