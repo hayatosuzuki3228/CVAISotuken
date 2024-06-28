@@ -105,38 +105,6 @@ const menuItems = [
   { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
 ];
 
-//Boxのボーダーにテキストを追加
-const CustomBox = styled(Box)({
-  position: "relative",
-  "&::before": {
-    content: '"お知らせ"',
-    position: "absolute",
-    top: "-13px", // Adjust as necessary
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "#fff", // Background color to overlay on border
-    padding: "0 4px", // Adjust padding as necessary
-    zIndex: 1,
-    fontSize: "18px",
-  },
-  padding: "16px",
-});
-const CustomBox1 = styled(Box)({
-  position: "relative",
-  "&::before": {
-    content: '"企業からのお知らせ"',
-    position: "absolute",
-    top: "-13px", // Adjust as necessary
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "#fff", // Background color to overlay on border
-    padding: "0 4px", // Adjust padding as necessary
-    zIndex: 1,
-    fontSize: "20px",
-  },
-  padding: "16px",
-});
-
 export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -174,6 +142,7 @@ export function Bookmark() {
 
   const [open1, setOpen1] = useState(false);
   const [removeid, setRemoveid] = useState();
+  const [removename, setRemovename] = useState();
 
   const handleClickOpen = (id) => {
     setOpen1(true);
@@ -320,7 +289,9 @@ export function Bookmark() {
                           onClick={() => handleClickOpen(item)}
                           style={buttonStyle}
                         >
-                          <FavoriteIcon></FavoriteIcon>
+                          <FavoriteIcon
+                            onClick={() => setRemovename(company?.name)}
+                          ></FavoriteIcon>
                         </Button>
                         <Button
                           size="small"
@@ -344,7 +315,8 @@ export function Bookmark() {
             <DialogTitle id="alert-dialog-title">削除の確認</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                このブックマークを削除してもよろしいですか？
+                このブックマークを削除してもよろしいですか？<p></p>・
+                {removename}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
