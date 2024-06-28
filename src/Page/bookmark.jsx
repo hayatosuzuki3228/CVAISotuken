@@ -32,7 +32,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
 import { companies } from "../const/companies";
 import "normalize.css";
-import { colors } from "@mui/material";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -167,9 +166,6 @@ export function Bookmark() {
       },
     },
   });
-  const [bookmark, setBookmark] = useState([
-    1, 3, 15, 20, 50, 65, 66, 71, 88, 100, 101, 102, 111, 104, 105, 106, 107,
-  ]);
 
   const removeBookmark = (id) => {
     const updatedBookmark = bookmark.filter((bookmark) => bookmark !== id);
@@ -177,6 +173,7 @@ export function Bookmark() {
   };
 
   const { providerid, setproviderid } = useContext(MyContext);
+  const { bookmark, setBookmark } = useContext(MyContext);
 
   const handleCompanyChange = (event, item) => {
     return navigate(
