@@ -36,6 +36,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -158,7 +159,7 @@ export function Bookmark() {
       (bookmark) => bookmark !== removeid
     );
     setBookmark(updatedBookmark);
-    console.log("アイテムを削除しました");
+    console.log(removename + "を削除しました");
     handleClose();
   };
 
@@ -166,16 +167,12 @@ export function Bookmark() {
   const { bookmark, setBookmark } = useContext(MyContext);
 
   const handleCompanyChange = (event, item) => {
-    return navigate(
-      "/companyinformation",
-      setproviderid(item),
-      console.log(item)
-    );
+    setproviderid(item), navigate("/companyinformation", console.log(item));
   };
 
   const buttonStyle = {
     backgroundColor: "white",
-    color: "pink",
+    color: "white",
     cursor: "pointer",
   };
 
@@ -204,7 +201,7 @@ export function Bookmark() {
               </IconButton>
               <Box />
               <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム/ブックマーク
+                名産会マッチングシステム／ブックマーク
               </Typography>
             </Box>
             <Button color="inherit" onClick={() => navigate("/Loginpage")}>
@@ -263,7 +260,7 @@ export function Bookmark() {
                   <Box p={1}>
                     <Card sx={{ width: 180 }} key={company?.id}>
                       <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{ height: 130 }}
                         image="../../src/assets/icon.png"
                         title="icon"
                       />
@@ -289,12 +286,16 @@ export function Bookmark() {
                           onClick={() => handleClickOpen(item)}
                           style={buttonStyle}
                         >
-                          <FavoriteIcon
+                          <IconButton
+                            size="small"
+                            aria-label="delete"
                             onClick={() => setRemovename(company?.name)}
-                          ></FavoriteIcon>
+                          >
+                            <DeleteIcon />
+                          </IconButton>
                         </Button>
                         <Button
-                          size="small"
+                          size="large"
                           onClick={(event) => handleCompanyChange(event, item)}
                         >
                           企業情報
