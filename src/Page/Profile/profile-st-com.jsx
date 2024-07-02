@@ -47,8 +47,12 @@ export function SCompany() {
     Home,
     bye,
     age,
-    TestData,
-    BackData,
+    JobSave,
+    HobbySave,
+    SkillSave,
+    SSubjectSave,
+    KSubjectSave,
+    MyPowerSave,
   } = location.state || {};
 
   const navigate = useNavigate();
@@ -76,8 +80,12 @@ export function SCompany() {
         KSubject,
         myPower,
         Gak,
-        TestData,
-        BackData,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
       },
     });
   };
@@ -101,6 +109,12 @@ export function SCompany() {
         SSubject,
         KSubject,
         myPower,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
       },
     });
   };
@@ -191,18 +205,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>
-              Result: {(job === TestData) !== "" ? job : TestData}
-              <br />
-              <br />
-              job: {job}
-              <br />
-              <br />
-              TestData: {TestData}
-              <br />
-              <br />
-              BackData: {BackData}
-            </p>
+            <p>{JobSave == job ? job : JobSave}</p>
           </Box>
         </Stack>
 
@@ -221,7 +224,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{hobby}</p>
+            <p>{HobbySave == hobby ? hobby : HobbySave}</p>
           </Box>
         </Stack>
 
@@ -240,7 +243,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{skill}</p>
+            <p>{SkillSave == skill ? skill : SkillSave}</p>
           </Box>
         </Stack>
 
@@ -259,7 +262,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{SSubject}</p>
+            <p>{SSubjectSave == SSubject ? SSubject : SSubjectSave}</p>
           </Box>
         </Stack>
 
@@ -278,7 +281,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{KSubject}</p>
+            <p>{KSubjectSave == KSubject ? KSubject : KSubjectSave}</p>
           </Box>
         </Stack>
 
@@ -298,8 +301,8 @@ export function SCompany() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {myPower
-                ? myPower.map((option, index) => (
+              {MyPowerSave
+                ? MyPowerSave.map((option, index) => (
                     <Typography key={index} textAlign="center">
                       {option.title}
                     </Typography>

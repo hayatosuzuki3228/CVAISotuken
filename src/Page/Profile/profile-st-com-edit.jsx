@@ -19,46 +19,39 @@ import {
   Stack,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import "./styles.css";
 import { options } from "./Data";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import { Power } from "@mui/icons-material";
 
 export function SCEdit() {
   const location = useLocation();
-  const warpJob = location.state?.job || "";
-  const warpHobby = location.state?.hobby || "";
-  const warpSkill = location.state?.skill || "";
-  const warpSSubject = location.state?.SSubject || "";
-  const warpKSubject = location.state?.KSubject || "";
-  const warpMyPower = location.state?.myPower || [];
-  const warpTestData = location.state?.TestData || "";
-  const {
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    TestTrans,
-  } = location.state || {};
+  const warpJobSave = location.state?.JobSave || "";
+  const warpHobbySave = location.state?.HobbySave || "";
+  const warpSkillSave = location.state?.SkillSave || "";
+  const warpSSubjectSave = location.state?.SSubjectSave || "";
+  const warpKSubjectSave = location.state?.KSubjectSave || "";
+  const warpMyPowerSave = location.state?.MyPowerSave || [];
+  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
+    location.state || {};
 
-  const [job, setJob] = useState(warpJob);
-  const [hobby, setHobby] = useState(warpHobby);
-  const [skill, setSkill] = useState(warpSkill);
-  const [SSubject, setSSubject] = useState(warpSSubject);
-  const [KSubject, setKSubject] = useState(warpKSubject);
-  const [myPower, setMyPower] = useState(warpMyPower);
+  const [job, setJob] = useState(warpJobSave);
+  const [hobby, setHobby] = useState(warpHobbySave);
+  const [skill, setSkill] = useState(warpSkillSave);
+  const [SSubject, setSSubject] = useState(warpSSubjectSave);
+  const [KSubject, setKSubject] = useState(warpKSubjectSave);
+  const [myPower, setMyPower] = useState(warpMyPowerSave);
 
-  const [TestData, setTestData] = useState(warpTestData);
-  const [BackData, setBackData] = useState(warpJob);
+  const [JobSave, setJobSave] = useState(warpJobSave);
+  const [HobbySave, setHobbySave] = useState(warpHobbySave);
+  const [SkillSave, setSkillSave] = useState(warpSkillSave);
+  const [SSubjectSave, setSSubjectSave] = useState(warpSSubjectSave);
+  const [KSubjectSave, setKSubjectSave] = useState(warpKSubjectSave);
+  const [MyPowerSave, setMyPowerSave] = useState(warpMyPowerSave);
 
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
@@ -66,24 +59,59 @@ export function SCEdit() {
   const [error4, setError4] = useState("");
   const [error5, setError5] = useState("");
   const [error6, setError6] = useState("");
-  const [OneMoreClick, setOneMoreClick] = useState("");
+  const [OneMoreClick, setOneMoreClick] = useState();
 
   useEffect(() => {
     document.title = "プロフィール";
-    setBackData(warpJob);
   }, []);
 
   useEffect(() => {
     if (!job) {
-      setJob(TestData);
+      setJob(JobSave);
     } else {
       setJob(job);
     }
-  }, [TestData]);
+  }, [JobSave]);
 
   useEffect(() => {
-    setTestData(job);
-  }, [job]);
+    if (!hobby) {
+      setHobby(HobbySave);
+    } else {
+      setHobby(hobby);
+    }
+  }, [HobbySave]);
+
+  useEffect(() => {
+    if (!skill) {
+      setSkill(SkillSave);
+    } else {
+      setSkill(skill);
+    }
+  }, [SkillSave]);
+
+  useEffect(() => {
+    if (!SSubject) {
+      setSSubject(SSubjectSave);
+    } else {
+      setSSubject(SSubject);
+    }
+  }, [SSubjectSave]);
+
+  useEffect(() => {
+    if (!KSubject) {
+      setKSubject(KSubjectSave);
+    } else {
+      setKSubject(KSubject);
+    }
+  }, [KSubjectSave]);
+
+  useEffect(() => {
+    if (!myPower) {
+      setMyPower([...MyPowerSave]);
+    } else {
+      setMyPower([...myPower]);
+    }
+  }, [MyPowerSave]);
 
   const navigate = useNavigate();
   /* profile-st に飛ぶ */
@@ -120,8 +148,13 @@ export function SCEdit() {
         Home,
         bye,
         age,
-        TestData,
-        BackData,
+        job,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
       },
     });
   };
@@ -130,15 +163,21 @@ export function SCEdit() {
   const OnClickBack = () => {
     const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
     if (
-      regex.test(job) /* &&
-      
+      regex.test(job) &&
       regex.test(hobby) &&
       regex.test(skill) &&
       regex.test(SSubject) &&
       regex.test(KSubject) &&
-      myPower !== "" */
+      myPower.length > 0
     ) {
-      if (TestData === job) {
+      if (
+        JobSave === job &&
+        HobbySave === hobby &&
+        SkillSave === skill &&
+        SSubjectSave === SSubject &&
+        KSubjectSave === KSubject &&
+        OneMoreClick !== false
+      ) {
         navigate("/profile-st-com", {
           state: {
             name,
@@ -159,25 +198,41 @@ export function SCEdit() {
             KSubject,
             myPower,
             Gak,
-            TestData,
+            JobSave,
+            HobbySave,
+            SkillSave,
+            SSubjectSave,
+            KSubjectSave,
+            MyPowerSave,
           },
         });
       } else {
-        setError1(!regex.test(job) ? "エラー：希望職種" : "");
-        /*setError2(!regex.test(hobby) ? "エラー：趣味" : "");
-        setError3(!regex.test(skill) ? "エラー：特技" : "");
-        setError4(!regex.test(SSubject) ? "エラー：得意な科目" : "");
-        setError5(!regex.test(KSubject) ? "エラー：苦手な科目" : "");
-        setError6(myPower === "" ? "エラー：保有資格" : "");*/
-        if (setError1 === "") {
-          setOneMoreClick("OK");
-        }
+        setJobSave(job);
+        setHobbySave(hobby);
+        setSkillSave(skill);
+        setSSubjectSave(SSubject);
+        setKSubjectSave(KSubject);
+        setMyPowerSave([...myPower]);
+        setError1("");
+        setError2("");
+        setError3("");
+        setError4("");
+        setError5("");
+        setError6("");
+        setOneMoreClick(!regex.test(job) ? false : true);
       }
+    } else {
+      setError1(!regex.test(job) ? "エラー：希望職種" : "");
+      setError2(!regex.test(hobby) ? "エラー：趣味" : "");
+      setError3(!regex.test(skill) ? "エラー：特技" : "");
+      setError4(!regex.test(SSubject) ? "エラー：得意な科目" : "");
+      setError5(!regex.test(KSubject) ? "エラー：苦手な科目" : "");
+      setError6(myPower === "" ? "エラー：保有資格" : "");
+      setOneMoreClick(false);
     }
   };
 
-  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
-    job; /*&& hobby && skill && SSubject && KSubject && myPower*/
+  const Check = job && hobby && skill && SSubject && KSubject && myPower; // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -215,6 +270,13 @@ export function SCEdit() {
               role="presentation"
               onClick={toggleDrawer(false)}
             >
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
@@ -410,10 +472,18 @@ export function SCEdit() {
           </Box>
         </Stack>
         <Stack direction="column" spacing={2}>
-          TestData: {TestData}
+          JobSave: {JobSave}
           <br />
           <br />
-          BackData: {BackData}
+          HobbySave: {HobbySave} <br />
+          <br />
+          SkillSave: {SkillSave} <br />
+          <br />
+          SSubjectSave: {SSubjectSave} <br />
+          <br />
+          KSubjectSave: {KSubjectSave} <br />
+          <br />
+          MyPowerSave: {MyPowerSave.map((Power) => Power.title).join(",")}
         </Stack>
 
         <div /*エラーを表示する*/>
@@ -423,12 +493,17 @@ export function SCEdit() {
           {error4 && <p style={{ color: "red" }}>{error4}</p>}
           {error5 && <p style={{ color: "red" }}>{error5}</p>}
           {error6 && <p style={{ color: "red" }}>{error6}</p>}
-          {OneMoreClick && <p style={{ color: "green" }}>{OneMoreClick}</p>}
+          {OneMoreClick === true ? (
+            <p style={{ color: "green" }}>
+              よろしければ、もう一度ボタンを押してください。
+            </p>
+          ) : undefined}
         </div>
         <Stack direction="row" spacing={7} /*ボタンを表示する*/>
           <Button /* profile-st-com に飛ぶ(データの保存を行わない) */
             variant="contained"
             onClick={OnClick2}
+            disabled={OneMoreClick}
           >
             戻る
           </Button>
