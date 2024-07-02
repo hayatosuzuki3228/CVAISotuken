@@ -1434,10 +1434,50 @@ export function Addcompany() {
               <Divider component="li" />
               <ListItem>
                 <ListItemText
-                  primary={`求める人物像　： ${selectperson.join(", ")}`}
+                  primary={`求める人物像： ${selectperson.join(", ")}`}
                 />
               </ListItem>
               <Divider component="li" />
+              <ListItem>
+                <ListItemText primary={"画像　　　　："} />
+                <Box
+                  ref={containerRef}
+                  sx={{
+                    border: "2px solid gray",
+                    padding: "10px",
+                    width: 300,
+                    height: 300,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    mt: 2,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      transformOrigin: "center",
+                      transform: `scale(${zoom})`,
+                    }}
+                  >
+                    <img
+                      ref={imageRef}
+                      src={previewUrl}
+                      alt="Preview"
+                      style={{
+                        objectFit: "contain",
+                        transform: `translate(${positionX}px, ${positionY}px)`,
+                      }}
+                    />
+                  </div>
+                </Box>
+              </ListItem>
             </List>
           </Box>
         );
