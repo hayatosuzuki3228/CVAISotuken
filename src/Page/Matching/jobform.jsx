@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Box, Autocomplete } from "@mui/material";
-
-const departmentOptions = ["a", "b", "c"];
-const locationOptions = ["東京", "大阪", "名古屋"];
-const featuresOptions = ["a", "b", "c"];
-const qualificationsOptions = ["a", "b", "c"];
+import { prefectures } from "../../const/locations";
+const departmentOptions = ["高度情報科", "外科", "東京大学理科三類（医学部）"];
+const featuresOptions = [
+  "傲慢",
+  "嫉妬",
+  "憤怒",
+  "怠惰",
+  "強欲",
+  "色欲",
+  "暴食",
+];
+const qualificationsOptions = ["基本情報", "応用情報", "猫検定 "];
 
 const JobForm = ({ onSave, initialData }) => {
   const [formData, setFormData] = useState({
@@ -47,7 +54,7 @@ const JobForm = ({ onSave, initialData }) => {
       <Box mb={2}>
         <Autocomplete
           multiple
-          options={locationOptions}
+          options={prefectures.map((prefecture) => prefecture.name)}
           value={formData.location}
           onChange={handleChange("location")}
           renderInput={(params) => (

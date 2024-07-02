@@ -179,7 +179,7 @@ export function Matching() {
                 }}
               />
             )}
-            className="field"
+            className="textfield"
           />
           <div id="b5">
             <Button

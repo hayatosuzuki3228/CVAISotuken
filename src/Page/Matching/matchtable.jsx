@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
@@ -16,9 +16,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button"; // Buttonをインポート
-import companies from "C:/Users/user/CVAISotuken/src/const/companies.js";
+import companies from "../../const/companies.js";
 import MyContext from "../../provider/provider";
-
+import CircularProgress from "@mui/material/CircularProgress";
 function convertCompanyData(company) {
   const matchScore = calculateMatchScore(company);
 
@@ -165,7 +165,33 @@ export function Matchtable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [detailSearchTerm, setDetailSearchTerm] = useState(""); // 詳細検索用の状態
   const [showDetail, setShowDetail] = useState(false); // 事業内容の表示状態を管理するstate
+  const [isLoading, setIsLoading] = useState(true); // ローディング状態のstateを追加
 
+  useEffect(() => {
+    // ここでデータの取得や初期化処理を行う場合、適宜実装する
+
+    // 例として、0.2秒後にローディング状態を解除する
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
+
+    return () => clearTimeout(timeout); // コンポーネントがアンマウントされたときにクリアする
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
