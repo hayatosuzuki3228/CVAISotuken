@@ -291,7 +291,7 @@ export function Bookmark() {
                             aria-label="delete"
                             onClick={() => setRemovename(company?.name)}
                           >
-                            <DeleteIcon />
+                            <DeleteIcon sx={{ fontSize: 20 }} />
                           </IconButton>
                         </Button>
                         <Button
