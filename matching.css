@@ -1,4 +1,4 @@
-@media screen and (min-width: 0px) {
+@media screen and (min-width: 1025px) {
   body {
     margin: 0;
     padding: 0;
@@ -28,22 +28,23 @@
     width: 300px;
     background-color: rgb(227, 241, 241);
     border-left: 10px solid rgb(6, 103, 142);
-    padding-bottom: 100%;
+    box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
+    padding-bottom: 85vh;
     padding-left: 2%;
   }
-  div#b1 {
+  .b1 {
     position: absolute;
     top: 100px;
   }
-  div#b2 {
+  .b2 {
     position: absolute;
     top: 200px;
   }
-  div#b3 {
+  .b3 {
     position: absolute;
     top: 320px;
   }
-  div#b4 {
+  .b4 {
     position: absolute;
     top: 440px;
   }
@@ -57,34 +58,91 @@
     background-color: rgb(255, 255, 255);
   }
   .textfield {
+    width: 30%;
     position: absolute;
     left: 370px;
     top: 130px;
   }
-  div#b5 {
+  .b5 {
+    height: 22%;
+    width: 40%;
+    font-size: 3.5vw;
     position: absolute;
     left: 600px;
     top: 300px;
   }
-  div#b6 {
+  .b6 {
+    height: 22%;
+    width: 25%;
+    font-size: 3.5vw;
     position: absolute;
     left: 500px;
     top: 500px;
   }
-  div#b7 {
+  .b7 {
+    height: 22%;
+    width: 25%;
+    font-size: 3.5vw;
     position: absolute;
-    left: 1000px;
+    left: 950px;
     top: 500px;
   }
 }
 /* タブレット向け */
-/*
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .btn {
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    
+  }
+  div.menu {
+    padding-top:10% ;
+    position: relative;
+    background-color: rgb(227, 241, 241);
+    border-left: 10px solid rgb(6, 103, 142);
+    border-right: 10px solid rgb(6, 103, 142);
+    padding-bottom: 12%;
+    
+   
+  }
+  div.main{
+    position: relative;
+   border-top:20px solid rgb(6, 103, 142); ;
+   padding-bottom: 50%;
+   
+  }
+  .textfield{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 50%;
+    
+    top:3%;
+  }
+  .b5 {
+    height: 22%;
+    width: 40%;
+    font-size: 3.5vw;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+
+  }
+  .b6 {
+    height: 22%;
+    width: 35%;
+    font-size: 3.5vw;
+    position: absolute;
+    left: 10%;
+    top:60%;
+  }
+  .b7 {
+    height: 22%;
+    width: 35%;
+    font-size: 3.5vw;
+    position: absolute;
+    left: 55%;
+   top: 60%;
   }
 }
 /* スマートフォン向け */

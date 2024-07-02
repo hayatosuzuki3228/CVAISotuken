@@ -242,7 +242,7 @@ export function Matchtable() {
       <Button
         onClick={toggleDetail}
         variant="contained"
-        sx={{ marginBottom: "1rem", height: 60, width: 200, fontSize: 20 }}
+        sx={{ marginBottom: "1rem", fontSize: 20 }}
         className="detailbu"
       >
         {showDetail ? "事業内容非表示" : "事業内容表示"}
@@ -251,8 +251,6 @@ export function Matchtable() {
         component={Paper}
         className="table1"
         sx={{
-          width: 1400,
-          fontSize: 30,
           border: "2px solid gray",
           boxShadow: "0px 10px 14px rgba(0, 0, 0, 0.3)",
         }}

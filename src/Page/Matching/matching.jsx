@@ -94,71 +94,69 @@ export function Matching() {
             justifyContent="center"
             alignItems="center"
           >
-            <div id="b1">
-              <Button
-                onClick={() =>
-                  (window.location.href =
-                    "http://career-center.nkc.internal/kyujin-kensaku.html")
-                }
-                sx={{
-                  width: 250,
-                  height: 100,
-                  fontSize: 40,
-                  padding: 5,
-                }}
-                variant="contained"
-              >
-                企業検索
-              </Button>
-            </div>
-            <div id="b2">
-              <Button
-                onClick={() =>
-                  (window.location.href = "http://intra2.denpa.ac.jp/job/2024/")
-                }
-                sx={{
-                  width: 250,
-                  height: 100,
-                  fontSize: 40,
-                  padding: 5,
-                }}
-                variant="contained"
-              >
-                求人票
-              </Button>
-            </div>
+            <Button
+              className="b1"
+              onClick={() =>
+                (window.location.href =
+                  "http://career-center.nkc.internal/kyujin-kensaku.html")
+              }
+              sx={{
+                width: 250,
+                height: 100,
+                fontSize: 40,
+                padding: 5,
+              }}
+              variant="contained"
+            >
+              企業検索
+            </Button>
 
-            <div id="b3">
-              <Button
-                onClick={() =>
-                  (window.location.href =
-                    "http://intra2.denpa.ac.jp/e-learning/job/")
-                }
-                sx={{
-                  width: 250,
-                  height: 100,
-                  fontSize: 23,
-                  padding: 5,
-                }}
-                variant="contained"
-              >
-                就職ガイダンス
-              </Button>
-            </div>
-            <div id="b4">
-              <Button
-                onClick={onClick}
-                sx={{
-                  width: 250,
-                  height: 100,
-                  fontSize: 30,
-                  padding: 5,
-                }}
-                variant="contained"
-              >
-                マッチ度表
-              </Button>
-            </div>
+            <Button
+              className="b2"
+              onClick={() =>
+                (window.location.href = "http://intra2.denpa.ac.jp/job/2024/")
+              }
+              sx={{
+                width: 250,
+                height: 100,
+                fontSize: 40,
+                padding: 5,
+              }}
+              variant="contained"
+            >
+              求人票
+            </Button>
+
+            <Button
+              className="b3"
+              onClick={() =>
+                (window.location.href =
+                  "http://intra2.denpa.ac.jp/e-learning/job/")
+              }
+              sx={{
+                width: 250,
+                height: 100,
+                fontSize: 23,
+                padding: 5,
+              }}
+              variant="contained"
+            >
+              就職ガイダンス
+            </Button>
+
+            <Button
+              className="b4"
+              onClick={onClick}
+              sx={{
+                width: 250,
+                height: 100,
+                fontSize: 30,
+                padding: 5,
+              }}
+              variant="contained"
+            >
+              マッチ度表
+            </Button>
           </Stack>
         </div>
 
@@ -174,55 +172,45 @@ export function Matching() {
                 label="企業名入力"
                 variant="outlined"
                 sx={{
-                  width: 500,
                   backgroundColor: "lightgray",
                 }}
               />
             )}
             className="textfield"
           />
-          <div id="b5">
-            <Button
-              onClick={handleCompanyInfoClick}
-              sx={{
-                width: 700,
-                height: 150,
-                fontSize: 50,
-                padding: 5,
-              }}
-              variant="contained"
-            >
-              企業情報
-            </Button>
-          </div>
-          <div id="b6">
-            <Button
-              onClick={onClick}
-              sx={{
-                width: 400,
-                height: 150,
-                fontSize: 50,
-                padding: 5,
-              }}
-              variant="contained"
-            >
-              先輩情報
-            </Button>
-          </div>
-          <div id="b7">
-            <Button
-              onClick={() => navigate("/Conditions")}
-              sx={{
-                width: 400,
-                height: 150,
-                fontSize: 50,
-                padding: 5,
-              }}
-              variant="contained"
-            >
-              AI
-            </Button>
-          </div>
+
+          <Button
+            className="b5"
+            onClick={handleCompanyInfoClick}
+            sx={{
+              padding: 5,
+            }}
+            variant="contained"
+          >
+            企業情報
+          </Button>
+
+          <Button
+            className="b6"
+            onClick={onClick}
+            sx={{
+              padding: 5,
+            }}
+            variant="contained"
+          >
+            先輩情報
+          </Button>
+
+          <Button
+            className="b7"
+            onClick={() => navigate("/Conditions")}
+            sx={{
+              padding: 5,
+            }}
+            variant="contained"
+          >
+            AI
+          </Button>
         </div>
       </div>
       <head>
