@@ -39,14 +39,10 @@ export function Picture() {
   //#region  画像調整
   const handleZoomIn = () => {
     setZoom((prevZoom) => prevZoom + 0.1);
-    setPositionX((prevX) => prevX - (previousPosition.x * 0.1) / zoom);
-    setPositionY((prevY) => prevY - (previousPosition.y * 0.1) / zoom);
   };
 
   const handleZoomOut = () => {
     setZoom((prevZoom) => Math.max(0.5, prevZoom - 0.1));
-    setPositionX((prevX) => prevX + (previousPosition.x * 0.1) / zoom);
-    setPositionY((prevY) => prevY + (previousPosition.y * 0.1) / zoom);
   };
 
   const handleMoveUp = () => {
@@ -83,21 +79,44 @@ export function Picture() {
       return;
     }
 
+    const containerWidth = containerRef.current.clientWidth;
+    const containerHeight = containerRef.current.clientHeight;
+
     // Canvas を作成して画像を描画
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
     const img = new Image();
     img.onload = () => {
-      canvas.width = 300; // 枠の幅
-      canvas.height = 300; // 枠の高さ
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.width = containerWidth;
+      canvas.height = containerHeight;
+
+      // 描画する画像のサイズを計算
+      const scaledWidth = img.width * zoom;
+      const scaledHeight = img.height * zoom;
+
+      // Canvas に描画する位置を計算
+      const drawX = (containerWidth - scaledWidth) / 2 + positionX;
+      const drawY = (containerHeight - scaledHeight) / 2 + positionY;
+
+      // Canvas に画像を描画
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height, // 元画像の描画範囲
+        drawX,
+        drawY,
+        scaledWidth,
+        scaledHeight // Canvas 上の描画範囲
+      );
 
       // 画像を保存する
       const dataUrl = canvas.toDataURL("image/png");
+      const fileName = `${name}.png`;
       const a = document.createElement("a");
       a.href = dataUrl;
-      a.download = "saved_image.png";
       a.click();
     };
     img.src = previewUrl;
@@ -225,7 +244,7 @@ export function Picture() {
               justifyContent: "center",
               alignItems: "center",
               transformOrigin: "center",
-              transform: `scale(${zoom}) translate(${positionX}px, ${positionY}px)`,
+              transform: `scale(${zoom})`,
             }}
           >
             <img
@@ -233,9 +252,8 @@ export function Picture() {
               src={previewUrl}
               alt="Preview"
               style={{
-                width: "100%",
-                height: "100%",
                 objectFit: "contain",
+                transform: `translate(${positionX}px, ${positionY}px)`,
               }}
             />
           </div>

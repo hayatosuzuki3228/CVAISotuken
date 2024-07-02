@@ -222,16 +222,13 @@ export function Addcompany() {
     reader.readAsDataURL(file);
   };
 
+  //#region  画像調整
   const handleZoomIn = () => {
     setZoom((prevZoom) => prevZoom + 0.1);
-    setPositionX((prevX) => prevX - (previousPosition.x * 0.1) / zoom);
-    setPositionY((prevY) => prevY - (previousPosition.y * 0.1) / zoom);
   };
 
   const handleZoomOut = () => {
     setZoom((prevZoom) => Math.max(0.5, prevZoom - 0.1));
-    setPositionX((prevX) => prevX + (previousPosition.x * 0.1) / zoom);
-    setPositionY((prevY) => prevY + (previousPosition.y * 0.1) / zoom);
   };
 
   const handleMoveUp = () => {
@@ -261,6 +258,54 @@ export function Addcompany() {
       return prevX + 10;
     });
   };
+  //#endregion
+
+  //#region 画像up
+  const handleUpload = () => {
+    if (!previewUrl) {
+      return;
+    }
+
+    const containerWidth = containerRef.current.clientWidth;
+    const containerHeight = containerRef.current.clientHeight;
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = containerWidth;
+      canvas.height = containerHeight;
+
+      const scaledWidth = img.width * zoom;
+      const scaledHeight = img.height * zoom;
+
+      const drawX = (containerWidth - scaledWidth) / 2 + positionX;
+      const drawY = (containerHeight - scaledHeight) / 2 + positionY;
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        drawX,
+        drawY,
+        scaledWidth,
+        scaledHeight
+      );
+
+      const dataUrl = canvas.toDataURL("image/png");
+      const fileName = `${name}.png`;
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = fileName;
+      a.click();
+    };
+    img.src = previewUrl;
+  };
+  //#endregion
+
   //#endregion
 
   //#region 学科チェック連動
@@ -1247,7 +1292,7 @@ export function Addcompany() {
                     justifyContent: "center",
                     alignItems: "center",
                     transformOrigin: "center",
-                    transform: `scale(${zoom}) translate(${positionX}px, ${positionY}px)`,
+                    transform: `scale(${zoom})`,
                   }}
                 >
                   <img
@@ -1255,14 +1300,16 @@ export function Addcompany() {
                     src={previewUrl}
                     alt="Preview"
                     style={{
-                      width: "100%",
-                      height: "100%",
                       objectFit: "contain",
+                      transform: `translate(${positionX}px, ${positionY}px)`,
                     }}
                   />
                 </div>
               </Box>
             )}
+            <Button variant="contained" color="primary" onClick={handleUpload}>
+              アップロード
+            </Button>
           </Box>
         );
       case 6:
