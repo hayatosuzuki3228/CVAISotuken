@@ -338,4 +338,8 @@ export function Toppage() {
       </Box>
     </ThemeProvider>
   );
+  <head>
+    <link href="bookmark.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>;
 }
