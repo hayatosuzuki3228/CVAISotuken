@@ -131,8 +131,8 @@
     top:3%;
   }
   .b5 {
-    height: 22%;
-    width: 40%;
+    height: 25%;
+    width: 35%;
     font-size: 3.5vw;
     position: absolute;
     left: 30%;
@@ -140,20 +140,22 @@
 
   }
   .b6 {
-    height: 22%;
+    height: 25%;
     width: 35%;
     font-size: 3.5vw;
     position: absolute;
     left: 10%;
     top:60%;
+    margin-top: 5px;
   }
   .b7 {
-    height: 22%;
+    height: 25%;
     width: 35%;
     font-size: 3.5vw;
     position: absolute;
-    left: 55%;
+    left: 50%;
    top: 60%;
+   margin-top: 5px;
   }
 }
 /* スマートフォン向け */

@@ -183,7 +183,7 @@ export function Matching() {
             className="b5"
             onClick={handleCompanyInfoClick}
             sx={{
-              padding: 5,
+              padding: 2,
             }}
             variant="contained"
           >
@@ -194,7 +194,7 @@ export function Matching() {
             className="b6"
             onClick={onClick}
             sx={{
-              padding: 5,
+              padding: 2,
             }}
             variant="contained"
           >
@@ -205,7 +205,7 @@ export function Matching() {
             className="b7"
             onClick={() => navigate("/Conditions")}
             sx={{
-              padding: 5,
+              padding: 2,
             }}
             variant="contained"
           >
