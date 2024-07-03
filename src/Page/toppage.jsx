@@ -238,16 +238,18 @@ export function Toppage() {
           <DrawerHeader />
           <Stack
             direction="row"
+            flexWrap="wrap"
             alignContent="center"
             justifyContent="center"
             spacing={2}
             height="100%"
+            width="100%"
           >
             <Box
               border={1}
               borderColor={gray}
               sx={{ borderRadius: 4 }}
-              width="100%"
+              width="32%"
               height="100%"
             >
               <CustomBox></CustomBox>
@@ -256,12 +258,12 @@ export function Toppage() {
               border={1}
               borderColor={gray}
               sx={{ borderRadius: 4 }}
-              width="100%"
+              width="32%"
               height="100%"
             >
               <CustomBox1></CustomBox1>
             </Box>
-            <Stack direction="column" width="85%" height="100%">
+            <Stack direction="column" width="200" height="100%">
               <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
                 <p></p>
                 <Box

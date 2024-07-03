@@ -1,2 +1,17 @@
 @media screen and (min-width: 1025px) {
+  .oshirase {
+    width: "100%";
+  }
+  .kigyooshirase {
+    width: "100%";
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+  .oshirase {
+    width: "50%";
+  }
+  .kigyooshirase {
+    width: "100%";
+  }
 }
