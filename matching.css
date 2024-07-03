@@ -1,24 +1,34 @@
 @media screen and (min-width: 1025px) {
   body {
     margin: 0;
-    padding: 0;
+    padding: 1;
     height: 100%;
-    overflow: hidden;
+    width: 100%;
+    
+    
+  }
+  .futer{
+    
+    width: 1504px;
+    
   }
   #hart {
     position: relative;
-    left: 1040px;
+    left: 67%;
     top: 5px;
+    padding: auto;
   }
   #mylist {
     position: relative;
-    left: 1030px;
+    left: 66.5%;
     top: 5px;
+    padding: auto;
   }
   #setting {
     position: relative;
-    left: 1020px;
+    left: 65.5%;
     top: 5px;
+    padding: auto;
   }
   div.menu {
     display: flex;
@@ -29,8 +39,9 @@
     background-color: rgb(227, 241, 241);
     border-left: 10px solid rgb(6, 103, 142);
     box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
-    padding-bottom: 85vh;
+    padding-bottom: 617.9px;
     padding-left: 2%;
+    
   }
   .b1 {
     position: absolute;
@@ -58,30 +69,30 @@
     background-color: rgb(255, 255, 255);
   }
   .textfield {
-    width: 30%;
+    width: 500px;
     position: absolute;
     left: 370px;
     top: 130px;
   }
   .b5 {
-    height: 22%;
-    width: 40%;
+    height: 150px;
+    width: 600px;
     font-size: 3.5vw;
     position: absolute;
-    left: 600px;
+    left: 620px;
     top: 300px;
   }
   .b6 {
-    height: 22%;
-    width: 25%;
+    height: 150px;
+    width: 400px;
     font-size: 3.5vw;
     position: absolute;
     left: 500px;
     top: 500px;
   }
   .b7 {
-    height: 22%;
-    width: 25%;
+    height: 150px;
+    width: 400px;
     font-size: 3.5vw;
     position: absolute;
     left: 950px;

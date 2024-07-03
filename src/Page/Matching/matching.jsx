@@ -50,7 +50,7 @@ export function Matching() {
 
   return (
     <div>
-      <Box bgcolor="#6495ed" p={2}>
+      <Box bgcolor="#6495ed" p={2} className="futer">
         <Stack direction="row" justifyContent="flex-start" alignSelf="center">
           <h1>名産会マッチング</h1>
           <div id="hart">

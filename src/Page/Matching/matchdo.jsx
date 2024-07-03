@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Jobform from "./jobform";
 import { Container, Typography, Box, Paper, Alert } from "@mui/material";
-
 export function Matchdo() {
   const [jobData, setJobData] = useState({
     department: "",
@@ -61,6 +60,10 @@ export function Matchdo() {
           </Box>
         </Box>
       </Container>
+      <head>
+        <link href="matchdo.css" rel="stylesheet" type="text/css" media="all" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
     </>
   );
 }
