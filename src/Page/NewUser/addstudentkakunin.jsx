@@ -56,13 +56,13 @@ export function Addstudentkakunin() {
     });
   };
 
-  let ir = 30;
-
   return (
     <>
-      <Box bgcolor="#66aacc" p={2}>
+      <Box bgcolor="#21a7dd" p={2}>
         <Stack justifyContent="center" alignItems="center">
-          <h1>最終確認</h1>
+          <Typography fontSize={30} color="white">
+            最終確認
+          </Typography>
         </Stack>
       </Box>
       <Stack justifyContent="center" alignItems="center">

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   Box,
+  Button,
   Drawer,
   Divider,
   List,
@@ -10,6 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  Stack,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -21,7 +23,22 @@ export function CProfile() {
 
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("/profile-com-edit");
+    navigate("/profile-com-edit", {
+      state: {
+        Cname,
+        CkName,
+        place,
+        tel,
+        fax,
+        info,
+        COpen,
+        COpenM,
+        capital,
+        people,
+        comePeople,
+        homepage,
+      },
+    });
   };
   const OnClick2 = () => {
     navigate("/profile-st");
@@ -30,6 +47,22 @@ export function CProfile() {
     navigate("/profile-st-com");
   };
 
+  const location = useLocation();
+  const {
+    Cname,
+    CkName,
+    place,
+    tel,
+    fax,
+    info,
+    COpen,
+    COpenM,
+    capital,
+    people,
+    comePeople,
+    homepage,
+  } = location.state || {};
+
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -37,7 +70,10 @@ export function CProfile() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -79,171 +115,215 @@ export function CProfile() {
             </Box>
           </Drawer>
         </div>
-
         <h1>企業プロフィール</h1>
       </header>
 
-      <Box my={4} alignContent="center" component="section" gap={4} p={2}>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                企業名
-                <br />
-                カタカナ
-              </p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                任天堂株式会社
-                <br />
-                ニンテンドーカブシキガイシャ
-              </p>
-            </font>
-          </div>
-        </div>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>企業所在地</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>京都府京都市南区上鳥羽鉾立町１１－１</p>
-            </font>
-          </div>
-        </div>
+      <Stack // メインコンテンツ
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        paddingTop="5%"
+        paddingBottom="5%"
+        spacing={2}
+      >
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              企業名
+              <br />
+              カタカナ
+            </p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {Cname}
+              <br />
+              {CkName}
+            </p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                電話番号
-                <br />
-                FAX番号
-              </p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                (TEL)075-0000-0000
-                <br />
-                (FAX)075-1111-1111
-              </p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>企業所在地</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{place}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>事業内容</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>家庭用レジャー機器の製造・販売</p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              電話番号
+              <br />
+              FAX番号
+            </p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {tel && "(TEL)" + tel}
+              <br />
+              {fax && "(FAX)" + fax}
+            </p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>創業年日</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>明治22年9月</p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>事業内容</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{info}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>資本金</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>100億円</p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>創業年月</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {COpen && COpen + "年"}
+              {COpenM && COpenM + "月創業"}
+            </p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>代表者名</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                (代表取締役会長)
-                <br />
-                古川 俊太郎
-              </p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>資本金額</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{capital && capital + "万円"}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>企業が求める人材像</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>全員笑顔にしてくれる人</p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>代表者名</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{people}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>ホームページ</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                <Link to="https://www.nintendo.com/jp/index.html">
-                  https://www.nintendo.com/jp
-                </Link>
-              </p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>求める人物像</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{comePeople}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>支店</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>名古屋東京</p>
-            </font>
-          </div>
-        </div>
-      </Box>
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>ホームページ等</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              <a href={homepage}>{homepage}</a>
+            </p>
+          </Box>
+        </Stack>
 
-      <div className="div-padding">
-        <button className="button" onClick={OnClick}>
-          情報を編集する
-        </button>
-        <button className="button">戻る</button>
-      </div>
+        <Box>
+          <Button variant="contained" size="large" onClick={OnClick}>
+            情報を編集する
+          </Button>
+        </Box>
+      </Stack>
     </>
   );
 }

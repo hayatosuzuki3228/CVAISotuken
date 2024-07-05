@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -34,36 +34,162 @@ export function CEdit() {
     setOpen(newOpen);
   };
 
+  const location = useLocation();
+  const warpCname = location.state?.Cname || "";
+  const warpCkName = location.state?.CkName || "";
+  const warpPlace = location.state?.place || "";
+  const warpTel = location.state?.tel || "";
+  const warpFax = location.state?.fax || "";
+  const warpInfo = location.state?.info || "";
+  const warpCOpen = location.state?.COpen || "";
+  const warpCOpenM = location.state?.COpenM || "";
+  const warpCapital = location.state?.capital || "";
+  const warpPeople = location.state?.people || "";
+  const warpComePeople = location.state?.comePeople || "";
+  const warpHomepage = location.state?.homepage || "";
+
+  const [Cname, setCname] = useState(warpCname);
+  const [CkName, setCkName] = useState(warpCkName);
+  const [place, setPlace] = useState(warpPlace);
+  const [tel, setTel] = useState(warpTel);
+  const [fax, setFax] = useState(warpFax);
+  const [info, setInfo] = useState(warpInfo);
+  const [COpen, setCOpen] = useState(warpCOpen);
+  const [COpenM, setCOpenM] = useState(warpCOpenM);
+  const [capital, setCapital] = useState(warpCapital);
+  const [people, setPeople] = useState(warpPeople);
+  const [comePeople, setComePeople] = useState(warpComePeople);
+  const [homepage, setHomepage] = useState(warpHomepage);
+
+  const [error1, setError1] = useState("");
+  const [error2, setError2] = useState("");
+  const [error3, setError3] = useState("");
+  const [error4, setError4] = useState("");
+  const [error5, setError5] = useState("");
+  const [error6, setError6] = useState("");
+  const [error7, setError7] = useState("");
+  const [error8, setError8] = useState("");
+  const [error9, setError9] = useState("");
+  const [error10, setError10] = useState("");
+
   const navigate = useNavigate();
   const OnClick = () => {
-    navigate("");
     navigate("/profile-st-edit");
   };
+
   const OnClick2 = () => {
-    navigate("");
     navigate("/profile-st-com");
   };
-  const OnClickBack = () => {
-    navigate("");
+
+  const OnClick3 = () => {
     navigate("/profile-com");
   };
 
-  const [Cname, setCname] = useState(undefined);
-  const [Ckname, setCkname] = useState(undefined);
-  const [location, setLocation] = useState(undefined);
-  const [tel, setTel] = useState(undefined);
-  const [fax, setFax] = useState(undefined);
-  const [info, setInfo] = useState(undefined);
-  const [COpen, setCOpen] = useState("");
-  const [COpenM, setCOpenM] = useState("");
-  const [capital, setCapital] = useState(undefined);
-  const [people, setPeople] = useState(undefined);
-  const [comePeople, setComePeople] = useState(undefined);
-  const [homepage, setHomepage] = useState("");
+  // profile-com に飛ぶ
+  const OnClickBack = () => {
+    const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
+    const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
+    const TelRegex = /^[0-9-]{11,}$/;
+    const MoneyRegex = /^[0-9]{1,}$/;
+    const PageRegex =
+      /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
+
+    const isValidCname = regex.test(Cname);
+    const isValidPlace = regex.test(place);
+    const isValidInfo = regex.test(info);
+    const isValidPeople = regex.test(people);
+    const isValidComePeople = regex.test(comePeople);
+    const isValidCkName = KanaRegex.test(CkName);
+    const isValidTel = TelRegex.test(tel);
+    const isValidFax = TelRegex.test(fax); // FAX番号も同じ正規表現を使用
+    const isValidCapital = MoneyRegex.test(capital);
+    const isValidHomepage = PageRegex.test(homepage) || homepage === "";
+
+    if (
+      isValidCname &&
+      isValidPlace &&
+      isValidInfo &&
+      isValidPeople &&
+      isValidComePeople &&
+      isValidCkName &&
+      isValidTel &&
+      isValidFax &&
+      isValidCapital &&
+      isValidHomepage
+    ) {
+      navigate("/profile-com", {
+        state: {
+          Cname,
+          CkName,
+          place,
+          tel,
+          fax,
+          info,
+          COpen,
+          COpenM,
+          capital,
+          people,
+          comePeople,
+          homepage,
+        },
+      });
+    } else {
+      {
+        !regex.test(Cname) ? setError1("エラー：企業名") : setError1("");
+      }
+      {
+        !KanaRegex.test(CkName)
+          ? setError2("エラー：企業名カタカナ")
+          : setError2("");
+      }
+      {
+        !regex.test(place) ? setError3("エラー：企業所在地") : setError3("");
+      }
+      {
+        !TelRegex.test(tel) ? setError4("エラー：電話番号") : setError4("");
+      }
+      {
+        !TelRegex.test(fax) ? setError5("エラー：FAX番号") : setError5("");
+      }
+      {
+        !regex.test(info) ? setError6("エラー：事業内容") : setError6("");
+      }
+      {
+        !MoneyRegex.test(capital) ? setError7("エラー：資本金") : setError7("");
+      }
+      {
+        !regex.test(people) ? setError8("エラー：代表者名") : setError8("");
+      }
+      {
+        !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("");
+      }
+      {
+        !PageRegex.test(homepage)
+          ? setError10("エラー：ホームページ")
+          : setError10("");
+      }
+    }
+  };
+
+  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
+    Cname &&
+    CkName &&
+    place &&
+    tel &&
+    fax &&
+    info &&
+    COpen &&
+    COpenM &&
+    capital &&
+    people &&
+    comePeople;
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -100,7 +226,7 @@ export function CEdit() {
         <h1>プロフィール編集</h1>
       </header>
 
-      <Stack
+      <Stack // メインコンテンツ
         justifyContent="center"
         alignItems="center"
         textAlign="center"
@@ -131,20 +257,14 @@ export function CEdit() {
                 label="企業名の変更"
                 value={Cname}
                 onChange={(e) => setCname(e.target.value)}
-                helperText={Cname !== undefined && !Cname ? "未入力です。" : ""}
-                error={Cname !== undefined && !Cname}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="企業名(カタカナ)の変更"
-                value={Ckname}
-                onChange={(e) => setCkname(e.target.value)}
-                helperText={
-                  Ckname !== undefined && !Ckname ? "未入力です。" : ""
-                }
-                error={Ckname !== undefined && !Ckname}
+                value={CkName}
+                onChange={(e) => setCkName(e.target.value)}
               />
             </Box>
           </Stack>
@@ -169,12 +289,8 @@ export function CEdit() {
             <TextField
               fullWidth
               label="企業所在地の変更"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              helperText={
-                location !== undefined && !location ? "未入力です" : ""
-              }
-              error={location !== undefined && !location}
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
             />
           </Box>
         </Stack>
@@ -202,8 +318,6 @@ export function CEdit() {
                 label="電話番号の変更"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
-                helperText={tel !== undefined && !tel ? "未入力です" : ""}
-                error={tel !== undefined && !tel}
               />
             </Box>
             <Box>
@@ -212,8 +326,6 @@ export function CEdit() {
                 label="FAX番号の変更"
                 value={fax}
                 onChange={(e) => setFax(e.target.value)}
-                helperText={fax !== undefined && !fax ? "未入力です" : ""}
-                error={fax !== undefined && !fax}
               />
             </Box>
           </Stack>
@@ -242,8 +354,6 @@ export function CEdit() {
               label="事業内容の変更"
               value={info}
               onChange={(e) => setInfo(e.target.value)}
-              helperText={info !== undefined && !info ? "未入力です" : ""}
-              error={info !== undefined && !info}
             />
           </Box>
         </Stack>
@@ -328,10 +438,6 @@ export function CEdit() {
                 label="資本金の変更(百万円単位)"
                 value={capital}
                 onChange={(e) => setCapital(e.target.value)}
-                helperText={
-                  capital !== undefined && !capital ? "未入力です。" : ""
-                }
-                error={capital !== undefined && !capital}
               />
             </Box>
             <p>万円</p>
@@ -359,8 +465,6 @@ export function CEdit() {
               label="代表者名の変更"
               value={people}
               onChange={(e) => setPeople(e.target.value)}
-              helperText={people !== undefined && !people ? "未入力です。" : ""}
-              error={people !== undefined && !people}
             />
           </Box>
         </Stack>
@@ -389,10 +493,6 @@ export function CEdit() {
               label="企業が求める人材像の変更"
               value={comePeople}
               onChange={(e) => setComePeople(e.target.value)}
-              helperText={
-                comePeople !== undefined && !comePeople ? "未入力です" : ""
-              }
-              error={comePeople !== undefined && !comePeople}
             />
           </Box>
         </Stack>
@@ -414,7 +514,7 @@ export function CEdit() {
           >
             <TextField
               fullWidth
-              label="代表者名の変更"
+              label="ホームページ等の追加・変更"
               value={homepage}
               onChange={(e) => setHomepage(e.target.value)}
               helperText="ここは任意です"
@@ -422,9 +522,37 @@ export function CEdit() {
           </Box>
         </Stack>
 
-        <Button variant="contained" onClick={OnClickBack}>
-          情報を確定する
-        </Button>
+        <div /* エラーの表示 */>
+          {error1 && <p style={{ color: "red" }}>{error1}</p>}
+          {error2 && <p style={{ color: "red" }}>{error2}</p>}
+          {error3 && <p style={{ color: "red" }}>{error3}</p>}
+          {error4 && <p style={{ color: "red" }}>{error4}</p>}
+          {error5 && <p style={{ color: "red" }}>{error5}</p>}
+          {error6 && <p style={{ color: "red" }}>{error6}</p>}
+          {error7 && <p style={{ color: "red" }}>{error7}</p>}
+          {error8 && <p style={{ color: "red" }}>{error8}</p>}
+          {error9 && <p style={{ color: "red" }}>{error9}</p>}
+          {error10 && <p style={{ color: "red" }}>{error10}</p>}
+        </div>
+
+        <Stack // ボタンの表示
+          direction="row"
+          spacing={7}
+        >
+          <Button // profile-com に飛ぶ(データの保存を行わない)
+            variant="contained"
+            onClick={OnClick3}
+          >
+            戻る
+          </Button>
+          <Button // profile-comに飛ぶ(データの保存を行う)
+            variant="contained"
+            onClick={OnClickBack}
+            disabled={!Check}
+          >
+            情報を確定する
+          </Button>
+        </Stack>
       </Stack>
     </>
   );

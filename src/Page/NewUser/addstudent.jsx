@@ -122,9 +122,11 @@ export function Addstudent() {
 
   return (
     <>
-      <Box bgcolor="#66aacc" p={2}>
+      <Box bgcolor="#21a7dd" p={2}>
         <Stack justifyContent="center" alignItems="center">
-          <h1>新規登録</h1>
+          <Typography fontSize={30} color="white">
+            新規登録
+          </Typography>
         </Stack>
       </Box>
       <Stack
@@ -212,6 +214,11 @@ export function Addstudent() {
               error={error || isDifferent1}
               helperText={error ? "4文字以上10文字以下で入力してください" : ""}
             />
+            <label style={{ fontSize: "9px", color: "#808080" }}>
+              半角英数字4文字以上10文字以内で入力
+            </label>
+            <p></p>
+            {pass}
             <p></p>
             {message1 && (
               <Typography
