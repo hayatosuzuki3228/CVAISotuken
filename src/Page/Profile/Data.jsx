@@ -1,5 +1,3 @@
-import React from "react";
-
 export const selectBox = [
   { label: "情報総合学科", value: "情報総合学科" },
   { label: "情報システム科", value: "情報システム科" },
@@ -103,18 +101,18 @@ export const years = [
 ];
 
 export const months = [
-  { label: "1", value: "1" },
-  { label: "2", value: "2" },
-  { label: "3", value: "3" },
-  { label: "4", value: "4" },
-  { label: "5", value: "5" },
-  { label: "6", value: "6" },
-  { label: "7", value: "7" },
-  { label: "8", value: "8" },
-  { label: "9", value: "9" },
-  { label: "10", value: "10" },
-  { label: "11", value: "11" },
-  { label: "12", value: "12" },
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5", label: "5" },
+  { value: "6", label: "6" },
+  { value: "7", label: "7" },
+  { value: "8", label: "8" },
+  { value: "9", label: "9" },
+  { value: "10", label: "10" },
+  { value: "11", label: "11" },
+  { value: "12", label: "12" },
 ];
 
 export const days2 = [];
@@ -220,25 +218,21 @@ export const Bye = [
   { label: "32卒", value: "32卒" },
 ];
 
-export const license = [
-  { label: "ITパスポート", value: "ITパスポート" },
-  { label: "基本情報技術者", value: "基本情報技術者" },
-  { label: "応用情報技術者", value: "応用情報技術者" },
-  { label: "ITサービスマネージャー", value: "ITサービスマネージャー" },
-  { label: "ITストラテジスト", value: "ITストラテジスト" },
-  { label: "システム監査技術者", value: "システム監査技術者" },
-  { label: "プロジェクトマネージャー", value: "プロジェクトマネージャー" },
-  { label: "ネットワークスペシャリスト", value: "ネットワークスペシャリスト" },
-  {
-    label: "情報セキュリティスペシャリスト",
-    value: "情報セキュリティスペシャリスト",
-  },
-  {
-    label: "エンベデッドシステムスペシャリスト",
-    value: "エンベデッドシステムスペシャリスト",
-  },
-  { label: "データベーススペシャリスト", value: "データベーススペシャリスト" },
-  { label: "システムアーキテクト", value: "システムアーキテクト" },
+export const options = [
+  { title: "特になし", id: 0 },
+  { title: "ITパスポート", id: 1 },
+  { title: "情報セキュリティマネジメント", id: 2 },
+  { title: "基本情報技術者", id: 3 },
+  { title: "応用情報技術者", id: 4 },
+  { title: "ITストラテジスト", id: 5 },
+  { title: "システムアーキテクト", id: 6 },
+  { title: "プロジェクトマネージャ", id: 7 },
+  { title: "ネットワークスペシャリスト", id: 8 },
+  { title: "データベーススペシャリスト", id: 9 },
+  { title: "エンベデッドシステムスペシャリスト", id: 10 },
+  { title: "ITサービスマネージャ", id: 11 },
+  { title: "システム監査技術者", id: 12 },
+  { title: "情報処理安全確保支援士", id: 13 },
 ];
 
 export const older = [];

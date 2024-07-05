@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -19,66 +19,272 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { years, months, days, selectBox, HOME, Bye } from "./Data";
+import { years, months, days, selectBox, HOME, Bye, older } from "./Data";
+import MyContext from "../../provider/provider";
+import { Man } from "@mui/icons-material";
 
 export function SEdit() {
+  const location = useLocation();
+  const { provideremail, setprovideremail } = useContext(MyContext);
+  const warpName = location.state?.name || "";
+  const warpKName = location.state?.kName || "";
+  const warpEmail = location.state?.email || "";
+  const warpManSave = location.state?.ManSave || "";
+  const warpGakSave = location.state?.GakSave || "";
+  const warpYearsSave = location.state?.YearsSave || "";
+  const warpMonthsSave = location.state?.MonthsSave || "";
+  const warpDaysSave = location.state?.DaysSave || "";
+  const warpHomeSave = location.state?.HomeSave || "";
+  const warpByeSave = location.state?.ByeSave || "";
+  const warpAgeSave = location.state?.AgeSave || "";
+
+  const {
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+    JobSave,
+    HobbySave,
+    SkillSave,
+    SSubjectSave,
+    KSubjectSave,
+    MyPowerSave,
+  } = location.state || {};
+
+  const [name, setName] = useState(warpName);
+  const [kName, setKName] = useState(warpKName);
+  const [man, setMan] = useState(warpManSave);
+  const [Gak, setGak] = useState(warpGakSave);
+  const [Years, setYears] = useState(warpYearsSave);
+  const [Months, setMonths] = useState(warpMonthsSave);
+  const [Days, setDays] = useState(warpDaysSave);
+  const [Home, setHome] = useState(warpHomeSave);
+  const [bye, setBye] = useState(warpByeSave);
+  const [email, setEmail] = useState(warpEmail);
+  const [age, setAge] = useState(warpAgeSave);
+
+  const [ManSave, setManSave] = useState(warpManSave);
+  const [GakSave, setGakSave] = useState(warpGakSave);
+  const [YearsSave, setYearsSave] = useState("");
+  const [MonthsSave, setMonthsSave] = useState("");
+  const [DaysSave, setDaysSave] = useState("");
+  const [HomeSave, setHomeSave] = useState(warpHomeSave);
+  const [ByeSave, setByeSave] = useState(warpByeSave);
+  const [AgeSave, setAgeSave] = useState(warpAgeSave);
+
+  const [error1, setError1] = useState("");
+  const [error2, setError2] = useState("");
+  const [error3, setError3] = useState("");
+  const [OneMoreClick, setOneMoreClick] = useState();
+
   useEffect(() => {
     document.title = "プロフィール編集";
   }, []);
 
+  useEffect(() => {
+    if (!Man) {
+      setMan(ManSave);
+    } else {
+      setMan(man);
+    }
+  }, [ManSave]);
+
+  useEffect(() => {
+    if (!Gak) {
+      setGak(GakSave);
+    } else {
+      setGak(Gak);
+    }
+  }, [GakSave]);
+
+  useEffect(() => {
+    if (!Years) {
+      setYears(YearsSave);
+    } else {
+      setYears(Years);
+    }
+  }, [YearsSave]);
+
+  useEffect(() => {
+    if (!Months) {
+      setMonths(MonthsSave);
+    } else {
+      setMonths(Months);
+    }
+  }, [MonthsSave]);
+
+  useEffect(() => {
+    if (!Days) {
+      setDays(DaysSave);
+    } else {
+      setDays(Days);
+    }
+  }, [DaysSave]);
+
+  useEffect(() => {
+    if (!Home) {
+      setHome(HomeSave);
+    } else {
+      setHome(Home);
+    }
+  }, [HomeSave]);
+
+  useEffect(() => {
+    if (!bye) {
+      setBye(ByeSave);
+    } else {
+      setBye(bye);
+    }
+  }, [ByeSave]);
+
+  useEffect(() => {
+    if (!age) {
+      setAge(AgeSave);
+    } else {
+      setAge(age);
+    }
+  }, [AgeSave]);
+
   const navigate = useNavigate();
+  // profile-st に飛ぶ(戻るボタン)
   const OnClick = () => {
-    navigate("/profile-st");
-  };
-  const OnClick2 = () => {
-    navigate("/profile-st-com");
-  };
-  const OnClickBack = () => {
     navigate("/profile-st", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
       },
     });
   };
+
+  // profile-st-com に飛ぶ
+  const OnClick2 = () => {
+    navigate("/profile-st-com", {
+      state: {
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
+      },
+    });
+  };
+
+  // profile-st に飛ぶ(情報を確定するボタン)
+  const OnClickNext = () => {
+    const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
+    const regex2 = /^[ァ-ヴ]{2,}$/;
+    const mailRegex =
+      /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    const birthDate = new Date(Years, Months - 1, Days);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    setAge(age + "歳");
+
+    if (
+      regex.test(name) &&
+      regex2.test(kName) &&
+      mailRegex.test(email) &&
+      OneMoreClick !== false
+    ) {
+      if (
+        ManSave === man &&
+        GakSave === Gak &&
+        YearsSave === Years &&
+        MonthsSave === Months &&
+        DaysSave === Days &&
+        HomeSave === Home &&
+        ByeSave === bye &&
+        AgeSave === age
+      ) {
+        navigate("/profile-st", {
+          state: {
+            name,
+            kName,
+            man,
+            Gak,
+            Years,
+            Months,
+            Days,
+            email,
+            Home,
+            bye,
+            age,
+            job,
+            hobby,
+            skill,
+            SSubject,
+            KSubject,
+            myPower,
+            ManSave,
+            GakSave,
+            YearsSave,
+            MonthsSave,
+            DaysSave,
+            HomeSave,
+            ByeSave,
+            AgeSave,
+          },
+        });
+      } else {
+        setManSave(man);
+        setGakSave(Gak);
+        setYearsSave(Years);
+        setMonthsSave(Months);
+        setDaysSave(Days);
+        setHomeSave(Home);
+        setByeSave(bye);
+        setAgeSave(age);
+        setError1("");
+        setError2("");
+        setError3("");
+        setOneMoreClick(true);
+      }
+    } else {
+      setError1(!regex.test(name) ? setError1("エラー：名前") : "");
+      setError2(!regex.test(kName) ? setError2("エラー：カタカナ") : "");
+      setError3(!regex.test(email) ? setError3("エラー：メールアドレス") : "");
+      setOneMoreClick(false);
+    }
+  };
+
+  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
+    name &&
+    kName &&
+    man &&
+    Gak &&
+    Years &&
+    Months &&
+    Days &&
+    email &&
+    Home &&
+    bye;
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-
-  const location = useLocation();
-  const warpName = location.state?.name || "";
-  const warpKName = location.state?.kName || "";
-  const warpMan = location.state?.man || "";
-  const warpGak = location.state?.Gak || "";
-  const warpYears = location.state?.Years || "";
-  const warpMonths = location.state?.Months || "";
-  const warpDays = location.state?.Days || "";
-  const warpHome = location.state?.Home || "";
-  const warpBye = location.state?.bye || "";
-  const warpEmail = location.state?.email || "";
-
-  const [name, setName] = useState(warpName);
-  const [kName, setKName] = useState(warpKName);
-  const [man, setMan] = useState(warpMan);
-  const [Gak, setGak] = useState(warpGak);
-  const [Years, setYears] = useState(warpYears);
-  const [Months, setMonths] = useState(warpMonths);
-  const [Days, setDays] = useState(warpDays);
-  const [Home, setHome] = useState(warpHome);
-  const [bye, setBye] = useState(warpBye);
-  const [email, setEmail] = useState(warpEmail);
 
   const handleChange1 = (event) => {
     setMan(event.target.value);
@@ -86,7 +292,10 @@ export function SEdit() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -103,13 +312,13 @@ export function SEdit() {
               onClick={toggleDrawer(false)}
             >
               <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="個人情報" />
-                  </ListItemButton>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
                 </ListItem>
               </List>
-              <Divider />
+              <br />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
@@ -123,7 +332,7 @@ export function SEdit() {
         <h1>プロフィール編集</h1>
       </header>
 
-      <Stack
+      <Stack // メインコンテンツ
         justifyContent="center"
         alignItems="center"
         textAlign="center"
@@ -154,8 +363,6 @@ export function SEdit() {
                 label="名前の変更"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                helperText={name !== undefined && !name ? "未入力です。" : ""}
-                error={name !== undefined && !name}
               />
             </Box>
             <Box>
@@ -164,8 +371,6 @@ export function SEdit() {
                 label="名前(カタカナ)の変更"
                 value={kName}
                 onChange={(e) => setKName(e.target.value)}
-                helperText={kName !== undefined && !kName ? "未入力です。" : ""}
-                error={kName !== undefined && !kName}
               />
             </Box>
           </Stack>
@@ -189,21 +394,21 @@ export function SEdit() {
             <RadioGroup
               value={man}
               onChange={handleChange1}
-              defaultValue="man"
+              defaultValue={man}
               row
             >
               <FormControlLabel
-                value="man"
+                value="男性"
                 control={<Radio />}
                 label="男性"
               ></FormControlLabel>
               <FormControlLabel
-                value="woman"
+                value="女性"
                 control={<Radio />}
                 label="女性"
               ></FormControlLabel>
               <FormControlLabel
-                value="gender"
+                value="その他"
                 control={<Radio />}
                 label="その他"
               ></FormControlLabel>
@@ -228,12 +433,12 @@ export function SEdit() {
             padding="10px"
           >
             <TextField
-              sx={{ width: 300 }}
               multiline
-              id={selectBox}
+              select
+              sx={{ width: 300 }}
+              id="SelectBox"
               label="学科名"
               value={Gak}
-              select
               onChange={(e) => setGak(e.target.value)}
             >
               {selectBox.map((item, index) => (
@@ -252,7 +457,6 @@ export function SEdit() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p></p>
             <p>生年月日の変更</p>
           </Box>
           <Stack
@@ -269,12 +473,12 @@ export function SEdit() {
               sx={{ width: 100 }}
               select
               multiline
-              id={years}
+              id="older"
               label="年"
               value={Years}
               onChange={(e) => setYears(e.target.value)}
             >
-              {years.map((item, index) => (
+              {older.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
                   {item.label}
                 </MenuItem>
@@ -285,7 +489,7 @@ export function SEdit() {
               sx={{ width: 60 }}
               select
               multiline
-              id={months}
+              id="month-select"
               label="月"
               value={Months}
               onChange={(e) => setMonths(e.target.value)}
@@ -301,7 +505,7 @@ export function SEdit() {
               sx={{ width: 60 }}
               select
               multiline
-              id={days}
+              id="days"
               label="日"
               value={Days}
               onChange={(e) => setDays(e.target.value)}
@@ -335,7 +539,7 @@ export function SEdit() {
             <TextField
               select
               fullWidth
-              id={HOME}
+              id="HOME"
               value={Home}
               label="都道府県"
               onChange={(e) => setHome(e.target.value)}
@@ -367,7 +571,7 @@ export function SEdit() {
             <TextField
               select
               fullWidth
-              id={Bye}
+              id="Bye"
               label="卒業年度"
               value={bye}
               onChange={(e) => setBye(e.target.value)}
@@ -401,15 +605,40 @@ export function SEdit() {
               label="メールアドレスの変更"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              helperText={email !== undefined && !email ? "未入力です" : ""}
-              error={email !== undefined && !email}
             />
           </Box>
         </Stack>
 
-        <Button variant="contained" onClick={OnClickBack}>
-          情報を確定する
-        </Button>
+        <div /* エラーの表示 */>
+          {error1 && <p style={{ color: "red" }}>{error1}</p>}
+          {error2 && <p style={{ color: "red" }}>{error2}</p>}
+          {error3 && <p style={{ color: "red" }}>{error3}</p>}
+          {OneMoreClick === true ? (
+            <p style={{ color: "green" }}>
+              よろしければ、もう一度ボタンを押してください。
+            </p>
+          ) : undefined}
+        </div>
+
+        <Stack // ボタンの表示
+          direction="row"
+          spacing={7}
+        >
+          <Button // profile-st に飛ぶ(データの保存を行わない)
+            variant="contained"
+            onClick={OnClick}
+            disabled={OneMoreClick}
+          >
+            戻る
+          </Button>
+          <Button // profile-st に飛ぶ(データの保存を行う)
+            variant="contained"
+            onClick={OnClickNext}
+            disabled={!Check}
+          >
+            情報を確定する
+          </Button>
+        </Stack>
       </Stack>
     </>
   );

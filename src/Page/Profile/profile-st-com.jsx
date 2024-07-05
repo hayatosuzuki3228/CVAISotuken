@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
+  Button,
   Drawer,
   Divider,
   List,
@@ -10,27 +11,137 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  Typography,
+  Stack,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import MyContext from "../../provider/provider";
 
-//変数をnavigateの中に入れて、
-//ボタンを押したら自動挿入され転送されるようにしたい
+/* 
+全部プロバイダーいらない
+ゴリ押しで戻るボタン押しても内容残るようにする
+*/
 
 export function SCompany() {
-  const navigate = useNavigate();
-  const OnClick = () => {
-    navigate("");
-    navigate("/profile-st-com-edit");
-  };
-  const OnClick2 = () => {
-    navigate("");
-    navigate("/profile-st");
-  };
-
   useEffect(() => {
     document.title = "企業向けプロフィール";
   }, []);
+
+  const location = useLocation();
+  const {
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+    name,
+    kName,
+    man,
+    Gak,
+    Years,
+    Months,
+    Days,
+    email,
+    Home,
+    bye,
+    age,
+    JobSave,
+    HobbySave,
+    SkillSave,
+    SSubjectSave,
+    KSubjectSave,
+    MyPowerSave,
+    ManSave,
+    GakSave,
+    YearsSave,
+    MonthsSave,
+    DaysSave,
+    HomeSave,
+    ByeSave,
+    AgeSave,
+  } = location.state || {};
+
+  const navigate = useNavigate();
+  const OnClick = () => {
+    navigate("/");
+  };
+  const OnClick1 = () => {
+    navigate("/profile-st-com-edit", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+        Gak,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
+      },
+    });
+  };
+  const OnClick2 = () => {
+    navigate("/profile-st", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
+      },
+    });
+  };
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -39,7 +150,10 @@ export function SCompany() {
 
   return (
     <>
-      <header className="header" style={{ textAlign: "center" }}>
+      <header // ヘッダー部分
+        className="header"
+        style={{ textAlign: "center" }}
+      >
         <div>
           <IconButton
             edge="start"
@@ -56,8 +170,24 @@ export function SCompany() {
               onClick={toggleDrawer(false)}
             >
               <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
+              <br />
+              <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
+                    <ListItemText primary="メイン" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick1}>
                     <ListItemText primary="企業向け情報編集" />
                   </ListItemButton>
                 </ListItem>
@@ -76,105 +206,142 @@ export function SCompany() {
         <h1>企業向けプロフィール</h1>
       </header>
 
-      <Box my={4} alignContent="center" component="section" gap={4} p={2}>
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>希望職種</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>ITエンジニア、SE</p>
-            </font>
-          </div>
-        </div>
+      <Stack // メインコンテンツ
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        paddingTop="5%"
+        paddingBottom="5%"
+        spacing={2}
+      >
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>希望職種</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{JobSave == job ? job : JobSave}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>趣味</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                ・プログラミング
-                <br />
-                ・全国の古い自動販売機を巡ること
-              </p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>趣味</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{HobbySave == hobby ? hobby : HobbySave}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>特技</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>相手を楽しませるコミュニケーションができること</p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>特技</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{SkillSave == skill ? skill : SkillSave}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>得意な科目</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                地理
-                <br />
-              </p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>得意科目</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{SSubjectSave == SSubject ? SSubject : SSubjectSave}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>苦手な科目</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                数学
-                <br />
-              </p>
-            </font>
-          </div>
-        </div>
+        <Stack direction="row">
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>苦手科目</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>{KSubjectSave == KSubject ? KSubject : KSubjectSave}</p>
+          </Box>
+        </Stack>
 
-        <div className="info" style={{ textAlign: "center" }}>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>取得した資格</p>
-            </font>
-          </div>
-          <div className="half-box black">
-            <font size="3.5">
-              <p>
-                ・応用情報技術者
-                <br /> ・普通自動車運転免許 <br />
-                ・世界遺産検定1級
-              </p>
-            </font>
-          </div>
-        </div>
-      </Box>
-      <div className="div-padding">
-        <button className="button" onClick={OnClick}>
-          情報を編集する
-        </button>
-        <button className="button">戻る</button>
-      </div>
+        <Stack direction="row" paddingBottom={5}>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>保有資格</p>
+          </Box>
+          <Box
+            flex="1"
+            border="1px solid black"
+            padding="10px"
+            sx={{ minWidth: 300 }}
+          >
+            <p>
+              {MyPowerSave
+                ? MyPowerSave.map((option, index) => (
+                    <Typography key={index} textAlign="center">
+                      {option.title}
+                    </Typography>
+                  ))
+                : null}
+            </p>
+          </Box>
+        </Stack>
+
+        <Box>
+          <Button variant="contained" size="large" onClick={OnClick1}>
+            情報を編集する
+          </Button>
+        </Box>
+      </Stack>
     </>
   );
 }
