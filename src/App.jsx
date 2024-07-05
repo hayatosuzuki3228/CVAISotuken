@@ -20,6 +20,7 @@ import { Addcompany } from "./Page/Companyadd/addcompany.jsx";
 import { Lostpass } from "./Page/Login/Lostpass";
 import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
+import { Bookmark } from "./Page/bookmark";
 import "normalize.css";
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/profile-com" element={<CProfile />} />
           <Route path="/profile-com-edit" element={<CEdit />} />
           <Route path="/companyinformation" element={<Companyinformation />} />
+          <Route path="/bookmark" element={<Bookmark />} />
         </Routes>
       </Router>
     </MyProvider>

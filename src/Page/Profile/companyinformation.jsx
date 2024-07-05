@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -26,7 +26,6 @@ import { gray, primarycolor } from "../../const/color";
 import MyContext from "../../provider/provider";
 import { companies } from "../../const/companies";
 import "normalize.css";
-
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -244,7 +243,7 @@ export function Companyinformation() {
                 <Box display="flex" width="85%" border={1} p={2}>
                   <Typography style={{ fontSize: "1.5em" }}>
                     役員
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.representative}
                     </Typography>
                   </Typography>
@@ -266,89 +265,89 @@ export function Companyinformation() {
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     売上高
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.amount_of_sales}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     従業員数
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.number_of_employees}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     電話番号
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.phone_number}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     メールアドレス
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.email}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     募集人数
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.recruitment_numbers}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     募集学科
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.recruitment_grade}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     必須資格
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.qualification}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     求める人物像
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.ideal_candidate_profile}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     勤務地
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.work_location}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     労働時間
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.working_hours}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontSize: "1.5em" }}>
                     休暇制度
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
                       {company.holiday}
                     </Typography>
                   </Typography>

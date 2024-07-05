@@ -94,6 +94,7 @@ export const area = [
 
 //必須資格
 export const qualification = [
+  { title: "不問" },
   { title: "普通自動車免許（AT限定可）" },
   { title: "普通自動車免許" },
   { title: "準中型自動車免許" },
