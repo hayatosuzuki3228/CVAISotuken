@@ -20,6 +20,8 @@ import { Addcompany } from "./Page/Companyadd/addcompany.jsx";
 import { Lostpass } from "./Page/Login/Lostpass";
 import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Picture } from "./Page/Companyadd/picture.jsx";
+import { Matchdo } from "./Page/Matching/matchdo.jsx";
+import { Bookmark } from "./Page/bookmark";
 import "normalize.css";
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
           <Route path="/Matching" element={<Matching />} />
           <Route path="/Matchscore" element={<Matchscore />} />
           <Route path="/Conditions" element={<Conditions />} />
+          <Route path="/Matchdo" element={<Matchdo />} />
           <Route path="/LoginPage" element={<LoginPage />} />
           <Route path="/Lostpass" element={<Lostpass />} />
           <Route path="/addstudent" element={<Addstudent />} />
@@ -46,6 +49,7 @@ function App() {
           <Route path="/profile-com-edit" element={<CEdit />} />
           <Route path="/companyinformation" element={<Companyinformation />} />
           <Route path="/picture" element={<Picture />} />
+          <Route path="/bookmark" element={<Bookmark />} />
         </Routes>
       </Router>
     </MyProvider>
