@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useContext } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -94,6 +93,7 @@ const menuItems = [
   { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
   { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
 ];
+
 export function Companyinformation() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -249,17 +249,17 @@ export function Companyinformation() {
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     創業
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.foundation_date}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     資本金
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.capital}
                     </Typography>
                   </Typography>
@@ -353,103 +353,140 @@ export function Companyinformation() {
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     給与
                     <Stack display="flex" direction="row">
                       4年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Four_year_course_basic_salary}
                       </Typography>
                       +4年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Four_year_course_allowances}
                       </Typography>
                       =4年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Four_year_course_salary_total}
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
                       3年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Three_year_course_basic_salary}
                       </Typography>
                       +3年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Three_year_course_allowances}
                       </Typography>
                       =3年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Three_year_course_salary_total}
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
                       2年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Two_year_course_basic_salary}
                       </Typography>
                       +2年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Two_year_course_allowances}
                       </Typography>
                       =2年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.Two_year_course_salary_total}
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
                       1年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.One_year_course_basic_salary}
                       </Typography>
                       +1年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.One_year_course_allowances}
                       </Typography>
                       =1年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.One_year_course_salary_total}
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
                       その他
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      <Typography
+                        style={{ fontサイズ: "1em" }}
+                        key={company.id}
+                      >
                         {company.others}
                       </Typography>
                     </Stack>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     その他制度
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.allowances}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     企業理念
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.corporate_philosophy}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     特徴
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.appeal}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     ホームページ
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      <a href={company.website} target="_blank">
-                        {company.website}
-                      </a>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                      <a href={company.website}>{company.website}</a>
                     </Typography>
                   </Typography>
                 </Box>
