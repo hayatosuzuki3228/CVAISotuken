@@ -22,7 +22,6 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
@@ -234,34 +233,44 @@ export function Toppage() {
             ))}
           </List>
         </Drawer>
-        <Main open={open}>
+        <Main open={open} className="main">
           <DrawerHeader />
           <Stack
             direction="row"
+            flexWrap="wrap"
             alignContent="center"
             justifyContent="center"
             spacing={2}
-            height="100%"
+            width="100%"
           >
             <Box
-              border={1}
-              borderColor={gray}
-              sx={{ borderRadius: 4 }}
-              width="100%"
-              height="100%"
+              display="flex"
+              flexDirection="row"
+              flexWrap="wrap"
+              justifyContent="center"
+              gap={4}
             >
-              <CustomBox></CustomBox>
+              <Box
+                border={1}
+                borderColor={gray}
+                sx={{ borderRadius: 4 }}
+                width={400}
+                height={600}
+              >
+                <CustomBox></CustomBox>
+              </Box>
+              <Box
+                border={1}
+                borderColor={gray}
+                sx={{ borderRadius: 4 }}
+                width={400}
+                height={600}
+              >
+                <CustomBox1></CustomBox1>
+              </Box>
             </Box>
-            <Box
-              border={1}
-              borderColor={gray}
-              sx={{ borderRadius: 4 }}
-              width="100%"
-              height="100%"
-            >
-              <CustomBox1></CustomBox1>
-            </Box>
-            <Stack direction="column" width="85%" height="100%">
+            <Stack direction="column" width="200" height="100%">
+              <p></p>
               <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
                 <p></p>
                 <Box
@@ -338,4 +347,8 @@ export function Toppage() {
       </Box>
     </ThemeProvider>
   );
+  <head>
+    <link href="toppage.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>;
 }
