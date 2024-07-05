@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -18,8 +18,10 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
 import "./styles.css";
+import MyContext from "../../provider/provider";
 
-/* 名前、メールアドレス　<= プロバイダー使う
+/* 
+   名前、メールアドレス　<= プロバイダー使う
    年齢、生年月日、 <= 使うか怪しい
    学科名、年齢、居住地、卒業予定年度、性別 <= いらん
 */
@@ -28,6 +30,42 @@ export function SProfile() {
   useEffect(() => {
     document.title = "プロフィール";
   }, []);
+
+  const location = useLocation();
+  const {
+    name,
+    kName,
+    man,
+    Gak,
+    Years,
+    Months,
+    Days,
+    email,
+    Home,
+    bye,
+    age,
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+    JobSave,
+    HobbySave,
+    SkillSave,
+    SSubjectSave,
+    KSubjectSave,
+    MyPowerSave,
+    ManSave,
+    GakSave,
+    YearsSave,
+    MonthsSave,
+    DaysSave,
+    HomeSave,
+    ByeSave,
+    AgeSave,
+  } = location.state || {};
+  const { provideremail, setprovideremail } = useContext(MyContext);
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -54,6 +92,20 @@ export function SProfile() {
         SSubject,
         KSubject,
         myPower,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
       },
     });
   };
@@ -78,34 +130,29 @@ export function SProfile() {
         SSubject,
         KSubject,
         myPower,
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
       },
     });
   };
 
+  // profile-com に飛ぶ(テスト用で設置、本番時には必ず削除)
   const OnClick3 = () => {
     navigate("/profile-com");
   };
 
-  const location = useLocation();
-  const {
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-  } = location.state || {};
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -222,7 +269,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{man}</p>
+            <p>{ManSave == man ? man : ManSave}</p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -240,7 +287,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{Gak}</p>
+            <p>{GakSave == Gak ? Gak : GakSave}</p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -258,7 +305,9 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{age && age + "歳"}</p>
+            <p>
+              {AgeSave == age ? age && age + "歳" : AgeSave && AgeSave + "歳"}
+            </p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -277,9 +326,15 @@ export function SProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {Years && Years + "年"}
-              {Months && Months + "月"}
-              {Days && Days + "日生まれ"}
+              {YearsSave == Years
+                ? Years && Years + "年"
+                : YearsSave && YearsSave + "年"}
+              {MonthsSave == Months
+                ? Months && Months + "月"
+                : MonthsSave && MonthsSave + "月"}
+              {DaysSave == Days
+                ? Days && Days + "日生まれ"
+                : DaysSave && DaysSave + "日生まれ"}
             </p>
           </Box>
         </Stack>
@@ -316,7 +371,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{Home}</p>
+            <p>{HomeSave == Home ? Home : HomeSave}</p>
           </Box>
         </Stack>
         <Stack direction="row" paddingBottom={5}>
@@ -334,7 +389,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{bye}</p>
+            <p>{ByeSave == bye ? bye : ByeSave}</p>
           </Box>
         </Stack>
 

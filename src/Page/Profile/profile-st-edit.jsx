@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -19,46 +19,139 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { years, months, days, selectBox, HOME, Bye, older } from "./Data";
+import MyContext from "../../provider/provider";
+import { Man } from "@mui/icons-material";
 
 export function SEdit() {
+  const location = useLocation();
+  const { provideremail, setprovideremail } = useContext(MyContext);
+  const warpName = location.state?.name || "";
+  const warpKName = location.state?.kName || "";
+  const warpEmail = location.state?.email || "";
+  const warpManSave = location.state?.ManSave || "";
+  const warpGakSave = location.state?.GakSave || "";
+  const warpYearsSave = location.state?.YearsSave || "";
+  const warpMonthsSave = location.state?.MonthsSave || "";
+  const warpDaysSave = location.state?.DaysSave || "";
+  const warpHomeSave = location.state?.HomeSave || "";
+  const warpByeSave = location.state?.ByeSave || "";
+  const warpAgeSave = location.state?.AgeSave || "";
+
+  const {
+    job,
+    hobby,
+    skill,
+    SSubject,
+    KSubject,
+    myPower,
+    JobSave,
+    HobbySave,
+    SkillSave,
+    SSubjectSave,
+    KSubjectSave,
+    MyPowerSave,
+  } = location.state || {};
+
+  const [name, setName] = useState(warpName);
+  const [kName, setKName] = useState(warpKName);
+  const [man, setMan] = useState(warpManSave);
+  const [Gak, setGak] = useState(warpGakSave);
+  const [Years, setYears] = useState("");
+  const [Months, setMonths] = useState("");
+  const [Days, setDays] = useState("");
+  const [Home, setHome] = useState(warpHomeSave);
+  const [bye, setBye] = useState(warpByeSave);
+  const [email, setEmail] = useState(warpEmail);
+  const [age, setAge] = useState(warpAgeSave);
+
+  const [ManSave, setManSave] = useState(warpManSave);
+  const [GakSave, setGakSave] = useState(warpGakSave);
+  const [YearsSave, setYearsSave] = useState("");
+  const [MonthsSave, setMonthsSave] = useState("");
+  const [DaysSave, setDaysSave] = useState("");
+  const [HomeSave, setHomeSave] = useState(warpHomeSave);
+  const [ByeSave, setByeSave] = useState(warpByeSave);
+  const [AgeSave, setAgeSave] = useState(warpAgeSave);
+
+  const [error1, setError1] = useState("");
+  const [error2, setError2] = useState("");
+  const [error3, setError3] = useState("");
+  const [OneMoreClick, setOneMoreClick] = useState();
+
   useEffect(() => {
     document.title = "プロフィール編集";
   }, []);
 
-  const location = useLocation();
-  const warpName = location.state?.name || "";
-  const warpKName = location.state?.kName || "";
-  const warpMan = location.state?.man || "";
-  const warpGak = location.state?.Gak || "";
-  const warpYears = location.state?.Years || "";
-  const warpMonths = location.state?.Months || "";
-  const warpDays = location.state?.Days || "";
-  const warpHome = location.state?.Home || "";
-  const warpBye = location.state?.bye || "";
-  const warpEmail = location.state?.email || "";
-  const warpAge = location.state?.age || "";
-  const { job, hobby, skill, SSubject, KSubject, myPower } =
-    location.state || {};
+  useEffect(() => {
+    if (!Man) {
+      setMan(ManSave);
+    } else {
+      setMan(man);
+    }
+  }, [ManSave]);
 
-  const [name, setName] = useState(warpName);
-  const [kName, setKName] = useState(warpKName);
-  const [man, setMan] = useState(warpMan);
-  const [Gak, setGak] = useState(warpGak);
-  const [Years, setYears] = useState(warpYears);
-  const [Months, setMonths] = useState(warpMonths);
-  const [Days, setDays] = useState(warpDays);
-  const [Home, setHome] = useState(warpHome);
-  const [bye, setBye] = useState(warpBye);
-  const [email, setEmail] = useState(warpEmail);
-  const [age, setAge] = useState(warpAge);
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
+  useEffect(() => {
+    if (!Gak) {
+      setGak(GakSave);
+    } else {
+      setGak(Gak);
+    }
+  }, [GakSave]);
+
+  useEffect(() => {
+    if (!Years) {
+      setYears(YearsSave);
+    } else {
+      setYears(years);
+    }
+  }, [YearsSave]);
+
+  useEffect(() => {
+    if (!Months) {
+      setMonths(MonthsSave);
+    } else {
+      setMonths(months);
+    }
+  }, [MonthsSave]);
+
+  useEffect(() => {
+    if (!Days) {
+      setDays(DaysSave);
+    } else {
+      setDays(days);
+    }
+  }, [DaysSave]);
+
+  useEffect(() => {
+    if (!Home) {
+      setHome(HomeSave);
+    } else {
+      setHome(Home);
+    }
+  }, [HomeSave]);
+
+  useEffect(() => {
+    if (!bye) {
+      setBye(ByeSave);
+    } else {
+      setBye(bye);
+    }
+  }, [ByeSave]);
+
+  useEffect(() => {
+    if (!age) {
+      setAge(AgeSave);
+    } else {
+      setAge(age);
+    }
+  }, [AgeSave]);
 
   const navigate = useNavigate();
+  // profile-st に飛ぶ(戻るボタン)
   const OnClick = () => {
     navigate("/profile-st", {
       state: {
@@ -68,63 +161,111 @@ export function SEdit() {
         SSubject,
         KSubject,
         myPower,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
       },
     });
   };
 
+  // profile-st-com に飛ぶ
   const OnClick2 = () => {
-    navigate("/profile-st-com");
+    navigate("/profile-st-com", {
+      state: {
+        JobSave,
+        HobbySave,
+        SkillSave,
+        SSubjectSave,
+        KSubjectSave,
+        MyPowerSave,
+      },
+    });
   };
 
-  // profile-st に飛ぶ
+  // profile-st に飛ぶ(情報を確定するボタン)
   const OnClickNext = () => {
     const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
     const regex2 = /^[ァ-ヴ]{2,}$/;
     const mailRegex =
       /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    const birthDate = new Date(Years, Months - 1, Days);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    setAge(age + "歳");
 
-    if (regex.test(name) && regex2.test(kName) && mailRegex.test(email)) {
-      const birthDate = new Date(Years, Months - 1, Days);
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+    if (
+      regex.test(name) &&
+      regex2.test(kName) &&
+      mailRegex.test(email) &&
+      OneMoreClick !== false
+    ) {
+      if (
+        ManSave === man &&
+        GakSave === Gak &&
+        YearsSave === Years &&
+        MonthsSave === Months &&
+        DaysSave === Days &&
+        HomeSave === Home &&
+        ByeSave === bye &&
+        AgeSave === age
+      ) {
+        navigate("/profile-st", {
+          state: {
+            name,
+            kName,
+            man,
+            Gak,
+            Years,
+            Months,
+            Days,
+            email,
+            Home,
+            bye,
+            age,
+            job,
+            hobby,
+            skill,
+            SSubject,
+            KSubject,
+            myPower,
+            ManSave,
+            GakSave,
+            YearsSave,
+            MonthsSave,
+            DaysSave,
+            HomeSave,
+            ByeSave,
+            AgeSave,
+          },
+        });
+      } else {
+        setManSave(man);
+        setGakSave(Gak);
+        setYearsSave(Years);
+        setMonthsSave(Months);
+        setDaysSave(Days);
+        setHomeSave(Home);
+        setByeSave(bye);
+        setAgeSave(age);
+        setError1("");
+        setError2("");
+        setError3("");
+        setOneMoreClick(true);
       }
-      setAge(age + "歳");
-
-      navigate("/profile-st", {
-        state: {
-          name,
-          kName,
-          man,
-          Gak,
-          Years,
-          Months,
-          Days,
-          email,
-          Home,
-          bye,
-          age,
-          job,
-          hobby,
-          skill,
-          SSubject,
-          KSubject,
-          myPower,
-        },
-      });
     } else {
-      {
-        !regex.test(name) ? setError1("エラー：名前") : "";
-      }
-      {
-        !regex2.test(kName) ? setError2("エラー：カタカナ") : "";
-      }
-      {
-        !mailRegex.test(email) ? setError3("エラー：メール") : "";
-      }
+      setError1(!regex.test(name) ? setError1("エラー：名前") : "");
+      setError2(!regex.test(kName) ? setError2("エラー：カタカナ") : "");
+      setError3(!regex.test(email) ? setError3("エラー：メールアドレス") : "");
+      setOneMoreClick(false);
     }
   };
 
@@ -170,6 +311,14 @@ export function SEdit() {
               role="presentation"
               onClick={toggleDrawer(false)}
             >
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
+              <br />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
@@ -287,7 +436,7 @@ export function SEdit() {
               multiline
               select
               sx={{ width: 300 }}
-              id={selectBox}
+              id="SelectBox"
               label="学科名"
               value={Gak}
               onChange={(e) => setGak(e.target.value)}
@@ -308,7 +457,6 @@ export function SEdit() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p></p>
             <p>生年月日の変更</p>
           </Box>
           <Stack
@@ -325,11 +473,10 @@ export function SEdit() {
               sx={{ width: 100 }}
               select
               multiline
-              id={older}
+              id="older"
               label="年"
               value={Years}
               onChange={(e) => setYears(e.target.value)}
-              placeholder="YYYY"
             >
               {older.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -342,11 +489,10 @@ export function SEdit() {
               sx={{ width: 60 }}
               select
               multiline
-              id={months}
+              id="month-select"
               label="月"
               value={Months}
               onChange={(e) => setMonths(e.target.value)}
-              placeholder="MM"
             >
               {months.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -359,11 +505,10 @@ export function SEdit() {
               sx={{ width: 60 }}
               select
               multiline
-              id={days}
+              id="days"
               label="日"
               value={Days}
               onChange={(e) => setDays(e.target.value)}
-              placeholder="DD"
             >
               {days.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -394,7 +539,7 @@ export function SEdit() {
             <TextField
               select
               fullWidth
-              id={HOME}
+              id="HOME"
               value={Home}
               label="都道府県"
               onChange={(e) => setHome(e.target.value)}
@@ -426,7 +571,7 @@ export function SEdit() {
             <TextField
               select
               fullWidth
-              id={Bye}
+              id="Bye"
               label="卒業年度"
               value={bye}
               onChange={(e) => setBye(e.target.value)}
@@ -468,6 +613,11 @@ export function SEdit() {
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
           {error2 && <p style={{ color: "red" }}>{error2}</p>}
           {error3 && <p style={{ color: "red" }}>{error3}</p>}
+          {OneMoreClick === true ? (
+            <p style={{ color: "green" }}>
+              よろしければ、もう一度ボタンを押してください。
+            </p>
+          ) : undefined}
         </div>
 
         <Stack // ボタンの表示
@@ -477,6 +627,7 @@ export function SEdit() {
           <Button // profile-st に飛ぶ(データの保存を行わない)
             variant="contained"
             onClick={OnClick}
+            disabled={OneMoreClick}
           >
             戻る
           </Button>

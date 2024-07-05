@@ -26,7 +26,6 @@ import { options } from "./Data";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import { Power } from "@mui/icons-material";
 
 export function SCEdit() {
   const location = useLocation();
@@ -106,7 +105,7 @@ export function SCEdit() {
   }, [KSubjectSave]);
 
   useEffect(() => {
-    if (!myPower) {
+    if (!myPower.length) {
       setMyPower([...MyPowerSave]);
     } else {
       setMyPower([...myPower]);
@@ -148,7 +147,6 @@ export function SCEdit() {
         Home,
         bye,
         age,
-        job,
         JobSave,
         HobbySave,
         SkillSave,
@@ -176,6 +174,7 @@ export function SCEdit() {
         SkillSave === skill &&
         SSubjectSave === SSubject &&
         KSubjectSave === KSubject &&
+        //MyPowerSave === myPower &&
         OneMoreClick !== false
       ) {
         navigate("/profile-st-com", {
@@ -227,7 +226,7 @@ export function SCEdit() {
       setError3(!regex.test(skill) ? "エラー：特技" : "");
       setError4(!regex.test(SSubject) ? "エラー：得意な科目" : "");
       setError5(!regex.test(KSubject) ? "エラー：苦手な科目" : "");
-      setError6(myPower === "" ? "エラー：保有資格" : "");
+      setError6(myPower.length < 1 ? "エラー：保有資格" : "");
       setOneMoreClick(false);
     }
   };
@@ -334,7 +333,7 @@ export function SCEdit() {
           </Box>
         </Stack>
 
-        <Stack direction="row" paddingBottom="5">
+        <Stack direction="row">
           <Box
             flex="1"
             border="1px solid black"
@@ -452,6 +451,7 @@ export function SCEdit() {
               renderOption={(props, option, { selected }) => (
                 <li {...props} key={option.id}>
                   <Checkbox
+                    key={"checkbox-${option.id}"}
                     icon={icon}
                     checkedIcon={checkedIcon}
                     style={{ marginRight: 8 }}
@@ -471,20 +471,6 @@ export function SCEdit() {
             />
           </Box>
         </Stack>
-        <Stack direction="column" spacing={2}>
-          JobSave: {JobSave}
-          <br />
-          <br />
-          HobbySave: {HobbySave} <br />
-          <br />
-          SkillSave: {SkillSave} <br />
-          <br />
-          SSubjectSave: {SSubjectSave} <br />
-          <br />
-          KSubjectSave: {KSubjectSave} <br />
-          <br />
-          MyPowerSave: {MyPowerSave.map((Power) => Power.title).join(",")}
-        </Stack>
 
         <div /*エラーを表示する*/>
           {error1 && <p style={{ color: "red" }}>{error1}</p>}
@@ -499,6 +485,7 @@ export function SCEdit() {
             </p>
           ) : undefined}
         </div>
+
         <Stack direction="row" spacing={7} /*ボタンを表示する*/>
           <Button /* profile-st-com に飛ぶ(データの保存を行わない) */
             variant="contained"

@@ -53,6 +53,14 @@ export function SCompany() {
     SSubjectSave,
     KSubjectSave,
     MyPowerSave,
+    ManSave,
+    GakSave,
+    YearsSave,
+    MonthsSave,
+    DaysSave,
+    HomeSave,
+    ByeSave,
+    AgeSave,
   } = location.state || {};
 
   const navigate = useNavigate();
@@ -86,6 +94,14 @@ export function SCompany() {
         SSubjectSave,
         KSubjectSave,
         MyPowerSave,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
       },
     });
   };
@@ -115,6 +131,14 @@ export function SCompany() {
         SSubjectSave,
         KSubjectSave,
         MyPowerSave,
+        ManSave,
+        GakSave,
+        YearsSave,
+        MonthsSave,
+        DaysSave,
+        HomeSave,
+        ByeSave,
+        AgeSave,
       },
     });
   };
