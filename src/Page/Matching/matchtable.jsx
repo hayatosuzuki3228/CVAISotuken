@@ -170,10 +170,9 @@ export function Matchtable() {
   useEffect(() => {
     // ここでデータの取得や初期化処理を行う場合、適宜実装する
 
-    // 例として、0.2秒後にローディング状態を解除する
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 200);
+    }, 200); // 0.2秒後にローディング状態を解除する
 
     return () => clearTimeout(timeout); // コンポーネントがアンマウントされたときにクリアする
   }, []);

@@ -50,9 +50,9 @@ export function Matching() {
 
   return (
     <div>
-      <Box bgcolor="#6495ed" p={2} className="futer">
+      <Box p={2} className="footer">
         <Stack direction="row" justifyContent="flex-start" alignSelf="center">
-          <h1>名産会マッチング</h1>
+          <h1 className="title">名産会マッチング</h1>
           <div id="hart">
             <Tooltip title="マッチ度">
               <IconButton
