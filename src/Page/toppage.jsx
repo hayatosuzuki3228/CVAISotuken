@@ -241,7 +241,6 @@ export function Toppage() {
             alignContent="center"
             justifyContent="center"
             spacing={2}
-            height={610}
             width="100%"
           >
             <Box
@@ -349,7 +348,7 @@ export function Toppage() {
     </ThemeProvider>
   );
   <head>
-    <link href="bookmark.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="toppage.css" rel="stylesheet" type="text/css" media="all" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>;
 }
