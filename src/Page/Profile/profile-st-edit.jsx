@@ -60,9 +60,9 @@ export function SEdit() {
   const [kName, setKName] = useState(warpKName);
   const [man, setMan] = useState(warpManSave);
   const [Gak, setGak] = useState(warpGakSave);
-  const [Years, setYears] = useState("");
-  const [Months, setMonths] = useState("");
-  const [Days, setDays] = useState("");
+  const [Years, setYears] = useState(warpYearsSave);
+  const [Months, setMonths] = useState(warpMonthsSave);
+  const [Days, setDays] = useState(warpDaysSave);
   const [Home, setHome] = useState(warpHomeSave);
   const [bye, setBye] = useState(warpByeSave);
   const [email, setEmail] = useState(warpEmail);
@@ -106,7 +106,7 @@ export function SEdit() {
     if (!Years) {
       setYears(YearsSave);
     } else {
-      setYears(years);
+      setYears(Years);
     }
   }, [YearsSave]);
 
@@ -114,7 +114,7 @@ export function SEdit() {
     if (!Months) {
       setMonths(MonthsSave);
     } else {
-      setMonths(months);
+      setMonths(Months);
     }
   }, [MonthsSave]);
 
@@ -122,7 +122,7 @@ export function SEdit() {
     if (!Days) {
       setDays(DaysSave);
     } else {
-      setDays(days);
+      setDays(Days);
     }
   }, [DaysSave]);
 
