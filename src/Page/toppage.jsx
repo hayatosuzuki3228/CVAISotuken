@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
 const drawerWidth = 240;
-
+//
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,

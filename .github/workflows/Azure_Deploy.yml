@@ -25,5 +25,6 @@ jobs:
             git switch main
             git pull origin main
             npm install  # or any other build steps
-            pm2 restart MeisanMatch  # or any other command to restart your application
+            npm run build
+            pm2 restart main  # or any other command to restart your application
           EOF
