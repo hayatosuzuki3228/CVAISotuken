@@ -1168,6 +1168,11 @@ export function Addcompany() {
                 <ListItemText
                   primary={`2年過程基本給 ： ${TwoYearSalary}円 / 諸手当 ： ${TwoYearAllowances}円`}
                 />
+                <ListItem>
+                  <ListItemText
+                    primary={`1年過程基本給 ： ${ThreeYearSalary}円 / 諸手当 ： ${ThreeYearAllowances}円`}
+                  />
+                </ListItem>
                 <Divider component="li" />
               </ListItem>
               <Divider component="li" />
