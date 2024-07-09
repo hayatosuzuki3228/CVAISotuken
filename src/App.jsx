@@ -21,6 +21,7 @@ import { Addcompany } from "./Page/Companyadd/addcompany.jsx";
 import { Lostpass } from "./Page/Login/Lostpass";
 import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
+import { Bookmark } from "./Page/bookmark";
 import "normalize.css";
 function App() {
   return (
