@@ -78,22 +78,8 @@ export function Addstudentgakka() {
         justifyContent="center"
         alignItems="center"
       >
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          ID・PS
-        </Box>
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          利用者情報
-        </Box>
+        <Box>ID・PS</Box>
+        <Box>利用者情報</Box>
         <Box bgcolor="#e0ffff" p={2}>
           <strong>学科情報</strong>
         </Box>
