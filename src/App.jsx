@@ -48,6 +48,7 @@ function App() {
             <Route path="/profile-st-com-edit" element={<SCEdit />} />
             <Route path="/profile-com" element={<CProfile />} />
             <Route path="/profile-com-edit" element={<CEdit />} />
+            <Route path="/Bookmark" element={<Bookmark />} />
             <Route
               path="/companyinformation"
               element={<Companyinformation />}

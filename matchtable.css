@@ -1,4 +1,4 @@
-@media screen and (min-width: 0px) {
+@media screen and (min-width: 1025px) {
   .table1 {
     margin-left: 5%;
     margin-right: 5%;
@@ -8,10 +8,12 @@
   .sertch {
     top: 50px;
     margin-left: 50px;
+    width: 30%;
   }
   .detailSearch {
     top: 50px;
     margin-left: 50px;
+    width: 30%;
   }
 
   .detailbu {
@@ -20,5 +22,40 @@
     width: 13vw;
     height: 5vw;
     font-size: 1.3vw;
+  }
+  .back {
+    left: 75%;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+  .table1 {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+
+    /* 他のスタイルを追加 */
+  }
+  .sertch {
+    top: 20px;
+    margin-left: 10px;
+  }
+  .detailSearch {
+    top: 20px;
+    margin-left: 10px;
+  }
+
+  .detailbu {
+    width: 20vw;
+    height: 10vw;
+    font-size: 2vw;
+    left: 55%;
+    position: absolute;
+    top: 20px;
+  }
+  .back {
+    left: 56%;
+    position: absolute;
+    top: 100px;
   }
 }

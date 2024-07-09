@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import companies from "../../const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
 import styled from "styled-components";
@@ -82,7 +82,7 @@ export function Matching() {
                 aria-label="マイリスト"
                 onClick={() => navigate("/bookmark")}
               >
-                <PersonIcon sx={{ color: "black", fontSize: 60 }} />
+                <ImportContactsIcon sx={{ color: "#217", fontSize: 60 }} />
               </IconButton>
             </Tooltip>
           </div>

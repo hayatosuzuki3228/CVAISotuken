@@ -11,6 +11,7 @@ const departmentOptions = [
   "外科",
   "東京大学理科三類（医学部）",
   "コンピュータ",
+  "不問",
 ];
 const featuresOptions = [
   "傲慢",
@@ -101,13 +102,13 @@ const JobForm = ({ onSave, initialData }) => {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
+          color="success"
           endIcon={<DoneIcon />}
         >
           登録
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           color="secondary"
           onClick={() => navigate("/matching")}
           startIcon={<UndoIcon />}

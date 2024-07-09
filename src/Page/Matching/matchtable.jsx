@@ -22,6 +22,7 @@ import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@mui/icons-material";
+import UndoIcon from "@mui/icons-material/Undo";
 import companies from "../../const/companies.js";
 import MyContext from "../../provider/provider";
 
@@ -57,11 +58,11 @@ function calculateMatchScore(company, jobData) {
     jobData.department &&
     company.recruitment_grade.includes(jobData.department)
   )
-    score += 1000;
+    score += 10;
 
   // 勤務地の比較
   jobData.location.forEach((location) => {
-    if (company.work_location.includes(location)) score += 100;
+    if (company.work_location.includes(location)) score += 10;
   });
 
   // 特長の比較
@@ -72,7 +73,7 @@ function calculateMatchScore(company, jobData) {
 
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
-    if (company.qualification.includes(qualification)) score += 1;
+    if (company.qualification.includes(qualification)) score += 10;
   });
 
   return score;
@@ -90,7 +91,15 @@ function Row(props) {
     console.log(row.id);
     return navigate("/companyinformation");
   };
-
+  const getMatchdoCellStyle = (matchdo) => {
+    if (matchdo >= 30) {
+      return { color: "green" }; // マッチ度が30以上の場合は緑色
+    } else if (matchdo >= 10) {
+      return { color: "orange" }; // マッチ度が10以上の場合はオレンジ色
+    } else {
+      return { color: "black" }; // それ以外は黒色
+    }
+  };
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -115,7 +124,9 @@ function Row(props) {
           </Button>
         </TableCell>
         {showDetail && <TableCell>{row.detail}</TableCell>}
-        <TableCell align="left">{row.matchdo}P</TableCell>
+        <TableCell align="left" sx={getMatchdoCellStyle(row.matchdo)}>
+          {row.matchdo}P
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -182,6 +193,7 @@ Row.propTypes = {
 };
 
 export function Matchtable() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [detailSearchTerm, setDetailSearchTerm] = useState("");
   const [showDetail, setShowDetail] = useState(false);
@@ -247,7 +259,7 @@ export function Matchtable() {
           value={searchTerm}
           onChange={handleSearch}
           variant="outlined"
-          sx={{ marginBottom: "1rem", width: 500 }}
+          sx={{ marginBottom: "1rem" }}
           className="sertch"
         />
         <TextField
@@ -255,7 +267,7 @@ export function Matchtable() {
           value={detailSearchTerm}
           onChange={handleDetailSearch}
           variant="outlined"
-          sx={{ marginBottom: "1rem", width: 500 }}
+          sx={{ marginBottom: "1rem" }}
           className="detailSearch"
         />
       </Box>
@@ -266,6 +278,15 @@ export function Matchtable() {
         className="detailbu"
       >
         {showDetail ? "事業内容非表示" : "事業内容表示"}
+      </Button>
+      <Button
+        className="back"
+        variant="outlined"
+        color="secondary"
+        onClick={() => navigate("/matching")}
+        startIcon={<UndoIcon />}
+      >
+        戻る
       </Button>
       <TableContainer
         component={Paper}
