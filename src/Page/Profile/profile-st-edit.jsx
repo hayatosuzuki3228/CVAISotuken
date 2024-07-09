@@ -28,7 +28,16 @@ import { Man } from "@mui/icons-material";
 
 export function SEdit() {
   const location = useLocation();
-  const { provideremail, setprovideremail } = useContext(MyContext);
+  const {
+    provideremail,
+    setprovidermail,
+    providerSaveEmail,
+    setproviderSaveEmail,
+    providername,
+    setprovidername,
+    providerSaveName,
+    setproviderSaveName,
+  } = useContext(MyContext);
   const warpName = location.state?.name || "";
   const warpKName = location.state?.kName || "";
   const warpEmail = location.state?.email || "";
@@ -70,9 +79,9 @@ export function SEdit() {
 
   const [ManSave, setManSave] = useState(warpManSave);
   const [GakSave, setGakSave] = useState(warpGakSave);
-  const [YearsSave, setYearsSave] = useState("");
-  const [MonthsSave, setMonthsSave] = useState("");
-  const [DaysSave, setDaysSave] = useState("");
+  const [YearsSave, setYearsSave] = useState(warpYearsSave);
+  const [MonthsSave, setMonthsSave] = useState(warpMonthsSave);
+  const [DaysSave, setDaysSave] = useState(warpDaysSave);
   const [HomeSave, setHomeSave] = useState(warpHomeSave);
   const [ByeSave, setByeSave] = useState(warpByeSave);
   const [AgeSave, setAgeSave] = useState(warpAgeSave);
@@ -203,20 +212,21 @@ export function SEdit() {
     setAge(age + "歳");
 
     if (
-      regex.test(name) &&
+      regex.test(providername) &&
       regex2.test(kName) &&
-      mailRegex.test(email) &&
+      mailRegex.test(provideremail) &&
       OneMoreClick !== false
     ) {
       if (
+        providerSaveName === providername &&
+        providerSaveEmail === provideremail &&
         ManSave === man &&
         GakSave === Gak &&
         YearsSave === Years &&
         MonthsSave === Months &&
         DaysSave === Days &&
         HomeSave === Home &&
-        ByeSave === bye &&
-        AgeSave === age
+        ByeSave === bye
       ) {
         navigate("/profile-st", {
           state: {
@@ -248,6 +258,8 @@ export function SEdit() {
           },
         });
       } else {
+        setproviderSaveName(providername);
+        setproviderSaveEmail(provideremail);
         setManSave(man);
         setGakSave(Gak);
         setYearsSave(Years);
@@ -262,7 +274,7 @@ export function SEdit() {
         setOneMoreClick(true);
       }
     } else {
-      setError1(!regex.test(name) ? setError1("エラー：名前") : "");
+      setError1(!regex.test(providername) ? setError1("エラー：名前") : "");
       setError2(!regex.test(kName) ? setError2("エラー：カタカナ") : "");
       setError3(!regex.test(email) ? setError3("エラー：メールアドレス") : "");
       setOneMoreClick(false);
@@ -270,14 +282,14 @@ export function SEdit() {
   };
 
   const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
-    name &&
+    providername &&
     kName &&
     man &&
     Gak &&
     Years &&
     Months &&
     Days &&
-    email &&
+    provideremail &&
     Home &&
     bye;
 
@@ -361,8 +373,8 @@ export function SEdit() {
               <TextField
                 fullWidth
                 label="名前の変更"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={providername}
+                onChange={(e) => setprovidername(e.target.value)}
               />
             </Box>
             <Box>
@@ -603,8 +615,8 @@ export function SEdit() {
             <TextField
               fullWidth
               label="メールアドレスの変更"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={provideremail}
+              onChange={(e) => setprovidermail(e.target.value)}
             />
           </Box>
         </Stack>

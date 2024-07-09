@@ -65,7 +65,14 @@ export function SProfile() {
     ByeSave,
     AgeSave,
   } = location.state || {};
-  const { provideremail, setprovideremail } = useContext(MyContext);
+  const {
+    provideremail,
+    setprovideremail,
+    providername,
+    setprovidername,
+    providerSaveName,
+    setproviderSaveName,
+  } = useContext(MyContext);
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -73,6 +80,7 @@ export function SProfile() {
   };
 
   const OnClick1 = () => {
+    setprovidername(providerSaveName);
     navigate("/profile-st-edit", {
       state: {
         name,
@@ -203,7 +211,7 @@ export function SProfile() {
                 </ListItem>
               </List>
               <Divider />
-              <List //実際に動かすときは95～102行目を消す
+              <List //実際に動かすときは212～220行目を消す
               >
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick3}>
@@ -247,7 +255,7 @@ export function SProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {name}
+              {providerSaveName}
               <br />
               <br />
               {kName}

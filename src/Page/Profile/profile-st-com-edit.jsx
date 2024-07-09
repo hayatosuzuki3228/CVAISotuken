@@ -196,7 +196,6 @@ export function SCEdit() {
             SSubject,
             KSubject,
             myPower,
-            Gak,
             JobSave,
             HobbySave,
             SkillSave,
