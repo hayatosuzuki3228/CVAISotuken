@@ -131,25 +131,11 @@ export function Addstudentuser() {
         justifyContent="center"
         alignItems="center"
       >
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          ID・PS
-        </Box>
+        <Box>ID・PS</Box>
         <Box bgcolor="#e0ffff" p={2}>
           <strong>利用者情報</strong>
         </Box>
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          学科情報
-        </Box>
+        <Box>学科情報</Box>
       </Stack>
       <Stack justifyContent="center" alignItems="center">
         <Box width={260}>

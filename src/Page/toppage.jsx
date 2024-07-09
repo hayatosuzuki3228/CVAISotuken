@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
 const drawerWidth = 240;
-//
+
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -248,7 +248,7 @@ export function Toppage() {
               flexDirection="row"
               flexWrap="wrap"
               justifyContent="center"
-              gap={4}
+              gap={2}
             >
               <Box
                 border={1}
