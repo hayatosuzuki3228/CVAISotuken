@@ -28,7 +28,6 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
 import { companies } from "../const/companies";
 import Dialog from "@mui/material/Dialog";
@@ -263,6 +262,7 @@ export function Bookmark() {
                         sx={{ height: 130 }}
                         image="../../src/assets/icon.png"
                         title="icon"
+                        onClick={(event) => handleCompanyChange(event, item)}
                       />
                       <CardContent>
                         <Typography
@@ -274,8 +274,9 @@ export function Bookmark() {
                             WebkitBoxOrient: "vertical",
                             WebkitLineClamp: 2,
                             textOverflow: "ellipsis",
-                            height: 58,
+                            height: 60,
                           }}
+                          onClick={(event) => handleCompanyChange(event, item)}
                         >
                           {company?.name}
                         </Typography>
@@ -295,10 +296,11 @@ export function Bookmark() {
                           </IconButton>
                         </Button>
                         <Button
-                          size="large"
-                          onClick={(event) => handleCompanyChange(event, item)}
+                          size="medium"
+                          href={company.website}
+                          target="_blank"
                         >
-                          企業情報
+                          HP
                         </Button>
                       </CardActions>
                     </Card>
