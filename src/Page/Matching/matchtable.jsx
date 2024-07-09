@@ -1,26 +1,32 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { JobContext } from "../../provider/context";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button"; // Buttonをインポート
+import {
+  Button,
+  Box,
+  TextField,
+  IconButton,
+  Collapse,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
+import {
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+} from "@mui/icons-material";
 import companies from "../../const/companies.js";
 import MyContext from "../../provider/provider";
-import CircularProgress from "@mui/material/CircularProgress";
-function convertCompanyData(company) {
-  const matchScore = calculateMatchScore(company);
+
+function convertCompanyData(company, jobData) {
+  const matchScore = calculateMatchScore(company, jobData);
 
   return {
     id: company.id.toString(),
@@ -39,34 +45,50 @@ function convertCompanyData(company) {
     ],
   };
 }
-// マッチ度を計算する関数
-function calculateMatchScore(company) {
-  let score = 0;
 
-  /* if (company.category === matchdo.department) score = 0;
-  if (company.job_type === matchdo.location) score = 0;
-  if (company.job_type === matchdo.features) score += 10;
-  if (company.job_type === matchdo.qualifications) score += 10;
-  */
-  if (company.work_location.includes("愛知県")) score += 10;
+// マッチ度を計算する関数
+function calculateMatchScore(company, jobData) {
+  let score = 0;
+  console.log("登録情報:", jobData);
+  // 募集学科情報の比較
+
+  if (
+    company.recruitment_grade &&
+    jobData.department &&
+    company.recruitment_grade.includes(jobData.department)
+  )
+    score += 1000;
+
+  // 勤務地の比較
+  jobData.location.forEach((location) => {
+    if (company.work_location.includes(location)) score += 100;
+  });
+
+  // 特長の比較
+
+  jobData.features.forEach((feature) => {
+    if (company.ideal_candidate_profile.includes(feature)) score += 10;
+  });
+
+  // 資格の比較
+  jobData.qualifications.forEach((qualification) => {
+    if (company.qualification.includes(qualification)) score += 1;
+  });
+
   return score;
 }
-const rows = companies.map(convertCompanyData);
 
 function Row(props) {
   const { row, showDetail } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const { setproviderid } = useContext(MyContext);
   const handleCompanyChange = () => {
-    const numericId = parseInt(row.id, 10); // IDを数字型に変換
+    const numericId = parseInt(row.id, 10);
     setproviderid(numericId);
     console.log(row.id);
     return navigate("/companyinformation");
-  };
-  const handleLinkClick = () => {
-    // リンクをクリックしたときに実行したい関数の処理を記述
   };
 
   return (
@@ -92,9 +114,8 @@ function Row(props) {
             {row.name}
           </Button>
         </TableCell>
-
         {showDetail && <TableCell>{row.detail}</TableCell>}
-        <TableCell align="left">{row.matchdo}</TableCell>
+        <TableCell align="left">{row.matchdo}P</TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -146,7 +167,6 @@ Row.propTypes = {
     name: PropTypes.string.isRequired,
     detail: PropTypes.string.isRequired,
     matchdo: PropTypes.number.isRequired,
-
     history: PropTypes.arrayOf(
       PropTypes.shape({
         industry: PropTypes.string.isRequired,
@@ -163,18 +183,17 @@ Row.propTypes = {
 
 export function Matchtable() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [detailSearchTerm, setDetailSearchTerm] = useState(""); // 詳細検索用の状態
-  const [showDetail, setShowDetail] = useState(false); // 事業内容の表示状態を管理するstate
-  const [isLoading, setIsLoading] = useState(true); // ローディング状態のstateを追加
+  const [detailSearchTerm, setDetailSearchTerm] = useState("");
+  const [showDetail, setShowDetail] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { jobData } = useContext(JobContext);
 
   useEffect(() => {
-    // ここでデータの取得や初期化処理を行う場合、適宜実装する
-
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 200); // 0.2秒後にローディング状態を解除する
+    }, 200);
 
-    return () => clearTimeout(timeout); // コンポーネントがアンマウントされたときにクリアする
+    return () => clearTimeout(timeout);
   }, []);
 
   if (isLoading) {
@@ -191,6 +210,7 @@ export function Matchtable() {
       </Box>
     );
   }
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -199,12 +219,14 @@ export function Matchtable() {
     setDetailSearchTerm(event.target.value);
   };
 
-  const filteredRows = rows.filter(
-    (row) =>
-      (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase())
-  );
+  const filteredRows = companies
+    .map((company) => convertCompanyData(company, jobData))
+    .filter(
+      (row) =>
+        (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase())
+    );
 
   const toggleDetail = () => {
     setShowDetail((prevShowDetail) => !prevShowDetail);
@@ -228,7 +250,6 @@ export function Matchtable() {
           sx={{ marginBottom: "1rem", width: 500 }}
           className="sertch"
         />
-
         <TextField
           label="事業内容入力"
           value={detailSearchTerm}
@@ -283,4 +304,5 @@ export function Matchtable() {
     </>
   );
 }
+
 export default companies;

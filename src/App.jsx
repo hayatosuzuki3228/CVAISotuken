@@ -12,6 +12,7 @@ import { Conditions } from "./Page/Matching/Conditions";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login/Login";
 import { MyProvider } from "./provider/provider";
+import { JobProvider } from "./provider/context";
 import { Addstudent } from "./Page/NewUser/addstudent";
 import { Addstudentuser } from "./Page/NewUser/addstudentuser";
 import { Addstudentgakka } from "./Page/NewUser/addstudentgakka";
@@ -24,30 +25,35 @@ import "normalize.css";
 function App() {
   return (
     <MyProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Toppage />} />
-          <Route path="/Matchtable" element={<Matchtable />} />
-          <Route path="/Matching" element={<Matching />} />
-          <Route path="/Matchscore" element={<Matchscore />} />
-          <Route path="/Conditions" element={<Conditions />} />
-          <Route path="/Matchdo" element={<Matchdo />} />
-          <Route path="/LoginPage" element={<LoginPage />} />
-          <Route path="/Lostpass" element={<Lostpass />} />
-          <Route path="/addstudent" element={<Addstudent />} />
-          <Route path="/adduser" element={<Addstudentuser />} />
-          <Route path="/addgakka" element={<Addstudentgakka />} />
-          <Route path="/addkakunin" element={<Addstudentkakunin />} />
-          <Route path="/addcompany" element={<Addcompany />} />
-          <Route path="/profile-st" element={<SProfile />} />
-          <Route path="/profile-st-edit" element={<SEdit />} />
-          <Route path="/profile-st-com" element={<SCompany />} />
-          <Route path="/profile-st-com-edit" element={<SCEdit />} />
-          <Route path="/profile-com" element={<CProfile />} />
-          <Route path="/profile-com-edit" element={<CEdit />} />
-          <Route path="/companyinformation" element={<Companyinformation />} />
-        </Routes>
-      </Router>
+      <JobProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Toppage />} />
+            <Route path="/Matchtable" element={<Matchtable />} />
+            <Route path="/Matching" element={<Matching />} />
+            <Route path="/Matchscore" element={<Matchscore />} />
+            <Route path="/Conditions" element={<Conditions />} />
+            <Route path="/Matchdo" element={<Matchdo />} />
+            <Route path="/LoginPage" element={<LoginPage />} />
+            <Route path="/Lostpass" element={<Lostpass />} />
+            <Route path="/addstudent" element={<Addstudent />} />
+            <Route path="/adduser" element={<Addstudentuser />} />
+            <Route path="/addgakka" element={<Addstudentgakka />} />
+            <Route path="/addkakunin" element={<Addstudentkakunin />} />
+            <Route path="/addcompany" element={<Addcompany />} />
+            <Route path="/profile-st" element={<SProfile />} />
+            <Route path="/profile-st-edit" element={<SEdit />} />
+            <Route path="/profile-st-com" element={<SCompany />} />
+            <Route path="/profile-st-com-edit" element={<SCEdit />} />
+            <Route path="/profile-com" element={<CProfile />} />
+            <Route path="/profile-com-edit" element={<CEdit />} />
+            <Route
+              path="/companyinformation"
+              element={<Companyinformation />}
+            />
+          </Routes>
+        </Router>
+      </JobProvider>
     </MyProvider>
   );
 }

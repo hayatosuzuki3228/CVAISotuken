@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { TextField, Button, Box, Autocomplete } from "@mui/material";
 import { prefectures } from "../../const/locations";
-const departmentOptions = ["高度情報科", "外科", "東京大学理科三類（医学部）"];
+import { JobContext } from "../../provider/context";
+import DoneIcon from "@mui/icons-material/Done";
+import UndoIcon from "@mui/icons-material/Undo";
+
+const departmentOptions = [
+  "高度情報科",
+  "外科",
+  "東京大学理科三類（医学部）",
+  "コンピュータ",
+];
 const featuresOptions = [
   "傲慢",
   "嫉妬",
@@ -14,6 +24,8 @@ const featuresOptions = [
 const qualificationsOptions = ["基本情報", "応用情報", "猫検定 "];
 
 const JobForm = ({ onSave, initialData }) => {
+  const navigate = useNavigate();
+  const { setJobData } = useContext(JobContext);
   const [formData, setFormData] = useState({
     department: "",
     location: [],
@@ -36,6 +48,7 @@ const JobForm = ({ onSave, initialData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setJobData(formData);
     onSave(formData);
   };
 
@@ -84,9 +97,24 @@ const JobForm = ({ onSave, initialData }) => {
           )}
         />
       </Box>
-      <Button type="submit" variant="contained" color="primary">
-        登録
-      </Button>
+      <Box display="flex" justifyContent="space-between">
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          endIcon={<DoneIcon />}
+        >
+          登録
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate("/matching")}
+          startIcon={<UndoIcon />}
+        >
+          戻る
+        </Button>
+      </Box>
     </form>
   );
 };

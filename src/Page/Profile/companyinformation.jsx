@@ -244,23 +244,23 @@ export function Companyinformation() {
                 <Box display="flex" width="85%" border={1} p={2}>
                   <Typography style={{ fontSize: "1.5em" }}>
                     役員
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontsize: "1em" }} key={company.id}>
                       {company.representative}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontsize: "1.5em" }}>
                     創業
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontsize: "1em" }} key={company.id}>
                       {company.foundation_date}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontサイズ: "1.5em" }}>
+                  <Typography style={{ fontsize: "1.5em" }}>
                     資本金
-                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                    <Typography style={{ fontsize: "1em" }} key={company.id}>
                       {company.capital}
                     </Typography>
                   </Typography>
