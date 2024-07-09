@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -24,9 +24,22 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import MyContext from "../provider/provider";
+import { companies } from "../const/companies";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "normalize.css";
 const drawerWidth = 240;
-//
+
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -93,39 +106,7 @@ const menuItems = [
   { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
 ];
 
-//Boxのボーダーにテキストを追加
-const CustomBox = styled(Box)({
-  position: "relative",
-  "&::before": {
-    content: '"お知らせ"',
-    position: "absolute",
-    top: "-13px", // Adjust as necessary
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "#fff", // Background color to overlay on border
-    padding: "0 4px", // Adjust padding as necessary
-    zIndex: 1,
-    fontSize: "18px",
-  },
-  padding: "16px",
-});
-const CustomBox1 = styled(Box)({
-  position: "relative",
-  "&::before": {
-    content: '"企業からのお知らせ"',
-    position: "absolute",
-    top: "-13px", // Adjust as necessary
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "#fff", // Background color to overlay on border
-    padding: "0 4px", // Adjust padding as necessary
-    zIndex: 1,
-    fontSize: "20px",
-  },
-  padding: "16px",
-});
-
-export function Toppage() {
+export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -160,8 +141,39 @@ export function Toppage() {
     },
   });
 
-  const onClick = () => {
-    return navigate("/bookmark");
+  const [open1, setOpen1] = useState(false);
+  const [removeid, setRemoveid] = useState();
+  const [removename, setRemovename] = useState();
+
+  const handleClickOpen = (id) => {
+    setOpen1(true);
+    setRemoveid(id);
+  };
+
+  const handleClose = () => {
+    setOpen1(false);
+  };
+
+  const handleConfirmDelete = () => {
+    const updatedBookmark = bookmark.filter(
+      (bookmark) => bookmark !== removeid
+    );
+    setBookmark(updatedBookmark);
+    console.log(removename + "を削除しました");
+    handleClose();
+  };
+
+  const { providerid, setproviderid } = useContext(MyContext);
+  const { bookmark, setBookmark } = useContext(MyContext);
+
+  const handleCompanyChange = (event, item) => {
+    setproviderid(item), navigate("/companyinformation", console.log(item));
+  };
+
+  const buttonStyle = {
+    backgroundColor: "white",
+    color: "white",
+    cursor: "pointer",
   };
 
   return (
@@ -189,7 +201,7 @@ export function Toppage() {
               </IconButton>
               <Box />
               <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム
+                名産会マッチングシステム／ブックマーク
               </Typography>
             </Box>
             <Button color="inherit" onClick={() => navigate("/Loginpage")}>
@@ -233,122 +245,92 @@ export function Toppage() {
             ))}
           </List>
         </Drawer>
-        <Main open={open} className="main">
+        <Main open={open}>
           <DrawerHeader />
           <Stack
             direction="row"
+            width="97%"
             flexWrap="wrap"
-            alignContent="center"
-            justifyContent="center"
-            spacing={2}
-            width="100%"
+            sx={{ marginLeft: 7 }}
           >
-            <Box
-              display="flex"
-              flexDirection="row"
-              flexWrap="wrap"
-              justifyContent="center"
-              gap={4}
-            >
-              <Box
-                border={1}
-                borderColor={gray}
-                sx={{ borderRadius: 4 }}
-                width={400}
-                height={600}
-              >
-                <CustomBox></CustomBox>
-              </Box>
-              <Box
-                border={1}
-                borderColor={gray}
-                sx={{ borderRadius: 4 }}
-                width={400}
-                height={600}
-              >
-                <CustomBox1></CustomBox1>
-              </Box>
-            </Box>
-            <Stack direction="column" width="200" height="100%">
-              <p></p>
-              <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
-                <p></p>
-                <Box
-                  border={2}
-                  sx={{
-                    borderRadius: 8,
-                  }}
-                  backgroundColor="#ADD8E6"
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{ borderRadius: 8 }}
-                  >
-                    メッセージ
-                  </Button>
-                </Box>
-                <p></p>
-                <Box
-                  border={2}
-                  sx={{
-                    borderRadius: 8,
-                  }}
-                  backgroundColor="#ADD8E6"
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{
-                      borderRadius: 8,
-                    }}
-                    onClick={onClick}
-                  >
-                    ブックマーク
-                  </Button>
-                </Box>
-              </Box>
-              <p></p>
-              <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
-                <Box
-                  border={2}
-                  backgroundColor="#98FB98"
-                  sx={{ borderRadius: 8 }}
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{
-                      borderRadius: 8,
-                      color: "black",
-                    }}
-                  >
-                    就職ガイド
-                  </Button>
-                </Box>
-                <p></p>
-                <Box
-                  border={2}
-                  backgroundColor="#98FB98"
-                  sx={{ borderRadius: 8 }}
-                >
-                  <Button
-                    fullWidth
-                    style={{ fontSize: "3em" }}
-                    sx={{ borderRadius: 8, color: "black" }}
-                  >
-                    お問い合わせ
-                  </Button>
-                </Box>
-              </Box>
-            </Stack>
+            {bookmark.map((item, index) => {
+              const company = companies.find((company) => company.id === item);
+              return (
+                <Typography key={item}>
+                  <Box p={1}>
+                    <Card sx={{ width: 180 }} key={company?.id}>
+                      <CardMedia
+                        sx={{ height: 130 }}
+                        image="../../src/assets/icon.png"
+                        title="icon"
+                      />
+                      <CardContent>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          sx={{
+                            display: "-webkit-box",
+                            overflow: "hidden",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 2,
+                            textOverflow: "ellipsis",
+                            height: 58,
+                          }}
+                        >
+                          {company?.name}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button
+                          size="small"
+                          onClick={() => handleClickOpen(item)}
+                          style={buttonStyle}
+                        >
+                          <IconButton
+                            size="small"
+                            aria-label="delete"
+                            onClick={() => setRemovename(company?.name)}
+                          >
+                            <DeleteIcon sx={{ fontSize: 20 }} />
+                          </IconButton>
+                        </Button>
+                        <Button
+                          size="large"
+                          onClick={(event) => handleCompanyChange(event, item)}
+                        >
+                          企業情報
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Box>
+                </Typography>
+              );
+            })}
           </Stack>
+          <Dialog
+            open={open1}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">削除の確認</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                このブックマークを削除してもよろしいですか？<p></p>・
+                {removename}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmDelete} color="primary" autoFocus>
+                削除
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Main>
       </Box>
     </ThemeProvider>
   );
-  <head>
-    <link href="toppage.css" rel="stylesheet" type="text/css" media="all" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>;
 }
