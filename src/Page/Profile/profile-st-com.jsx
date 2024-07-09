@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import MyContext from "../../provider/provider";
 
 export function SCompany() {
   useEffect(() => {

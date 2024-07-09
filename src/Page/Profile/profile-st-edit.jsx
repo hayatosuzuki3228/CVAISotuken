@@ -226,7 +226,8 @@ export function SEdit() {
         MonthsSave === Months &&
         DaysSave === Days &&
         HomeSave === Home &&
-        ByeSave === bye
+        ByeSave === bye &&
+        AgeSave === age
       ) {
         navigate("/profile-st", {
           state: {
