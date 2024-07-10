@@ -280,6 +280,13 @@ export function Matchtable() {
         {showDetail ? "事業内容非表示" : "事業内容表示"}
       </Button>
       <Button
+        className="matchdo"
+        variant="outlined"
+        onClick={() => navigate("/matchdo")}
+      >
+        マッチ度設定
+      </Button>
+      <Button
         className="back"
         variant="outlined"
         color="secondary"
@@ -288,6 +295,7 @@ export function Matchtable() {
       >
         戻る
       </Button>
+
       <TableContainer
         component={Paper}
         className="table1"

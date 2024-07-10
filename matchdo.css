@@ -1,0 +1,23 @@
+.paper-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.paper-item {
+  flex: 1;
+  margin: 0.5rem;
+  min-width: 200px;
+}
+
+@media (max-width: 600px) {
+  .paper-container {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1025px) {
+  .paper-container {
+    flex-direction: row;
+  }
+}

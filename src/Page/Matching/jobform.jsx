@@ -107,6 +107,9 @@ const JobForm = ({ onSave, initialData }) => {
         >
           登録
         </Button>
+        <Button variant="outlined" onClick={() => navigate("/matchtable")}>
+          マッチ度表へ
+        </Button>
         <Button
           variant="outlined"
           color="secondary"
