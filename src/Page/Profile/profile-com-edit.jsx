@@ -61,6 +61,8 @@ export function CEdit() {
   const [comePeople, setComePeople] = useState(warpComePeople);
   const [homepage, setHomepage] = useState(warpHomepage);
 
+  const [CnameSave, setCnameSave] = useState();
+
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
   const [error3, setError3] = useState("");
@@ -134,40 +136,24 @@ export function CEdit() {
         },
       });
     } else {
-      {
-        !regex.test(Cname) ? setError1("エラー：企業名") : setError1("");
-      }
-      {
-        !KanaRegex.test(CkName)
-          ? setError2("エラー：企業名カタカナ")
-          : setError2("");
-      }
-      {
-        !regex.test(place) ? setError3("エラー：企業所在地") : setError3("");
-      }
-      {
-        !TelRegex.test(tel) ? setError4("エラー：電話番号") : setError4("");
-      }
-      {
-        !TelRegex.test(fax) ? setError5("エラー：FAX番号") : setError5("");
-      }
-      {
-        !regex.test(info) ? setError6("エラー：事業内容") : setError6("");
-      }
-      {
-        !MoneyRegex.test(capital) ? setError7("エラー：資本金") : setError7("");
-      }
-      {
-        !regex.test(people) ? setError8("エラー：代表者名") : setError8("");
-      }
-      {
-        !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("");
-      }
-      {
+      setError1(
+        !regex.test(Cname) ? setError1("エラー：企業名") : setError1("")
+      );
+      setError2(!KanaRegex.test(CkName) ? "エラー：カタカナ企業名" : "");
+      setError3(!regex.test(place) ? "エラー：来訪者数" : "");
+      setError4(!TelRegex.test(tel) ? "エラー：電話番号" : "");
+      setError5(!TelRegex.test(fax) ? "エラー：FAX番号" : "");
+      setError6(!regex.test(info) ? "エラー：事業内容" : "");
+      setError7(!MoneyRegex.test(capital) ? "エラー：資本金" : "");
+      setError8(!regex.test(people) ? "エラー：従業員数" : "");
+      setError9(
+        !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("")
+      );
+      setError10(
         !PageRegex.test(homepage)
           ? setError10("エラー：ホームページ")
-          : setError10("");
-      }
+          : setError10("")
+      );
     }
   };
 

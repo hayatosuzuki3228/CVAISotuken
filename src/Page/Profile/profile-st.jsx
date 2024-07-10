@@ -68,10 +68,16 @@ export function SProfile() {
   const {
     provideremail,
     setprovideremail,
+    providerSaveEmail,
+    setproviderSaveEmail,
     providername,
     setprovidername,
     providerSaveName,
     setproviderSaveName,
+    providerKName,
+    setProviderKName,
+    providerSaveKName,
+    setProviderSaveKName,
   } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -210,15 +216,6 @@ export function SProfile() {
                   </ListItemButton>
                 </ListItem>
               </List>
-              <Divider />
-              <List //実際に動かすときは212～220行目を消す
-              >
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick3}>
-                    <ListItemText primary="企業情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
             </Box>
           </Drawer>
         </div>
@@ -258,7 +255,7 @@ export function SProfile() {
               {providerSaveName}
               <br />
               <br />
-              {kName}
+              {providerKName}
             </p>
           </Stack>
         </Stack>
@@ -361,7 +358,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{email}</p>
+            <p>{providerSaveEmail}</p>
           </Box>
         </Stack>
         <Stack direction="row">

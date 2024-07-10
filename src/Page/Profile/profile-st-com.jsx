@@ -317,6 +317,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
+            <p></p>
             <div style={{ textAlign: "center" }}>
               {MyPowerSave
                 ? MyPowerSave.map((option, index) => (
