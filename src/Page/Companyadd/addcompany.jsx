@@ -1120,6 +1120,36 @@ export function Addcompany() {
                 />
               </>
             )}
+            {isTwoYearSelected && (
+              <>
+                <TextField
+                  id="salary-1"
+                  label="1年課程基本給"
+                  variant="standard"
+                  value={OneYearSalary || ""}
+                  onChange={(e) => valuechange(e, setOneYearSalary)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="allowances-1"
+                  label="1年課程諸手当"
+                  variant="standard"
+                  value={OneYearAllowances || ""}
+                  onChange={(e) => valuechange(e, setOneYearAllowances)}
+                  sx={{ width: 400 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
           </Box>
         );
       case 4:
@@ -1429,7 +1459,11 @@ export function Addcompany() {
                 <ListItemText
                   primary={`2年過程基本給 ： ${TwoYearSalary}円 / 諸手当 ： ${TwoYearAllowances}円`}
                 />
-                <Divider component="li" />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`研究過程基本給 ： ${OneYearSalary}円 / 諸手当 ： ${OneYearAllowances}円`}
+                />
               </ListItem>
               <Divider component="li" />
               <ListItem>
