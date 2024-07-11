@@ -10,13 +10,13 @@
   min-width: 200px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 899px) {
   .paper-container {
     flex-direction: column;
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 900px) {
   .paper-container {
     flex-direction: row;
   }

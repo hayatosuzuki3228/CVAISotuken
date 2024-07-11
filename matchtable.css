@@ -1,4 +1,4 @@
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 701px) {
   .table1 {
     margin-left: 5%;
     margin-right: 5%;
@@ -15,23 +15,27 @@
     margin-left: 50px;
     width: 30%;
   }
-
+  .matchScoreSearch {
+    top: 50px;
+    margin-left: 50px;
+    width: 30%;
+  }
   .detailbu {
-    bottom: 110px;
-    left: 40%;
+    bottom: 190px;
+    left: 37%;
     width: 13vw;
     height: 5vw;
     font-size: 1.3vw;
   }
   .matchdo {
-    left: 65%;
+    left: 58%;
   }
   .back {
-    left: 67%;
+    left: 60%;
   }
 }
 
-@media screen and (min-width: 0px) and (max-width: 1024px) {
+@media screen and (min-width: 0px) and (max-width: 700px) {
   .table1 {
     margin-left: 5%;
     margin-right: 5%;
@@ -40,6 +44,10 @@
     /* 他のスタイルを追加 */
   }
   .sertch {
+    top: 20px;
+    margin-left: 10px;
+  }
+  .matchScoreSearch {
     top: 20px;
     margin-left: 10px;
   }
@@ -59,11 +67,11 @@
   .matchdo {
     left: 50%;
     position: absolute;
-    top: 100px;
+    top: 170px;
   }
   .back {
     left: 75%;
     position: absolute;
-    top: 100px;
+    top: 170px;
   }
 }

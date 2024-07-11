@@ -66,7 +66,6 @@ function calculateMatchScore(company, jobData) {
   });
 
   // 特長の比較
-
   jobData.features.forEach((feature) => {
     if (company.ideal_candidate_profile.includes(feature)) score += 10;
   });
@@ -196,6 +195,7 @@ export function Matchtable() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [detailSearchTerm, setDetailSearchTerm] = useState("");
+  const [matchScoreTerm, setMatchScoreTerm] = useState(""); // 新しいstateを追加
   const [showDetail, setShowDetail] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { jobData } = useContext(JobContext);
@@ -231,13 +231,18 @@ export function Matchtable() {
     setDetailSearchTerm(event.target.value);
   };
 
+  const handleMatchScoreSearch = (event) => {
+    setMatchScoreTerm(event.target.value);
+  };
+
   const filteredRows = companies
     .map((company) => convertCompanyData(company, jobData))
     .filter(
       (row) =>
         (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
           row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
-        row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase())
+        row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase()) &&
+        (matchScoreTerm === "" || row.matchdo >= parseInt(matchScoreTerm, 10))
     );
 
   const toggleDetail = () => {
@@ -269,6 +274,14 @@ export function Matchtable() {
           variant="outlined"
           sx={{ marginBottom: "1rem" }}
           className="detailSearch"
+        />
+        <TextField
+          label="マッチ度入力"
+          value={matchScoreTerm}
+          onChange={handleMatchScoreSearch}
+          variant="outlined"
+          sx={{ marginBottom: "1rem" }}
+          className="matchScoreSearch"
         />
       </Box>
       <Button
