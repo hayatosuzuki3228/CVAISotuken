@@ -51,15 +51,17 @@ function convertCompanyData(company, jobData) {
 function calculateMatchScore(company, jobData) {
   let score = 0;
   console.log("登録情報:", jobData);
-  // 募集学科情報の比較
 
+  // 募集学科情報の比較
   if (
     company.recruitment_grade &&
     jobData.department &&
     company.recruitment_grade.includes(jobData.department)
   )
     score += 10;
-
+  else {
+    return 0; // 募集学科情報が一致しなかったらスコアを0にして返す
+  }
   // 勤務地の比較
   jobData.location.forEach((location) => {
     if (company.work_location.includes(location)) score += 10;
