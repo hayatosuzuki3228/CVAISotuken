@@ -443,15 +443,29 @@ export function Addcompany() {
     }
 
     const courses = [];
+    const sendcourses = [];
 
     if (itcheck.every(Boolean)) {
       courses.push("コンピューター・IT");
+      sendcourses.push("IT4", "IT3", "IT2", "IT1");
     } else {
       const subCourses = [];
-      if (itcheck[0]) subCourses.push("4年");
-      if (itcheck[1]) subCourses.push("2年");
-      if (itcheck[2]) subCourses.push("3年");
-      if (itcheck[3]) subCourses.push("3年・2年＋1年");
+      if (itcheck[0]) {
+        subCourses.push("4年");
+        sendcourses.push("IT4");
+      }
+      if (itcheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("IT2");
+      }
+      if (itcheck[2]) {
+        subCourses.push("3年");
+        sendcourses.push("IT3");
+      }
+      if (itcheck[3]) {
+        subCourses.push("3年・2年＋1年");
+        sendcourses.push("IT1");
+      }
       if (subCourses.length > 0)
         courses.push(`コンピューター・IT(${subCourses.join("、")})`);
     }
@@ -505,11 +519,11 @@ export function Addcompany() {
       if (subCourses.length > 0)
         courses.push(`機械・CADデザイン(${subCourses.join("、")})`);
     }
-
+    console.log(sendcourses);
     return courses.length > 0 ? courses.join("、") : "不問";
   };
 
-  // ステップごとのコンテンツ
+  //ステップごとのコンテンツ
   const getStepContent = (step) => {
     switch (step) {
       case 0:
@@ -517,26 +531,29 @@ export function Addcompany() {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
-            <Typography variant="h5">企業情報</Typography>
+            <Typography variant="h5" align="center">
+              企業情報
+            </Typography>
             <TextField
               id="companyname"
               label="会社名"
               value={name}
               variant="standard"
               onChange={(e) => setName(e.target.value)}
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               required
             />
             <Autocomplete
               id="industry"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={selectindustry}
               onChange={(event, newValue) => setSelectIndustry(newValue)}
               options={industry}
@@ -553,7 +570,7 @@ export function Addcompany() {
             />
             <Autocomplete
               id="occupation"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={selectoccupation}
               onChange={(event, newValue) => setSelectOccupation(newValue)}
               options={occupation}
@@ -573,7 +590,7 @@ export function Addcompany() {
               label="資本金"
               value={capital}
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               onChange={(e) => valuechange(e, setCapital)}
               InputProps={{
                 endAdornment: (
@@ -586,7 +603,7 @@ export function Addcompany() {
               id="sales"
               label="売上高"
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={sales}
               onChange={(e) => valuechange(e, setSales)}
               InputProps={{
@@ -600,7 +617,7 @@ export function Addcompany() {
               id="employees"
               label="従業員数"
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={employees}
               onChange={(e) => valuechange(e, setEmployees)}
               InputProps={{
@@ -617,10 +634,11 @@ export function Addcompany() {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -629,7 +647,7 @@ export function Addcompany() {
               id="area"
               multiple
               limitTags={3}
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={selectarea}
               onChange={(event, newValue) => setSelectArea(newValue)}
               options={area}
@@ -643,10 +661,8 @@ export function Addcompany() {
                 />
               )}
             />
-            <FormControl>
-              <FormLabel sx={{ ml: -1 }} required>
-                勤務体系
-              </FormLabel>
+            <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
+              <FormLabel required>勤務体系</FormLabel>
               <RadioGroup
                 row
                 value={worktime}
@@ -668,12 +684,12 @@ export function Addcompany() {
                   label="フレックス"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormGroup>
             <TextField
               id="holiday"
               label="年間休日"
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={holiday}
               onChange={(e) => valuechange(e, setHoliday)}
               InputProps={{
@@ -683,7 +699,7 @@ export function Addcompany() {
               }}
               required
             />
-            <FormControl>
+            <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
               <FormLabel sx={{ ml: -1 }} required>
                 休日制度
               </FormLabel>
@@ -708,11 +724,11 @@ export function Addcompany() {
                   label="その他"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormGroup>
             <Autocomplete
               multiple
               limitTags={1}
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={selectqualification}
               onChange={(event, newValue) => setSelectQualification(newValue)}
               options={qualification}
@@ -737,12 +753,13 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
             <Typography variant="h5">募集学科</Typography>
-            <FormGroup>
-              <Stack direction="row" spacing={0.1} width={400} p={1}>
+            <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
+              <Stack direction="row" spacing={0.1} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -761,12 +778,14 @@ export function Addcompany() {
                       onChange={all}
                     />
                   }
-                ></FormControlLabel>
+                />
                 <Typography variant="h6" p={1} pl={2}>
                   不問
                 </Typography>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={400} p={1}>
+
+              {/* IT 学科のスタック */}
+              <Stack direction="row" spacing={0.1} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -779,7 +798,11 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "100%", // 幅を100%に設定
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -801,7 +824,6 @@ export function Addcompany() {
                       control={<Checkbox checked={itcheck[1]} onChange={it2} />}
                       label="2年"
                     />
-
                     <FormControlLabel
                       control={
                         <Checkbox checked={itcheck[3]} onChange={it321} />
@@ -825,7 +847,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -867,7 +894,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -903,7 +935,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -939,7 +976,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -975,7 +1017,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -1025,6 +1072,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1038,7 +1086,7 @@ export function Addcompany() {
                   variant="standard"
                   value={FourYearSalary || ""}
                   onChange={(e) => valuechange(e, setFourYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1051,7 +1099,7 @@ export function Addcompany() {
                   variant="standard"
                   value={FourYearAllowances || ""}
                   onChange={(e) => valuechange(e, setFourYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1068,7 +1116,7 @@ export function Addcompany() {
                   variant="standard"
                   value={ThreeYearSalary || ""}
                   onChange={(e) => valuechange(e, setThreeYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1081,7 +1129,7 @@ export function Addcompany() {
                   variant="standard"
                   value={ThreeYearAllowances || ""}
                   onChange={(e) => valuechange(e, setThreeYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1098,7 +1146,7 @@ export function Addcompany() {
                   variant="standard"
                   value={TwoYearSalary || ""}
                   onChange={(e) => valuechange(e, setTwoYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1111,7 +1159,7 @@ export function Addcompany() {
                   variant="standard"
                   value={TwoYearAllowances || ""}
                   onChange={(e) => valuechange(e, setTwoYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1128,7 +1176,7 @@ export function Addcompany() {
                   variant="standard"
                   value={OneYearSalary || ""}
                   onChange={(e) => valuechange(e, setOneYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1141,7 +1189,7 @@ export function Addcompany() {
                   variant="standard"
                   value={OneYearAllowances || ""}
                   onChange={(e) => valuechange(e, setOneYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1161,6 +1209,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1208,6 +1257,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1360,6 +1410,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1527,7 +1578,7 @@ export function Addcompany() {
 
   return (
     <div>
-      <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
+      <div style={{ minHeight: "10vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
         steps={7}
