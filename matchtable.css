@@ -3,7 +3,7 @@
     margin-left: 5%;
     margin-right: 5%;
     width: 90%;
-    /* 他のスタイルを追加 */
+    margin-bottom: 5%;
   }
   .sertch {
     top: 50px;
@@ -40,8 +40,7 @@
     margin-left: 5%;
     margin-right: 5%;
     width: 90%;
-
-    /* 他のスタイルを追加 */
+    margin-bottom: 10%;
   }
   .sertch {
     top: 20px;
