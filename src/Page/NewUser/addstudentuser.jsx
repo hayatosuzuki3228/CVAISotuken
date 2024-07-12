@@ -303,6 +303,10 @@ export function Addstudentuser() {
                 ))}
               </Select>
             </FormControl>
+            <p></p>
+            {!sikaku ? "" : "選択した資格"}
+            <br></br>
+            {!sikaku ? "" : sikaku}
           </div>
         </Box>
       </Stack>
