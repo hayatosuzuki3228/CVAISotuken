@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
+import { Label } from "@mui/icons-material";
 
 export function Addstudentkakunin() {
   useEffect(() => {
@@ -89,11 +90,12 @@ export function Addstudentkakunin() {
           <label>居住地域　　　　：　</label>
           <label>{area}</label>
           <p></p>
-          <label>保有資格---------------------------</label>
-          {sikaku.map((option, index) => (
-            <Typography key={index}>{option.title}</Typography>
-          ))}
-          <label>------------------------------------</label>
+          <label>保有資格-------------------------------</label>
+          <p></p>
+          {!sikaku ? "無し" : <pre>{JSON.stringify(sikaku, null, 2)}</pre>}
+
+          <p></p>
+          <label>----------------------------------------</label>
           <p></p>
           <p></p>
           <label>学科名　　　　　：　</label>

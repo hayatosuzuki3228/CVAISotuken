@@ -12,6 +12,11 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  FormControl,
+  Select,
+  ListItemText,
+  Checkbox,
+  InputLabel,
 } from "@mui/material";
 import "normalize.css";
 import { selectBox2, options } from "./Data";
@@ -37,6 +42,7 @@ export function Addstudentuser() {
   const [gender, setGender] = useState(initialGender);
   const [area, setArea] = useState(initialArea);
   const [sikaku, setSikaku] = useState(initialSikaku);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
@@ -114,6 +120,21 @@ export function Addstudentuser() {
     if (/^[0-9]*$/.test(newValue)) {
       setbirthday(newValue);
     }
+  };
+
+  const handleChange1 = (event) => {
+    const { value } = event.target;
+    let newSelectedOptions;
+
+    newSelectedOptions = value;
+
+    setSelectedOptions(newSelectedOptions);
+
+    const newSikaku = options
+      .filter((option) => newSelectedOptions.includes(option.id))
+      .map((option) => option.title);
+    setSikaku(newSikaku);
+    console.log(sikaku);
   };
 
   return (
@@ -259,38 +280,30 @@ export function Addstudentuser() {
             <label>保有資格</label>
             <p></p>
           </div>
-          <Autocomplete
-            fullWidth
-            multiple
-            id="tags-outlined"
-            options={options}
-            getOptionLabel={(option) => option.title}
-            defaultValue={sikaku || []}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                fullWidth
-                {...params}
-                variant="outlined"
-                label="保有資格"
-              />
-            )}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip
-                  variant="outlined"
-                  label={option.title}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
-            onChange={(event, newValue) => {
-              setSikaku(newValue);
-            }}
-          />
-          <label style={{ fontSize: "9px", color: "#808080" }}>
-            資格を持っていない人は無しを選んでください
-          </label>
+          <div>
+            <FormControl fullWidth>
+              <InputLabel>保有資格</InputLabel>
+              <Select
+                multiple
+                value={selectedOptions}
+                onChange={handleChange1}
+                renderValue={(selected) =>
+                  selected
+                    .map(
+                      (val) => options.find((option) => option.id === val).title
+                    )
+                    .join(", ")
+                }
+              >
+                {options.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    <Checkbox checked={selectedOptions.includes(option.id)} />
+                    <ListItemText primary={option.title} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         </Box>
       </Stack>
       <p></p>
@@ -312,8 +325,7 @@ export function Addstudentuser() {
               namae === "" ||
               kanamae === "" ||
               birthday === "" ||
-              gender === "" ||
-              !sikaku
+              gender === ""
                 ? disabledButtonStyle
                 : enabledButtonStyle
             }
@@ -322,8 +334,7 @@ export function Addstudentuser() {
               namae === "" ||
               kanamae === "" ||
               birthday === "" ||
-              gender === "" ||
-              !sikaku
+              gender === ""
             }
             onClick={onClick1}
           >
