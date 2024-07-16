@@ -285,7 +285,8 @@ export function SCEdit() {
     }
   };
 
-  const Check = job && hobby && skill && SSubject && KSubject && myPower; // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
+  const Check =
+    job && hobby && skill && SSubject && KSubject && myPower.length > 0; // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
