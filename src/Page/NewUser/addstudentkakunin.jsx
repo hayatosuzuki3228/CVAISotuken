@@ -106,7 +106,7 @@ export function Addstudentkakunin() {
               : null}
           </div>
           <p></p>
-          <label>-----------------------------------------------------</label>
+          <label>----------------------------------------------------</label>
           <p></p>
         </div>
       </Stack>
