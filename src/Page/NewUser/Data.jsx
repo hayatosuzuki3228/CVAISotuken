@@ -49,6 +49,7 @@ export const selectBox2 = [
 ];
 
 export const options = [
+  { title: "無し", id: 0 },
   { title: "ITパスポート", id: 1 },
   { title: "情報セキュリティマネジメント", id: 2 },
   { title: "基本情報技術者", id: 3 },
@@ -62,7 +63,7 @@ export const options = [
   { title: "ITサービスマネージャ", id: 11 },
   { title: "システム監査技術者", id: 12 },
   { title: "情報処理安全確保支援士", id: 13 },
-];
+]; //id0で選択できないようにできる
 
 export const selectBox = [
   { label: "情報総合学科", value: "情報総合学科" },

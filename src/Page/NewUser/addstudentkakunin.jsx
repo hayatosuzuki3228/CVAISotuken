@@ -92,8 +92,11 @@ export function Addstudentkakunin() {
           <p></p>
           <label>保有資格-------------------------------</label>
           <p></p>
-          {!sikaku ? "無し" : <pre>{JSON.stringify(sikaku, null, 2)}</pre>}
-
+          {sikaku
+            ? sikaku.map((option, index) => (
+                <Typography key={index}>{option.title}</Typography>
+              ))
+            : null}
           <p></p>
           <label>----------------------------------------</label>
           <p></p>

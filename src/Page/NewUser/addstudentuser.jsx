@@ -5,9 +5,7 @@ import {
   Button,
   Box,
   MenuItem,
-  Autocomplete,
   TextField,
-  Chip,
   Typography,
   Radio,
   RadioGroup,
@@ -17,9 +15,13 @@ import {
   ListItemText,
   Checkbox,
   InputLabel,
+  Autocomplete,
 } from "@mui/material";
 import "normalize.css";
 import { selectBox2, options } from "./Data";
+import MenuIcon from "@mui/icons-material/Menu";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 export function Addstudentuser() {
   useEffect(() => {
@@ -32,7 +34,7 @@ export function Addstudentuser() {
   const initialKanamae = location.state?.kanamae || "";
   const initialBirthday = location.state?.birthday || "";
   const initialArea = location.state?.area || "";
-  const initialSikaku = location.state?.sikaku || null;
+  const initialSikaku = location.state?.sikaku || [];
   const initialGender = location.state?.gender || "";
 
   const { email, pass, gakka, sotu } = location.state || {};
@@ -42,7 +44,6 @@ export function Addstudentuser() {
   const [gender, setGender] = useState(initialGender);
   const [area, setArea] = useState(initialArea);
   const [sikaku, setSikaku] = useState(initialSikaku);
-  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
@@ -122,20 +123,16 @@ export function Addstudentuser() {
     }
   };
 
-  const handleChange1 = (event) => {
-    const { value } = event.target;
-    let newSelectedOptions;
-
-    newSelectedOptions = value;
-
-    setSelectedOptions(newSelectedOptions);
-
-    const newSikaku = options
-      .filter((option) => newSelectedOptions.includes(option.id))
-      .map((option) => option.title);
-    setSikaku(newSikaku);
-    console.log(sikaku);
+  const handleChange1 = (event, newValue) => {
+    if (newValue.some((option) => option.id === 0)) {
+      setSikaku([options.find((option) => option.id === 0)]);
+    } else {
+      setSikaku(newValue);
+    }
   };
+
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   return (
     <>
@@ -281,32 +278,37 @@ export function Addstudentuser() {
             <p></p>
           </div>
           <div>
-            <FormControl fullWidth>
-              <InputLabel>保有資格</InputLabel>
-              <Select
-                multiple
-                value={selectedOptions}
-                onChange={handleChange1}
-                renderValue={(selected) =>
-                  selected
-                    .map(
-                      (val) => options.find((option) => option.id === val).title
-                    )
-                    .join(", ")
-                }
-              >
-                {options.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    <Checkbox checked={selectedOptions.includes(option.id)} />
-                    <ListItemText primary={option.title} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <p></p>
-            {!sikaku ? "" : "選択した資格"}
-            <br></br>
-            {!sikaku ? "" : sikaku}
+            <Autocomplete
+              multiple
+              id="checkbox"
+              options={options}
+              disableCloseOnSelect
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              getOptionLabel={(option) => option.title}
+              defaultValue={sikaku || []}
+              defaultChecked={sikaku || []}
+              value={sikaku}
+              renderOption={(props, option, { selected }) => (
+                <li {...props} key={option.id}>
+                  <Checkbox
+                    key={"checkbox-${option.id}"}
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                    disabled={
+                      sikaku.some((selectOption) => selectOption.id === 0) &&
+                      option.id !== 0
+                    }
+                  />
+                  {option.title}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField {...params} label="保有資格" />
+              )}
+              onChange={handleChange1}
+            />
           </div>
         </Box>
       </Stack>
@@ -329,6 +331,7 @@ export function Addstudentuser() {
               namae === "" ||
               kanamae === "" ||
               birthday === "" ||
+              sikaku.length < 1 ||
               gender === ""
                 ? disabledButtonStyle
                 : enabledButtonStyle
@@ -338,7 +341,8 @@ export function Addstudentuser() {
               namae === "" ||
               kanamae === "" ||
               birthday === "" ||
-              gender === ""
+              gender === "" ||
+              sikaku.length < 1
             }
             onClick={onClick1}
           >
