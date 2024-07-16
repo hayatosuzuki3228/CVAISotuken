@@ -305,7 +305,7 @@ export function Addstudentuser() {
                 </li>
               )}
               renderInput={(params) => (
-                <TextField {...params} label="保有資格" />
+                <TextField required {...params} label="保有資格" />
               )}
               onChange={handleChange1}
             />
