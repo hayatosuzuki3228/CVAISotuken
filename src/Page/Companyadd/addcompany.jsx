@@ -700,16 +700,14 @@ export function Addcompany() {
               required
             />
             <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
-              <FormLabel sx={{ ml: -1 }} required>
-                休日制度
-              </FormLabel>
+              <FormLabel required>休日制度</FormLabel>
               <RadioGroup
                 row
                 value={holidaysystem}
                 onChange={(event, newValue) => setHolidaysystem(newValue)}
               >
                 <FormControlLabel
-                  value="完全週休二日生制"
+                  value="完全週休二日制"
                   control={<Radio />}
                   label="完全週休二日制"
                 />
@@ -1172,7 +1170,7 @@ export function Addcompany() {
               <>
                 <TextField
                   id="salary-1"
-                  label="1年課程基本給"
+                  label="研究科基本給"
                   variant="standard"
                   value={OneYearSalary || ""}
                   onChange={(e) => valuechange(e, setOneYearSalary)}
@@ -1185,7 +1183,7 @@ export function Addcompany() {
                 />
                 <TextField
                   id="allowances-1"
-                  label="1年課程諸手当"
+                  label="研究科諸手当"
                   variant="standard"
                   value={OneYearAllowances || ""}
                   onChange={(e) => valuechange(e, setOneYearAllowances)}
@@ -1268,7 +1266,9 @@ export function Addcompany() {
               プロフィールで変更することも可能です
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              画像ファイル（.jpg, .jpeg, .png）のみアップロードできます
+              画像ファイル（.jpg, .jpeg, .png）のみ
+              <br />
+              アップロードできます
             </Typography>
             <input
               type="file"
@@ -1387,9 +1387,9 @@ export function Addcompany() {
                 </div>
               </Box>
             )}
-            <Button variant="contained" color="primary" onClick={handleUpload}>
+            {/* <Button variant="contained" color="primary" onClick={handleUpload}>
               アップロード
-            </Button>
+          </Button> */}
           </Box>
         );
       case 6:
@@ -1415,7 +1415,13 @@ export function Addcompany() {
             }}
           >
             <Typography variant="h5">登録確認</Typography>
-            <List sx={{ width: 500, margin: "auto" }}>
+            <List
+              sx={{
+                maxWidth: "500px", // 最大幅を500pxに設定します
+                width: "90%", // 幅を画面の90%に設定します
+                margin: "auto", // 中央揃えにします
+              }}
+            >
               <ListItem>
                 <ListItemText primary={`会社名　　：　${name}`} />
               </ListItem>
@@ -1530,12 +1536,13 @@ export function Addcompany() {
                   sx={{
                     border: "2px solid gray",
                     padding: "10px",
-                    width: 300,
-                    height: 300,
+                    width: "150px",
+                    height: "150px",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     mt: 2,
+                    mr: "20%",
                     position: "relative",
                     overflow: "hidden",
                   }}
@@ -1554,7 +1561,7 @@ export function Addcompany() {
                     <img
                       ref={imageRef}
                       src={previewUrl}
-                      alt="Preview"
+                      alt="デフォルト画像が使用されます"
                       style={{
                         objectFit: "contain",
                         transform: `translate(${positionX}px, ${positionY}px)`,
@@ -1584,7 +1591,7 @@ export function Addcompany() {
         steps={7}
         position="static"
         activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
+        sx={{ maxWidth: "400px", flexGrow: 1, margin: "0 auto" }}
         nextButton={
           <Button
             size="small"
@@ -1616,7 +1623,7 @@ export function Addcompany() {
           </Button>
         }
       />
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} width="60%" maxwidth="400px">
         <DialogTitle>登録確認</DialogTitle>
         <DialogContent>
           <DialogContentText>登録しますか？</DialogContentText>
@@ -1636,3 +1643,4 @@ export function Addcompany() {
 
 //やることリスト
 //必須入力チェック　確認画面のデザイン修正　登録完了を知らせる何か
+//研究科対応（7/16）
