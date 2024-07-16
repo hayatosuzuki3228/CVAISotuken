@@ -20,12 +20,6 @@ import "normalize.css";
 import "./styles.css";
 import MyContext from "../../provider/provider";
 
-/* 
-   名前、メールアドレス　<= プロバイダー使う
-   年齢、生年月日、 <= 使うか怪しい
-   学科名、年齢、居住地、卒業予定年度、性別 <= いらん
-*/
-
 export function SProfile() {
   useEffect(() => {
     document.title = "プロフィール";
@@ -160,11 +154,6 @@ export function SProfile() {
         AgeSave,
       },
     });
-  };
-
-  // profile-com に飛ぶ(テスト用で設置、本番時には必ず削除)
-  const OnClick3 = () => {
-    navigate("/profile-com");
   };
 
   const [open, setOpen] = React.useState(false);
