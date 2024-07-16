@@ -8,6 +8,8 @@ export const MyProvider = ({ children }) => {
   const [providerSaveEmail, setproviderSaveEmail] = useState("");
   const [providername, setprovidername] = useState("");
   const [providerSaveName, setproviderSaveName] = useState("");
+  const [providerKName, setProviderKName] = useState("");
+  const [providerSaveKName, setProviderSaveKName] = useState("");
   const [providerid, setproviderid] = useState(0);
   const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [
     1, 2, 3, 4, 5, 6,
@@ -26,6 +28,10 @@ export const MyProvider = ({ children }) => {
     setprovidername,
     providerSaveName,
     setproviderSaveName,
+    providerKName,
+    setProviderKName,
+    providerSaveKName,
+    setProviderSaveKName,
     providerid,
     setproviderid,
     bookmark,

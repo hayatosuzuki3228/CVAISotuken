@@ -20,12 +20,6 @@ import "normalize.css";
 import "./styles.css";
 import MyContext from "../../provider/provider";
 
-/* 
-   名前、メールアドレス　<= プロバイダー使う
-   年齢、生年月日、 <= 使うか怪しい
-   学科名、年齢、居住地、卒業予定年度、性別 <= いらん
-*/
-
 export function SProfile() {
   useEffect(() => {
     document.title = "プロフィール";
@@ -68,10 +62,16 @@ export function SProfile() {
   const {
     provideremail,
     setprovideremail,
+    providerSaveEmail,
+    setproviderSaveEmail,
     providername,
     setprovidername,
     providerSaveName,
     setproviderSaveName,
+    providerKName,
+    setProviderKName,
+    providerSaveKName,
+    setProviderSaveKName,
   } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -156,11 +156,6 @@ export function SProfile() {
     });
   };
 
-  // profile-com に飛ぶ(テスト用で設置、本番時には必ず削除)
-  const OnClick3 = () => {
-    navigate("/profile-com");
-  };
-
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -210,15 +205,6 @@ export function SProfile() {
                   </ListItemButton>
                 </ListItem>
               </List>
-              <Divider />
-              <List //実際に動かすときは212～220行目を消す
-              >
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick3}>
-                    <ListItemText primary="企業情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
             </Box>
           </Drawer>
         </div>
@@ -258,7 +244,7 @@ export function SProfile() {
               {providerSaveName}
               <br />
               <br />
-              {kName}
+              {providerKName}
             </p>
           </Stack>
         </Stack>
@@ -361,7 +347,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{email}</p>
+            <p>{providerSaveEmail}</p>
           </Box>
         </Stack>
         <Stack direction="row">

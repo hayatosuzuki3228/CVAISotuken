@@ -37,6 +37,10 @@ export function SEdit() {
     setprovidername,
     providerSaveName,
     setproviderSaveName,
+    providerKName,
+    setProviderKName,
+    providerSaveKName,
+    setProviderSaveKName,
   } = useContext(MyContext);
   const warpName = location.state?.name || "";
   const warpKName = location.state?.kName || "";
@@ -213,12 +217,16 @@ export function SEdit() {
 
     if (
       regex.test(providername) &&
-      regex2.test(kName) &&
+      regex2.test(providerKName) &&
       mailRegex.test(provideremail) &&
       OneMoreClick !== false
     ) {
+      setproviderSaveName(providername);
+      setproviderSaveEmail(provideremail);
+      setProviderSaveKName(providerKName);
       if (
         providerSaveName === providername &&
+        providerSaveKName === providerKName &&
         providerSaveEmail === provideremail &&
         ManSave === man &&
         GakSave === Gak &&
@@ -245,6 +253,12 @@ export function SEdit() {
             job,
             hobby,
             skill,
+            JobSave,
+            HobbySave,
+            SkillSave,
+            SSubjectSave,
+            KSubjectSave,
+            MyPowerSave,
             SSubject,
             KSubject,
             myPower,
@@ -259,8 +273,6 @@ export function SEdit() {
           },
         });
       } else {
-        setproviderSaveName(providername);
-        setproviderSaveEmail(provideremail);
         setManSave(man);
         setGakSave(Gak);
         setYearsSave(Years);
@@ -277,14 +289,16 @@ export function SEdit() {
     } else {
       setError1(!regex.test(providername) ? setError1("エラー：名前") : "");
       setError2(!regex.test(kName) ? setError2("エラー：カタカナ") : "");
-      setError3(!regex.test(email) ? setError3("エラー：メールアドレス") : "");
+      setError3(
+        !regex.test(provideremail) ? setError3("エラー：メールアドレス") : ""
+      );
       setOneMoreClick(false);
     }
   };
 
   const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
     providername &&
-    kName &&
+    providerKName &&
     man &&
     Gak &&
     Years &&
@@ -382,8 +396,8 @@ export function SEdit() {
               <TextField
                 fullWidth
                 label="名前(カタカナ)の変更"
-                value={kName}
-                onChange={(e) => setKName(e.target.value)}
+                value={providerKName}
+                onChange={(e) => setProviderKName(e.target.value)}
               />
             </Box>
           </Stack>
@@ -631,6 +645,17 @@ export function SEdit() {
               よろしければ、もう一度ボタンを押してください。
             </p>
           ) : undefined}
+          {providername}
+          <br />
+          {provideremail}
+          <br />
+          {providerSaveName}
+          <br />
+          {providerSaveEmail}
+          <br />
+          {providerKName}
+          <br />
+          {providerSaveKName}
         </div>
 
         <Stack // ボタンの表示
