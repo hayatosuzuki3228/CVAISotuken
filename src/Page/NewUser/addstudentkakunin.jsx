@@ -96,7 +96,7 @@ export function Addstudentkakunin() {
           <label>卒業予定　　　　：　</label>
           <lable>{sotu}</lable>
           <p></p>
-          <label>保有資格--------------------------------------------</label>
+          <label>----------------------保有資格----------------------</label>
           <p></p>
           <div style={{ textAlign: "center" }}>
             {sikaku
