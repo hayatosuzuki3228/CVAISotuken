@@ -90,22 +90,23 @@ export function Addstudentkakunin() {
           <label>居住地域　　　　：　</label>
           <label>{area}</label>
           <p></p>
-          <label>保有資格-------------------------------</label>
-          <p></p>
-          {sikaku
-            ? sikaku.map((option, index) => (
-                <Typography key={index}>{option.title}</Typography>
-              ))
-            : null}
-          <p></p>
-          <label>----------------------------------------</label>
-          <p></p>
-          <p></p>
           <label>学科名　　　　　：　</label>
           <label>{gakka}</label>
           <p></p>
           <label>卒業予定　　　　：　</label>
           <lable>{sotu}</lable>
+          <p></p>
+          <label>保有資格--------------------------------------------</label>
+          <p></p>
+          <div style={{ textAlign: "center" }}>
+            {sikaku
+              ? sikaku.map((option, index) => (
+                  <Typography key={index}>{option.title}</Typography>
+                ))
+              : null}
+          </div>
+          <p></p>
+          <label>-----------------------------------------------------</label>
           <p></p>
         </div>
       </Stack>
