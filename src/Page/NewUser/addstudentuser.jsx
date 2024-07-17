@@ -10,16 +10,11 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
-  FormControl,
-  Select,
-  ListItemText,
   Checkbox,
-  InputLabel,
   Autocomplete,
 } from "@mui/material";
 import "normalize.css";
 import { selectBox2, options } from "./Data";
-import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
-import { Label } from "@mui/icons-material";
 
 export function Addstudentkakunin() {
   useEffect(() => {
