@@ -10,7 +10,7 @@ export const MyProvider = ({ children }) => {
   const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [
     1, 2, 3, 4, 5, 6,
   ];
-  const [bookmark, setBookmark] = useState(initialBookmark); //useStateにinitialBookmarkを書く
+  const [bookmark, setBookmark] = useState(initialBookmark);
   useEffect(() => {
     localStorage.setItem("bookmark", JSON.stringify(bookmark));
   }, [bookmark]);
