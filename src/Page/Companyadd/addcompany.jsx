@@ -18,12 +18,15 @@ import {
   FormLabel,
   FormControlLabel,
   Grid,
+  InputLabel,
   List,
   ListItem,
   ListItemText,
   InputAdornment,
   IconButton,
   MobileStepper,
+  MenuItem,
+  Select,
   TextField,
   Typography,
   Radio,
@@ -42,6 +45,7 @@ import ArrowDropupIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+
 import {
   industry,
   occupation,
@@ -59,8 +63,8 @@ export function Addcompany() {
   //#region 定数
 
   const [name, setName] = useState("");
-  const [selectindustry, setSelectIndustry] = useState(null);
-  const [selectoccupation, setSelectOccupation] = useState(null);
+  const [selectindustry, setSelectIndustry] = useState("");
+  const [selectoccupation, setSelectOccupation] = useState("");
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
@@ -551,40 +555,36 @@ export function Addcompany() {
               sx={{ width: "90%", maxWidth: "400px" }}
               required
             />
-            <Autocomplete
-              id="industry"
-              sx={{ width: "90%", maxWidth: "400px" }}
-              value={selectindustry}
-              onChange={(event, newValue) => setSelectIndustry(newValue)}
-              options={industry}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="業種"
-                  variant="standard"
-                  required
-                />
-              )}
-              required
-            />
-            <Autocomplete
-              id="occupation"
-              sx={{ width: "90%", maxWidth: "400px" }}
-              value={selectoccupation}
-              onChange={(event, newValue) => setSelectOccupation(newValue)}
-              options={occupation}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="職種"
-                  variant="standard"
-                  required
-                />
-              )}
-              required
-            />
+            <FormControl sx={{ width: "90%", maxWidth: "400px" }} required>
+              <InputLabel sx={{ ml: -2 }}>業種</InputLabel>
+              <Select
+                id="industry"
+                variant="standard"
+                value={selectindustry}
+                onChange={(event) => setSelectIndustry(event.target.value)}
+              >
+                {industry.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: "90%", maxWidth: "400px" }} required>
+              <InputLabel sx={{ ml: -2 }}>職種</InputLabel>
+              <Select
+                id="occupation"
+                variant="standard"
+                value={selectoccupation}
+                onChange={(event) => setSelectOccupation(event.target.value)}
+              >
+                {occupation.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <TextField
               id="capital"
               label="資本金"
@@ -1049,10 +1049,10 @@ export function Addcompany() {
           </Box>
         );
       case 3:
-        // コンピューター・ITの3年のチェック
-        const isComputerIT3YearSelected = itcheck[2];
-        // コンピューター・ITまたはゲーム・CGの4年のチェック
+        // ITまたはゲームの4年のチェック
         const isFourYearSelected = itcheck[0] || gamecheck[0];
+        //ITの3年のチェック
+        const isComputerIT3YearSelected = itcheck[2];
         //2年のチェック
         const isTwoYearSelected =
           itcheck[1] ||
@@ -1061,6 +1061,14 @@ export function Addcompany() {
           denkicheck[1] ||
           tsusincheck[1] ||
           kikaicheck[1];
+        //研究科のチェック
+        const isOneYearSelected =
+          itcheck[3] ||
+          gamecheck[2] ||
+          eizocheck[0] ||
+          denkicheck[0] ||
+          tsusincheck[0] ||
+          kikaicheck[0];
 
         return (
           <Box
@@ -1166,7 +1174,7 @@ export function Addcompany() {
                 />
               </>
             )}
-            {isTwoYearSelected && (
+            {isOneYearSelected && (
               <>
                 <TextField
                   id="salary-1"
@@ -1427,19 +1435,11 @@ export function Addcompany() {
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText
-                  primary={`業種　　　：　${
-                    selectindustry ? selectindustry.title : ""
-                  }`}
-                />
+                <ListItemText primary={`業種　　　：　${selectindustry}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText
-                  primary={`職種　　　：　${
-                    selectoccupation ? selectoccupation.title : ""
-                  }`}
-                />
+                <ListItemText primary={`職種　　　：　${selectoccupation}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
@@ -1519,7 +1519,7 @@ export function Addcompany() {
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`研究過程基本給 ： ${OneYearSalary}円 / 諸手当 ： ${OneYearAllowances}円`}
+                  primary={`研究科基本給　： ${OneYearSalary}円 / 諸手当 ： ${OneYearAllowances}円`}
                 />
               </ListItem>
               <Divider component="li" />
@@ -1641,6 +1641,13 @@ export function Addcompany() {
   );
 }
 
-//やることリスト
-//必須入力チェック　確認画面のデザイン修正　登録完了を知らせる何か
-//研究科対応（7/16）
+/*
+作業memo
+[済]研究科が常に表示される問題
+[済]必須入力チェック
+[済]企業情報の業種職種をセレクトボックス
+登録完了を知らせるもの
+マッチ度のための学科選択データ送信
+デザイン（色）ほしいかも
+リファクタリング
+*/
