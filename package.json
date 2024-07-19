@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "build_VM": "NODE_OPTIONS='--max-old-space-size=8192' react-scripts build",
+    "build_VM": "NODE_OPTIONS='--max-old-space-size=16384' vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
