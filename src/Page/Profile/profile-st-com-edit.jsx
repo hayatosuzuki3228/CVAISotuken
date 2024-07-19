@@ -134,74 +134,82 @@ export function SCEdit() {
   const navigate = useNavigate();
   /* profile-st に飛ぶ */
   const OnClick = () => {
-    navigate("/profile-st", {
-      state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        SSubject,
-        KSubject,
-        myPower,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-      },
-    });
+    if (OneMoreClick === true) {
+      null;
+    } else {
+      navigate("/profile-st", {
+        state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
+          SSubject,
+          KSubject,
+          myPower,
+          ManSave,
+          GakSave,
+          YearsSave,
+          MonthsSave,
+          DaysSave,
+          HomeSave,
+          ByeSave,
+          AgeSave,
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+    }
   };
 
   /* profile-st-com に飛ぶ(戻るボタン) */
   const OnClick2 = () => {
-    navigate("/profile-st-com", {
-      state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        SSubject,
-        KSubject,
-        myPower,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-      },
-    });
+    if (OneMoreClick === true) {
+      null;
+    } else {
+      navigate("/profile-st-com", {
+        state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
+          SSubject,
+          KSubject,
+          myPower,
+          ManSave,
+          GakSave,
+          YearsSave,
+          MonthsSave,
+          DaysSave,
+          HomeSave,
+          ByeSave,
+          AgeSave,
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+    }
   };
 
   /* profile-st-com に飛ぶ(情報を確定するボタン) */
@@ -272,7 +280,7 @@ export function SCEdit() {
         setError4("");
         setError5("");
         setError6("");
-        setOneMoreClick(!regex.test(job) ? false : true);
+        setOneMoreClick(true);
       }
     } else {
       setError1(!regex.test(job) ? "エラー：希望職種" : "");

@@ -12,6 +12,7 @@ import {
   ListItemText,
   IconButton,
   Stack,
+  Typography,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -89,6 +90,14 @@ export function CProfile() {
               role="presentation"
               onClick={toggleDrawer(false)}
             >
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
+              <br />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
