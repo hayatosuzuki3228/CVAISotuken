@@ -39,7 +39,7 @@ jobs:
         run: |
           # Define variables
           VM_USER="azureuser"
-          BUILD_DIR="./dist"  # 成果物が生成されるディレクトリ
+          BUILD_DIR="../dist"  # 成果物が生成されるディレクトリ
 
           # Download build artifact
           echo "$SSH_PRIVATE_KEY" > id_rsa
