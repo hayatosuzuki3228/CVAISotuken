@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: build
         run: npm run build
 
       - name: Upload build artifact
