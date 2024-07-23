@@ -12,6 +12,7 @@ import {
   ListItemText,
   IconButton,
   Stack,
+  Typography,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -37,14 +38,20 @@ export function CProfile() {
         people,
         comePeople,
         homepage,
+        CnameSave,
+        CkNameSave,
+        placeSave,
+        telSave,
+        faxSave,
+        infoSave,
+        COpenSave,
+        COpenMSave,
+        capitalSave,
+        peopleSave,
+        comePeopleSave,
+        homepageSave,
       },
     });
-  };
-  const OnClick2 = () => {
-    navigate("/profile-st");
-  };
-  const OnClick3 = () => {
-    navigate("/profile-st-com");
   };
 
   const location = useLocation();
@@ -61,6 +68,18 @@ export function CProfile() {
     people,
     comePeople,
     homepage,
+    CnameSave,
+    CkNameSave,
+    placeSave,
+    telSave,
+    faxSave,
+    infoSave,
+    COpenSave,
+    COpenMSave,
+    capitalSave,
+    peopleSave,
+    comePeopleSave,
+    homepageSave,
   } = location.state || {};
 
   const [open, setOpen] = React.useState(false);
@@ -90,25 +109,18 @@ export function CProfile() {
               onClick={toggleDrawer(false)}
             >
               <List>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
+                </ListItem>
+              </List>
+              <br />
+              <Divider />
+              <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
                     <ListItemText primary="企業情報編集" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="個人情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick3}>
-                    <ListItemText primary="企業向け情報" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -146,9 +158,9 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {Cname}
+              {CnameSave == Cname ? Cname : CnameSave}
               <br />
-              {CkName}
+              {CkNameSave == CkName ? CkName : CkNameSave}
             </p>
           </Box>
         </Stack>
@@ -168,7 +180,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{place}</p>
+            <p>{placeSave == place ? place : placeSave}</p>
           </Box>
         </Stack>
 
@@ -192,9 +204,13 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {tel && "(TEL)" + tel}
+              {telSave == tel
+                ? tel && "(TEL)" + tel
+                : telSave && "(TEL)" + telSave}
               <br />
-              {fax && "(FAX)" + fax}
+              {faxSave == fax
+                ? fax && "(FAX)" + fax
+                : faxSave && "(FAX)" + faxSave}
             </p>
           </Box>
         </Stack>
@@ -214,7 +230,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{info}</p>
+            <p>{infoSave == info ? info : infoSave}</p>
           </Box>
         </Stack>
 
@@ -234,8 +250,12 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {COpen && COpen + "年"}
-              {COpenM && COpenM + "月創業"}
+              {COpenSave == COpen
+                ? COpen && COpen + "年"
+                : COpenSave && COpenSave + "年"}
+              {COpenMSave == COpenM
+                ? COpenM && COpenM + "月創業"
+                : COpenMSave && COpenMSave + "月創業"}
             </p>
           </Box>
         </Stack>
@@ -255,7 +275,11 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{capital && capital + "万円"}</p>
+            <p>
+              {capitalSave == capital
+                ? capital && capital + "万円"
+                : capitalSave && capitalSave + "万円"}
+            </p>
           </Box>
         </Stack>
 
@@ -274,7 +298,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{people}</p>
+            <p>{peopleSave == people ? people : peopleSave}</p>
           </Box>
         </Stack>
 
@@ -293,7 +317,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{comePeople}</p>
+            <p>{comePeopleSave == comePeople ? comePeople : comePeopleSave}</p>
           </Box>
         </Stack>
 
@@ -313,7 +337,9 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              <a href={homepage}>{homepage}</a>
+              <a href={homepageSave == homepage ? homepage : homepageSave}>
+                {homepageSave == homepage ? homepage : homepageSave}
+              </a>
             </p>
           </Box>
         </Stack>

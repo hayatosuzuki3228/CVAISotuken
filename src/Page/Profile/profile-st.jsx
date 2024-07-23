@@ -190,6 +190,7 @@ export function SProfile() {
                 </ListItem>
               </List>
               <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
@@ -202,6 +203,14 @@ export function SProfile() {
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
                     <ListItemText primary="企業向け情報" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={OnClick1}>
+                    <ListItemText primary="個人情報編集" />
                   </ListItemButton>
                 </ListItem>
               </List>
