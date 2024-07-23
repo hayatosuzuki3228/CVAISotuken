@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: dist
+          path: ../dist
 
       - name: Install SSH client
         run: sudo apt-get update && sudo apt-get install -y openssh-client
