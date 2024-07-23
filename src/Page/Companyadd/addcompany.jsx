@@ -451,24 +451,24 @@ export function Addcompany() {
 
     if (itcheck.every(Boolean)) {
       courses.push("コンピューター・IT");
-      sendcourses.push("IT4", "IT3", "IT2", "IT1");
+      sendcourses.push("it4", "it3", "it2", "it1");
     } else {
       const subCourses = [];
       if (itcheck[0]) {
         subCourses.push("4年");
-        sendcourses.push("IT4");
+        sendcourses.push("it4");
       }
       if (itcheck[1]) {
         subCourses.push("2年");
-        sendcourses.push("IT2");
+        sendcourses.push("it2");
       }
       if (itcheck[2]) {
         subCourses.push("3年");
-        sendcourses.push("IT3");
+        sendcourses.push("it3");
       }
       if (itcheck[3]) {
         subCourses.push("3年・2年＋1年");
-        sendcourses.push("IT1");
+        sendcourses.push("it1");
       }
       if (subCourses.length > 0)
         courses.push(`コンピューター・IT(${subCourses.join("、")})`);
@@ -476,53 +476,92 @@ export function Addcompany() {
 
     if (gamecheck.every(Boolean)) {
       courses.push("ゲーム・CG");
+      sendcourses.push("game4", "game2", "game1");
     } else {
       const subCourses = [];
-      if (gamecheck[0]) subCourses.push("4年");
-      if (gamecheck[1]) subCourses.push("2年");
-      if (gamecheck[2]) subCourses.push("2年+1年");
+      if (gamecheck[0]) {
+        subCourses.push("4年");
+        sendcourses.push("game4");
+      }
+      if (gamecheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("game2");
+      }
+      if (gamecheck[2]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("game1");
+      }
       if (subCourses.length > 0)
         courses.push(`ゲーム・CG(${subCourses.join("、")})`);
     }
 
     if (eizocheck.every(Boolean)) {
       courses.push("映像・音響");
+      sendcourses.push("eizo2", "eizo1");
     } else {
       const subCourses = [];
-      if (eizocheck[0]) subCourses.push("2年+1年");
-      if (eizocheck[1]) subCourses.push("2年");
+      if (eizocheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("eizo1");
+      }
+      if (eizocheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("eizo2");
+      }
       if (subCourses.length > 0)
         courses.push(`映像・音響(${subCourses.join("、")})`);
     }
 
     if (denkicheck.every(Boolean)) {
       courses.push("電気");
+      sendcourses.push("denki2", "denki1");
     } else {
       const subCourses = [];
-      if (denkicheck[0]) subCourses.push("2年+1年");
-      if (denkicheck[1]) subCourses.push("2年");
+      if (denkicheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("denki1");
+      }
+      if (denkicheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("denki2");
+      }
       if (subCourses.length > 0) courses.push(`電気(${subCourses.join("、")})`);
     }
 
     if (tsusincheck.every(Boolean)) {
       courses.push("情報通信");
+      sendcourses.push("tsusin2", "tsusin1");
     } else {
       const subCourses = [];
-      if (tsusincheck[0]) subCourses.push("2年+1年");
-      if (tsusincheck[1]) subCourses.push("2年");
+      if (tsusincheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("tsusin1");
+      }
+      if (tsusincheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("tsusin2");
+      }
       if (subCourses.length > 0)
         courses.push(`情報通信(${subCourses.join("、")})`);
     }
 
     if (kikaicheck.every(Boolean)) {
       courses.push("機械・CADデザイン");
+      sendcourses.push("kikai2", "kikai1");
     } else {
       const subCourses = [];
-      if (kikaicheck[0]) subCourses.push("2年+1年");
-      if (kikaicheck[1]) subCourses.push("2年");
+      if (kikaicheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("kikai1");
+      }
+      if (kikaicheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("kikai2");
+      }
       if (subCourses.length > 0)
         courses.push(`機械・CADデザイン(${subCourses.join("、")})`);
     }
+
     console.log(sendcourses);
     return courses.length > 0 ? courses.join("、") : "不問";
   };
@@ -1555,7 +1594,7 @@ export function Addcompany() {
                       justifyContent: "center",
                       alignItems: "center",
                       transformOrigin: "center",
-                      transform: `scale(${zoom})`,
+                      transform: `scale(${zoom / 2})`,
                     }}
                   >
                     <img
@@ -1623,10 +1662,26 @@ export function Addcompany() {
           </Button>
         }
       />
-      <Dialog open={open} onClose={handleClose} width="60%" maxwidth="400px">
-        <DialogTitle>登録確認</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            width: "60%",
+            maxWidth: "400px",
+            height: "200px",
+          },
+        }}
+      >
+        <DialogTitle style={{ textAlign: "center", fontSize: "2rem" }}>
+          登録確認
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>登録しますか？</DialogContentText>
+          <DialogContentText
+            style={{ textAlign: "center", fontSize: "1.2rem" }}
+          >
+            登録しますか？
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} sx={{ color: "gray" }}>
@@ -1650,4 +1705,5 @@ export function Addcompany() {
 マッチ度のための学科選択データ送信
 デザイン（色）ほしいかも
 リファクタリング
+開始前の画面
 */
