@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main # または、デプロイしたいブランチ名
+      - main
 
 jobs:
   build-and-deploy:
