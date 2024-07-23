@@ -46,7 +46,7 @@ jobs:
           # ダウンロードしたビルドアーティファクトをVMに転送
           echo "$SSH_PRIVATE_KEY" > id_rsa
           chmod 600 id_rsa
-          scp -i id_rsa -r $BUILD_DIR $VM_USER@$VM_IP:/home/azureuser/path/
+          scp -i id_rsa -r $BUILD_DIR $VM_USER@$VM_IP:/home/azureuser/
 
           # SSHキーをクリーンアップ
           rm id_rsa
