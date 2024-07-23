@@ -6,13 +6,13 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js (or your build tool)
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "14"
@@ -20,38 +20,31 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: build
-        run: npm run build
+      - name: Build
+        run: npm run build # Reactのビルドコマンド。`dist`ディレクトリが生成される
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: build
-          path: ./build
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+          name: dist
+          path: ./dist # ビルド成果物が生成されるディレクトリ
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build
+      - name: Install SSH client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
 
       - name: Deploy to Azure VM
         env:
           SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_PRIVATE_KEY }}
+          VM_IP: ${{ secrets.AZURE_VM_IP }}
         run: |
           # Define variables
           VM_USER="azureuser"
-          VM_IP= ${{ secrets.AZURE_VM_IP }}
-          BUILD_DIR="./build"
+          BUILD_DIR="./dist"  # 成果物が生成されるディレクトリ
 
-          # Install SSH client if not already available
-          sudo apt-get update
-          sudo apt-get install -y openssh-client
+          # Download build artifact
+          echo "$SSH_PRIVATE_KEY" > id_rsa
+          chmod 600 id_rsa
+          scp -i id_rsa -r $BUILD_DIR $VM_USER@$VM_IP:/path/
 
-          # SCP to Azure VM
-          scp -i $SSH_PRIVATE_KEY -r $BUILD_DIR $VM_USER@$VM_IP:/path/
+          # Clean up SSH key
+          rm id_rsa
