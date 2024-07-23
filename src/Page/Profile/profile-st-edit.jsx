@@ -22,7 +22,16 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { years, months, days, selectBox, HOME, Bye, older } from "./Data";
+import {
+  years,
+  months,
+  days,
+  selectBox,
+  HOME,
+  Bye,
+  older,
+  older2,
+} from "./Data";
 import MyContext from "../../provider/provider";
 import { Man } from "@mui/icons-material";
 
@@ -349,6 +358,7 @@ export function SEdit() {
                 </ListItem>
               </List>
               <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
@@ -508,7 +518,7 @@ export function SEdit() {
               value={Years}
               onChange={(e) => setYears(e.target.value)}
             >
-              {older.map((item, index) => (
+              {older2.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
                   {item.label}
                 </MenuItem>

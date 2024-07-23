@@ -236,9 +236,17 @@ export const options = [
 ];
 
 export const older = [];
-const startYear = 1900;
+const startYear = 1800;
 const endYear = 2025;
 
 for (let year = startYear; year <= endYear; year++) {
   older.push({ label: year.toString(), value: year.toString() });
+}
+
+export const older2 = [];
+const startYear2 = 1950;
+const endYear2 = 2025;
+
+for (let year = startYear2; year <= endYear2; year++) {
+  older2.push({ label: year.toString(), value: year.toString() });
 }

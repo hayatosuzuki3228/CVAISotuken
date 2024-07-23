@@ -170,6 +170,7 @@ export function SCompany() {
                 </ListItem>
               </List>
               <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
@@ -180,16 +181,16 @@ export function SCompany() {
               <Divider />
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick1}>
-                    <ListItemText primary="企業向け情報編集" />
+                  <ListItemButton onClick={OnClick2}>
+                    <ListItemText primary="個人情報" />
                   </ListItemButton>
                 </ListItem>
               </List>
               <Divider />
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="個人情報" />
+                  <ListItemButton onClick={OnClick1}>
+                    <ListItemText primary="企業向け情報編集" />
                   </ListItemButton>
                 </ListItem>
               </List>

@@ -339,6 +339,8 @@ export function SCEdit() {
                   />
                 </ListItem>
               </List>
+              <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>

@@ -171,16 +171,28 @@ export function CEdit() {
   }, [comePeopleSave]);
 
   const navigate = useNavigate();
+
   const OnClick = () => {
-    navigate("/profile-st-edit");
-  };
-
-  const OnClick2 = () => {
-    navigate("/profile-st-com");
-  };
-
-  const OnClick3 = () => {
-    navigate("/profile-com");
+    if (OneMoreClick == true) {
+      null;
+    } else {
+      navigate("/profile-com", {
+        state: {
+          CnameSave,
+          CkNameSave,
+          placeSave,
+          telSave,
+          faxSave,
+          infoSave,
+          COpenSave,
+          COpenMSave,
+          capitalSave,
+          peopleSave,
+          comePeopleSave,
+          homepageSave,
+        },
+      });
+    }
   };
 
   // profile-com に飛ぶ
@@ -230,6 +242,18 @@ export function CEdit() {
             people,
             comePeople,
             homepage,
+            CnameSave,
+            CkNameSave,
+            placeSave,
+            telSave,
+            faxSave,
+            infoSave,
+            COpenSave,
+            COpenMSave,
+            capitalSave,
+            peopleSave,
+            comePeopleSave,
+            homepageSave,
           },
         });
       } else {
@@ -327,18 +351,11 @@ export function CEdit() {
                 </ListItem>
               </List>
               <br />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="個人情報編集" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
               <Divider />
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="企業向け情報" />
+                  <ListItemButton onClick={OnClick}>
+                    <ListItemText primary="企業プロフィール" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -440,6 +457,7 @@ export function CEdit() {
                 label="電話番号の変更"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
+                helperText="ハイフン(-)を入力してください。"
               />
             </Box>
             <Box>
@@ -448,6 +466,7 @@ export function CEdit() {
                 label="FAX番号の変更"
                 value={fax}
                 onChange={(e) => setFax(e.target.value)}
+                helperText="ハイフン(-)を入力してください。"
               />
             </Box>
           </Stack>
@@ -501,10 +520,10 @@ export function CEdit() {
           >
             <p>西暦</p>
             <TextField
-              select
               sx={{ width: 100 }}
+              select
               multiline
-              id={older}
+              id="older2"
               label="年"
               value={COpen}
               onChange={(e) => setCOpen(e.target.value)}
@@ -519,7 +538,7 @@ export function CEdit() {
             <TextField
               sx={{ width: 55 }}
               multiline
-              id={months}
+              id="months"
               label="月"
               value={COpenM}
               select
@@ -668,7 +687,7 @@ export function CEdit() {
         >
           <Button // profile-com に飛ぶ(データの保存を行わない)
             variant="contained"
-            onClick={OnClick3}
+            onClick={OnClick}
             disabled={OneMoreClick}
           >
             戻る
