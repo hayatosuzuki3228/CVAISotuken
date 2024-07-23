@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 // コンテキストを作成
@@ -12,7 +12,9 @@ export const BookmarkProvider = ({ children }) => {
   const addBookmark = (id) => {
     setBookmarks((prevBookmarks) => [...prevBookmarks, id]);
   };
-
+  useEffect(() => {
+    localStorage.setItem("bookmark", JSON.stringify(bookmarks));
+  }, [bookmarks]);
   return (
     <BookmarkContext.Provider value={{ bookmarks, addBookmark }}>
       {children}

@@ -31,7 +31,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import companies from "../../const/companies.js";
 import { BookmarkContext } from "../../provider/booktext"; // BookmarkContextのインポート
-
+import MyContext from "../../provider/provider";
 function convertCompanyData(company, jobData) {
   const matchScore = calculateMatchScore(company, jobData);
 
@@ -85,10 +85,12 @@ function Row(props) {
   const { row, showDetail, onFavoriteToggle, isFavorite } = props;
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { setproviderid } = useContext(MyContext);
 
   const handleCompanyChange = () => {
     const numericId = parseInt(row.id, 10);
-    // ブックマークのページへの遷移は、必要に応じて行います
+    setproviderid(numericId);
+    console.log(row.id);
     return navigate("/companyinformation");
   };
 

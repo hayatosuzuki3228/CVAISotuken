@@ -156,6 +156,7 @@ export function Bookmark() {
   };
 
   const handleConfirmDelete = () => {
+    const { setBookmarks } = useContext(BookmarkContext);
     const updatedBookmarks = bookmarks.filter(
       (bookmarks) => bookmarks !== removeid
     );
@@ -165,7 +166,7 @@ export function Bookmark() {
   };
 
   const { providerid, setproviderid } = useContext(MyContext);
-  const { bookmarks, setBookmarks } = useContext(BookmarkContext);
+  const { bookmarks } = useContext(BookmarkContext);
   console.log("bookmark", setproviderid);
   const handleCompanyChange = (event, item) => {
     setproviderid(item), navigate("/companyinformation", console.log(item));
