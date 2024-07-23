@@ -18,12 +18,15 @@ import {
   FormLabel,
   FormControlLabel,
   Grid,
+  InputLabel,
   List,
   ListItem,
   ListItemText,
   InputAdornment,
   IconButton,
   MobileStepper,
+  MenuItem,
+  Select,
   TextField,
   Typography,
   Radio,
@@ -42,6 +45,7 @@ import ArrowDropupIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+
 import {
   industry,
   occupation,
@@ -59,8 +63,8 @@ export function Addcompany() {
   //#region 定数
 
   const [name, setName] = useState("");
-  const [selectindustry, setSelectIndustry] = useState(null);
-  const [selectoccupation, setSelectOccupation] = useState(null);
+  const [selectindustry, setSelectIndustry] = useState("");
+  const [selectoccupation, setSelectOccupation] = useState("");
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
@@ -447,24 +451,24 @@ export function Addcompany() {
 
     if (itcheck.every(Boolean)) {
       courses.push("コンピューター・IT");
-      sendcourses.push("IT4", "IT3", "IT2", "IT1");
+      sendcourses.push("it4", "it3", "it2", "it1");
     } else {
       const subCourses = [];
       if (itcheck[0]) {
         subCourses.push("4年");
-        sendcourses.push("IT4");
+        sendcourses.push("it4");
       }
       if (itcheck[1]) {
         subCourses.push("2年");
-        sendcourses.push("IT2");
+        sendcourses.push("it2");
       }
       if (itcheck[2]) {
         subCourses.push("3年");
-        sendcourses.push("IT3");
+        sendcourses.push("it3");
       }
       if (itcheck[3]) {
         subCourses.push("3年・2年＋1年");
-        sendcourses.push("IT1");
+        sendcourses.push("it1");
       }
       if (subCourses.length > 0)
         courses.push(`コンピューター・IT(${subCourses.join("、")})`);
@@ -472,53 +476,92 @@ export function Addcompany() {
 
     if (gamecheck.every(Boolean)) {
       courses.push("ゲーム・CG");
+      sendcourses.push("game4", "game2", "game1");
     } else {
       const subCourses = [];
-      if (gamecheck[0]) subCourses.push("4年");
-      if (gamecheck[1]) subCourses.push("2年");
-      if (gamecheck[2]) subCourses.push("2年+1年");
+      if (gamecheck[0]) {
+        subCourses.push("4年");
+        sendcourses.push("game4");
+      }
+      if (gamecheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("game2");
+      }
+      if (gamecheck[2]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("game1");
+      }
       if (subCourses.length > 0)
         courses.push(`ゲーム・CG(${subCourses.join("、")})`);
     }
 
     if (eizocheck.every(Boolean)) {
       courses.push("映像・音響");
+      sendcourses.push("eizo2", "eizo1");
     } else {
       const subCourses = [];
-      if (eizocheck[0]) subCourses.push("2年+1年");
-      if (eizocheck[1]) subCourses.push("2年");
+      if (eizocheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("eizo1");
+      }
+      if (eizocheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("eizo2");
+      }
       if (subCourses.length > 0)
         courses.push(`映像・音響(${subCourses.join("、")})`);
     }
 
     if (denkicheck.every(Boolean)) {
       courses.push("電気");
+      sendcourses.push("denki2", "denki1");
     } else {
       const subCourses = [];
-      if (denkicheck[0]) subCourses.push("2年+1年");
-      if (denkicheck[1]) subCourses.push("2年");
+      if (denkicheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("denki1");
+      }
+      if (denkicheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("denki2");
+      }
       if (subCourses.length > 0) courses.push(`電気(${subCourses.join("、")})`);
     }
 
     if (tsusincheck.every(Boolean)) {
       courses.push("情報通信");
+      sendcourses.push("tsusin2", "tsusin1");
     } else {
       const subCourses = [];
-      if (tsusincheck[0]) subCourses.push("2年+1年");
-      if (tsusincheck[1]) subCourses.push("2年");
+      if (tsusincheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("tsusin1");
+      }
+      if (tsusincheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("tsusin2");
+      }
       if (subCourses.length > 0)
         courses.push(`情報通信(${subCourses.join("、")})`);
     }
 
     if (kikaicheck.every(Boolean)) {
       courses.push("機械・CADデザイン");
+      sendcourses.push("kikai2", "kikai1");
     } else {
       const subCourses = [];
-      if (kikaicheck[0]) subCourses.push("2年+1年");
-      if (kikaicheck[1]) subCourses.push("2年");
+      if (kikaicheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("kikai1");
+      }
+      if (kikaicheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("kikai2");
+      }
       if (subCourses.length > 0)
         courses.push(`機械・CADデザイン(${subCourses.join("、")})`);
     }
+
     console.log(sendcourses);
     return courses.length > 0 ? courses.join("、") : "不問";
   };
@@ -551,40 +594,36 @@ export function Addcompany() {
               sx={{ width: "90%", maxWidth: "400px" }}
               required
             />
-            <Autocomplete
-              id="industry"
-              sx={{ width: "90%", maxWidth: "400px" }}
-              value={selectindustry}
-              onChange={(event, newValue) => setSelectIndustry(newValue)}
-              options={industry}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="業種"
-                  variant="standard"
-                  required
-                />
-              )}
-              required
-            />
-            <Autocomplete
-              id="occupation"
-              sx={{ width: "90%", maxWidth: "400px" }}
-              value={selectoccupation}
-              onChange={(event, newValue) => setSelectOccupation(newValue)}
-              options={occupation}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="職種"
-                  variant="standard"
-                  required
-                />
-              )}
-              required
-            />
+            <FormControl sx={{ width: "90%", maxWidth: "400px" }} required>
+              <InputLabel sx={{ ml: -2 }}>業種</InputLabel>
+              <Select
+                id="industry"
+                variant="standard"
+                value={selectindustry}
+                onChange={(event) => setSelectIndustry(event.target.value)}
+              >
+                {industry.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: "90%", maxWidth: "400px" }} required>
+              <InputLabel sx={{ ml: -2 }}>職種</InputLabel>
+              <Select
+                id="occupation"
+                variant="standard"
+                value={selectoccupation}
+                onChange={(event) => setSelectOccupation(event.target.value)}
+              >
+                {occupation.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <TextField
               id="capital"
               label="資本金"
@@ -1049,10 +1088,10 @@ export function Addcompany() {
           </Box>
         );
       case 3:
-        // コンピューター・ITの3年のチェック
-        const isComputerIT3YearSelected = itcheck[2];
-        // コンピューター・ITまたはゲーム・CGの4年のチェック
+        // ITまたはゲームの4年のチェック
         const isFourYearSelected = itcheck[0] || gamecheck[0];
+        //ITの3年のチェック
+        const isComputerIT3YearSelected = itcheck[2];
         //2年のチェック
         const isTwoYearSelected =
           itcheck[1] ||
@@ -1061,6 +1100,14 @@ export function Addcompany() {
           denkicheck[1] ||
           tsusincheck[1] ||
           kikaicheck[1];
+        //研究科のチェック
+        const isOneYearSelected =
+          itcheck[3] ||
+          gamecheck[2] ||
+          eizocheck[0] ||
+          denkicheck[0] ||
+          tsusincheck[0] ||
+          kikaicheck[0];
 
         return (
           <Box
@@ -1166,7 +1213,7 @@ export function Addcompany() {
                 />
               </>
             )}
-            {isTwoYearSelected && (
+            {isOneYearSelected && (
               <>
                 <TextField
                   id="salary-1"
@@ -1427,19 +1474,11 @@ export function Addcompany() {
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText
-                  primary={`業種　　　：　${
-                    selectindustry ? selectindustry.title : ""
-                  }`}
-                />
+                <ListItemText primary={`業種　　　：　${selectindustry}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText
-                  primary={`職種　　　：　${
-                    selectoccupation ? selectoccupation.title : ""
-                  }`}
-                />
+                <ListItemText primary={`職種　　　：　${selectoccupation}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
@@ -1519,7 +1558,7 @@ export function Addcompany() {
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`研究過程基本給 ： ${OneYearSalary}円 / 諸手当 ： ${OneYearAllowances}円`}
+                  primary={`研究科基本給　： ${OneYearSalary}円 / 諸手当 ： ${OneYearAllowances}円`}
                 />
               </ListItem>
               <Divider component="li" />
@@ -1555,7 +1594,7 @@ export function Addcompany() {
                       justifyContent: "center",
                       alignItems: "center",
                       transformOrigin: "center",
-                      transform: `scale(${zoom})`,
+                      transform: `scale(${zoom / 2})`,
                     }}
                   >
                     <img
@@ -1623,10 +1662,26 @@ export function Addcompany() {
           </Button>
         }
       />
-      <Dialog open={open} onClose={handleClose} width="60%" maxwidth="400px">
-        <DialogTitle>登録確認</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            width: "60%",
+            maxWidth: "400px",
+            height: "200px",
+          },
+        }}
+      >
+        <DialogTitle style={{ textAlign: "center", fontSize: "2rem" }}>
+          登録確認
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>登録しますか？</DialogContentText>
+          <DialogContentText
+            style={{ textAlign: "center", fontSize: "1.2rem" }}
+          >
+            登録しますか？
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} sx={{ color: "gray" }}>
@@ -1641,6 +1696,14 @@ export function Addcompany() {
   );
 }
 
-//やることリスト
-//必須入力チェック　確認画面のデザイン修正　登録完了を知らせる何か
-//研究科対応（7/16）
+/*
+作業memo
+[済]研究科が常に表示される問題
+[済]必須入力チェック
+[済]企業情報の業種職種をセレクトボックス
+登録完了を知らせるもの
+マッチ度のための学科選択データ送信
+デザイン（色）ほしいかも
+リファクタリング
+開始前の画面
+*/
