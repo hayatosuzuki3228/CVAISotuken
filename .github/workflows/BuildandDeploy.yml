@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: ./dist # ビルド成果物が生成されるディレクトリ
+          path: ../dist # ビルド成果物が生成されるディレクトリ
 
       - name: Install SSH client
         run: sudo apt-get update && sudo apt-get install -y openssh-client
