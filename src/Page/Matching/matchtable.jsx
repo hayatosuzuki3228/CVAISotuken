@@ -17,14 +17,20 @@ import {
   Typography,
   Paper,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@mui/icons-material";
 import UndoIcon from "@mui/icons-material/Undo";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import companies from "../../const/companies.js";
-import MyContext from "../../provider/provider";
+import { BookmarkContext } from "../../provider/booktext"; // BookmarkContextのインポート
 
 function convertCompanyData(company, jobData) {
   const matchScore = calculateMatchScore(company, jobData);
@@ -46,12 +52,9 @@ function convertCompanyData(company, jobData) {
     ],
   };
 }
-
 // マッチ度を計算する関数
 function calculateMatchScore(company, jobData) {
   let score = 0;
-  console.log("登録情報:", jobData);
-
   // 募集学科情報の比較
   if (
     company.recruitment_grade &&
@@ -66,12 +69,10 @@ function calculateMatchScore(company, jobData) {
   jobData.location.forEach((location) => {
     if (company.work_location.includes(location)) score += 10;
   });
-
   // 特長の比較
   jobData.features.forEach((feature) => {
     if (company.ideal_candidate_profile.includes(feature)) score += 10;
   });
-
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
     if (company.qualification.includes(qualification)) score += 10;
@@ -81,29 +82,30 @@ function calculateMatchScore(company, jobData) {
 }
 
 function Row(props) {
-  const { row, showDetail } = props;
+  const { row, showDetail, onFavoriteToggle, isFavorite } = props;
   const [open, setOpen] = useState(false);
-
   const navigate = useNavigate();
-  const { setproviderid } = useContext(MyContext);
+
   const handleCompanyChange = () => {
     const numericId = parseInt(row.id, 10);
-    setproviderid(numericId);
-    console.log(row.id);
+    // ブックマークのページへの遷移は、必要に応じて行います
     return navigate("/companyinformation");
   };
+
   const getMatchdoCellStyle = (matchdo) => {
     if (matchdo >= 30) {
-      return { color: "green" }; // マッチ度が30以上の場合は緑色
+      return { color: "green" };
     } else if (matchdo >= 10) {
-      return { color: "orange" }; // マッチ度が10以上の場合はオレンジ色
+      return { color: "orange" };
     } else {
-      return { color: "black" }; // それ以外は黒色
+      return { color: "black" };
     }
   };
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        {/*開くボタン*/}
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -113,6 +115,7 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        {/*メインの項目 */}
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
@@ -125,15 +128,22 @@ function Row(props) {
           </Button>
         </TableCell>
         {showDetail && <TableCell>{row.detail}</TableCell>}
-        <TableCell align="left" sx={getMatchdoCellStyle(row.matchdo)}>
+        <TableCell align="center" sx={getMatchdoCellStyle(row.matchdo)}>
           {row.matchdo}P
         </TableCell>
+        <TableCell>
+          <IconButton onClick={() => onFavoriteToggle(row.id)}>
+            <BookmarksIcon />
+          </IconButton>
+        </TableCell>
       </TableRow>
+
       <TableRow>
         <TableCell
           style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={showDetail ? 5 : 4}
+          colSpan={showDetail ? 6 : 5}
         >
+          {/*詳細の項目*/}
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
@@ -172,7 +182,7 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
+// データの型
 Row.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -191,17 +201,23 @@ Row.propTypes = {
     ).isRequired,
   }).isRequired,
   showDetail: PropTypes.bool.isRequired,
+  onFavoriteToggle: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
 export function Matchtable() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [detailSearchTerm, setDetailSearchTerm] = useState("");
-  const [matchScoreTerm, setMatchScoreTerm] = useState(""); // 新しいstateを追加
+  const [matchScoreTerm, setMatchScoreTerm] = useState("");
   const [showDetail, setShowDetail] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { jobData } = useContext(JobContext);
-
+  const { bookmarks, addBookmark } = useContext(BookmarkContext);
+  const [favorites, setFavorites] = useState({});
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  // ローディング
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
@@ -224,7 +240,7 @@ export function Matchtable() {
       </Box>
     );
   }
-
+  // tebleから抜き出すためのコード
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -236,7 +252,31 @@ export function Matchtable() {
   const handleMatchScoreSearch = (event) => {
     setMatchScoreTerm(event.target.value);
   };
+  const handleFavoriteToggle = (id) => {
+    console.log("トグルするID:", id); // IDのログ出力
+    setSelectedId(id);
+    setDialogOpen(true);
+  };
+  const handleDialogClose = (confirm) => {
+    setDialogOpen(false);
 
+    // ダイアログメッセージに応じてアクションを実行
+    if (confirm) {
+      if (favorites[selectedId]) {
+        // 既に追加されている場合は何もしない
+        return;
+      } else {
+        // まだ追加されていない場合は追加
+        addBookmark(Number(selectedId));
+        setFavorites((prevFavorites) => ({
+          ...prevFavorites,
+          [selectedId]: true,
+        }));
+      }
+    }
+
+    setSelectedId(null); // IDをリセット
+  };
   const filteredRows = companies
     .map((company) => convertCompanyData(company, jobData))
     .filter(
@@ -326,16 +366,45 @@ export function Matchtable() {
               <TableCell>ID</TableCell>
               <TableCell>会社名</TableCell>
               {showDetail && <TableCell>事業内容</TableCell>}
-              <TableCell align="left">マッチ度</TableCell>
+              <TableCell align="center">マッチ度</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredRows.map((row) => (
-              <Row key={row.id} row={row} showDetail={showDetail} />
+              <Row
+                key={row.id}
+                row={row}
+                showDetail={showDetail}
+                onFavoriteToggle={handleFavoriteToggle}
+                isFavorite={bookmarks.includes(row.id)}
+              />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Dialog open={dialogOpen} onClose={() => handleDialogClose(false)}>
+        <DialogTitle>確認</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            この会社をブックマークに追加しますか？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleDialogClose(false)} color="primary">
+            キャンセル
+          </Button>
+          <Button
+            onClick={() => handleDialogClose(true)}
+            color="primary"
+            autoFocus
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <head>
         <link
           href="matchtable.css"

@@ -14,15 +14,39 @@ const departmentOptions = [
   "不問",
 ];
 const featuresOptions = [
-  "傲慢",
-  "嫉妬",
-  "憤怒",
-  "怠惰",
-  "強欲",
-  "色欲",
-  "暴食",
+  "真面目",
+  "コミュニケーション能力",
+  "誠実",
+  "素直",
+  "チームワーク",
+  "責任感",
+  "柔軟性",
+  "リーダーシップ",
+  "自己管理",
+  "創造力",
+  "向上心",
+  "課題解決力",
 ];
-const qualificationsOptions = ["基本情報", "応用情報", "猫検定 "];
+const qualificationsOptions = [
+  "不問",
+  "基本情報",
+  "応用情報",
+  "普通自動車免許（AT限定可）",
+  "普通自動車免許",
+  "準中型自動車免許",
+  "第一種電気工事士",
+  "第二種電気工事士",
+  "電気主任技術者第3種",
+  "第1級陸上特殊無線技士",
+  "工事担任者AD･DD総合種",
+];
+
+// 都道府県名のリストを取得
+const getPrefectureNames = (prefectures) => {
+  return Object.values(prefectures)
+    .flat()
+    .map((pref) => pref.name);
+};
 
 const JobForm = ({ onSave, initialData }) => {
   const navigate = useNavigate();
@@ -68,7 +92,8 @@ const JobForm = ({ onSave, initialData }) => {
       <Box mb={2}>
         <Autocomplete
           multiple
-          options={prefectures.map((prefecture) => prefecture.name)}
+          disableCloseOnSelect
+          options={getPrefectureNames(prefectures)}
           value={formData.location}
           onChange={handleChange("location")}
           renderInput={(params) => (
@@ -79,6 +104,7 @@ const JobForm = ({ onSave, initialData }) => {
       <Box mb={2}>
         <Autocomplete
           multiple
+          disableCloseOnSelect
           options={featuresOptions}
           value={formData.features}
           onChange={handleChange("features")}
@@ -90,6 +116,7 @@ const JobForm = ({ onSave, initialData }) => {
       <Box mb={2}>
         <Autocomplete
           multiple
+          disableCloseOnSelect
           options={qualificationsOptions}
           value={formData.qualifications}
           onChange={handleChange("qualifications")}
