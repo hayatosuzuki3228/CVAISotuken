@@ -261,7 +261,7 @@ export function Bookmark() {
                     <Card sx={{ width: 180 }} key={company?.id}>
                       <CardMedia
                         sx={{ height: 130 }}
-                        image="../assets/icon.png"
+                        image="../../src/assets/icon.png"
                         title="icon"
                         onClick={(event) => handleCompanyChange(event, item)}
                       />
