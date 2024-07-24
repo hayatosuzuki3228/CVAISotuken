@@ -11,10 +11,8 @@ export const MyProvider = ({ children }) => {
   const [providerKName, setProviderKName] = useState("");
   const [providerSaveKName, setProviderSaveKName] = useState("");
   const [providerid, setproviderid] = useState(0);
-  const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [
-    1, 2, 3, 4, 5, 6,
-  ];
-  const [bookmark, setBookmark] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]); //useStateにinitialBookmarkを書く
+  const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [];
+  const [bookmark, setBookmark] = useState(initialBookmark);
   useEffect(() => {
     localStorage.setItem("bookmark", JSON.stringify(bookmark));
   }, [bookmark]);
