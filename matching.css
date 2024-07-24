@@ -1,4 +1,121 @@
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1536px) {
+  body {
+    margin: 0;
+    padding: 1;
+    height: 100%;
+    width: 100%;
+   
+    
+  }
+  .footer{
+    
+    background: #38d;
+    width: 98.3vw;
+    
+  }
+  
+  #hart {
+    position: absolute;
+    left: 86vw;
+    top: 20px;
+    padding: auto;
+  }
+  #mylist {
+    position: absolute;
+    left: 90vw;
+    top: 20px;
+    padding: auto;
+  }
+  #setting {
+   position: absolute;
+    left: 94vw;
+    top: 20px;
+    padding: auto;
+  }
+  div.menu {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    position: relative;
+    width: 300px;
+    background-color: rgb(227, 241, 241);
+    border-left: 10px solid rgb(6, 103, 142);
+    box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
+    padding-bottom: 88vh;
+    padding-left: 2%;
+    
+  }
+  .b1 {
+    
+    position: absolute;
+    top: 150px;
+    font-size: 40px;
+  }
+  
+  .b2 {
+    
+    position: absolute;
+    top: 250px;
+    font-size: 40px;
+  }
+ 
+  .b3 {
+    
+    position: absolute;
+    top: 370px;
+    font-size: 25px;
+  }
+ 
+  .b4 {
+   
+    position: absolute;
+    top: 490px;
+    font-size: 30px;
+  }
+  
+  div.main {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    height: 100%;
+    width: 80%;
+
+    background-color: rgb(255, 255, 255);
+  }
+  .textfield {
+    width: 500px;
+    position: absolute;
+    left: 370px;
+    top: 130px;
+  }
+  .b5 {
+    height: 150px;
+    width: 600px;
+    font-size: 3.5vw;
+    position: absolute;
+    left:800px;
+    top: 350px;
+  }
+  .b6 {
+    height: 150px;
+    width: 400px;
+    font-size: 3.5vw;
+    position: absolute;
+    left: 680px;
+    top: 550px;
+  }
+  .b7 {
+    
+    height: 150px;
+    width: 400px;
+    font-size: 3.5vw;
+    position: absolute;
+    left: 1130px;
+    top: 550px;
+  }
+}
+/* PC 125%以上　*/
+@media screen and (min-width: 1025px)and (max-width: 1536px) {
   body {
     margin: 0;
     padding: 1;
