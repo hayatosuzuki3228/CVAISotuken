@@ -18,12 +18,15 @@ import {
   FormLabel,
   FormControlLabel,
   Grid,
+  InputLabel,
   List,
   ListItem,
   ListItemText,
   InputAdornment,
   IconButton,
   MobileStepper,
+  MenuItem,
+  Select,
   TextField,
   Typography,
   Radio,
@@ -38,10 +41,11 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
-import ArrowDropupIcon from "@mui/icons-material/ArrowDropup";
+import ArrowDropupIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+
 import {
   industry,
   occupation,
@@ -59,8 +63,8 @@ export function Addcompany() {
   //#region 定数
 
   const [name, setName] = useState("");
-  const [selectindustry, setSelectIndustry] = useState(null);
-  const [selectoccupation, setSelectOccupation] = useState(null);
+  const [selectindustry, setSelectIndustry] = useState("");
+  const [selectoccupation, setSelectOccupation] = useState("");
   const [capital, setCapital] = useState("");
   const [sales, setSales] = useState("");
   const [employees, setEmployees] = useState("");
@@ -443,73 +447,126 @@ export function Addcompany() {
     }
 
     const courses = [];
+    const sendcourses = [];
 
     if (itcheck.every(Boolean)) {
       courses.push("コンピューター・IT");
+      sendcourses.push("it4", "it3", "it2", "it1");
     } else {
       const subCourses = [];
-      if (itcheck[0]) subCourses.push("4年");
-      if (itcheck[1]) subCourses.push("2年");
-      if (itcheck[2]) subCourses.push("3年");
-      if (itcheck[3]) subCourses.push("3年・2年＋1年");
+      if (itcheck[0]) {
+        subCourses.push("4年");
+        sendcourses.push("it4");
+      }
+      if (itcheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("it2");
+      }
+      if (itcheck[2]) {
+        subCourses.push("3年");
+        sendcourses.push("it3");
+      }
+      if (itcheck[3]) {
+        subCourses.push("3年・2年＋1年");
+        sendcourses.push("it1");
+      }
       if (subCourses.length > 0)
         courses.push(`コンピューター・IT(${subCourses.join("、")})`);
     }
 
     if (gamecheck.every(Boolean)) {
       courses.push("ゲーム・CG");
+      sendcourses.push("game4", "game2", "game1");
     } else {
       const subCourses = [];
-      if (gamecheck[0]) subCourses.push("4年");
-      if (gamecheck[1]) subCourses.push("2年");
-      if (gamecheck[2]) subCourses.push("2年+1年");
+      if (gamecheck[0]) {
+        subCourses.push("4年");
+        sendcourses.push("game4");
+      }
+      if (gamecheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("game2");
+      }
+      if (gamecheck[2]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("game1");
+      }
       if (subCourses.length > 0)
         courses.push(`ゲーム・CG(${subCourses.join("、")})`);
     }
 
     if (eizocheck.every(Boolean)) {
       courses.push("映像・音響");
+      sendcourses.push("eizo2", "eizo1");
     } else {
       const subCourses = [];
-      if (eizocheck[0]) subCourses.push("2年+1年");
-      if (eizocheck[1]) subCourses.push("2年");
+      if (eizocheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("eizo1");
+      }
+      if (eizocheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("eizo2");
+      }
       if (subCourses.length > 0)
         courses.push(`映像・音響(${subCourses.join("、")})`);
     }
 
     if (denkicheck.every(Boolean)) {
       courses.push("電気");
+      sendcourses.push("denki2", "denki1");
     } else {
       const subCourses = [];
-      if (denkicheck[0]) subCourses.push("2年+1年");
-      if (denkicheck[1]) subCourses.push("2年");
+      if (denkicheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("denki1");
+      }
+      if (denkicheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("denki2");
+      }
       if (subCourses.length > 0) courses.push(`電気(${subCourses.join("、")})`);
     }
 
     if (tsusincheck.every(Boolean)) {
       courses.push("情報通信");
+      sendcourses.push("tsusin2", "tsusin1");
     } else {
       const subCourses = [];
-      if (tsusincheck[0]) subCourses.push("2年+1年");
-      if (tsusincheck[1]) subCourses.push("2年");
+      if (tsusincheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("tsusin1");
+      }
+      if (tsusincheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("tsusin2");
+      }
       if (subCourses.length > 0)
         courses.push(`情報通信(${subCourses.join("、")})`);
     }
 
     if (kikaicheck.every(Boolean)) {
       courses.push("機械・CADデザイン");
+      sendcourses.push("kikai2", "kikai1");
     } else {
       const subCourses = [];
-      if (kikaicheck[0]) subCourses.push("2年+1年");
-      if (kikaicheck[1]) subCourses.push("2年");
+      if (kikaicheck[0]) {
+        subCourses.push("2年+1年");
+        sendcourses.push("kikai1");
+      }
+      if (kikaicheck[1]) {
+        subCourses.push("2年");
+        sendcourses.push("kikai2");
+      }
       if (subCourses.length > 0)
         courses.push(`機械・CADデザイン(${subCourses.join("、")})`);
     }
 
+    console.log(sendcourses);
     return courses.length > 0 ? courses.join("、") : "不問";
   };
 
-  // ステップごとのコンテンツ
+  //ステップごとのコンテンツ
   const getStepContent = (step) => {
     switch (step) {
       case 0:
@@ -517,63 +574,62 @@ export function Addcompany() {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
-            <Typography variant="h5">企業情報</Typography>
+            <Typography variant="h5" align="center">
+              企業情報
+            </Typography>
             <TextField
               id="companyname"
               label="会社名"
               value={name}
               variant="standard"
               onChange={(e) => setName(e.target.value)}
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               required
             />
-            <Autocomplete
-              id="industry"
-              sx={{ width: 400 }}
-              value={selectindustry}
-              onChange={(event, newValue) => setSelectIndustry(newValue)}
-              options={industry}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="業種"
-                  variant="standard"
-                  required
-                />
-              )}
-              required
-            />
-            <Autocomplete
-              id="occupation"
-              sx={{ width: 400 }}
-              value={selectoccupation}
-              onChange={(event, newValue) => setSelectOccupation(newValue)}
-              options={occupation}
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="職種"
-                  variant="standard"
-                  required
-                />
-              )}
-              required
-            />
+            <FormControl sx={{ width: "90%", maxWidth: "400px" }} required>
+              <InputLabel sx={{ ml: -2 }}>業種</InputLabel>
+              <Select
+                id="industry"
+                variant="standard"
+                value={selectindustry}
+                onChange={(event) => setSelectIndustry(event.target.value)}
+              >
+                {industry.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: "90%", maxWidth: "400px" }} required>
+              <InputLabel sx={{ ml: -2 }}>職種</InputLabel>
+              <Select
+                id="occupation"
+                variant="standard"
+                value={selectoccupation}
+                onChange={(event) => setSelectOccupation(event.target.value)}
+              >
+                {occupation.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <TextField
               id="capital"
               label="資本金"
               value={capital}
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               onChange={(e) => valuechange(e, setCapital)}
               InputProps={{
                 endAdornment: (
@@ -586,7 +642,7 @@ export function Addcompany() {
               id="sales"
               label="売上高"
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={sales}
               onChange={(e) => valuechange(e, setSales)}
               InputProps={{
@@ -600,7 +656,7 @@ export function Addcompany() {
               id="employees"
               label="従業員数"
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={employees}
               onChange={(e) => valuechange(e, setEmployees)}
               InputProps={{
@@ -617,10 +673,11 @@ export function Addcompany() {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -629,7 +686,7 @@ export function Addcompany() {
               id="area"
               multiple
               limitTags={3}
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={selectarea}
               onChange={(event, newValue) => setSelectArea(newValue)}
               options={area}
@@ -643,10 +700,8 @@ export function Addcompany() {
                 />
               )}
             />
-            <FormControl>
-              <FormLabel sx={{ ml: -1 }} required>
-                勤務体系
-              </FormLabel>
+            <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
+              <FormLabel required>勤務体系</FormLabel>
               <RadioGroup
                 row
                 value={worktime}
@@ -668,12 +723,12 @@ export function Addcompany() {
                   label="フレックス"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormGroup>
             <TextField
               id="holiday"
               label="年間休日"
               variant="standard"
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={holiday}
               onChange={(e) => valuechange(e, setHoliday)}
               InputProps={{
@@ -683,17 +738,15 @@ export function Addcompany() {
               }}
               required
             />
-            <FormControl>
-              <FormLabel sx={{ ml: -1 }} required>
-                休日制度
-              </FormLabel>
+            <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
+              <FormLabel required>休日制度</FormLabel>
               <RadioGroup
                 row
                 value={holidaysystem}
                 onChange={(event, newValue) => setHolidaysystem(newValue)}
               >
                 <FormControlLabel
-                  value="完全週休二日生制"
+                  value="完全週休二日制"
                   control={<Radio />}
                   label="完全週休二日制"
                 />
@@ -708,11 +761,11 @@ export function Addcompany() {
                   label="その他"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormGroup>
             <Autocomplete
               multiple
               limitTags={1}
-              sx={{ width: 400 }}
+              sx={{ width: "90%", maxWidth: "400px" }}
               value={selectqualification}
               onChange={(event, newValue) => setSelectQualification(newValue)}
               options={qualification}
@@ -737,12 +790,13 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
             <Typography variant="h5">募集学科</Typography>
-            <FormGroup>
-              <Stack direction="row" spacing={0.1} width={400} p={1}>
+            <FormGroup sx={{ width: "90%", maxWidth: "400px" }}>
+              <Stack direction="row" spacing={0.1} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -761,12 +815,14 @@ export function Addcompany() {
                       onChange={all}
                     />
                   }
-                ></FormControlLabel>
+                />
                 <Typography variant="h6" p={1} pl={2}>
                   不問
                 </Typography>
               </Stack>
-              <Stack direction="row" spacing={0.1} width={400} p={1}>
+
+              {/* IT 学科のスタック */}
+              <Stack direction="row" spacing={0.1} p={1}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -779,7 +835,11 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "100%", // 幅を100%に設定
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -801,7 +861,6 @@ export function Addcompany() {
                       control={<Checkbox checked={itcheck[1]} onChange={it2} />}
                       label="2年"
                     />
-
                     <FormControlLabel
                       control={
                         <Checkbox checked={itcheck[3]} onChange={it321} />
@@ -825,7 +884,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -867,7 +931,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -903,7 +972,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -939,7 +1013,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -975,7 +1054,12 @@ export function Addcompany() {
                   }
                 />
                 <Accordion
-                  sx={{ width: 400, boxShadow: "none", border: "none" }}
+                  sx={{
+                    width: "90%",
+                    maxWidth: "400px",
+                    boxShadow: "none",
+                    border: "none",
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -1004,10 +1088,10 @@ export function Addcompany() {
           </Box>
         );
       case 3:
-        // コンピューター・ITの3年のチェック
-        const isComputerIT3YearSelected = itcheck[2];
-        // コンピューター・ITまたはゲーム・CGの4年のチェック
+        // ITまたはゲームの4年のチェック
         const isFourYearSelected = itcheck[0] || gamecheck[0];
+        //ITの3年のチェック
+        const isComputerIT3YearSelected = itcheck[2];
         //2年のチェック
         const isTwoYearSelected =
           itcheck[1] ||
@@ -1016,6 +1100,14 @@ export function Addcompany() {
           denkicheck[1] ||
           tsusincheck[1] ||
           kikaicheck[1];
+        //研究科のチェック
+        const isOneYearSelected =
+          itcheck[3] ||
+          gamecheck[2] ||
+          eizocheck[0] ||
+          denkicheck[0] ||
+          tsusincheck[0] ||
+          kikaicheck[0];
 
         return (
           <Box
@@ -1025,6 +1117,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1038,7 +1131,7 @@ export function Addcompany() {
                   variant="standard"
                   value={FourYearSalary || ""}
                   onChange={(e) => valuechange(e, setFourYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1051,7 +1144,7 @@ export function Addcompany() {
                   variant="standard"
                   value={FourYearAllowances || ""}
                   onChange={(e) => valuechange(e, setFourYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1068,7 +1161,7 @@ export function Addcompany() {
                   variant="standard"
                   value={ThreeYearSalary || ""}
                   onChange={(e) => valuechange(e, setThreeYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1081,7 +1174,7 @@ export function Addcompany() {
                   variant="standard"
                   value={ThreeYearAllowances || ""}
                   onChange={(e) => valuechange(e, setThreeYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1098,7 +1191,7 @@ export function Addcompany() {
                   variant="standard"
                   value={TwoYearSalary || ""}
                   onChange={(e) => valuechange(e, setTwoYearSalary)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1111,7 +1204,37 @@ export function Addcompany() {
                   variant="standard"
                   value={TwoYearAllowances || ""}
                   onChange={(e) => valuechange(e, setTwoYearAllowances)}
-                  sx={{ width: 400 }}
+                  sx={{ width: "90%", maxWidth: "400px" }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
+            {isOneYearSelected && (
+              <>
+                <TextField
+                  id="salary-1"
+                  label="研究科基本給"
+                  variant="standard"
+                  value={OneYearSalary || ""}
+                  onChange={(e) => valuechange(e, setOneYearSalary)}
+                  sx={{ width: "90%", maxWidth: "400px" }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">円</InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="allowances-1"
+                  label="研究科諸手当"
+                  variant="standard"
+                  value={OneYearAllowances || ""}
+                  onChange={(e) => valuechange(e, setOneYearAllowances)}
+                  sx={{ width: "90%", maxWidth: "400px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">円</InputAdornment>
@@ -1131,6 +1254,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1178,6 +1302,7 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -1188,7 +1313,9 @@ export function Addcompany() {
               プロフィールで変更することも可能です
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              画像ファイル（.jpg, .jpeg, .png）のみアップロードできます
+              画像ファイル（.jpg, .jpeg, .png）のみ
+              <br />
+              アップロードできます
             </Typography>
             <input
               type="file"
@@ -1307,9 +1434,9 @@ export function Addcompany() {
                 </div>
               </Box>
             )}
-            <Button variant="contained" color="primary" onClick={handleUpload}>
+            {/* <Button variant="contained" color="primary" onClick={handleUpload}>
               アップロード
-            </Button>
+          </Button> */}
           </Box>
         );
       case 6:
@@ -1330,29 +1457,28 @@ export function Addcompany() {
               flexDirection: "column",
               alignItems: "center",
               mt: "10vh",
+              width: "100%",
               gap: 2,
             }}
           >
             <Typography variant="h5">登録確認</Typography>
-            <List sx={{ width: 500, margin: "auto" }}>
+            <List
+              sx={{
+                maxWidth: "500px", // 最大幅を500pxに設定します
+                width: "90%", // 幅を画面の90%に設定します
+                margin: "auto", // 中央揃えにします
+              }}
+            >
               <ListItem>
                 <ListItemText primary={`会社名　　：　${name}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText
-                  primary={`業種　　　：　${
-                    selectindustry ? selectindustry.title : ""
-                  }`}
-                />
+                <ListItemText primary={`業種　　　：　${selectindustry}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText
-                  primary={`職種　　　：　${
-                    selectoccupation ? selectoccupation.title : ""
-                  }`}
-                />
+                <ListItemText primary={`職種　　　：　${selectoccupation}`} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
@@ -1429,7 +1555,11 @@ export function Addcompany() {
                 <ListItemText
                   primary={`2年過程基本給 ： ${TwoYearSalary}円 / 諸手当 ： ${TwoYearAllowances}円`}
                 />
-                <Divider component="li" />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`研究科基本給　： ${OneYearSalary}円 / 諸手当 ： ${OneYearAllowances}円`}
+                />
               </ListItem>
               <Divider component="li" />
               <ListItem>
@@ -1445,12 +1575,13 @@ export function Addcompany() {
                   sx={{
                     border: "2px solid gray",
                     padding: "10px",
-                    width: 300,
-                    height: 300,
+                    width: "150px",
+                    height: "150px",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     mt: 2,
+                    mr: "20%",
                     position: "relative",
                     overflow: "hidden",
                   }}
@@ -1463,13 +1594,13 @@ export function Addcompany() {
                       justifyContent: "center",
                       alignItems: "center",
                       transformOrigin: "center",
-                      transform: `scale(${zoom})`,
+                      transform: `scale(${zoom / 2})`,
                     }}
                   >
                     <img
                       ref={imageRef}
                       src={previewUrl}
-                      alt="Preview"
+                      alt="デフォルト画像が使用されます"
                       style={{
                         objectFit: "contain",
                         transform: `translate(${positionX}px, ${positionY}px)`,
@@ -1493,13 +1624,13 @@ export function Addcompany() {
 
   return (
     <div>
-      <div style={{ minHeight: "75vh" }}>{getStepContent(activeStep)}</div>
+      <div style={{ minHeight: "10vh" }}>{getStepContent(activeStep)}</div>
       <MobileStepper
         variant="dots"
         steps={7}
         position="static"
         activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1, margin: "0 auto" }}
+        sx={{ maxWidth: "400px", flexGrow: 1, margin: "0 auto" }}
         nextButton={
           <Button
             size="small"
@@ -1531,10 +1662,26 @@ export function Addcompany() {
           </Button>
         }
       />
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>登録確認</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            width: "60%",
+            maxWidth: "400px",
+            height: "200px",
+          },
+        }}
+      >
+        <DialogTitle style={{ textAlign: "center", fontSize: "2rem" }}>
+          登録確認
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>登録しますか？</DialogContentText>
+          <DialogContentText
+            style={{ textAlign: "center", fontSize: "1.2rem" }}
+          >
+            登録しますか？
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} sx={{ color: "gray" }}>
@@ -1549,5 +1696,14 @@ export function Addcompany() {
   );
 }
 
-//やることリスト
-//必須入力チェック　確認画面のデザイン修正　登録完了を知らせる何か
+/*
+作業memo
+[済]研究科が常に表示される問題
+[済]必須入力チェック
+[済]企業情報の業種職種をセレクトボックス
+登録完了を知らせるもの
+マッチ度のための学科選択データ送信
+デザイン（色）ほしいかも
+リファクタリング
+開始前の画面
+*/

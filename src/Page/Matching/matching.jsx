@@ -12,7 +12,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import companies from "C:/Users/user/CVAISotuken/src/const/companies.js"; // インポートを修正
+import companies from "../../const/companies"; // インポートを修正
 import MyContext from "../../provider/provider";
 
 const options = companies.map((company) => ({
