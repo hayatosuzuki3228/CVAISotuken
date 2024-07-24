@@ -18,6 +18,7 @@ import {
   Stack,
   Select,
   TextField,
+  Typography,
   useScrollTrigger,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -29,39 +30,45 @@ export function CEdit() {
     document.title = "企業プロファイル編集";
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
   const location = useLocation();
-  const warpCname = location.state?.Cname || "";
-  const warpCkName = location.state?.CkName || "";
-  const warpPlace = location.state?.place || "";
-  const warpTel = location.state?.tel || "";
-  const warpFax = location.state?.fax || "";
-  const warpInfo = location.state?.info || "";
-  const warpCOpen = location.state?.COpen || "";
-  const warpCOpenM = location.state?.COpenM || "";
-  const warpCapital = location.state?.capital || "";
-  const warpPeople = location.state?.people || "";
-  const warpComePeople = location.state?.comePeople || "";
-  const warpHomepage = location.state?.homepage || "";
+  const warpCnameSave = location.state?.CnameSave || "";
+  const warpCkNameSave = location.state?.CkNameSave || "";
+  const warpPlaceSave = location.state?.placeSave || "";
+  const warpTelSave = location.state?.telSave || "";
+  const warpFaxSave = location.state?.faxSave || "";
+  const warpInfoSave = location.state?.infoSave || "";
+  const warpCOpenSave = location.state?.COpenSave || "";
+  const warpCOpenMSave = location.state?.COpenMSave || "";
+  const warpCapitalSave = location.state?.capitalSave || "";
+  const warpPeopleSave = location.state?.peopleSave || "";
+  const warpComePeopleSave = location.state?.comePeopleSave || "";
+  const warpHomepageSave = location.state?.homepageSave || "";
 
-  const [Cname, setCname] = useState(warpCname);
-  const [CkName, setCkName] = useState(warpCkName);
-  const [place, setPlace] = useState(warpPlace);
-  const [tel, setTel] = useState(warpTel);
-  const [fax, setFax] = useState(warpFax);
-  const [info, setInfo] = useState(warpInfo);
-  const [COpen, setCOpen] = useState(warpCOpen);
-  const [COpenM, setCOpenM] = useState(warpCOpenM);
-  const [capital, setCapital] = useState(warpCapital);
-  const [people, setPeople] = useState(warpPeople);
-  const [comePeople, setComePeople] = useState(warpComePeople);
-  const [homepage, setHomepage] = useState(warpHomepage);
+  const [Cname, setCname] = useState(warpCnameSave);
+  const [CkName, setCkName] = useState(warpCkNameSave);
+  const [place, setPlace] = useState(warpPlaceSave);
+  const [tel, setTel] = useState(warpTelSave);
+  const [fax, setFax] = useState(warpFaxSave);
+  const [info, setInfo] = useState(warpInfoSave);
+  const [COpen, setCOpen] = useState(warpCOpenSave);
+  const [COpenM, setCOpenM] = useState(warpCOpenMSave);
+  const [capital, setCapital] = useState(warpCapitalSave);
+  const [people, setPeople] = useState(warpPeopleSave);
+  const [comePeople, setComePeople] = useState(warpComePeopleSave);
+  const [homepage, setHomepage] = useState(warpHomepageSave);
 
-  const [CnameSave, setCnameSave] = useState();
+  const [CnameSave, setCnameSave] = useState(warpCnameSave);
+  const [CkNameSave, setCkNameSave] = useState(warpCkNameSave);
+  const [placeSave, setPlaceSave] = useState(warpPlaceSave);
+  const [telSave, setTelSave] = useState(warpTelSave);
+  const [faxSave, setFaxSave] = useState(warpFaxSave);
+  const [infoSave, setInfoSave] = useState(warpInfoSave);
+  const [COpenSave, setCOpenSave] = useState(warpCOpenSave);
+  const [COpenMSave, setCOpenMSave] = useState(warpCOpenMSave);
+  const [capitalSave, setCapitalSave] = useState(warpCapitalSave);
+  const [peopleSave, setPeopleSave] = useState(warpPeopleSave);
+  const [comePeopleSave, setComePeopleSave] = useState(warpComePeopleSave);
+  const [homepageSave, setHomepageSave] = useState(warpHomepageSave);
 
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
@@ -73,18 +80,119 @@ export function CEdit() {
   const [error8, setError8] = useState("");
   const [error9, setError9] = useState("");
   const [error10, setError10] = useState("");
+  const [OneMoreClick, setOneMoreClick] = useState();
+
+  useEffect(() => {
+    if (!Cname) {
+      setCname(CnameSave);
+    } else {
+      setCname(Cname);
+    }
+  }, [CnameSave]);
+
+  useEffect(() => {
+    if (!CkName) {
+      setCkName(CkNameSave);
+    } else {
+      setCkName(CkName);
+    }
+  }, [CkNameSave]);
+
+  useEffect(() => {
+    if (!place) {
+      setPlace(placeSave);
+    } else {
+      setPlace(place);
+    }
+  }, [placeSave]);
+
+  useEffect(() => {
+    if (!tel) {
+      setTel(telSave);
+    } else {
+      setTel(tel);
+    }
+  }, [telSave]);
+
+  useEffect(() => {
+    if (!fax) {
+      setFax(faxSave);
+    } else {
+      setFax(fax);
+    }
+  }, [faxSave]);
+
+  useEffect(() => {
+    if (!info) {
+      setInfo(infoSave);
+    } else {
+      setInfo(info);
+    }
+  }, [infoSave]);
+
+  useEffect(() => {
+    if (!COpen) {
+      setCOpen(COpenSave);
+    } else {
+      setCOpen(COpen);
+    }
+  }, [COpenSave]);
+
+  useEffect(() => {
+    if (!COpenM) {
+      setCOpenM(COpenMSave);
+    } else {
+      setCOpenM(COpenM);
+    }
+  }, [COpenMSave]);
+
+  useEffect(() => {
+    if (!capital) {
+      setCapital(capitalSave);
+    } else {
+      setCapital(capital);
+    }
+  }, [capitalSave]);
+
+  useEffect(() => {
+    if (!people) {
+      setPeople(peopleSave);
+    } else {
+      setPeople(people);
+    }
+  }, [peopleSave]);
+
+  useEffect(() => {
+    if (!comePeople) {
+      setComePeople(comePeopleSave);
+    } else {
+      setComePeople(comePeople);
+    }
+  }, [comePeopleSave]);
 
   const navigate = useNavigate();
+
   const OnClick = () => {
-    navigate("/profile-st-edit");
-  };
-
-  const OnClick2 = () => {
-    navigate("/profile-st-com");
-  };
-
-  const OnClick3 = () => {
-    navigate("/profile-com");
+    if (OneMoreClick == true) {
+      null;
+    } else {
+      navigate("/profile-com", {
+        state: {
+          CnameSave,
+          CkNameSave,
+          placeSave,
+          telSave,
+          faxSave,
+          infoSave,
+          COpenSave,
+          COpenMSave,
+          capitalSave,
+          peopleSave,
+          comePeopleSave,
+          homepageSave,
+        },
+      });
+    }
   };
 
   // profile-com に飛ぶ
@@ -96,45 +204,83 @@ export function CEdit() {
     const PageRegex =
       /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
 
-    const isValidCname = regex.test(Cname);
-    const isValidPlace = regex.test(place);
-    const isValidInfo = regex.test(info);
-    const isValidPeople = regex.test(people);
-    const isValidComePeople = regex.test(comePeople);
-    const isValidCkName = KanaRegex.test(CkName);
-    const isValidTel = TelRegex.test(tel);
-    const isValidFax = TelRegex.test(fax); // FAX番号も同じ正規表現を使用
-    const isValidCapital = MoneyRegex.test(capital);
-    const isValidHomepage = PageRegex.test(homepage) || homepage === "";
-
     if (
-      isValidCname &&
-      isValidPlace &&
-      isValidInfo &&
-      isValidPeople &&
-      isValidComePeople &&
-      isValidCkName &&
-      isValidTel &&
-      isValidFax &&
-      isValidCapital &&
-      isValidHomepage
+      regex.test(Cname) &&
+      regex.test(place) &&
+      regex.test(info) &&
+      regex.test(people) &&
+      regex.test(comePeople) &&
+      KanaRegex.test(CkName) &&
+      TelRegex.test(tel) &&
+      TelRegex.test(fax) &&
+      MoneyRegex.test(capital) &&
+      (PageRegex.test(homepage) || homepage === "")
     ) {
-      navigate("/profile-com", {
-        state: {
-          Cname,
-          CkName,
-          place,
-          tel,
-          fax,
-          info,
-          COpen,
-          COpenM,
-          capital,
-          people,
-          comePeople,
-          homepage,
-        },
-      });
+      if (
+        Cname === CnameSave &&
+        CkName === CkNameSave &&
+        place === placeSave &&
+        info === infoSave &&
+        tel === telSave &&
+        fax === faxSave &&
+        people === peopleSave &&
+        comePeople === comePeopleSave &&
+        capital === capitalSave &&
+        (homepage === homepageSave || homepage === "")
+      ) {
+        navigate("/profile-com", {
+          state: {
+            Cname,
+            CkName,
+            place,
+            tel,
+            fax,
+            info,
+            COpen,
+            COpenM,
+            capital,
+            people,
+            comePeople,
+            homepage,
+            CnameSave,
+            CkNameSave,
+            placeSave,
+            telSave,
+            faxSave,
+            infoSave,
+            COpenSave,
+            COpenMSave,
+            capitalSave,
+            peopleSave,
+            comePeopleSave,
+            homepageSave,
+          },
+        });
+      } else {
+        setCnameSave(Cname);
+        setCkNameSave(CkName);
+        setPlaceSave(place);
+        setInfoSave(info);
+        setTelSave(tel);
+        setFaxSave(fax);
+        setCOpenSave(COpen);
+        setCOpenMSave(COpenM);
+        setCapitalSave(capital);
+        setPeopleSave(people);
+        setComePeopleSave(comePeople);
+        setHomepageSave(homepage);
+        setError1("");
+        setError2("");
+        setError3("");
+        setError4("");
+        setError5("");
+        setError6("");
+        setError7("");
+        setError8("");
+        setError9("");
+        setError10("");
+        setOneMoreClick(true);
+      }
     } else {
       setError1(
         !regex.test(Cname) ? setError1("エラー：企業名") : setError1("")
@@ -154,6 +300,7 @@ export function CEdit() {
           ? setError10("エラー：ホームページ")
           : setError10("")
       );
+      setOneMoreClick(false);
     }
   };
 
@@ -169,6 +316,11 @@ export function CEdit() {
     capital &&
     people &&
     comePeople;
+
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   return (
     <>
@@ -192,17 +344,18 @@ export function CEdit() {
               onClick={toggleDrawer(false)}
             >
               <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="個人情報編集" />
-                  </ListItemButton>
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="h6">メニュー</Typography>}
+                  />
                 </ListItem>
               </List>
+              <br />
               <Divider />
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="企業向け情報" />
+                  <ListItemButton onClick={OnClick}>
+                    <ListItemText primary="企業プロフィール" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -304,6 +457,7 @@ export function CEdit() {
                 label="電話番号の変更"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
+                helperText="ハイフン(-)を入力してください。"
               />
             </Box>
             <Box>
@@ -312,6 +466,7 @@ export function CEdit() {
                 label="FAX番号の変更"
                 value={fax}
                 onChange={(e) => setFax(e.target.value)}
+                helperText="ハイフン(-)を入力してください。"
               />
             </Box>
           </Stack>
@@ -365,10 +520,10 @@ export function CEdit() {
           >
             <p>西暦</p>
             <TextField
-              select
               sx={{ width: 100 }}
+              select
               multiline
-              id={older}
+              id="older2"
               label="年"
               value={COpen}
               onChange={(e) => setCOpen(e.target.value)}
@@ -383,7 +538,7 @@ export function CEdit() {
             <TextField
               sx={{ width: 55 }}
               multiline
-              id={months}
+              id="months"
               label="月"
               value={COpenM}
               select
@@ -519,6 +674,11 @@ export function CEdit() {
           {error8 && <p style={{ color: "red" }}>{error8}</p>}
           {error9 && <p style={{ color: "red" }}>{error9}</p>}
           {error10 && <p style={{ color: "red" }}>{error10}</p>}
+          {OneMoreClick === true ? (
+            <p style={{ color: "green" }}>
+              よろしければ、もう一度ボタンを押してください。
+            </p>
+          ) : undefined}
         </div>
 
         <Stack // ボタンの表示
@@ -527,7 +687,8 @@ export function CEdit() {
         >
           <Button // profile-com に飛ぶ(データの保存を行わない)
             variant="contained"
-            onClick={OnClick3}
+            onClick={OnClick}
+            disabled={OneMoreClick}
           >
             戻る
           </Button>

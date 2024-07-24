@@ -22,7 +22,16 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { years, months, days, selectBox, HOME, Bye, older } from "./Data";
+import {
+  years,
+  months,
+  days,
+  selectBox,
+  HOME,
+  Bye,
+  older,
+  older2,
+} from "./Data";
 import MyContext from "../../provider/provider";
 import { Man } from "@mui/icons-material";
 
@@ -188,16 +197,20 @@ export function SEdit() {
 
   // profile-st-com に飛ぶ
   const OnClick2 = () => {
-    navigate("/profile-st-com", {
-      state: {
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-      },
-    });
+    if (OneMoreClick === true) {
+      null;
+    } else {
+      navigate("/profile-st-com", {
+        state: {
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+    }
   };
 
   // profile-st に飛ぶ(情報を確定するボタン)
@@ -346,6 +359,7 @@ export function SEdit() {
                 </ListItem>
               </List>
               <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
@@ -505,7 +519,7 @@ export function SEdit() {
               value={Years}
               onChange={(e) => setYears(e.target.value)}
             >
-              {older.map((item, index) => (
+              {older2.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
                   {item.label}
                 </MenuItem>
@@ -645,17 +659,6 @@ export function SEdit() {
               よろしければ、もう一度ボタンを押してください。
             </p>
           ) : undefined}
-          {providername}
-          <br />
-          {provideremail}
-          <br />
-          {providerSaveName}
-          <br />
-          {providerSaveEmail}
-          <br />
-          {providerKName}
-          <br />
-          {providerSaveKName}
         </div>
 
         <Stack // ボタンの表示
