@@ -22,13 +22,35 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { years, months, days, selectBox, HOME, Bye, older } from "./Data";
+import {
+  years,
+  months,
+  days,
+  selectBox,
+  HOME,
+  Bye,
+  older,
+  older2,
+} from "./Data";
 import MyContext from "../../provider/provider";
 import { Man } from "@mui/icons-material";
 
 export function SEdit() {
   const location = useLocation();
-  const { provideremail, setprovideremail } = useContext(MyContext);
+  const {
+    provideremail,
+    setprovidermail,
+    providerSaveEmail,
+    setproviderSaveEmail,
+    providername,
+    setprovidername,
+    providerSaveName,
+    setproviderSaveName,
+    providerKName,
+    setProviderKName,
+    providerSaveKName,
+    setProviderSaveKName,
+  } = useContext(MyContext);
   const warpName = location.state?.name || "";
   const warpKName = location.state?.kName || "";
   const warpEmail = location.state?.email || "";
@@ -70,9 +92,9 @@ export function SEdit() {
 
   const [ManSave, setManSave] = useState(warpManSave);
   const [GakSave, setGakSave] = useState(warpGakSave);
-  const [YearsSave, setYearsSave] = useState("");
-  const [MonthsSave, setMonthsSave] = useState("");
-  const [DaysSave, setDaysSave] = useState("");
+  const [YearsSave, setYearsSave] = useState(warpYearsSave);
+  const [MonthsSave, setMonthsSave] = useState(warpMonthsSave);
+  const [DaysSave, setDaysSave] = useState(warpDaysSave);
   const [HomeSave, setHomeSave] = useState(warpHomeSave);
   const [ByeSave, setByeSave] = useState(warpByeSave);
   const [AgeSave, setAgeSave] = useState(warpAgeSave);
@@ -175,16 +197,20 @@ export function SEdit() {
 
   // profile-st-com に飛ぶ
   const OnClick2 = () => {
-    navigate("/profile-st-com", {
-      state: {
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-      },
-    });
+    if (OneMoreClick === true) {
+      null;
+    } else {
+      navigate("/profile-st-com", {
+        state: {
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+    }
   };
 
   // profile-st に飛ぶ(情報を確定するボタン)
@@ -203,12 +229,18 @@ export function SEdit() {
     setAge(age + "歳");
 
     if (
-      regex.test(name) &&
-      regex2.test(kName) &&
-      mailRegex.test(email) &&
+      regex.test(providername) &&
+      regex2.test(providerKName) &&
+      mailRegex.test(provideremail) &&
       OneMoreClick !== false
     ) {
+      setproviderSaveName(providername);
+      setproviderSaveEmail(provideremail);
+      setProviderSaveKName(providerKName);
       if (
+        providerSaveName === providername &&
+        providerSaveKName === providerKName &&
+        providerSaveEmail === provideremail &&
         ManSave === man &&
         GakSave === Gak &&
         YearsSave === Years &&
@@ -234,6 +266,12 @@ export function SEdit() {
             job,
             hobby,
             skill,
+            JobSave,
+            HobbySave,
+            SkillSave,
+            SSubjectSave,
+            KSubjectSave,
+            MyPowerSave,
             SSubject,
             KSubject,
             myPower,
@@ -262,22 +300,24 @@ export function SEdit() {
         setOneMoreClick(true);
       }
     } else {
-      setError1(!regex.test(name) ? setError1("エラー：名前") : "");
+      setError1(!regex.test(providername) ? setError1("エラー：名前") : "");
       setError2(!regex.test(kName) ? setError2("エラー：カタカナ") : "");
-      setError3(!regex.test(email) ? setError3("エラー：メールアドレス") : "");
+      setError3(
+        !regex.test(provideremail) ? setError3("エラー：メールアドレス") : ""
+      );
       setOneMoreClick(false);
     }
   };
 
   const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
-    name &&
-    kName &&
+    providername &&
+    providerKName &&
     man &&
     Gak &&
     Years &&
     Months &&
     Days &&
-    email &&
+    provideremail &&
     Home &&
     bye;
 
@@ -319,6 +359,7 @@ export function SEdit() {
                 </ListItem>
               </List>
               <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick2}>
@@ -361,16 +402,16 @@ export function SEdit() {
               <TextField
                 fullWidth
                 label="名前の変更"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={providername}
+                onChange={(e) => setprovidername(e.target.value)}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="名前(カタカナ)の変更"
-                value={kName}
-                onChange={(e) => setKName(e.target.value)}
+                value={providerKName}
+                onChange={(e) => setProviderKName(e.target.value)}
               />
             </Box>
           </Stack>
@@ -478,7 +519,7 @@ export function SEdit() {
               value={Years}
               onChange={(e) => setYears(e.target.value)}
             >
-              {older.map((item, index) => (
+              {older2.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
                   {item.label}
                 </MenuItem>
@@ -603,8 +644,8 @@ export function SEdit() {
             <TextField
               fullWidth
               label="メールアドレスの変更"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={provideremail}
+              onChange={(e) => setprovidermail(e.target.value)}
             />
           </Box>
         </Stack>

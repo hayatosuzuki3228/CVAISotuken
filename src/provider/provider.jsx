@@ -5,7 +5,11 @@ const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
   const [provideremail, setprovidermail] = useState("");
+  const [providerSaveEmail, setproviderSaveEmail] = useState("");
   const [providername, setprovidername] = useState("");
+  const [providerSaveName, setproviderSaveName] = useState("");
+  const [providerKName, setProviderKName] = useState("");
+  const [providerSaveKName, setProviderSaveKName] = useState("");
   const [providerid, setproviderid] = useState(0);
   const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -23,8 +27,16 @@ export const MyProvider = ({ children }) => {
   const value = {
     provideremail,
     setprovidermail,
+    providerSaveEmail,
+    setproviderSaveEmail,
     providername,
     setprovidername,
+    providerSaveName,
+    setproviderSaveName,
+    providerKName,
+    setProviderKName,
+    providerSaveKName,
+    setProviderSaveKName,
     providerid,
     setproviderid,
     bookmark,

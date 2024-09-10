@@ -21,9 +21,14 @@ export function LoginPage() {
     navigate("/Addstudent");
   };
 
+  const company = () => {
+    navigate("/addcompany");
+  };
+
   const Lostpass = () => {
     navigate("/Lostpass");
   };
+
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
   };
@@ -143,7 +148,14 @@ export function LoginPage() {
               sx={{ mt: 3, mb: 0, color: primarycolor }}
               onClick={signup}
             >
-              新規登録はこちら
+              学生新規登録はこちら
+            </Button>
+            <Button
+              fullWidth
+              sx={{ mt: 0, mb: 0, color: primarycolor }}
+              onClick={company}
+            >
+              企業新規登録はこちら
             </Button>
             <Button
               fullWidth

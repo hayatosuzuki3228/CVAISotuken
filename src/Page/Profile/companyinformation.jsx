@@ -250,17 +250,17 @@ export function Companyinformation() {
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     創業
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.foundation_date}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     資本金
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.capital}
                     </Typography>
                   </Typography>
@@ -354,7 +354,7 @@ export function Companyinformation() {
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     給与
                     <Stack display="flex" direction="row">
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
@@ -454,36 +454,34 @@ export function Companyinformation() {
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     その他制度
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.allowances}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     企業理念
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.corporate_philosophy}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     特徴
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
                       {company.appeal}
                     </Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
+                  <Typography style={{ fontサイズ: "1.5em" }}>
                     ホームページ
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      <a href={company.website} target="_blank">
-                        {company.website}
-                      </a>
+                    <Typography style={{ fontサイズ: "1em" }} key={company.id}>
+                      <a href={company.website}>{company.website}</a>
                     </Typography>
                   </Typography>
                 </Box>

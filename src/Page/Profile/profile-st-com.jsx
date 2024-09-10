@@ -18,11 +18,6 @@ import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import MyContext from "../../provider/provider";
 
-/* 
-全部プロバイダーいらない
-ゴリ押しで戻るボタン押しても内容残るようにする
-*/
-
 export function SCompany() {
   useEffect(() => {
     document.title = "企業向けプロフィール";
@@ -87,7 +82,6 @@ export function SCompany() {
         SSubject,
         KSubject,
         myPower,
-        Gak,
         JobSave,
         HobbySave,
         SkillSave,
@@ -177,6 +171,7 @@ export function SCompany() {
                 </ListItem>
               </List>
               <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
@@ -187,16 +182,16 @@ export function SCompany() {
               <Divider />
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick1}>
-                    <ListItemText primary="企業向け情報編集" />
+                  <ListItemButton onClick={OnClick2}>
+                    <ListItemText primary="個人情報" />
                   </ListItemButton>
                 </ListItem>
               </List>
               <Divider />
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="個人情報" />
+                  <ListItemButton onClick={OnClick1}>
+                    <ListItemText primary="企業向け情報編集" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -324,15 +319,14 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>
+            <p></p>
+            <div style={{ textAlign: "center" }}>
               {MyPowerSave
                 ? MyPowerSave.map((option, index) => (
-                    <Typography key={index} textAlign="center">
-                      {option.title}
-                    </Typography>
+                    <Typography key={index}>{option.title}</Typography>
                   ))
                 : null}
-            </p>
+            </div>
           </Box>
         </Stack>
 

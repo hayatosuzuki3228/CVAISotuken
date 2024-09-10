@@ -35,8 +35,27 @@ export function SCEdit() {
   const warpSSubjectSave = location.state?.SSubjectSave || "";
   const warpKSubjectSave = location.state?.KSubjectSave || "";
   const warpMyPowerSave = location.state?.MyPowerSave || [];
-  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
-    location.state || {};
+  const {
+    name,
+    kName,
+    man,
+    Gak,
+    Years,
+    Months,
+    Days,
+    email,
+    Home,
+    bye,
+    age,
+    ManSave,
+    GakSave,
+    YearsSave,
+    MonthsSave,
+    DaysSave,
+    HomeSave,
+    ByeSave,
+    AgeSave,
+  } = location.state || {};
 
   const [job, setJob] = useState(warpJobSave);
   const [hobby, setHobby] = useState(warpHobbySave);
@@ -115,46 +134,82 @@ export function SCEdit() {
   const navigate = useNavigate();
   /* profile-st に飛ぶ */
   const OnClick = () => {
-    navigate("/profile-st", {
-      state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-      },
-    });
+    if (OneMoreClick === true) {
+      null;
+    } else {
+      navigate("/profile-st", {
+        state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
+          SSubject,
+          KSubject,
+          myPower,
+          ManSave,
+          GakSave,
+          YearsSave,
+          MonthsSave,
+          DaysSave,
+          HomeSave,
+          ByeSave,
+          AgeSave,
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+    }
   };
 
   /* profile-st-com に飛ぶ(戻るボタン) */
   const OnClick2 = () => {
-    navigate("/profile-st-com", {
-      state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-      },
-    });
+    if (OneMoreClick === true) {
+      null;
+    } else {
+      navigate("/profile-st-com", {
+        state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
+          SSubject,
+          KSubject,
+          myPower,
+          ManSave,
+          GakSave,
+          YearsSave,
+          MonthsSave,
+          DaysSave,
+          HomeSave,
+          ByeSave,
+          AgeSave,
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+    }
   };
 
   /* profile-st-com に飛ぶ(情報を確定するボタン) */
@@ -193,10 +248,17 @@ export function SCEdit() {
             job,
             hobby,
             skill,
+            ManSave,
+            GakSave,
+            YearsSave,
+            MonthsSave,
+            DaysSave,
+            HomeSave,
+            ByeSave,
+            AgeSave,
             SSubject,
             KSubject,
             myPower,
-            Gak,
             JobSave,
             HobbySave,
             SkillSave,
@@ -218,7 +280,7 @@ export function SCEdit() {
         setError4("");
         setError5("");
         setError6("");
-        setOneMoreClick(!regex.test(job) ? false : true);
+        setOneMoreClick(true);
       }
     } else {
       setError1(!regex.test(job) ? "エラー：希望職種" : "");
@@ -231,7 +293,8 @@ export function SCEdit() {
     }
   };
 
-  const Check = job && hobby && skill && SSubject && KSubject && myPower; // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
+  const Check =
+    job && hobby && skill && SSubject && KSubject && myPower.length > 0; // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -276,6 +339,8 @@ export function SCEdit() {
                   />
                 </ListItem>
               </List>
+              <br />
+              <Divider />
               <List>
                 <ListItem disablePadding>
                   <ListItemButton onClick={OnClick}>
