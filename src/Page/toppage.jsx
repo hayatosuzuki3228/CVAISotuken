@@ -160,8 +160,12 @@ export function Toppage() {
     },
   });
 
-  const onClick = () => {
+  const onClick2 = () => {
     return navigate("/bookmark");
+  };
+
+  const onClick4 = () => {
+    return navigate("/inquiry");
   };
 
   return (
@@ -302,7 +306,7 @@ export function Toppage() {
                     sx={{
                       borderRadius: 8,
                     }}
-                    onClick={onClick}
+                    onClick={onClick2}
                   >
                     ブックマーク
                   </Button>
@@ -336,6 +340,7 @@ export function Toppage() {
                     fullWidth
                     style={{ fontSize: "3em" }}
                     sx={{ borderRadius: 8, color: "black" }}
+                    onClick={onClick4}
                   >
                     お問い合わせ
                   </Button>
