@@ -12,11 +12,20 @@ export const BookmarkProvider = ({ children }) => {
   const addBookmark = (id) => {
     setBookmarks((prevBookmarks) => [...prevBookmarks, id]);
   };
+
+  const removeBookmark = (id) => {
+    setBookmarks((prevBookmarks) =>
+      prevBookmarks.filter((bookmark) => bookmark !== id)
+    );
+  };
+
   useEffect(() => {
     localStorage.setItem("bookmark", JSON.stringify(bookmarks));
   }, [bookmarks]);
   return (
-    <BookmarkContext.Provider value={{ bookmarks, addBookmark }}>
+    <BookmarkContext.Provider
+      value={{ bookmarks, addBookmark, removeBookmark }}
+    >
       {children}
     </BookmarkContext.Provider>
   );

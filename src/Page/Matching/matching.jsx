@@ -177,13 +177,13 @@ export function Matching() {
 
           <Button
             className="b6"
-            onClick={onClick}
+            onClick={() => navigate("/")}
             sx={{
               padding: 2,
             }}
             variant="contained"
           >
-            先輩情報
+            HOME
           </Button>
 
           <Button

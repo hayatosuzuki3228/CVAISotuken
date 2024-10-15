@@ -110,7 +110,7 @@ const menuItems = [
 export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
+  const { bookmarks, removeBookmark } = useContext(BookmarkContext);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -156,17 +156,19 @@ export function Bookmark() {
   };
 
   const handleConfirmDelete = () => {
-    const { setBookmarks } = useContext(BookmarkContext);
-    const updatedBookmarks = bookmarks.filter(
-      (bookmarks) => bookmarks !== removeid
-    );
-    setBookmarks(updatedBookmarks);
+    console.log("bookmarks", bookmarks);
+
+    // 削除処理
+    removeBookmark(removeid);
+
     console.log(removename + "を削除しました");
+
+    // モーダルなどを閉じる処理
     handleClose();
   };
 
   const { providerid, setproviderid } = useContext(MyContext);
-  const { bookmarks } = useContext(BookmarkContext);
+
   console.log("bookmark", setproviderid);
   const handleCompanyChange = (event, item) => {
     setproviderid(item), navigate("/companyinformation", console.log(item));
