@@ -322,6 +322,8 @@ export function Toppage() {
                       borderRadius: 8,
                       color: "black",
                     }}
+                    href="https://shinsotsu.mynavi-agent.jp/knowhow/"
+                    target="_blank"
                   >
                     就職ガイド
                   </Button>
