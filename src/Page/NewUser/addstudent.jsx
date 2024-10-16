@@ -182,7 +182,7 @@ export function Addstudent() {
             />
             {isDifferent && (
               <Typography color="red" variant="body2">
-                メールアドレスが違います
+                メールアドレスが一致していません
               </Typography>
             )}
             <p></p>
@@ -231,7 +231,7 @@ export function Addstudent() {
             />
             {isDifferent1 && (
               <Typography color="red" variant="body2">
-                パスワードが違います
+                パスワードが一致していません
               </Typography>
             )}
             <p></p>
