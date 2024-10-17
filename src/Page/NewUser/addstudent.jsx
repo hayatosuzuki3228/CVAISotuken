@@ -144,7 +144,7 @@ export function Addstudent() {
           <Box fontSize={20}>学科情報</Box>
         </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
-          <Box width={300}>
+          <Box width={350}>
             <div>
               <p></p>
               <TextField

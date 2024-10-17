@@ -87,7 +87,7 @@ export function Addstudentgakka() {
           </Box>
         </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
-          <Box width={300}>
+          <Box width={350}>
             <p></p>
             <TextField
               required
