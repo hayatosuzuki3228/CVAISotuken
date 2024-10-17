@@ -27,111 +27,129 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../const/color";
 import "normalize.css";
-import { TextField } from "@mui/material";
-const drawerWidth = 240;
+import { Pagination, TextField, Grid } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
+export function Toppage() {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const drawerWidth = isSmallScreen ? 100 : 240;
+
+  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `-${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create("margin", {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    })
+  );
+
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    zIndex: open ? 100 : 1,
     ...(open && {
-      transition: theme.transitions.create("margin", {
+      width: `100%`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
     }),
-  })
-);
+  }));
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  zIndex: open ? 100 : 1,
-  ...(open && {
-    width: `100%`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
+  const menuItems = [
+    {
+      text: "企業検索",
+      icon: <BusinessIcon />,
+      link: "https://www.meisankai.net/student/company/",
+    },
+    {
+      text: "求人票",
+      icon: <EventNoteIcon />,
+      link: "https://www.meisankai.net/student",
+    },
+    {
+      text: "マッチング",
+      icon: <ContentPasteSearchIcon />,
+      link: "/Matching",
+      isNavigate: true,
+    },
+    { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
+    {
+      text: "設定",
+      icon: <SettingsIcon />,
+      link: "/Setting",
+      isNavigate: true,
+    },
+  ];
 
-const menuItems = [
-  {
-    text: "企業検索",
-    icon: <BusinessIcon />,
-    link: "https://www.meisankai.net/student/company/",
-  },
-  {
-    text: "求人票",
-    icon: <EventNoteIcon />,
-    link: "https://www.meisankai.net/student",
-  },
-  {
-    text: "マッチング",
-    icon: <ContentPasteSearchIcon />,
-    link: "/Matching",
-    isNavigate: true,
-  },
-  { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
-  { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
-];
+  const careerNotice = [
+    {
+      date: "2025/1/1",
+      text: "ここにおしらせタイトルが入ります",
+      link: "/LoginPage",
+    },
+    {
+      date: "2024/12/12",
+      text: "学内合同企業説明会を開催します",
+    },
+    {
+      date: "2024/11/11",
+      text: "マッチング機能の不具合修正を行いました",
+      link: "/Matching",
+    },
+    {
+      date: "2024/10/10",
+      text: "株式会社○○○○が企業登録を行いました",
+    },
+    {
+      date: "2024/9/9",
+      text: "名産会マッチングシステム学生登録が始まりました",
+      link: "/Matching",
+    },
+  ];
 
-const careerNotice = [
-  {
-    date: "2000/12/34",
-    text: "ここにおしらせタイトルが入ります",
-    link: "/LoginPage",
-  },
-  {
-    date: "2024/12/31",
-    text: "学内合同企業説明会の開催について",
-  },
-  {
-    date: "1234/56/78",
-    text: "マッチング機能の不具合修正を行いました",
-    link: "/Matching",
-  },
-];
+  const companyNotice = [
+    {
+      date: "2024/1/1",
+      text: "(株)○○システム新卒採用開始しました",
+      link: "/LoginPage",
+    },
+    {
+      date: "20??/12/32",
+      text: "採用サイトリニューアルのおしらせ",
+    },
+    {
+      date: "2000/10/10",
+      text: "システム(株)が企業一覧に追加されました",
+      link: "/Matching",
+    },
+  ];
 
-const companyNotice = [
-  {
-    date: "2024/1/1",
-    text: "(株)○○システム新卒採用開始しました",
-    link: "/LoginPage",
-  },
-  {
-    date: "20??/12/32",
-    text: "採用サイトリニューアルのおしらせ",
-  },
-  {
-    date: "2000/10/10",
-    text: "システム(株)が企業一覧に追加されました",
-    link: "/Matching",
-  },
-];
-
-export function Toppage() {
   const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -144,6 +162,16 @@ export function Toppage() {
     } else if (link) {
       window.location.href = link;
     }
+  };
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const onClick = () => {
+    return navigate("/bookmark");
   };
 
   const theme = createTheme({
@@ -164,16 +192,6 @@ export function Toppage() {
       },
     },
   });
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const onClick = () => {
-    return navigate("/bookmark");
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -199,7 +217,11 @@ export function Toppage() {
                 <MenuIcon />
               </IconButton>
               <Box />
-              <Typography variant="h6" noWrap component="div">
+              <Typography
+                variant={isSmallScreen ? "h7" : "h6"}
+                noWrap
+                component="div"
+              >
                 名産会マッチングシステム
               </Typography>
             </Box>
@@ -208,6 +230,7 @@ export function Toppage() {
             </Button>
           </Toolbar>
         </AppBar>
+
         <Drawer
           sx={{
             width: drawerWidth,
@@ -231,8 +254,34 @@ export function Toppage() {
                   <ListItemButton
                     onClick={() => handleItemClick(item.link, item.isNavigate)}
                   >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
+                    <Grid
+                      container
+                      direction={isSmallScreen ? "column" : "row"}
+                      alignItems="center"
+                    >
+                      <ListItemIcon
+                        style={{
+                          display: "flex",
+                          justifyContent: isSmallScreen
+                            ? "center"
+                            : "flex-start",
+                        }}
+                      >
+                        {React.cloneElement(item.icon, {
+                          fontSize: isSmallScreen ? "small" : "medium",
+                        })}
+                      </ListItemIcon>
+                      <Typography
+                        sx={{
+                          fontSize: isSmallScreen ? "0.6rem" : "1rem",
+                          textAlign: isSmallScreen ? "center" : "left",
+                          paddingTop: isSmallScreen ? 0.3 : 0.5,
+                          paddingBottom: isSmallScreen ? 0.3 : 0.5,
+                        }}
+                      >
+                        {item.text}
+                      </Typography>
+                    </Grid>
                   </ListItemButton>
                 </ListItem>
                 {index === 2 && (
@@ -244,10 +293,8 @@ export function Toppage() {
             ))}
           </List>
         </Drawer>
-        //#region
         <Main open={open} className="main">
           <DrawerHeader />
-
           <Tabs
             value={value}
             onChange={handleChange}
@@ -260,8 +307,18 @@ export function Toppage() {
               },
             }}
           >
-            <Tab label="キャリアセンターからのお知らせ" />
-            <Tab label="企業からのお知らせ" />
+            <Tab
+              label="キャリアセンターからのお知らせ"
+              sx={{
+                fontSize: isSmallScreen ? "0.6rem" : "1rem",
+              }}
+            />
+            <Tab
+              label="企業からのお知らせ"
+              sx={{
+                fontSize: isSmallScreen ? "0.6rem" : "1rem",
+              }}
+            />
           </Tabs>
           {value === 0 && (
             <div
@@ -284,20 +341,21 @@ export function Toppage() {
                           style={{
                             display: "flex",
                             flexDirection: "column",
-                            alignItems: "center",
                           }}
                         >
                           <Typography
                             sx={{
-                              fontSize: "0.9rem",
+                              fontSize: isSmallScreen ? "0.8rem" : "0.9rem",
                               color: gray,
+                              mt: 1,
+                              mb: 1,
                             }}
                           >
                             {item.date}
                           </Typography>
                           <Typography
                             sx={{
-                              fontSize: "1.2rem",
+                              fontSize: isSmallScreen ? "0.9rem" : "1.1rem",
                               color: primarycolor,
                             }}
                           >
@@ -307,13 +365,12 @@ export function Toppage() {
                       </ListItemButton>
                     </ListItem>
                     <Divider sx={{ borderBottomWidth: 2 }} />
-                    {index === 2 && <Box my={1}></Box>}
                   </React.Fragment>
                 ))}
               </List>
+              <Pagination />
             </div>
           )}
-
           {value === 1 && (
             <div>
               <List>
@@ -325,37 +382,38 @@ export function Toppage() {
                           handleItemClick(item.link, item.isNavigate)
                         }
                       >
-                        <ListItemText
-                          primary={
-                            <Typography
-                              sx={{
-                                fontSize: "0.9rem",
-                                color: gray,
-                              }}
-                            >
-                              {item.date}
-                            </Typography>
-                          }
-                        />
-                        <ListItemText
-                          primary={
-                            <Typography
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: primarycolor,
-                              }}
-                            >
-                              {item.text}
-                            </Typography>
-                          }
-                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: isSmallScreen ? "0.8rem" : "0.9rem",
+                              color: gray,
+                              mt: 1,
+                              mb: 1,
+                            }}
+                          >
+                            {item.date}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: isSmallScreen ? "0.9rem" : "1.1rem",
+                              color: primarycolor,
+                            }}
+                          >
+                            {item.text}
+                          </Typography>
+                        </div>
                       </ListItemButton>
                     </ListItem>
                     <Divider sx={{ borderBottomWidth: 2 }} />
-                    {index === 2 && <Box my={1}></Box>}
                   </React.Fragment>
                 ))}
               </List>
+              <Pagination />
             </div>
           )}
 
@@ -433,7 +491,6 @@ export function Toppage() {
             </Box>
           </Stack> */}
         </Main>
-        //#endregion
       </Box>
     </ThemeProvider>
   );
