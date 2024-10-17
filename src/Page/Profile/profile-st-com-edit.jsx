@@ -7,6 +7,10 @@ import {
   Chip,
   Checkbox,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Drawer,
   Divider,
   List,
@@ -78,6 +82,14 @@ export function SCEdit() {
   const [error5, setError5] = useState("");
   const [error6, setError6] = useState("");
   const [OneMoreClick, setOneMoreClick] = useState();
+
+  const [dialog, setDialog] = React.useState(false);
+  const handleClickOpen = () => {
+    setDialog(true);
+  };
+  const handleClose = () => {
+    setDialog(false);
+  };
 
   useEffect(() => {
     document.title = "プロフィール";
@@ -566,6 +578,30 @@ export function SCEdit() {
           >
             情報を確定する
           </Button>
+          <Button variant="contained" onClick={handleClickOpen}>
+            情報を確定する
+          </Button>
+          <Dialog
+            open={dialog}
+            onClose={handleClose}
+            aria-labelledby="ai-dialog"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"情報を確定しますか？"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                稀に不具合によりデータの保存がされない場合があります。
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>確定する</Button>
+              <Button onClick={handleClose} autoFocus>
+                確定しない
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
       </Stack>
     </>
