@@ -32,7 +32,7 @@ import { useMediaQuery } from "@mui/material";
 
 export function Toppage() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const drawerWidth = isSmallScreen ? 100 : 240;
+  const drawerWidth = isSmallScreen ? 100 : 220;
 
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
@@ -129,9 +129,56 @@ export function Toppage() {
       text: "名産会マッチングシステム学生登録が始まりました",
       link: "/Matching",
     },
+    {
+      date: "2025/1/1",
+      text: "ここにおしらせタイトルが入ります",
+      link: "/LoginPage",
+    },
+    {
+      date: "2024/12/12",
+      text: "学内合同企業説明会を開催します",
+    },
+    {
+      date: "2024/11/11",
+      text: "マッチング機能の不具合修正を行いました",
+      link: "/Matching",
+    },
+    {
+      date: "2024/9/9",
+      text: "名産会マッチングシステム学生登録が始まりました",
+      link: "/Matching",
+    },
+    {
+      date: "2025/1/1",
+      text: "ここにおしらせタイトルが入ります",
+      link: "/LoginPage",
+    },
+    {
+      date: "2024/12/12",
+      text: "学内合同企業説明会を開催します",
+    },
+    {
+      date: "2024/11/11",
+      text: "マッチング機能の不具合修正を行いました",
+      link: "/Matching",
+    },
   ];
 
   const companyNotice = [
+    {
+      date: "2024/1/1",
+      text: "(株)○○システム新卒採用開始しました",
+      link: "/LoginPage",
+    },
+    {
+      date: "20??/12/32",
+      text: "採用サイトリニューアルのおしらせ",
+    },
+    {
+      date: "2000/10/10",
+      text: "システム(株)が企業一覧に追加されました",
+      link: "/Matching",
+    },
     {
       date: "2024/1/1",
       text: "(株)○○システム新卒採用開始しました",
@@ -169,6 +216,31 @@ export function Toppage() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //#region pagenation
+  const pageItems = 5;
+  const [currentCareerPage, setCurrentCareerPage] = useState(1);
+  const [currentCompanyPage, setCurrentCompanyPage] = useState(1);
+
+  const careerIndex = (currentCareerPage - 1) * pageItems;
+  const careerItems = careerNotice.slice(careerIndex, careerIndex + pageItems);
+  const careerPages = Math.ceil(careerNotice.length / pageItems);
+
+  const companyIndex = (currentCompanyPage - 1) * pageItems;
+  const companyItems = companyNotice.slice(
+    companyIndex,
+    companyIndex + pageItems
+  );
+  const companyPages = Math.ceil(companyNotice.length / pageItems);
+
+  const handleCareerPageChange = (event, value) => {
+    setCurrentCareerPage(value);
+  };
+
+  const handleCompanyPageChange = (event, value) => {
+    setCurrentCompanyPage(value);
+  };
+  //#endregion
 
   const onClick = () => {
     return navigate("/bookmark");
@@ -310,13 +382,13 @@ export function Toppage() {
             <Tab
               label="キャリアセンターからのお知らせ"
               sx={{
-                fontSize: isSmallScreen ? "0.6rem" : "1rem",
+                fontSize: isSmallScreen ? "0.6rem" : "0.9rem",
               }}
             />
             <Tab
               label="企業からのお知らせ"
               sx={{
-                fontSize: isSmallScreen ? "0.6rem" : "1rem",
+                fontSize: isSmallScreen ? "0.6rem" : "0.9rem",
               }}
             />
           </Tabs>
@@ -329,7 +401,7 @@ export function Toppage() {
               }}
             >
               <List>
-                {careerNotice.map((item, index) => (
+                {careerItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
                       <ListItemButton
@@ -368,13 +440,18 @@ export function Toppage() {
                   </React.Fragment>
                 ))}
               </List>
-              <Pagination />
+              <Pagination
+                count={careerPages}
+                page={currentCareerPage}
+                onChange={handleCareerPageChange}
+                size={isSmallScreen ? "small" : ""}
+              />
             </div>
           )}
           {value === 1 && (
             <div>
               <List>
-                {companyNotice.map((item, index) => (
+                {companyItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
                       <ListItemButton
@@ -413,83 +490,14 @@ export function Toppage() {
                   </React.Fragment>
                 ))}
               </List>
-              <Pagination />
+              <Pagination
+                count={companyPages}
+                page={currentCompanyPage}
+                onChange={handleCompanyPageChange}
+                size={isSmallScreen ? "small" : ""}
+              />
             </div>
           )}
-
-          {/* <Stack direction="column" width="200" height="100%">
-            <p></p>
-            <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
-              <p></p>
-              <Box
-                border={2}
-                sx={{
-                  borderRadius: 8,
-                }}
-                backgroundColor="#ADD8E6"
-              >
-                <Button
-                  fullWidth
-                  style={{ fontSize: "3em" }}
-                  sx={{ borderRadius: 8 }}
-                >
-                  メッセージ
-                </Button>
-              </Box>
-              <p></p>
-              <Box
-                border={2}
-                sx={{
-                  borderRadius: 8,
-                }}
-                backgroundColor="#ADD8E6"
-              >
-                <Button
-                  fullWidth
-                  style={{ fontSize: "3em" }}
-                  sx={{
-                    borderRadius: 8,
-                  }}
-                  onClick={onClick}
-                >
-                  ブックマーク
-                </Button>
-              </Box>
-            </Box>
-            <p></p>
-            <Box p={2} border={1} borderColor={gray} sx={{ borderRadius: 8 }}>
-              <Box
-                border={2}
-                backgroundColor="#98FB98"
-                sx={{ borderRadius: 8 }}
-              >
-                <Button
-                  fullWidth
-                  style={{ fontSize: "3em" }}
-                  sx={{
-                    borderRadius: 8,
-                    color: "black",
-                  }}
-                >
-                  就職ガイド
-                </Button>
-              </Box>
-              <p></p>
-              <Box
-                border={2}
-                backgroundColor="#98FB98"
-                sx={{ borderRadius: 8 }}
-              >
-                <Button
-                  fullWidth
-                  style={{ fontSize: "3em" }}
-                  sx={{ borderRadius: 8, color: "black" }}
-                >
-                  お問い合わせ
-                </Button>
-              </Box>
-            </Box>
-          </Stack> */}
         </Main>
       </Box>
     </ThemeProvider>
@@ -499,3 +507,6 @@ export function Toppage() {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>;
 }
+
+//メッセージ就職ガイドお問い合わせブックマーク
+//ブックマーク　マッチング　メッセージ
