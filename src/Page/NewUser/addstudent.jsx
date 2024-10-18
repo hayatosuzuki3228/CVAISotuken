@@ -181,7 +181,7 @@ export function Addstudent() {
               <TextField
                 fullWidth
                 required
-                label="メールアドレス(確認用)"
+                label="メールアドレス(確認)"
                 variant="outlined"
                 value={remail}
                 onChange={handleChange3}
@@ -224,7 +224,7 @@ export function Addstudent() {
                 fullWidth
                 required
                 type="password"
-                label="パスワード(確認用)"
+                label="パスワード(確認)"
                 variant="outlined"
                 value={rpass}
                 onChange={handleChange1}

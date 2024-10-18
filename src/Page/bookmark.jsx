@@ -38,6 +38,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "normalize.css";
+import { HPlusMobiledata } from "@mui/icons-material";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -301,7 +302,7 @@ export function Bookmark() {
                           href={company.website}
                           target="_blank"
                         >
-                          HP
+                          {company.website == "" ? "情報なし" : "HP"}
                         </Button>
                       </CardActions>
                     </Card>
