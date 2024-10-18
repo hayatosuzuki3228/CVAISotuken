@@ -297,13 +297,17 @@ export function Bookmark() {
                             <DeleteIcon sx={{ fontSize: 20 }} />
                           </IconButton>
                         </Button>
-                        <Button
-                          size="medium"
-                          href={company.website}
-                          target="_blank"
-                        >
-                          {company.website == "" ? "情報なし" : "HP"}
-                        </Button>
+                        {company.website == "" ? (
+                          "HP情報なし"
+                        ) : (
+                          <Button
+                            size="medium"
+                            href={company.website}
+                            target="_blank"
+                          >
+                            HP
+                          </Button>
+                        )}
                       </CardActions>
                     </Card>
                   </Box>
