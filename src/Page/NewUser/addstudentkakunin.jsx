@@ -40,7 +40,7 @@ export function Addstudentkakunin() {
   };
 
   const onClick1 = () => {
-    navigate("/", {
+    navigate("/LoginPage", {
       state: {
         email,
         pass,

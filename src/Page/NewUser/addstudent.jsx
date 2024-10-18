@@ -61,6 +61,9 @@ export function Addstudent() {
       }
     }
   };
+  const onClick1 = () => {
+    return navigate("/LoginPage");
+  };
 
   const isDifferent = email !== remail;
   const isDifferent1 = pass !== rpass;
@@ -137,11 +140,15 @@ export function Addstudent() {
           justifyContent="center"
           alignItems="center"
         >
-          <Box fontSize={20}>
-            <strong>ID・PS </strong>
+          <Box fontSize={20} sx={{ borderBottom: "2px solid #21a7dd" }}>
+            ID・PS
           </Box>
-          <Box fontSize={20}>利用者情報</Box>
-          <Box fontSize={20}>学科情報</Box>
+          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
+            利用者情報
+          </Box>
+          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
+            学科情報
+          </Box>
         </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
           <Box width={350}>
@@ -150,6 +157,7 @@ export function Addstudent() {
               <TextField
                 fullWidth
                 required
+                autoFocus
                 label="メールアドレス"
                 variant="outlined"
                 value={email}
@@ -238,7 +246,10 @@ export function Addstudent() {
         </Stack>
       </Box>
       <Stack direction="row" spacing={20} justifyContent="center">
-        <Box>
+        <Box textAlign="left">
+          <Button onClick={onClick1}>戻る</Button>
+        </Box>
+        <Box textAlign="right">
           <Button
             variant="text"
             color="primary"

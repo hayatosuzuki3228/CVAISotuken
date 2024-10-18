@@ -80,10 +80,14 @@ export function Addstudentgakka() {
           justifyContent="center"
           alignItems="center"
         >
-          <Box fontSize={20}>ID・PS</Box>
-          <Box fontSize={20}>利用者情報</Box>
-          <Box fontSize={20}>
-            <strong>学科情報</strong>
+          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
+            ID・PS
+          </Box>
+          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
+            利用者情報
+          </Box>
+          <Box fontSize={20} sx={{ borderBottom: "2px solid #21a7dd" }}>
+            学科情報
           </Box>
         </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
@@ -91,6 +95,7 @@ export function Addstudentgakka() {
             <p></p>
             <TextField
               required
+              autoFocus
               id={selectBox}
               label="学科名"
               value={gakka}

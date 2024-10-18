@@ -146,11 +146,15 @@ export function Addstudentuser() {
           justifyContent="center"
           alignItems="center"
         >
-          <Box fontSize={20}>ID・PS</Box>
-          <Box fontSize={20}>
-            <strong>利用者情報</strong>
+          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
+            ID・PS
           </Box>
-          <Box fontSize={20}>学科情報</Box>
+          <Box fontSize={20} sx={{ borderBottom: "2px solid #21a7dd" }}>
+            利用者情報
+          </Box>
+          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
+            学科情報
+          </Box>
         </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
           <Box width={310}>
@@ -159,6 +163,7 @@ export function Addstudentuser() {
               <TextField
                 fullWidth
                 required
+                autoFocus
                 label="氏名"
                 variant="outlined"
                 value={namae}
