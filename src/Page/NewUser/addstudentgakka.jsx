@@ -26,6 +26,9 @@ export function Addstudentgakka() {
   const [gakka, setGakka] = useState(initialGakka);
   const [sotu, setSotu] = useState(initialSotu);
 
+  const enabledButtonStyle = { color: "#21a7dd" };
+  const disabledButtonStyle = { color: "#b0b0b0" };
+
   const onClick = () => {
     navigate("/adduser", {
       state: {
@@ -102,6 +105,13 @@ export function Addstudentgakka() {
               select
               fullWidth
               onChange={(e) => setGakka(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#21a7dd",
+                  },
+                },
+              }}
             >
               {selectBox.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -118,6 +128,13 @@ export function Addstudentgakka() {
               select
               fullWidth
               onChange={(e) => setSotu(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#21a7dd",
+                  },
+                },
+              }}
             >
               {selectBox1.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -131,14 +148,18 @@ export function Addstudentgakka() {
       </Box>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
-          <Button variant="text" color="primary" onClick={onClick}>
+          <Button
+            style={{
+              color: "#21a7dd",
+            }}
+            onClick={onClick}
+          >
             戻る
           </Button>
         </Box>
         <Box textAlign="right">
           <Button
-            variant="text"
-            color="primary"
+            style={!gakka || !sotu ? disabledButtonStyle : enabledButtonStyle}
             disabled={!gakka || !sotu}
             onClick={onClick1}
           >

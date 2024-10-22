@@ -64,6 +64,8 @@ export function Addstudent() {
   const onClick1 = () => {
     return navigate("/LoginPage");
   };
+  const enabledButtonStyle = { color: "#21a7dd" };
+  const disabledButtonStyle = { color: "#b0b0b0" };
 
   const isDifferent = email !== remail;
   const isDifferent1 = pass !== rpass;
@@ -166,6 +168,13 @@ export function Addstudent() {
                 helperText={
                   error2 ? "4文字以上50文字以下で入力してください" : ""
                 }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               <p></p>
               {message && (
@@ -189,6 +198,13 @@ export function Addstudent() {
                 helperText={
                   error3 ? "4文字以上50文字以下で入力してください" : ""
                 }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               {isDifferent && (
                 <Typography color="red" variant="body2">
@@ -208,6 +224,13 @@ export function Addstudent() {
                 helperText={
                   error ? "半角英数字4文字以上10文字以内で入力してください" : ""
                 }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               <p></p>
               {message1 && (
@@ -234,6 +257,13 @@ export function Addstudent() {
                     ? "半角英数字4文字以上10文字以内で入力してください"
                     : ""
                 }
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               {isDifferent1 && (
                 <Typography color="red" variant="body2">
@@ -247,12 +277,29 @@ export function Addstudent() {
       </Box>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
-          <Button onClick={onClick1}>戻る</Button>
+          <Button
+            style={{
+              color: "#21a7dd",
+            }}
+            onClick={onClick1}
+          >
+            戻る
+          </Button>
         </Box>
         <Box textAlign="right">
           <Button
-            variant="text"
-            color="primary"
+            style={
+              isDifferent ||
+              isDifferent1 ||
+              email === "" ||
+              pass === "" ||
+              error ||
+              error1 ||
+              error2 ||
+              error3
+                ? disabledButtonStyle
+                : enabledButtonStyle
+            }
             disabled={
               isDifferent ||
               isDifferent1 ||

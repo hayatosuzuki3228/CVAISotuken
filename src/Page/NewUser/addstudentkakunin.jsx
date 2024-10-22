@@ -117,12 +117,22 @@ export function Addstudentkakunin() {
       </Box>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
-          <Button variant="text" color="primary" onClick={onClick}>
+          <Button
+            style={{
+              color: "#21a7dd",
+            }}
+            onClick={onClick}
+          >
             戻る
           </Button>
         </Box>
         <Box textAlign="right">
-          <Button variant="text" color="primary" onClick={onClick1}>
+          <Button
+            style={{
+              color: "#21a7dd",
+            }}
+            onClick={onClick1}
+          >
             登録
           </Button>
         </Box>

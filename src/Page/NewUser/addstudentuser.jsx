@@ -48,6 +48,9 @@ export function Addstudentuser() {
   const kanamaeRegex = /^[ァ-ヴ]{2,}$/;
   const birthdayRegex = /^[0-9]{8}$/;
 
+  const enabledButtonStyle = { color: "#21a7dd" };
+  const disabledButtonStyle = { color: "#b0b0b0" };
+
   const onClick = () => {
     return navigate("/addstudent", {
       state: {
@@ -168,6 +171,13 @@ export function Addstudentuser() {
                 variant="outlined"
                 value={namae}
                 onChange={(e) => setnamae(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               <label style={{ fontSize: "9px", color: "#808080" }}>
                 全角ひらがなカタカナ漢字2文字以上で入力※スペース無し
@@ -190,6 +200,13 @@ export function Addstudentuser() {
                 variant="outlined"
                 value={kanamae}
                 onChange={(e) => setkanamae(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               <label style={{ fontSize: "9px", color: "#808080" }}>
                 全角カタカナ2文字以上で入力※スペース無し
@@ -213,17 +230,41 @@ export function Addstudentuser() {
               >
                 <FormControlLabel
                   value="男性"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#21a7dd",
+                        },
+                      }}
+                    />
+                  }
                   label="男性"
                 ></FormControlLabel>
                 <FormControlLabel
                   value="女性"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#21a7dd",
+                        },
+                      }}
+                    />
+                  }
                   label="女性"
                 ></FormControlLabel>
                 <FormControlLabel
                   value="その他"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#21a7dd",
+                        },
+                      }}
+                    />
+                  }
                   label="その他"
                 ></FormControlLabel>
               </RadioGroup>
@@ -235,6 +276,13 @@ export function Addstudentuser() {
                 variant="outlined"
                 value={birthday}
                 onChange={handleChange}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               />
               <label style={{ fontSize: "9px", color: "#808080" }}>
                 半角数字8文字で入力 例2023年1月1日→20230101
@@ -258,6 +306,13 @@ export function Addstudentuser() {
                 select
                 fullWidth
                 onChange={(e) => setArea(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#21a7dd",
+                    },
+                  },
+                }}
               >
                 {selectBox2.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
@@ -295,7 +350,18 @@ export function Addstudentuser() {
                   </li>
                 )}
                 renderInput={(params) => (
-                  <TextField required {...params} label="保有資格" />
+                  <TextField
+                    required
+                    {...params}
+                    label="保有資格"
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#21a7dd",
+                        },
+                      },
+                    }}
+                  />
                 )}
                 onChange={handleChange1}
               />
@@ -306,14 +372,27 @@ export function Addstudentuser() {
       <p></p>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
-          <Button variant="text" color="primary" onClick={onClick}>
+          <Button
+            style={{
+              color: "#21a7dd",
+            }}
+            onClick={onClick}
+          >
             戻る
           </Button>
         </Box>
         <Box textAlign="right">
           <Button
-            variant="text"
-            color="primary"
+            style={
+              !area ||
+              namae === "" ||
+              kanamae === "" ||
+              birthday === "" ||
+              gender === "" ||
+              sikaku.length < 1
+                ? disabledButtonStyle
+                : enabledButtonStyle
+            }
             disabled={
               !area ||
               namae === "" ||
