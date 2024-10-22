@@ -30,6 +30,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
+import { BookmarkContext } from "../provider/booktext";
 import { companies } from "../const/companies";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -109,7 +110,7 @@ const menuItems = [
 export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
+  const { bookmarks, removeBookmark } = useContext(BookmarkContext);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -155,17 +156,20 @@ export function Bookmark() {
   };
 
   const handleConfirmDelete = () => {
-    const updatedBookmark = bookmark.filter(
-      (bookmark) => bookmark !== removeid
-    );
-    setBookmark(updatedBookmark);
+    console.log("bookmarks", bookmarks);
+
+    // 削除処理
+    removeBookmark(removeid);
+
     console.log(removename + "を削除しました");
+
+    // モーダルなどを閉じる処理
     handleClose();
   };
 
   const { providerid, setproviderid } = useContext(MyContext);
-  const { bookmark, setBookmark } = useContext(MyContext);
 
+  console.log("bookmark", setproviderid);
   const handleCompanyChange = (event, item) => {
     setproviderid(item), navigate("/companyinformation", console.log(item));
   };
@@ -253,7 +257,7 @@ export function Bookmark() {
             flexWrap="wrap"
             sx={{ marginLeft: 7 }}
           >
-            {bookmark.map((item, index) => {
+            {bookmarks.map((item, index) => {
               const company = companies.find((company) => company.id === item);
               return (
                 <Typography key={item}>

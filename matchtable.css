@@ -1,24 +1,76 @@
-@media screen and (min-width: 0px) {
+@media screen and (min-width: 701px) {
   .table1 {
     margin-left: 5%;
     margin-right: 5%;
     width: 90%;
-    /* 他のスタイルを追加 */
+    margin-bottom: 5%;
   }
   .sertch {
     top: 50px;
     margin-left: 50px;
+    width: 30%;
   }
   .detailSearch {
     top: 50px;
     margin-left: 50px;
+    width: 30%;
   }
-
+  .matchScoreSearch {
+    top: 50px;
+    margin-left: 50px;
+    width: 30%;
+  }
   .detailbu {
-    bottom: 110px;
-    left: 600px;
+    bottom: 190px;
+    left: 37%;
     width: 13vw;
     height: 5vw;
     font-size: 1.3vw;
+  }
+  .matchdo {
+    left: 58%;
+  }
+  .back {
+    left: 60%;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 700px) {
+  .table1 {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    margin-bottom: 10%;
+  }
+  .sertch {
+    top: 20px;
+    margin-left: 10px;
+  }
+  .matchScoreSearch {
+    top: 20px;
+    margin-left: 10px;
+  }
+  .detailSearch {
+    top: 20px;
+    margin-left: 10px;
+  }
+
+  .detailbu {
+    width: 20vw;
+    height: 10vw;
+    font-size: 2vw;
+    left: 52%;
+    position: absolute;
+    top: 20px;
+  }
+  .matchdo {
+    left: 50%;
+    position: absolute;
+    top: 170px;
+  }
+  .back {
+    left: 75%;
+    position: absolute;
+    top: 170px;
   }
 }

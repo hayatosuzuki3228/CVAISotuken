@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import Jobform from "./jobform";
+import React, { useContext, useState } from "react";
+import JobForm from "./jobform";
 import { Container, Typography, Box, Paper, Alert } from "@mui/material";
+import { JobContext } from "../../provider/context";
+
 export function Matchdo() {
-  const [jobData, setJobData] = useState({
-    department: "",
-    location: [],
-    features: [],
-    qualifications: [],
-  });
+  const { jobData } = useContext(JobContext);
   const [showAlert, setShowAlert] = useState(false);
 
   const handleSave = (data) => {
-    setJobData(data);
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
@@ -38,19 +34,24 @@ export function Matchdo() {
               </Alert>
             )}
           </Box>
-          <Box display="flex" justifyContent="space-between" mt={5}>
-            <Paper elevation={3} style={{ flex: 1, marginRight: "0.5rem" }}>
+          <Box
+            className="paper-container"
+            display="flex"
+            justifyContent="space-between"
+            mt={5}
+          >
+            <Paper elevation={3} className="paper-item">
               <Box p={3}>
-                <Jobform onSave={handleSave} initialData={jobData} />
+                <JobForm onSave={handleSave} initialData={jobData} />
               </Box>
             </Paper>
             {jobData && (
-              <Paper elevation={3} style={{ flex: 1, marginLeft: "0.5rem" }}>
+              <Paper elevation={3} className="paper-item">
                 <Box mt={4} p={3} border={1} borderRadius={2}>
                   <Typography variant="h6">登録したマッチ度情報</Typography>
                   <Typography>募集学科情報: {jobData.department}</Typography>
                   <Typography>勤務地: {jobData.location.join("、")}</Typography>
-                  <Typography>特長: {jobData.features.join("、")} </Typography>
+                  <Typography>特長: {jobData.features.join("、")}</Typography>
                   <Typography>
                     資格: {jobData.qualifications.join("、")}
                   </Typography>
