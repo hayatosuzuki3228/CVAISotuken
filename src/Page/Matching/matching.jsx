@@ -26,6 +26,12 @@ const StyledButton = styled(Button)`
     height: 100px;
 
     padding: 5px;
+   
+    }
+  }
+`;
+const StyledButton2 = styled(Button)`
+  && {
     background-color: #106f54;
 
     &:hover {
@@ -111,9 +117,10 @@ export function Matching() {
               className="b1"
               onClick={() =>
                 (window.location.href =
-                  "http://career-center.nkc.internal/kyujin-kensaku.html")
+                  "http://career-center.nkc.internal/kigyo-kensaku.html")
               }
               variant="contained"
+              color="success"
             >
               企業検索
             </StyledButton>
@@ -124,6 +131,7 @@ export function Matching() {
                 (window.location.href = "http://intra2.denpa.ac.jp/job/2024/")
               }
               variant="contained"
+              color="success"
             >
               求人票
             </StyledButton>
@@ -135,12 +143,18 @@ export function Matching() {
                   "http://intra2.denpa.ac.jp/e-learning/job/")
               }
               variant="contained"
+              color="success"
             >
               就職ガイダンス
             </StyledButton>
 
-            <StyledButton className="b4" onClick={onClick} variant="contained">
-              マッチ度表
+            <StyledButton
+              className="b4"
+              onClick={() => navigate("/")}
+              variant="contained"
+              color="success"
+            >
+              HOME
             </StyledButton>
           </Stack>
         </div>
@@ -171,19 +185,21 @@ export function Matching() {
               padding: 2,
             }}
             variant="contained"
+            color="info"
           >
             企業情報
           </Button>
 
           <Button
             className="b6"
-            onClick={() => navigate("/")}
+            onClick={onClick}
             sx={{
               padding: 2,
             }}
             variant="contained"
+            color="error"
           >
-            HOME
+            マッチ度表
           </Button>
 
           <Button
@@ -193,6 +209,7 @@ export function Matching() {
               padding: 2,
             }}
             variant="contained"
+            color="inherit"
           >
             AI
           </Button>
