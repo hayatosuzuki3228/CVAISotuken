@@ -138,22 +138,8 @@ export function Addstudent() {
         <Box bgcolor="#e0ffff" p={2}>
           <strong>ID・PS </strong>
         </Box>
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          利用者情報
-        </Box>
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          学科情報
-        </Box>
+        <Box>利用者情報</Box>
+        <Box>学科情報</Box>
       </Stack>
       <Stack justifyContent="center" alignItems="center">
         <Box width={300}>

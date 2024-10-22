@@ -5,16 +5,18 @@ import {
   Button,
   Box,
   MenuItem,
-  Autocomplete,
   TextField,
-  Chip,
   Typography,
   Radio,
   RadioGroup,
   FormControlLabel,
+  Checkbox,
+  Autocomplete,
 } from "@mui/material";
 import "normalize.css";
 import { selectBox2, options } from "./Data";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 export function Addstudentuser() {
   useEffect(() => {
@@ -27,7 +29,7 @@ export function Addstudentuser() {
   const initialKanamae = location.state?.kanamae || "";
   const initialBirthday = location.state?.birthday || "";
   const initialArea = location.state?.area || "";
-  const initialSikaku = location.state?.sikaku || null;
+  const initialSikaku = location.state?.sikaku || [];
   const initialGender = location.state?.gender || "";
 
   const { email, pass, gakka, sotu } = location.state || {};
@@ -116,6 +118,17 @@ export function Addstudentuser() {
     }
   };
 
+  const handleChange1 = (event, newValue) => {
+    if (newValue.some((option) => option.id === 0)) {
+      setSikaku([options.find((option) => option.id === 0)]);
+    } else {
+      setSikaku(newValue);
+    }
+  };
+
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
   return (
     <>
       <Box bgcolor="#21a7dd" p={2}>
@@ -131,25 +144,11 @@ export function Addstudentuser() {
         justifyContent="center"
         alignItems="center"
       >
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          ID・PS
-        </Box>
+        <Box>ID・PS</Box>
         <Box bgcolor="#e0ffff" p={2}>
           <strong>利用者情報</strong>
         </Box>
-        <Box
-          style={{
-            border: "2px solid #e0ffff",
-            padding: "16px",
-          }}
-        >
-          学科情報
-        </Box>
+        <Box>学科情報</Box>
       </Stack>
       <Stack justifyContent="center" alignItems="center">
         <Box width={260}>
@@ -273,38 +272,39 @@ export function Addstudentuser() {
             <label>保有資格</label>
             <p></p>
           </div>
-          <Autocomplete
-            fullWidth
-            multiple
-            id="tags-outlined"
-            options={options}
-            getOptionLabel={(option) => option.title}
-            defaultValue={sikaku || []}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                fullWidth
-                {...params}
-                variant="outlined"
-                label="保有資格"
-              />
-            )}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip
-                  variant="outlined"
-                  label={option.title}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
-            onChange={(event, newValue) => {
-              setSikaku(newValue);
-            }}
-          />
-          <label style={{ fontSize: "9px", color: "#808080" }}>
-            資格を持っていない人は無しを選んでください
-          </label>
+          <div>
+            <Autocomplete
+              multiple
+              id="checkbox"
+              options={options}
+              disableCloseOnSelect
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              getOptionLabel={(option) => option.title}
+              defaultValue={sikaku || []}
+              defaultChecked={sikaku || []}
+              value={sikaku}
+              renderOption={(props, option, { selected }) => (
+                <li {...props} key={option.id}>
+                  <Checkbox
+                    key={"checkbox-${option.id}"}
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                    disabled={
+                      sikaku.some((selectOption) => selectOption.id === 0) &&
+                      option.id !== 0
+                    }
+                  />
+                  {option.title}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField required {...params} label="保有資格" />
+              )}
+              onChange={handleChange1}
+            />
+          </div>
         </Box>
       </Stack>
       <p></p>
@@ -326,8 +326,8 @@ export function Addstudentuser() {
               namae === "" ||
               kanamae === "" ||
               birthday === "" ||
-              gender === "" ||
-              !sikaku
+              sikaku.length < 1 ||
+              gender === ""
                 ? disabledButtonStyle
                 : enabledButtonStyle
             }
@@ -337,7 +337,7 @@ export function Addstudentuser() {
               kanamae === "" ||
               birthday === "" ||
               gender === "" ||
-              !sikaku
+              sikaku.length < 1
             }
             onClick={onClick1}
           >
