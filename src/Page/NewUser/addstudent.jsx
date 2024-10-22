@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, TextField, Typography } from "@mui/material";
+import { primarycolor } from "../../const/color";
 import "normalize.css";
 
 export function Addstudent() {
@@ -64,7 +65,7 @@ export function Addstudent() {
   const onClick1 = () => {
     return navigate("/LoginPage");
   };
-  const enabledButtonStyle = { color: "#21a7dd" };
+  const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
 
   const isDifferent = email !== remail;
@@ -132,7 +133,12 @@ export function Addstudent() {
           alignItems: "center",
         }}
       >
-        <Typography fontSize={35} color="#21a7dd">
+        <Typography
+          fontSize={35}
+          style={{
+            color: primarycolor,
+          }}
+        >
           新規登録
         </Typography>
         <p></p>
@@ -142,7 +148,10 @@ export function Addstudent() {
           justifyContent="center"
           alignItems="center"
         >
-          <Box fontSize={20} sx={{ borderBottom: "2px solid #21a7dd" }}>
+          <Box
+            fontSize={20}
+            sx={{ borderBottom: "2px solid ", borderBottomColor: primarycolor }}
+          >
             ID・PS
           </Box>
           <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
@@ -171,7 +180,7 @@ export function Addstudent() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -201,7 +210,7 @@ export function Addstudent() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -227,7 +236,7 @@ export function Addstudent() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -260,7 +269,7 @@ export function Addstudent() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -279,7 +288,7 @@ export function Addstudent() {
         <Box textAlign="left">
           <Button
             style={{
-              color: "#21a7dd",
+              color: primarycolor,
             }}
             onClick={onClick1}
           >

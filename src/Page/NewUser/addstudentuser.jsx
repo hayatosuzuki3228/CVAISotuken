@@ -17,6 +17,7 @@ import "normalize.css";
 import { selectBox2, options } from "./Data";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import { primarycolor } from "../../const/color";
 
 export function Addstudentuser() {
   useEffect(() => {
@@ -48,7 +49,7 @@ export function Addstudentuser() {
   const kanamaeRegex = /^[ァ-ヴ]{2,}$/;
   const birthdayRegex = /^[0-9]{8}$/;
 
-  const enabledButtonStyle = { color: "#21a7dd" };
+  const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
 
   const onClick = () => {
@@ -139,7 +140,12 @@ export function Addstudentuser() {
           alignItems: "center",
         }}
       >
-        <Typography fontSize={35} color="#21a7dd">
+        <Typography
+          fontSize={35}
+          style={{
+            color: primarycolor,
+          }}
+        >
           新規登録
         </Typography>
         <p></p>
@@ -152,7 +158,10 @@ export function Addstudentuser() {
           <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
             ID・PS
           </Box>
-          <Box fontSize={20} sx={{ borderBottom: "2px solid #21a7dd" }}>
+          <Box
+            fontSize={20}
+            sx={{ borderBottom: "2px solid ", borderBottomColor: primarycolor }}
+          >
             利用者情報
           </Box>
           <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
@@ -174,7 +183,7 @@ export function Addstudentuser() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -203,7 +212,7 @@ export function Addstudentuser() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -234,7 +243,7 @@ export function Addstudentuser() {
                     <Radio
                       sx={{
                         "&.Mui-checked": {
-                          color: "#21a7dd",
+                          color: primarycolor,
                         },
                       }}
                     />
@@ -247,7 +256,7 @@ export function Addstudentuser() {
                     <Radio
                       sx={{
                         "&.Mui-checked": {
-                          color: "#21a7dd",
+                          color: primarycolor,
                         },
                       }}
                     />
@@ -260,7 +269,7 @@ export function Addstudentuser() {
                     <Radio
                       sx={{
                         "&.Mui-checked": {
-                          color: "#21a7dd",
+                          color: primarycolor,
                         },
                       }}
                     />
@@ -279,7 +288,7 @@ export function Addstudentuser() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -309,7 +318,7 @@ export function Addstudentuser() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#21a7dd",
+                      borderColor: primarycolor,
                     },
                   },
                 }}
@@ -357,7 +366,7 @@ export function Addstudentuser() {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         "&.Mui-focused fieldset": {
-                          borderColor: "#21a7dd",
+                          borderColor: primarycolor,
                         },
                       },
                     }}
@@ -374,7 +383,7 @@ export function Addstudentuser() {
         <Box textAlign="left">
           <Button
             style={{
-              color: "#21a7dd",
+              color: primarycolor,
             }}
             onClick={onClick}
           >

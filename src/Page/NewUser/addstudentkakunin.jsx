@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
+import { primarycolor } from "../../const/color";
 
 export function Addstudentkakunin() {
   useEffect(() => {
@@ -66,7 +67,12 @@ export function Addstudentkakunin() {
           alignItems: "center",
         }}
       >
-        <Typography fontSize={35} color="#21a7dd">
+        <Typography
+          fontSize={35}
+          style={{
+            color: primarycolor,
+          }}
+        >
           最終確認
         </Typography>
         <p></p>
@@ -119,7 +125,7 @@ export function Addstudentkakunin() {
         <Box textAlign="left">
           <Button
             style={{
-              color: "#21a7dd",
+              color: primarycolor,
             }}
             onClick={onClick}
           >
@@ -129,7 +135,7 @@ export function Addstudentkakunin() {
         <Box textAlign="right">
           <Button
             style={{
-              color: "#21a7dd",
+              color: primarycolor,
             }}
             onClick={onClick1}
           >

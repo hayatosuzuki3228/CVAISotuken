@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import "normalize.css";
 import { selectBox, selectBox1 } from "./Data";
+import { primarycolor } from "../../const/color";
 
 export function Addstudentgakka() {
   useEffect(() => {
@@ -26,7 +27,7 @@ export function Addstudentgakka() {
   const [gakka, setGakka] = useState(initialGakka);
   const [sotu, setSotu] = useState(initialSotu);
 
-  const enabledButtonStyle = { color: "#21a7dd" };
+  const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
 
   const onClick = () => {
@@ -73,7 +74,12 @@ export function Addstudentgakka() {
           alignItems: "center",
         }}
       >
-        <Typography fontSize={35} color="#21a7dd">
+        <Typography
+          fontSize={35}
+          style={{
+            color: primarycolor,
+          }}
+        >
           新規登録
         </Typography>
         <p></p>
@@ -89,7 +95,10 @@ export function Addstudentgakka() {
           <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
             利用者情報
           </Box>
-          <Box fontSize={20} sx={{ borderBottom: "2px solid #21a7dd" }}>
+          <Box
+            fontSize={20}
+            sx={{ borderBottom: "2px solid ", borderBottomColor: primarycolor }}
+          >
             学科情報
           </Box>
         </Stack>
@@ -108,7 +117,7 @@ export function Addstudentgakka() {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {
-                    borderColor: "#21a7dd",
+                    borderColor: primarycolor,
                   },
                 },
               }}
@@ -131,7 +140,7 @@ export function Addstudentgakka() {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {
-                    borderColor: "#21a7dd",
+                    borderColor: primarycolor,
                   },
                 },
               }}
@@ -150,7 +159,7 @@ export function Addstudentgakka() {
         <Box textAlign="left">
           <Button
             style={{
-              color: "#21a7dd",
+              color: primarycolor,
             }}
             onClick={onClick}
           >
