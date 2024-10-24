@@ -248,7 +248,7 @@ export function Toppage() {
               flexDirection="row"
               flexWrap="wrap"
               justifyContent="center"
-              gap={4}
+              gap={2}
             >
               <Box
                 border={1}
