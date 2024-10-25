@@ -267,7 +267,6 @@ export function Bookmark() {
                       <CardMedia
                         sx={{ height: 130 }}
                         image="../../src/assets/icon.png"
-                        title="icon"
                         onClick={(event) => handleCompanyChange(event, item)}
                       />
                       <CardContent>
