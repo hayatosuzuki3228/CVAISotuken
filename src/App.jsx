@@ -24,6 +24,7 @@ import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
 import { BookmarkProvider } from "./provider/booktext";
+import { Admin } from "./Page/admin/admin.jsx";
 
 import "normalize.css";
 function App() {
@@ -54,7 +55,11 @@ function App() {
               <Route path="/profile-com" element={<CProfile />} />
               <Route path="/profile-com-edit" element={<CEdit />} />
               <Route path="/Bookmark" element={<Bookmark />} />
-              <Route path="/companyinformation" element={<Companyinformation />} />
+              <Route path="/Admin" element={<Admin />} />
+              <Route
+                path="/companyinformation"
+                element={<Companyinformation />}
+              />
               <Route path="/picture" element={<Picture />} />
             </Routes>
           </Router>
