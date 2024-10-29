@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   TextField,
   Button,
@@ -12,6 +12,7 @@ import {
   FormControl,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 // 外部データファイルをインポート
 import { industries } from "../../const/industries";
@@ -19,8 +20,11 @@ import { jobtypes } from "../../const/jobtypes";
 import { areas } from "../../const/areas";
 import { employeesizes } from "../../const/employeeSizes";
 import { companies } from "../../const/companies";
+import MyContext from "../../provider/provider";
 
 export function Companysearch() {
+  const { setproviderid } = useContext(MyContext);
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [descriptionTerm, setDescriptionTerm] = useState("");
   const [industryFilter, setIndustryFilter] = useState("");
@@ -65,6 +69,12 @@ export function Companysearch() {
     }
 
     setFilteredCompanies(searchResults);
+  };
+
+  const handleCompanyChange = (companyId) => {
+    setproviderid(companyId);
+    console.log(companyId);
+    navigate(`/companyinformation`);
   };
 
   return (
@@ -199,7 +209,7 @@ export function Companysearch() {
         {filteredCompanies.length > 0 ? (
           filteredCompanies.map((company) => (
             <Grid item xs={12} sm={6} md={4} key={company.id}>
-              <Card>
+              <Card onClick={() => handleCompanyChange(company.id)}>
                 <CardContent>
                   <Typography variant="h6">{company.name}</Typography>
                   <Typography color="textSecondary">
