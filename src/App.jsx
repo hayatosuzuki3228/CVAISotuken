@@ -12,6 +12,7 @@ import { Conditions } from "./Page/Matching/Conditions";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login/Login";
 import { MyProvider } from "./provider/provider";
+import { JobProvider } from "./provider/context";
 import { Addstudent } from "./Page/NewUser/addstudent";
 import { Addstudentuser } from "./Page/NewUser/addstudentuser";
 import { Addstudentgakka } from "./Page/NewUser/addstudentgakka";
@@ -23,12 +24,14 @@ import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
 import TestPage from "./Page/TestPage.jsx";
+import { BookmarkProvider } from "./provider/booktext";
 import "normalize.css";
 function App() {
-  //
   return (
     <MyProvider>
-      <Router>
+      <JobProvider>
+        <BookmarkProvider>
+          <Router>
         <Routes>
           <Route path="/" element={<Toppage />} />
           <Route path="/Matchtable" element={<Matchtable />} />
@@ -55,6 +58,8 @@ function App() {
           <Route path="/testpage" element={<TestPage />} />
         </Routes>
       </Router>
+        </BookmarkProvider>
+      </JobProvider>
     </MyProvider>
   );
 }

@@ -28,8 +28,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
+import { BookmarkContext } from "../provider/booktext";
 import { companies } from "../const/companies";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -109,7 +109,7 @@ const menuItems = [
 export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
+  const { bookmarks, removeBookmark } = useContext(BookmarkContext);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -155,17 +155,18 @@ export function Bookmark() {
   };
 
   const handleConfirmDelete = () => {
-    const updatedBookmark = bookmark.filter(
-      (bookmark) => bookmark !== removeid
-    );
-    setBookmark(updatedBookmark);
+    console.log("bookmarks", bookmarks);
+
+    removeBookmark(removeid);
+
     console.log(removename + "を削除しました");
+
     handleClose();
   };
 
   const { providerid, setproviderid } = useContext(MyContext);
-  const { bookmark, setBookmark } = useContext(MyContext);
 
+  console.log("bookmark", setproviderid);
   const handleCompanyChange = (event, item) => {
     setproviderid(item), navigate("/companyinformation", console.log(item));
   };
@@ -247,68 +248,85 @@ export function Bookmark() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
+
           <Stack
             direction="row"
             width="97%"
             flexWrap="wrap"
             sx={{ marginLeft: 7 }}
           >
-            {bookmark.map((item, index) => {
-              const company = companies.find((company) => company.id === item);
-              return (
-                <Typography key={item}>
-                  <Box p={1}>
-                    <Card sx={{ width: 180 }} key={company?.id}>
-                      <CardMedia
-                        sx={{ height: 130 }}
-                        image="../../src/assets/icon.png"
-                        title="icon"
-                        onClick={(event) => handleCompanyChange(event, item)}
-                      />
-                      <CardContent>
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          sx={{
-                            display: "-webkit-box",
-                            overflow: "hidden",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 2,
-                            textOverflow: "ellipsis",
-                            height: 60,
-                          }}
+            {bookmarks && bookmarks.length > 0 ? (
+              bookmarks.map((item, index) => {
+                const company = companies.find(
+                  (company) => company.id === item
+                );
+                return (
+                  <Typography key={item}>
+                    <Box p={1}>
+                      <Card sx={{ width: 180 }} key={company?.id}>
+                        <CardMedia
+                          sx={{ height: 130 }}
+                          image="../../src/assets/icon.png"
                           onClick={(event) => handleCompanyChange(event, item)}
-                        >
-                          {company?.name}
-                        </Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          onClick={() => handleClickOpen(item)}
-                          style={buttonStyle}
-                        >
-                          <IconButton
-                            size="small"
-                            aria-label="delete"
-                            onClick={() => setRemovename(company?.name)}
+                        />
+                        <CardContent>
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            sx={{
+                              display: "-webkit-box",
+                              overflow: "hidden",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 2,
+                              textOverflow: "ellipsis",
+                              height: 60,
+                            }}
+                            onClick={(event) =>
+                              handleCompanyChange(event, item)
+                            }
                           >
-                            <DeleteIcon sx={{ fontSize: 20 }} />
-                          </IconButton>
-                        </Button>
-                        <Button
-                          size="medium"
-                          href={company.website}
-                          target="_blank"
-                        >
-                          HP
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Box>
-                </Typography>
-              );
-            })}
+                            {company?.name}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button
+                            size="small"
+                            onClick={() => handleClickOpen(item)}
+                            style={buttonStyle}
+                          >
+                            <IconButton
+                              size="small"
+                              aria-label="delete"
+                              onClick={() => setRemovename(company?.name)}
+                            >
+                              <DeleteIcon sx={{ fontSize: 20 }} />
+                            </IconButton>
+                          </Button>
+                          {company.website == "" ? (
+                            "HP情報なし"
+                          ) : (
+                            <Button
+                              size="medium"
+                              href={company.website}
+                              target="_blank"
+                            >
+                              HP
+                            </Button>
+                          )}
+                        </CardActions>
+                      </Card>
+                    </Box>
+                  </Typography>
+                );
+              })
+            ) : (
+              <Typography
+                style={{ fontSize: "2em", textAlign: "left" }}
+                sx={{ mx: 4 }}
+              >
+                ブックマークが登録されていません
+              </Typography>
+            )}
           </Stack>
           <Dialog
             open={open1}

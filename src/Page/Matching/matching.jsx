@@ -11,15 +11,34 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
-import companies from "../../const/companies"; // インポートを修正
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import companies from "../../const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
+import styled from "styled-components";
 
 const options = companies.map((company) => ({
   label: company.name,
   id: company.id, // 企業IDを追加
 }));
+const StyledButton = styled(Button)`
+  && {
+    width: 250px;
+    height: 100px;
 
+    padding: 5px;
+   
+    }
+  }
+`;
+const StyledButton2 = styled(Button)`
+  && {
+    background-color: #106f54;
+
+    &:hover {
+      background-color: #0c5541;
+    }
+  }
+`;
 export function Matching() {
   const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -67,9 +86,9 @@ export function Matching() {
             <Tooltip title="ブックマーク">
               <IconButton
                 aria-label="マイリスト"
-                onClick={() => navigate("/mylist")}
+                onClick={() => navigate("/bookmark")}
               >
-                <PersonIcon sx={{ color: "black", fontSize: 60 }} />
+                <ImportContactsIcon sx={{ color: "#217", fontSize: 60 }} />
               </IconButton>
             </Tooltip>
           </div>
@@ -94,69 +113,49 @@ export function Matching() {
             justifyContent="center"
             alignItems="center"
           >
-            <Button
+            <StyledButton
               className="b1"
               onClick={() =>
                 (window.location.href =
-                  "http://career-center.nkc.internal/kyujin-kensaku.html")
+                  "http://career-center.nkc.internal/kigyo-kensaku.html")
               }
-              sx={{
-                width: 250,
-                height: 100,
-                fontSize: 40,
-                padding: 5,
-              }}
               variant="contained"
+              color="success"
             >
               企業検索
-            </Button>
+            </StyledButton>
 
-            <Button
+            <StyledButton
               className="b2"
               onClick={() =>
                 (window.location.href = "http://intra2.denpa.ac.jp/job/2024/")
               }
-              sx={{
-                width: 250,
-                height: 100,
-                fontSize: 40,
-                padding: 5,
-              }}
               variant="contained"
+              color="success"
             >
               求人票
-            </Button>
+            </StyledButton>
 
-            <Button
+            <StyledButton
               className="b3"
               onClick={() =>
                 (window.location.href =
                   "http://intra2.denpa.ac.jp/e-learning/job/")
               }
-              sx={{
-                width: 250,
-                height: 100,
-                fontSize: 23,
-                padding: 5,
-              }}
               variant="contained"
+              color="success"
             >
               就職ガイダンス
-            </Button>
+            </StyledButton>
 
-            <Button
+            <StyledButton
               className="b4"
-              onClick={onClick}
-              sx={{
-                width: 250,
-                height: 100,
-                fontSize: 30,
-                padding: 5,
-              }}
+              onClick={() => navigate("/")}
               variant="contained"
+              color="success"
             >
-              マッチ度表
-            </Button>
+              HOME
+            </StyledButton>
           </Stack>
         </div>
 
@@ -186,6 +185,7 @@ export function Matching() {
               padding: 2,
             }}
             variant="contained"
+            color="info"
           >
             企業情報
           </Button>
@@ -197,8 +197,9 @@ export function Matching() {
               padding: 2,
             }}
             variant="contained"
+            color="error"
           >
-            先輩情報
+            マッチ度表
           </Button>
 
           <Button
@@ -208,6 +209,7 @@ export function Matching() {
               padding: 2,
             }}
             variant="contained"
+            color="inherit"
           >
             AI
           </Button>
