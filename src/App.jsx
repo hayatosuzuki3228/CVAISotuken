@@ -7,6 +7,8 @@ import { CProfile } from "./Page/Profile/profile-com";
 import { CEdit } from "./Page/Profile/profile-com-edit";
 import { Matching } from "./Page/Matching/matching";
 import { Matchtable } from "./Page/Matching/matchtable";
+import { Companysearch } from "./Page/Matching/companysearch";
+import { Ai } from "./Page/Matching/ai";
 import { Matchscore } from "./Page/Matching/matchscore";
 import { Conditions } from "./Page/Matching/Conditions";
 import { Toppage } from "./Page/toppage";
@@ -36,6 +38,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Toppage />} />
               <Route path="/Matchtable" element={<Matchtable />} />
+              <Route path="/Companysearch" element={<Companysearch />} />
+              <Route path="/Ai" element={<Ai />} />
               <Route path="/Matching" element={<Matching />} />
               <Route path="/Matchscore" element={<Matchscore />} />
               <Route path="/Conditions" element={<Conditions />} />
@@ -54,7 +58,10 @@ function App() {
               <Route path="/profile-com" element={<CProfile />} />
               <Route path="/profile-com-edit" element={<CEdit />} />
               <Route path="/Bookmark" element={<Bookmark />} />
-              <Route path="/companyinformation" element={<Companyinformation />} />
+              <Route
+                path="/companyinformation"
+                element={<Companyinformation />}
+              />
               <Route path="/picture" element={<Picture />} />
             </Routes>
           </Router>

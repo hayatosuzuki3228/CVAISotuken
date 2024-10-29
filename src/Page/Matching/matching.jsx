@@ -115,10 +115,7 @@ export function Matching() {
           >
             <StyledButton
               className="b1"
-              onClick={() =>
-                (window.location.href =
-                  "http://career-center.nkc.internal/kigyo-kensaku.html")
-              }
+              onClick={() => navigate("/Companysearch")}
               variant="contained"
               color="success"
             >
@@ -204,7 +201,7 @@ export function Matching() {
 
           <Button
             className="b7"
-            onClick={() => navigate("/Conditions")}
+            onClick={() => navigate("/Ai")}
             sx={{
               padding: 2,
             }}
