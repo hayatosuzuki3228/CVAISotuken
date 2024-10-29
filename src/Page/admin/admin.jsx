@@ -110,9 +110,15 @@ export function Admin() {
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box />
-              <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム／管理者画面
-              </Typography>
+              {flags === 0 ? (
+                <Typography variant="h6" noWrap component="div">
+                  名産会マッチングシステム／管理者画面・学生データ
+                </Typography>
+              ) : (
+                <Typography variant="h6" noWrap component="div">
+                  名産会マッチングシステム／管理者画面・企業データ
+                </Typography>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
