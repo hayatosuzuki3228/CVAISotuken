@@ -28,7 +28,6 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import MyContext from "../provider/provider";
 import { BookmarkContext } from "../provider/booktext";
 import { companies } from "../const/companies";
@@ -39,7 +38,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "normalize.css";
-import { HPlusMobiledata } from "@mui/icons-material";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -159,12 +157,10 @@ export function Bookmark() {
   const handleConfirmDelete = () => {
     console.log("bookmarks", bookmarks);
 
-    // 削除処理
     removeBookmark(removeid);
 
     console.log(removename + "を削除しました");
 
-    // モーダルなどを閉じる処理
     handleClose();
   };
 
