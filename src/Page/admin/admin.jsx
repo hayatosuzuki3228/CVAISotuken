@@ -131,10 +131,10 @@ export function Admin() {
             }}
           >
             <List>
-              <ListItem sx={{ mt: 12, justifyContent: "center" }}>
+              <ListItem sx={{ mt: 10, justifyContent: "center" }}>
                 <Button
                   style={{
-                    color: primarycolor,
+                    color: flags === 0 ? primarycolor : "gray",
                   }}
                   onClick={Change0}
                 >
@@ -144,7 +144,7 @@ export function Admin() {
               <ListItem sx={{ justifyContent: "center" }}>
                 <Button
                   style={{
-                    color: primarycolor,
+                    color: flags === 1 ? primarycolor : "gray",
                   }}
                   onClick={Change1}
                 >
@@ -164,7 +164,7 @@ export function Admin() {
                   <ListItem sx={{ justifyContent: "center" }}>
                     <Button
                       style={{
-                        color: primarycolor,
+                        color: "black",
                       }}
                     >
                       管理者アカウント作成
