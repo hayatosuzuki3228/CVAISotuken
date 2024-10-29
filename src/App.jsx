@@ -22,6 +22,7 @@ import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
+import TestPage from "./Page/TestPage.jsx";
 import "normalize.css";
 function App() {
   //
@@ -51,6 +52,7 @@ function App() {
           <Route path="/companyinformation" element={<Companyinformation />} />
           <Route path="/picture" element={<Picture />} />
           <Route path="/bookmark" element={<Bookmark />} />
+          <Route path="/testpage" element={<TestPage />} />
         </Routes>
       </Router>
     </MyProvider>
