@@ -11,11 +11,10 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
 import data from "../../const/data.json";
+import companies from "../../const/companies";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -67,13 +66,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export function Admin() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [flags, setFlags] = useState("");
 
-  const handleItemClick = (link, isNavigate) => {
-    if (isNavigate) {
-      navigate(link);
-    } else if (link) {
-      window.location.href = link;
-    }
+  const Change0 = (event) => {
+    setFlags(0);
+  };
+
+  const Change1 = (event) => {
+    setFlags(1);
   };
 
   const theme = createTheme({
@@ -136,6 +136,7 @@ export function Admin() {
                   style={{
                     color: primarycolor,
                   }}
+                  onClick={Change0}
                 >
                   学生データ
                 </Button>
@@ -145,55 +146,153 @@ export function Admin() {
                   style={{
                     color: primarycolor,
                   }}
+                  onClick={Change1}
                 >
                   企業データ
                 </Button>
               </ListItem>
             </List>
+            <Box
+              display="flex"
+              flexDirection="column"
+              height="100vh"
+              justifyContent="space-between"
+            >
+              <Box flexGrow={1}></Box>
+              <List>
+                <ListItem>
+                  <ListItem sx={{ justifyContent: "center" }}>
+                    <Button
+                      style={{
+                        color: primarycolor,
+                      }}
+                    >
+                      管理者アカウント作成
+                    </Button>
+                  </ListItem>
+                </ListItem>
+              </List>
+            </Box>
           </Drawer>
         </Main>
       </Box>
+
       <List sx={{ ml: 30 }}>
-        {data.map((user) => (
-          <Box
-            key={user.id}
-            sx={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "8px",
-              marginBottom: "8px",
-              marginRight: "30px",
-            }}
-          >
-            <ListItem>
-              <ListItemText
-                primary={
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Typography variant="body1" sx={{ marginRight: 2 }}>
-                      {user.id}
-                    </Typography>
-                    <Typography variant="body1" sx={{ marginRight: 2 }}>
-                      {user.name}
-                    </Typography>
+        {flags === 0 && (
+          <>
+            <Typography style={{ fontSize: "2em", textAlign: "left" }}>
+              学生データ
+            </Typography>
+            {data.map((user) => (
+              <Box
+                key={user.id}
+                sx={{
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  padding: "8px",
+                  marginBottom: "8px",
+                  marginRight: "30px",
+                }}
+              >
+                <ListItem>
+                  <ListItemText
+                    primary={
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "left",
+                        }}
+                      >
+                        <Typography variant="body1" sx={{ marginRight: 2 }}>
+                          {user.id}
+                        </Typography>
+                        <Typography variant="body1" sx={{ marginRight: 2 }}>
+                          {user.name}
+                        </Typography>
+                      </Box>
+                    }
+                  />
+                  <Box display="flex" alignItems="center">
                     <Typography
                       variant="body2"
                       sx={{
-                        color: user.active ? "green" : "grey",
+                        color: user.active ? "green" : "red",
                         marginRight: 2,
                         fontWeight: user.active ? "bold" : "",
                       }}
                     >
                       {user.active ? "Active" : "Inactive"}
                     </Typography>
-                    <Box>
-                      {user.active ? <Button>A</Button> : <Button>B</Button>}
-                    </Box>
+                    {user.active ? (
+                      <Button>停止</Button>
+                    ) : (
+                      <Button>有効化</Button>
+                    )}
                   </Box>
-                }
-              />
-            </ListItem>
-          </Box>
-        ))}
+                </ListItem>
+              </Box>
+            ))}
+          </>
+        )}
+
+        {flags === 1 && (
+          <>
+            <Typography style={{ fontSize: "2em", textAlign: "left" }}>
+              企業データ
+            </Typography>
+            {companies.map((company) => (
+              <Box
+                key={company.id}
+                sx={{
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  padding: "8px",
+                  marginBottom: "8px",
+                  marginRight: "30px",
+                }}
+              >
+                <ListItem>
+                  <ListItemText
+                    primary={
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "left",
+                        }}
+                      >
+                        <Typography variant="body1" sx={{ marginRight: 2 }}>
+                          {company.id}
+                        </Typography>
+                        <Typography variant="body1" sx={{ marginRight: 2 }}>
+                          {company.name}
+                        </Typography>
+                      </Box>
+                    }
+                  />
+                  <Box display="flex" alignItems="center">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: company.active ? "green" : "red",
+                        marginRight: 2,
+                        fontWeight: company.active ? "bold" : "",
+                      }}
+                    >
+                      {company.active ? "Active" : "Inactive"}
+                    </Typography>
+                    {company.active ? (
+                      <Button>停止</Button>
+                    ) : (
+                      <Button>有効化</Button>
+                    )}
+                  </Box>
+                </ListItem>
+              </Box>
+            ))}
+          </>
+        )}
       </List>
     </ThemeProvider>
   );
