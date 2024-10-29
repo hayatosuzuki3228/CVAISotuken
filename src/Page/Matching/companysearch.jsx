@@ -10,8 +10,10 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import UndoIcon from "@mui/icons-material/Undo";
 import { useNavigate } from "react-router-dom";
 
 // 外部データファイルをインポート
@@ -79,10 +81,29 @@ export function Companysearch() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Typography variant="h4" gutterBottom>
-        企業検索
-      </Typography>
-
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="space-between"
+        marginBottom="20px"
+      >
+        <Grid item>
+          <Typography variant="h4" gutterBottom>
+            企業検索
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            className="back"
+            variant="outlined"
+            color="secondary"
+            onClick={() => navigate("/matching")}
+            startIcon={<UndoIcon />}
+          >
+            戻る
+          </Button>
+        </Grid>
+      </Grid>
       <Grid container spacing={2} alignItems="center">
         {/* 企業名検索 */}
         <Grid item xs={12} sm={6}>
@@ -223,7 +244,10 @@ export function Companysearch() {
                     従業員規模： {company.number_of_employees}
                   </Typography>
                   <Typography color="textSecondary">
-                    事業内容: {company.detail}
+                    事業内容:{" "}
+                    {company.detail.length > 50
+                      ? `${company.detail.substring(0, 50)}...`
+                      : company.detail}
                   </Typography>
                 </CardContent>
               </Card>

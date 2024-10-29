@@ -129,7 +129,14 @@ function Row(props) {
             {row.name}
           </Button>
         </TableCell>
-        {showDetail && <TableCell>{row.detail}</TableCell>}
+        {showDetail && (
+          <TableCell>
+            {" "}
+            {row.detail.length > 50
+              ? `${row.detail.substring(0, 50)}...`
+              : row.detail}
+          </TableCell>
+        )}
         <TableCell align="center" sx={getMatchdoCellStyle(row.matchdo)}>
           {row.matchdo}P
         </TableCell>
