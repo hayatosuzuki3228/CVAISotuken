@@ -22,6 +22,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Fab,
+  useMediaQuery,
+  TablePagination,
 } from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -32,6 +35,7 @@ import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import companies from "../../const/companies.js";
 import { BookmarkContext } from "../../provider/booktext"; // BookmarkContextのインポート
 import MyContext from "../../provider/provider";
+
 function convertCompanyData(company, jobData) {
   const matchScore = calculateMatchScore(company, jobData);
 
@@ -86,6 +90,7 @@ function Row(props) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { setproviderid } = useContext(MyContext);
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const handleCompanyChange = () => {
     const numericId = parseInt(row.id, 10);
@@ -153,8 +158,20 @@ function Row(props) {
           colSpan={showDetail ? 6 : 5}
         >
           {/*詳細の項目*/}
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
+          <Collapse
+            in={open}
+            timeout="auto"
+            unmountOnExit
+            sx={{
+              display: isSmallScreen ? "flex" : "table-row",
+              flexDirection: isSmallScreen ? "unset" : "column",
+            }}
+          >
+            <Box
+              sx={{
+                margin: 1,
+              }}
+            >
               <Typography variant="h6" gutterBottom component="div">
                 詳細
               </Typography>
@@ -226,6 +243,23 @@ export function Matchtable() {
   const [favorites, setFavorites] = useState({});
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(100);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTopButton(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 「トップに戻る」ボタンを押したときの処理
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   // ローディング
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -295,7 +329,16 @@ export function Matchtable() {
         row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase()) &&
         (matchScoreTerm === "" || row.matchdo >= parseInt(matchScoreTerm, 10))
     );
+  const handleChangePage = (event, newPage) => setPage(newPage);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
+  const displayedRows = filteredRows.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
   const toggleDetail = () => {
     setShowDetail((prevShowDetail) => !prevShowDetail);
   };
@@ -380,7 +423,7 @@ export function Matchtable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredRows.map((row) => (
+            {displayedRows.map((row) => (
               <Row
                 key={row.id}
                 row={row}
@@ -391,6 +434,16 @@ export function Matchtable() {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={filteredRows.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[100, 50, 200]}
+          labelRowsPerPage="表示件数"
+        />
       </TableContainer>
 
       <Dialog open={dialogOpen} onClose={() => handleDialogClose(false)}>
@@ -413,7 +466,16 @@ export function Matchtable() {
           </Button>
         </DialogActions>
       </Dialog>
-
+      {showScrollTopButton && (
+        <Fab
+          color="primary"
+          size="small"
+          onClick={scrollToTop}
+          style={{ position: "fixed", bottom: "20px", right: "20px" }}
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      )}
       <head>
         <link
           href="matchtable.css"

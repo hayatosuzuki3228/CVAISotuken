@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -10,10 +10,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Box,
+  Fab,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import UndoIcon from "@mui/icons-material/Undo";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useNavigate } from "react-router-dom";
 
 // 外部データファイルをインポート
@@ -23,17 +24,30 @@ import { areas } from "../../const/areas";
 import { employeesizes } from "../../const/employeeSizes";
 import { companies } from "../../const/companies";
 import MyContext from "../../provider/provider";
+import { SearchContext } from "../../provider/SearchContext";
 
 export function Companysearch() {
   const { setproviderid } = useContext(MyContext);
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [descriptionTerm, setDescriptionTerm] = useState("");
-  const [industryFilter, setIndustryFilter] = useState("");
-  const [jobTypeFilter, setJobTypeFilter] = useState("");
-  const [locationFilter, setLocationFilter] = useState("");
-  const [sizeFilter, setSizeFilter] = useState("");
-  const [filteredCompanies, setFilteredCompanies] = useState([]);
+
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
+
+  const {
+    searchTerm,
+    setSearchTerm,
+    descriptionTerm,
+    setDescriptionTerm,
+    industryFilter,
+    setIndustryFilter,
+    jobTypeFilter,
+    setJobTypeFilter,
+    locationFilter,
+    setLocationFilter,
+    sizeFilter,
+    setSizeFilter,
+    filteredCompanies,
+    setFilteredCompanies,
+  } = useContext(SearchContext);
 
   const handleSearch = () => {
     let searchResults = companies.filter(
@@ -79,6 +93,20 @@ export function Companysearch() {
     navigate(`/companyinformation`);
   };
 
+  // スクロールを監視して「トップに戻る」ボタンの表示を切り替え
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTopButton(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 「トップに戻る」ボタンを押したときの処理
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <div style={{ padding: "20px" }}>
       <Grid
@@ -263,6 +291,16 @@ export function Companysearch() {
           </Typography>
         )}
       </Grid>
+      {showScrollTopButton && (
+        <Fab
+          color="primary"
+          size="small"
+          onClick={scrollToTop}
+          style={{ position: "fixed", bottom: "20px", right: "20px" }}
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      )}
     </div>
   );
 }

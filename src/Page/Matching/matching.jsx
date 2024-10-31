@@ -29,15 +29,15 @@ const StyledButton = styled(Button)`
   && {
     width: 250px;
     height: 100px;
-
     padding: 5px;
-   
-    }
   }
 `;
 const StyledButton2 = styled(Button)`
   && {
-    background-color: #106f54;
+    width: 250px;
+    height: 100px;
+    padding: 5px;
+    background-color: #007b43;
 
     &:hover {
       background-color: #0c5541;
