@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  Grid,
   Stack,
   Button,
   Box,
@@ -8,6 +9,9 @@ import {
   Autocomplete,
   IconButton,
   Tooltip,
+  Typography,
+  Toolbar,
+  AppBar,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -15,6 +19,7 @@ import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import companies from "../../const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
 import styled from "styled-components";
+import { useMediaQuery } from "@mui/material";
 
 const options = companies.map((company) => ({
   label: company.name,
@@ -40,6 +45,7 @@ const StyledButton2 = styled(Button)`
   }
 `;
 export function Matching() {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
   const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
   const { providerid, setproviderid } = useContext(MyContext);
@@ -69,41 +75,56 @@ export function Matching() {
 
   return (
     <div>
-      <Box p={2} className="footer">
-        <Stack direction="row" justifyContent="flex-start" alignSelf="center">
-          <h1 className="title">名産会マッチング</h1>
-          <div id="hart">
-            <Tooltip title="マッチ度">
-              <IconButton
-                aria-label="ハート"
-                onClick={() => navigate("/Matchdo")}
-              >
-                <FavoriteIcon sx={{ color: "#ff1493", fontSize: 60 }} />
-              </IconButton>
-            </Tooltip>
-          </div>
-          <div id="mylist">
-            <Tooltip title="ブックマーク">
-              <IconButton
-                aria-label="マイリスト"
-                onClick={() => navigate("/bookmark")}
-              >
-                <ImportContactsIcon sx={{ color: "#217", fontSize: 60 }} />
-              </IconButton>
-            </Tooltip>
-          </div>
-          <div id="setting">
-            <Tooltip title="設定">
-              <IconButton
-                aria-label="設定"
-                onClick={() => navigate("/Setting")}
-              >
-                <SettingsIcon sx={{ color: "gray", fontSize: 60 }} />
-              </IconButton>
-            </Tooltip>
-          </div>
-        </Stack>
-      </Box>
+      <AppBar>
+        <Toolbar
+          sx={{ justifyContent: "space-between", backgroundColor: "#38d" }}
+        >
+          <Typography
+            sx={{ fontSize: isSmallScreen ? "0.8rem" : "1rem", color: "black" }}
+          >
+            <h1>名産会マッチング</h1>
+          </Typography>
+
+          <Stack direction="row" spacing={0.5}>
+            <div id="hart">
+              <Tooltip title="マッチ度">
+                <IconButton
+                  aria-label="ハート"
+                  onClick={() => navigate("/Matchdo")}
+                >
+                  <FavoriteIcon
+                    sx={{ color: "#ff1493", fontSize: isSmallScreen ? 40 : 60 }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </div>
+            <div id="mylist">
+              <Tooltip title="ブックマーク">
+                <IconButton
+                  aria-label="マイリスト"
+                  onClick={() => navigate("/bookmark")}
+                >
+                  <ImportContactsIcon
+                    sx={{ color: "#217", fontSize: isSmallScreen ? 40 : 60 }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </div>
+            <div id="setting">
+              <Tooltip title="設定">
+                <IconButton
+                  aria-label="設定"
+                  onClick={() => navigate("/Setting")}
+                >
+                  <SettingsIcon
+                    sx={{ color: "gray", fontSize: isSmallScreen ? 40 : 60 }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </div>
+          </Stack>
+        </Toolbar>
+      </AppBar>
 
       <div className="gamen">
         <div className="menu">
