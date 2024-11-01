@@ -25,6 +25,8 @@ import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
 import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
+import { ErrorResponse } from "./sever/ErrorResponse.jsx";
+import {Fuckserver} from "./sever/Fucksever.jsx"
 import "normalize.css";
 function App() {
   return (
@@ -56,6 +58,8 @@ function App() {
           <Route path="/picture" element={<Picture />} />
           <Route path="/bookmark" element={<Bookmark />} />
           <Route path="/testpage" element={<TestPage />} />
+          <Route path="/error" element={<ErrorResponse />} />
+          <Route path="/Fuckserver" element={<Fuckserver />} />
         </Routes>
       </Router>
         </BookmarkProvider>

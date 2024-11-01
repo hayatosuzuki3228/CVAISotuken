@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -29,6 +29,12 @@ import { gray, primarycolor } from "../const/color";
 import "normalize.css";
 import { Pagination, TextField, Grid } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
+import MyContext  from "../provider/provider";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export function Toppage() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -104,7 +110,7 @@ export function Toppage() {
       isNavigate: true,
     },
   ];
-
+//#region お知らせデータ
   const careerNotice = [
     {
       date: "2025/1/1",
@@ -168,7 +174,20 @@ export function Toppage() {
     {
       date: "2024/1/1",
       text: "(株)○○システム新卒採用開始しました",
-      link: "/LoginPage",
+      link: "https://www.nskint.co.jp/recruitment/",
+      modalText: (
+        <>
+          現在の採用人数は【5】人です。主に【コンピューター・IT分野】から募集をしています。詳しくは
+          <a
+            href="https://www.nskint.co.jp/recruitment/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            弊社の採用ページ
+          </a>
+          をご覧ください。
+        </>
+      ),
     },
     {
       date: "20??/12/32",
@@ -194,7 +213,34 @@ export function Toppage() {
       link: "/Matching",
     },
   ];
+//#endregion
+  const [open1, setOpen1] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen1(true);
+  };
+
+  const handleClose = () => {
+    setOpen1(false);
+  };
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
+  const handleloginout = () =>{
+    if(!loginstats)
+    {
+      navigate("/Loginpage");
+    }
+    else
+    {
+      setOpenLogoutDialog(true); 
+    }
+  };
+  const handleConfirmLogout = () => {
+    // ログアウト処理をここに記述
+    setloginstats(false);
+    setOpenLogoutDialog(false);
+  };
+  const {loginstats,setloginstats} = useContext(MyContext);
+  const [selectedItem, setSelectedItem] = useState(null);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -297,8 +343,8 @@ export function Toppage() {
                 名産会マッチングシステム
               </Typography>
             </Box>
-            <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-              ログイン
+            <Button color="inherit" onClick={handleloginout}>
+              {loginstats ? 'ログアウト' : 'ログイン'}
             </Button>
           </Toolbar>
         </AppBar>
@@ -455,9 +501,10 @@ export function Toppage() {
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
                       <ListItemButton
-                        onClick={() =>
-                          handleItemClick(item.link, item.isNavigate)
-                        }
+                        onClick={() =>{
+                          setSelectedItem(item);
+                          handleClickOpen();
+                        }}
                       >
                         <div
                           style={{
@@ -498,6 +545,41 @@ export function Toppage() {
               />
             </div>
           )}
+          {selectedItem && (
+          <Dialog
+            open={open1}
+            onClose={handleClose}
+            aria-labelledby="commpany-alert"
+            aria-describedby="commpany-alert"
+          >
+            <DialogTitle id="commpany-alert">{selectedItem.text}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="commpany-alert">
+                {selectedItem.modalText}  
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary" autoFocus>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+          )}
+          <Dialog
+          open={openLogoutDialog}
+          onClose={() => setOpenLogoutDialog(false)}
+         >
+          <DialogTitle>ログアウト確認</DialogTitle>
+          <DialogContent>ログアウトしますか？</DialogContent>
+         <DialogActions>
+          <Button onClick={() => setOpenLogoutDialog(false)} color="primary">
+            キャンセル
+          </Button>
+          <Button onClick={handleConfirmLogout} color="primary">
+            ログアウト
+          </Button>
+          </DialogActions>
+          </Dialog>
         </Main>
       </Box>
     </ThemeProvider>

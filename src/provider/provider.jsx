@@ -4,6 +4,7 @@ import React, { createContext, useState, useEffect } from "react";
 const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
+  const [loginstats ,setloginstats] = useState(false);
   const [provideremail, setprovidermail] = useState("");
   const [providerSaveEmail, setproviderSaveEmail] = useState("");
   const [providername, setprovidername] = useState("");
@@ -25,6 +26,8 @@ export const MyProvider = ({ children }) => {
   }, [bookmark]);
 
   const value = {
+    loginstats ,
+    setloginstats,
     provideremail,
     setprovidermail,
     providerSaveEmail,
