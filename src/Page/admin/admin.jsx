@@ -93,11 +93,11 @@ export function Admin() {
     page * rowsPerPage + rowsPerPage
   );
 
-  const Change0 = (event) => {
+  const Change0 = () => {
     setFlags(0);
   };
 
-  const Change1 = (event) => {
+  const Change1 = () => {
     setFlags(1);
   };
 
