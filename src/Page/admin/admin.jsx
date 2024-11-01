@@ -11,6 +11,7 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
 import data from "../../const/data.json";
@@ -67,6 +68,30 @@ export function Admin() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [flags, setFlags] = useState("");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [page2, setPage2] = useState(0);
+  const [rowsPerPage2, setRowsPerPage2] = useState(100);
+
+  const handleChangePage = (event, newPage) => setPage(newPage);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  const handleChangePage2 = (event, newPage) => setPage2(newPage);
+  const handleChangeRowsPerPage2 = (event) => {
+    setRowsPerPage2(parseInt(event.target.value, 10));
+    setPage2(0);
+  };
+
+  const dataRows = data.slice(
+    page2 * rowsPerPage2,
+    page2 * rowsPerPage2 + rowsPerPage2
+  );
+  const companiesRows = companies.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
 
   const Change0 = (event) => {
     setFlags(0);
@@ -189,7 +214,17 @@ export function Admin() {
             <Typography style={{ fontSize: "2em", textAlign: "left" }}>
               学生データ
             </Typography>
-            {data.map((user) => (
+            <TablePagination
+              component="div"
+              count={data.length}
+              page={page2}
+              onPageChange={handleChangePage2}
+              rowsPerPage={rowsPerPage2}
+              onRowsPerPageChange={handleChangeRowsPerPage2}
+              rowsPerPageOptions={[50, 100, 200]}
+              labelRowsPerPage="表示件数"
+            />
+            {dataRows.map((user) => (
               <Box
                 key={user.id}
                 sx={{
@@ -246,8 +281,18 @@ export function Admin() {
           <>
             <Typography style={{ fontSize: "2em", textAlign: "left" }}>
               企業データ
+              <TablePagination
+                component="div"
+                count={companies.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[50, 100, 200]}
+                labelRowsPerPage="表示件数"
+              />
             </Typography>
-            {companies.map((company) => (
+            {companiesRows.map((company) => (
               <Box
                 key={company.id}
                 sx={{
