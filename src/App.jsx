@@ -23,12 +23,13 @@ import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
+import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
 import { Admin } from "./Page/admin/admin.jsx";
-
+import { ErrorResponse } from "./sever/ErrorResponse.jsx";
+import { Fuckserver } from "./sever/Fucksever.jsx";
 import "normalize.css";
 function App() {
-  //
   return (
     <MyProvider>
       <JobProvider>
@@ -56,6 +57,8 @@ function App() {
               <Route path="/profile-com-edit" element={<CEdit />} />
               <Route path="/Bookmark" element={<Bookmark />} />
               <Route path="/Admin" element={<Admin />} />
+              <Route path="/error" element={<ErrorResponse />} />
+              <Route path="/Fuckserver" element={<Fuckserver />} />
               <Route
                 path="/companyinformation"
                 element={<Companyinformation />}
