@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import {
   Button,
   Box,
+  Stack,
   TextField,
   IconButton,
   Collapse,
@@ -25,6 +26,9 @@ import {
   Fab,
   useMediaQuery,
   TablePagination,
+  FormControlLabel,
+  Switch,
+  Divider,
 } from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -348,61 +352,86 @@ export function Matchtable() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "flex-end",
+          gap: "1rem",
+          marginTop: "1rem",
+        }}
+      >
+        <Button
+          className="matchdo"
+          variant="outlined"
+          onClick={() => navigate("/matchdo")}
+        >
+          マッチ度設定
+        </Button>
+        <Button
+          className="back"
+          variant="outlined"
+          color="secondary"
+          onClick={() => navigate("/matching")}
+          startIcon={<UndoIcon />}
+        >
+          戻る
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
           alignItems: "flex-start",
           marginBottom: "1rem",
         }}
       >
-        <TextField
-          label="IDまたは会社名入力"
-          value={searchTerm}
-          onChange={handleSearch}
-          variant="outlined"
-          sx={{ marginBottom: "1rem" }}
-          className="sertch"
-        />
-        <TextField
-          label="事業内容入力"
-          value={detailSearchTerm}
-          onChange={handleDetailSearch}
-          variant="outlined"
-          sx={{ marginBottom: "1rem" }}
-          className="detailSearch"
-        />
-        <TextField
-          label="マッチ度入力"
-          value={matchScoreTerm}
-          onChange={handleMatchScoreSearch}
-          variant="outlined"
-          sx={{ marginBottom: "1rem" }}
-          className="matchScoreSearch"
-        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+          className="text"
+        >
+          <TextField
+            label="IDまたは会社名入力"
+            value={searchTerm}
+            onChange={handleSearch}
+            variant="outlined"
+            sx={{ marginBottom: "1rem" }}
+            className="search"
+          />
+          <TextField
+            label="事業内容入力"
+            value={detailSearchTerm}
+            onChange={handleDetailSearch}
+            variant="outlined"
+            sx={{ marginBottom: "1rem" }}
+            className="detailSearch"
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+          className="text"
+        >
+          <TextField
+            label="マッチ度入力"
+            value={matchScoreTerm}
+            onChange={handleMatchScoreSearch}
+            variant="outlined"
+            sx={{ marginBottom: "1rem" }}
+            className="matchScoreSearch"
+          />
+          <FormControlLabel
+            control={<Switch />}
+            label="事業内容"
+            onClick={toggleDetail}
+            className="detailbu"
+          />
+        </Box>
       </Box>
-      <Button
-        onClick={toggleDetail}
-        variant="contained"
-        sx={{ marginBottom: "1rem", fontSize: 20 }}
-        className="detailbu"
-      >
-        {showDetail ? "事業内容非表示" : "事業内容表示"}
-      </Button>
-      <Button
-        className="matchdo"
-        variant="outlined"
-        onClick={() => navigate("/matchdo")}
-      >
-        マッチ度設定
-      </Button>
-      <Button
-        className="back"
-        variant="outlined"
-        color="secondary"
-        onClick={() => navigate("/matching")}
-        startIcon={<UndoIcon />}
-      >
-        戻る
-      </Button>
-
+      <Divider sx={{ my: 5 }} />
       <TableContainer
         component={Paper}
         className="table1"

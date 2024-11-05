@@ -11,6 +11,7 @@ import { Companysearch } from "./Page/Matching/companysearch";
 import { Ai } from "./Page/Matching/ai";
 import { Matchscore } from "./Page/Matching/matchscore";
 import { Conditions } from "./Page/Matching/Conditions";
+import { Setting } from "./Page/Matching/setting";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login/Login";
 import { MyProvider } from "./provider/provider";
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/Matchscore" element={<Matchscore />} />
                 <Route path="/Conditions" element={<Conditions />} />
                 <Route path="/Matchdo" element={<Matchdo />} />
+                <Route path="/Setting" element={<Setting />} />
                 <Route path="/LoginPage" element={<LoginPage />} />
                 <Route path="/Lostpass" element={<Lostpass />} />
                 <Route path="/addstudent" element={<Addstudent />} />

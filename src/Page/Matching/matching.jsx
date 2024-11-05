@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Grid,
+  Divider,
   Stack,
   Button,
-  Box,
   TextField,
   Autocomplete,
   IconButton,
@@ -12,14 +11,20 @@ import {
   Typography,
   Toolbar,
   AppBar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PersonIcon from "@mui/icons-material/Person";
 import companies from "../../const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
 import styled from "styled-components";
-import { useMediaQuery } from "@mui/material";
 
 const options = companies.map((company) => ({
   label: company.name,
@@ -49,6 +54,14 @@ export function Matching() {
   const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
   const { providerid, setproviderid } = useContext(MyContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleCompanyChange = (event, value) => {
     if (value) {
@@ -110,14 +123,17 @@ export function Matching() {
                 </IconButton>
               </Tooltip>
             </div>
-            <div id="setting">
-              <Tooltip title="設定">
+            <div id="menu">
+              <Tooltip title="メニュー">
                 <IconButton
-                  aria-label="設定"
-                  onClick={() => navigate("/Setting")}
+                  aria-label="メニュー"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
                 >
-                  <SettingsIcon
-                    sx={{ color: "gray", fontSize: isSmallScreen ? 40 : 60 }}
+                  <MoreVertIcon
+                    sx={{ color: "#88d1cc", fontSize: isSmallScreen ? 40 : 60 }}
                   />
                 </IconButton>
               </Tooltip>
@@ -125,6 +141,31 @@ export function Matching() {
           </Stack>
         </Toolbar>
       </AppBar>
+
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "menu",
+        }}
+      >
+        <MenuItem onClick={() => navigate("/Setting")}>
+          <ListItemIcon>
+            <SettingsIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>設定</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={() => navigate("/profile-st")}>
+          <ListItemIcon>
+            <PersonIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>プロフィール</ListItemText>
+        </MenuItem>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={handleClose}>ログアウト</MenuItem>
+      </Menu>
 
       <div className="gamen">
         <div className="menu">
