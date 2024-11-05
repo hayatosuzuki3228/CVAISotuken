@@ -4,7 +4,6 @@ import {
   Autocomplete,
   Box,
   Button,
-  Chip,
   Checkbox,
   Dialog,
   DialogActions,
@@ -75,19 +74,64 @@ export function SCEdit() {
   const [KSubjectSave, setKSubjectSave] = useState(warpKSubjectSave);
   const [MyPowerSave, setMyPowerSave] = useState(warpMyPowerSave);
 
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
-  const [error4, setError4] = useState("");
-  const [error5, setError5] = useState("");
-  const [error6, setError6] = useState("");
   const [OneMoreClick, setOneMoreClick] = useState();
 
   const [dialog, setDialog] = React.useState(false);
+  const [dialog2, setDialog2] = React.useState(false);
+
   const handleClickOpen = () => {
     setDialog(true);
   };
   const handleClose = () => {
+    if (
+      /*regex.test(job) &&
+      regex.test(hobby) &&
+      regex.test(skill) &&
+      regex.test(SSubject) &&
+      regex.test(KSubject) &&
+      myPower.length > 0*/
+      KSubject.length > 0
+    ) {
+      navigate("/profile-st-com", {
+        state: {
+          name,
+          kName,
+          man,
+          Gak,
+          Years,
+          Months,
+          Days,
+          email,
+          Home,
+          bye,
+          age,
+          job,
+          hobby,
+          skill,
+          ManSave,
+          GakSave,
+          YearsSave,
+          MonthsSave,
+          DaysSave,
+          HomeSave,
+          ByeSave,
+          AgeSave,
+          SSubject,
+          KSubject,
+          myPower,
+          JobSave,
+          HobbySave,
+          SkillSave,
+          SSubjectSave,
+          KSubjectSave,
+          MyPowerSave,
+        },
+      });
+      setDialog(false);
+    } else {
+    }
+  };
+  const handleCloseCancel = () => {
     setDialog(false);
   };
 
@@ -406,6 +450,8 @@ export function SCEdit() {
               onChange={(e) => {
                 setJob(e.target.value);
               }}
+              error={job == ""}
+              helperText={"正しい文字を入力してください。"}
             />
           </Box>
         </Stack>
@@ -549,20 +595,6 @@ export function SCEdit() {
           </Box>
         </Stack>
 
-        <div /*エラーを表示する*/>
-          {error1 && <p style={{ color: "red" }}>{error1}</p>}
-          {error2 && <p style={{ color: "red" }}>{error2}</p>}
-          {error3 && <p style={{ color: "red" }}>{error3}</p>}
-          {error4 && <p style={{ color: "red" }}>{error4}</p>}
-          {error5 && <p style={{ color: "red" }}>{error5}</p>}
-          {error6 && <p style={{ color: "red" }}>{error6}</p>}
-          {OneMoreClick === true ? (
-            <p style={{ color: "green" }}>
-              よろしければ、もう一度ボタンを押してください。
-            </p>
-          ) : undefined}
-        </div>
-
         <Stack direction="row" spacing={7} /*ボタンを表示する*/>
           <Button /* profile-st-com に飛ぶ(データの保存を行わない) */
             variant="contained"
@@ -597,12 +629,17 @@ export function SCEdit() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>確定する</Button>
-              <Button onClick={handleClose} autoFocus>
+              <Button onClick={handleCloseCancel} autoFocus>
                 確定しない
               </Button>
             </DialogActions>
           </Dialog>
         </Stack>
+
+        <div>
+          {job}
+          {KSubject}
+        </div>
       </Stack>
     </>
   );
