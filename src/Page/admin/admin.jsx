@@ -70,7 +70,7 @@ export function Admin() {
     document.title = "名産会マッチングシステム・管理者画面";
   }, []);
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const open = useState(false);
   const [flags, setFlags] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
@@ -97,26 +97,32 @@ export function Admin() {
     page2 * rowsPerPage2 + rowsPerPage2
   );
 
+  //学生データ表示
   const Change0 = useCallback(() => {
     setFlags(0);
   });
 
+  //企業データ表示
   const Change1 = useCallback(() => {
     setFlags(1);
   });
 
+  //登録されている生徒のアカウントを無効にします
   const dataid1 = useCallback((data) => {
     console.log(data);
     postData("admin/student/deactivate", data);
   });
+  //登録されている生徒のアカウントを有効にします
   const dataid2 = useCallback((data) => {
     console.log(data);
     postData("admin/student/activate", data);
   });
+  //登録されている企業のアカウントを無効にします
   const companyid1 = useCallback((data) => {
     console.log(data);
     postData("admin/company/deactivate", data);
   });
+  //登録されている企業のアカウントを有効にします
   const companyid2 = useCallback((data) => {
     console.log(data);
     postData("admin/company/activate", data);

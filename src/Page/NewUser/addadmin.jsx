@@ -28,6 +28,7 @@ export function Addadmin() {
       /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
     const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
     if (emailRegex.test(email) && passRegex.test(pass)) {
+      //管理者アカウント作成
       postData("registration/admin", email || pass);
       navigate("/Admin");
     } else {
