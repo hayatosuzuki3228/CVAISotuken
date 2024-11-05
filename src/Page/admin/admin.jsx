@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,8 +14,9 @@ import ListItemText from "@mui/material/ListItemText";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
-import data from "../../const/data.json";
+import data1 from "../../const/data.json";
 import companies from "../../const/companies";
+import { postData } from "../../sever/api";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -65,13 +66,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export function Admin() {
+  useEffect(() => {
+    document.title = "名産会マッチングシステム・管理者画面";
+  }, []);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [flags, setFlags] = useState("");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
   const [page2, setPage2] = useState(0);
-  const [rowsPerPage2, setRowsPerPage2] = useState(100);
+  const [rowsPerPage2, setRowsPerPage2] = useState(50);
 
   const handleChangePage = (event, newPage) => setPage(newPage);
   const handleChangeRowsPerPage = (event) => {
@@ -84,21 +88,42 @@ export function Admin() {
     setPage2(0);
   };
 
-  const dataRows = data.slice(
-    page2 * rowsPerPage2,
-    page2 * rowsPerPage2 + rowsPerPage2
-  );
   const companiesRows = companies.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
+  const dataRows = data1.slice(
+    page2 * rowsPerPage2,
+    page2 * rowsPerPage2 + rowsPerPage2
+  );
 
-  const Change0 = () => {
+  const Change0 = useCallback(() => {
     setFlags(0);
-  };
+  });
 
-  const Change1 = () => {
+  const Change1 = useCallback(() => {
     setFlags(1);
+  });
+
+  const dataid1 = useCallback((data) => {
+    console.log(data);
+    postData("admin/student/deactivate", data);
+  });
+  const dataid2 = useCallback((data) => {
+    console.log(data);
+    postData("admin/student/activate", data);
+  });
+  const companyid1 = useCallback((data) => {
+    console.log(data);
+    postData("admin/company/deactivate", data);
+  });
+  const companyid2 = useCallback((data) => {
+    console.log(data);
+    postData("admin/company/activate", data);
+  });
+
+  const onClick = () => {
+    navigate("/Addadmin");
   };
 
   const theme = createTheme({
@@ -197,6 +222,7 @@ export function Admin() {
                       style={{
                         color: "black",
                       }}
+                      onClick={onClick}
                     >
                       管理者アカウント作成
                     </Button>
@@ -216,7 +242,7 @@ export function Admin() {
             </Typography>
             <TablePagination
               component="div"
-              count={data.length}
+              count={data1.length}
               page={page2}
               onPageChange={handleChangePage2}
               rowsPerPage={rowsPerPage2}
@@ -266,9 +292,9 @@ export function Admin() {
                       {user.active ? "Active" : "Inactive"}
                     </Typography>
                     {user.active ? (
-                      <Button>停止</Button>
+                      <Button onClick={() => dataid1(user?.id)}>停止</Button>
                     ) : (
-                      <Button>有効化</Button>
+                      <Button onClick={() => dataid2(user?.id)}>有効化</Button>
                     )}
                   </Box>
                 </ListItem>
@@ -334,9 +360,13 @@ export function Admin() {
                       {company.active ? "Active" : "Inactive"}
                     </Typography>
                     {company.active ? (
-                      <Button>停止</Button>
+                      <Button onClick={() => companyid1(company?.id)}>
+                        停止
+                      </Button>
                     ) : (
-                      <Button>有効化</Button>
+                      <Button onClick={() => companyid2(company?.id)}>
+                        有効化
+                      </Button>
                     )}
                   </Box>
                 </ListItem>

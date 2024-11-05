@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -20,10 +20,6 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { primarycolor } from "../../const/color";
 
 export function Addstudentuser() {
-  useEffect(() => {
-    document.title = "新規登録";
-  }, []);
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialNamae = location.state?.namae || "";

@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
 import { primarycolor } from "../../const/color";
 
 export function Addstudentkakunin() {
-  useEffect(() => {
-    document.title = "最終確認";
-  }, []);
-
   const navigate = useNavigate();
   const location = useLocation();
   const {

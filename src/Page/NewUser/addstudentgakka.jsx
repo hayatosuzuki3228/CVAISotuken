@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -13,10 +13,6 @@ import { selectBox, selectBox1 } from "./Data";
 import { primarycolor } from "../../const/color";
 
 export function Addstudentgakka() {
-  useEffect(() => {
-    document.title = "新規登録";
-  }, []);
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialGakka = location.state?.gakka || "";

@@ -28,6 +28,7 @@ import { BookmarkProvider } from "./provider/booktext";
 import { Admin } from "./Page/admin/admin.jsx";
 import { ErrorResponse } from "./sever/ErrorResponse.jsx";
 import { Fuckserver } from "./sever/Fucksever.jsx";
+import { Addadmin } from "./Page/NewUser/addadmin.jsx";
 import "normalize.css";
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
               <Route path="/Admin" element={<Admin />} />
               <Route path="/error" element={<ErrorResponse />} />
               <Route path="/Fuckserver" element={<Fuckserver />} />
+              <Route path="/Addadmin" element={<Addadmin />} />
               <Route
                 path="/companyinformation"
                 element={<Companyinformation />}

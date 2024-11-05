@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, TextField, Typography } from "@mui/material";
 import { primarycolor } from "../../const/color";
+import { postData } from "../../sever/api";
 import "normalize.css";
 
-export function Addstudent() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const initialEmail = location.state?.email || "";
-  const initialPass = location.state?.pass || "";
+export function Addadmin() {
+  useEffect(() => {
+    document.title = "管理者アカウント新規登録";
+  }, []);
 
-  const { namae, kanamae, gender, birthday, area, sikaku, gakka, sotu } =
-    location.state || {};
-  const [email, setemail] = useState(initialEmail);
+  const navigate = useNavigate();
+  const [email, setemail] = useState("");
   const [remail, setremail] = useState("");
-  const [pass, setpass] = useState(initialPass);
+  const [pass, setpass] = useState("");
   const [rpass, setrpass] = useState("");
 
   const [error, setError] = useState(false);
@@ -29,20 +28,8 @@ export function Addstudent() {
       /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
     const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
     if (emailRegex.test(email) && passRegex.test(pass)) {
-      return navigate("/adduser", {
-        state: {
-          email,
-          pass,
-          namae,
-          kanamae,
-          gender,
-          birthday,
-          area,
-          sikaku,
-          gakka,
-          sotu,
-        },
-      });
+      postData("registration/admin", email || pass);
+      navigate("/Admin");
     } else {
       {
         !emailRegex.test(email) && !passRegex.test(pass)
@@ -59,7 +46,7 @@ export function Addstudent() {
     }
   };
   const onClick1 = () => {
-    return navigate("/LoginPage");
+    navigate("/admin");
   };
   const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
@@ -135,28 +122,9 @@ export function Addstudent() {
             color: primarycolor,
           }}
         >
-          新規登録
+          管理者アカウント新規登録
         </Typography>
         <p></p>
-        <Stack
-          direction="row"
-          spacing={4}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Box
-            fontSize={20}
-            sx={{ borderBottom: "2px solid ", borderBottomColor: primarycolor }}
-          >
-            ID・PS
-          </Box>
-          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
-            利用者情報
-          </Box>
-          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
-            学科情報
-          </Box>
-        </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
           <Box width={350}>
             <div>
@@ -227,7 +195,7 @@ export function Addstudent() {
                 onChange={handleChange}
                 error={error || isDifferent1}
                 helperText={
-                  error ? "半角英数字4文字以上10文字以内で入力してください" : ""
+                  error ? "半角英数字8文字以上24文字以内で入力してください" : ""
                 }
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -259,7 +227,7 @@ export function Addstudent() {
                 error={error1 || isDifferent1}
                 helperText={
                   error1
-                    ? "半角英数字4文字以上10文字以内で入力してください"
+                    ? "半角英数字8文字以上24文字以内で入力してください"
                     : ""
                 }
                 sx={{
@@ -288,7 +256,7 @@ export function Addstudent() {
             }}
             onClick={onClick1}
           >
-            戻る
+            管理者画面へ
           </Button>
         </Box>
         <Box textAlign="right">
@@ -317,7 +285,7 @@ export function Addstudent() {
             }
             onClick={onClick}
           >
-            次へ
+            登録
           </Button>
         </Box>
       </Stack>
