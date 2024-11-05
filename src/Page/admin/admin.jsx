@@ -71,7 +71,7 @@ export function Admin() {
   }, []);
   const navigate = useNavigate();
   const open = useState(false);
-  const [flags, setFlags] = useState("");
+  const [flags, setFlags] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
   const [page2, setPage2] = useState(0);
@@ -109,22 +109,22 @@ export function Admin() {
 
   //登録されている生徒のアカウントを無効にします
   const dataid1 = useCallback((data) => {
-    console.log(data);
+    console.log("id: " + data);
     postData("admin/student/deactivate", data);
   });
   //登録されている生徒のアカウントを有効にします
   const dataid2 = useCallback((data) => {
-    console.log(data);
+    console.log("id: " + data);
     postData("admin/student/activate", data);
   });
   //登録されている企業のアカウントを無効にします
   const companyid1 = useCallback((data) => {
-    console.log(data);
+    console.log("id: " + data);
     postData("admin/company/deactivate", data);
   });
   //登録されている企業のアカウントを有効にします
   const companyid2 = useCallback((data) => {
-    console.log(data);
+    console.log("id: " + data);
     postData("admin/company/activate", data);
   });
 
@@ -306,6 +306,16 @@ export function Admin() {
                 </ListItem>
               </Box>
             ))}
+            <TablePagination
+              component="div"
+              count={data1.length}
+              page={page2}
+              onPageChange={handleChangePage2}
+              rowsPerPage={rowsPerPage2}
+              onRowsPerPageChange={handleChangeRowsPerPage2}
+              rowsPerPageOptions={[50, 100, 200]}
+              labelRowsPerPage="表示件数"
+            />
           </>
         )}
 
@@ -378,6 +388,16 @@ export function Admin() {
                 </ListItem>
               </Box>
             ))}
+            <TablePagination
+              component="div"
+              count={companies.length}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              rowsPerPageOptions={[50, 100, 200]}
+              labelRowsPerPage="表示件数"
+            />
           </>
         )}
       </List>

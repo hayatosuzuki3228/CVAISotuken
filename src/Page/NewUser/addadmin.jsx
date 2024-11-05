@@ -29,7 +29,8 @@ export function Addadmin() {
     const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
     if (emailRegex.test(email) && passRegex.test(pass)) {
       //管理者アカウント作成
-      postData("registration/admin", email || pass);
+      console.log([email, pass]);
+      postData("registration/admin", [email, pass]);
       navigate("/Admin");
     } else {
       {

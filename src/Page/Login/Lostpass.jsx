@@ -98,7 +98,6 @@ export function Lostpass() {
               label="登録メールアドレス（確認）"
               name="address"
               autoComplete="username"
-              autoFocus
               value={address}
               onChange={handleAddressChange}
               InputLabelProps={{
