@@ -227,7 +227,7 @@ export function Addstudent() {
                 onChange={handleChange}
                 error={error || isDifferent1}
                 helperText={
-                  error ? "半角英数字4文字以上10文字以内で入力してください" : ""
+                  error ? "半角英数字8文字以上24文字以内で入力してください" : ""
                 }
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -259,7 +259,7 @@ export function Addstudent() {
                 error={error1 || isDifferent1}
                 helperText={
                   error1
-                    ? "半角英数字4文字以上10文字以内で入力してください"
+                    ? "半角英数字8文字以上24文字以内で入力してください"
                     : ""
                 }
                 sx={{
