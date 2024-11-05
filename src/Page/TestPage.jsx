@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { styled, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -7,22 +6,24 @@ import Tab from "@mui/material/Tab";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import AppBarContents from "./Component/AppBarContents";
-import DrawerContents from "./Component/DrawerContents";
-import MainContents from "./Component/MainContents";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import Pagination from "@mui/material/Pagination";
+import { useNavigate } from "react-router-dom";
+import { useMediaQuery, Modal, Button } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import { useNavigate } from "react-router-dom";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { careerNotice } from "../const/data/careernotice";
+import { companyNotice } from "../const/data/companynotice";
 import { gray, primarycolor } from "../const/color";
-import "normalize.css";
 import { theme } from "../const/theme";
-import { Pagination } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
+import AppBarContents from "./Component/AppBarContents";
+import DrawerContents from "./Component/DrawerContents";
+import MainContents from "./Component/MainContents";
 
 const TestPage = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -59,105 +60,23 @@ const TestPage = () => {
       link: "/Setting",
       isNavigate: true,
     },
-  ];
-
-  const careerNotice = [
     {
-      date: "2025/1/1",
-      text: "ここにおしらせタイトルが入ります",
-      link: "/LoginPage",
-    },
-    {
-      date: "2024/12/12",
-      text: "学内合同企業説明会を開催します",
-    },
-    {
-      date: "2024/11/11",
-      text: "マッチング機能の不具合修正を行いました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/10/10",
-      text: "株式会社○○○○が企業登録を行いました",
-    },
-    {
-      date: "2024/9/9",
-      text: "名産会マッチングシステム学生登録が始まりました",
-      link: "/Matching",
-    },
-    {
-      date: "2025/1/1",
-      text: "ここにおしらせタイトルが入ります",
-      link: "/LoginPage",
-    },
-    {
-      date: "2024/12/12",
-      text: "学内合同企業説明会を開催します",
-    },
-    {
-      date: "2024/11/11",
-      text: "マッチング機能の不具合修正を行いました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/9/9",
-      text: "名産会マッチングシステム学生登録が始まりました",
-      link: "/Matching",
-    },
-    {
-      date: "2025/1/1",
-      text: "ここにおしらせタイトルが入ります",
-      link: "/LoginPage",
-    },
-    {
-      date: "2024/12/12",
-      text: "学内合同企業説明会を開催します",
-    },
-    {
-      date: "2024/11/11",
-      text: "マッチング機能の不具合修正を行いました",
-      link: "/Matching",
-    },
-  ];
-
-  const companyNotice = [
-    {
-      date: "2024/1/1",
-      text: "(株)○○システム新卒採用開始しました",
-      link: "/LoginPage",
-    },
-    {
-      date: "20??/12/32",
-      text: "採用サイトリニューアルのおしらせ",
-    },
-    {
-      date: "2000/10/10",
-      text: "システム(株)が企業一覧に追加されました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/1/1",
-      text: "(株)○○システム新卒採用開始しました",
-      link: "/LoginPage",
-    },
-    {
-      date: "20??/12/32",
-      text: "採用サイトリニューアルのおしらせ",
-    },
-    {
-      date: "2000/10/10",
-      text: "システム(株)が企業一覧に追加されました",
-      link: "/Matching",
+      text: "お問い合わせ",
+      icon: <HelpOutlineIcon />,
+      link: "/inquiry",
+      isNavigate: true,
     },
   ];
 
   const [value, setValue] = React.useState(0);
+  const [openModal, setOpenModal] = useState(false); // モーダルの開閉状態を管理
+  const [selectedItem, setSelectedItem] = useState(null); // クリックされたアイテムを保持
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  //#region pagenation
+  //#region pagination
   const pageItems = 5;
   const [currentCareerPage, setCurrentCareerPage] = useState(1);
   const [currentCompanyPage, setCurrentCompanyPage] = useState(1);
@@ -186,12 +105,23 @@ const TestPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
   const navigate = useNavigate();
 
-  const handleItemClick = (link, isNavigate) => {
+  const handleLinkClick = (link, isNavigate) => {
     if (isNavigate) {
       navigate(link);
     } else if (link) {
       window.location.href = link;
     }
+  };
+
+  const handleItemClick = (item) => {
+    // モーダルを開き、クリックされたアイテムの詳細情報を表示
+    setSelectedItem(item);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedItem(null); // モーダルが閉じられるときに選択されたアイテムをリセット
   };
 
   return (
@@ -202,7 +132,7 @@ const TestPage = () => {
         <DrawerContents
           open={drawerOpen}
           menuItems={menuItems}
-          handleItemClick={handleItemClick}
+          handleItemClick={handleLinkClick}
         />
 
         <MainContents open={drawerOpen}>
@@ -245,11 +175,7 @@ const TestPage = () => {
                 {careerItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() =>
-                          handleItemClick(item.link, item.isNavigate)
-                        }
-                      >
+                      <ListItemButton onClick={() => handleItemClick(item)}>
                         <div
                           style={{
                             display: "flex",
@@ -272,7 +198,7 @@ const TestPage = () => {
                               color: primarycolor,
                             }}
                           >
-                            {item.text}
+                            {item.title}
                           </Typography>
                         </div>
                       </ListItemButton>
@@ -295,11 +221,7 @@ const TestPage = () => {
                 {companyItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() =>
-                          handleItemClick(item.link, item.isNavigate)
-                        }
-                      >
+                      <ListItemButton onClick={() => handleItemClick(item)}>
                         <div
                           style={{
                             display: "flex",
@@ -322,7 +244,7 @@ const TestPage = () => {
                               color: primarycolor,
                             }}
                           >
-                            {item.text}
+                            {item.title}
                           </Typography>
                         </div>
                       </ListItemButton>
@@ -341,6 +263,50 @@ const TestPage = () => {
           )}
         </MainContents>
       </Box>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "white",
+            padding: 4,
+            borderRadius: 2,
+            boxShadow: 24,
+            width: "80%",
+            maxWidth: 600,
+          }}
+        >
+          {selectedItem && (
+            <div>
+              <Typography variant="h6" component="h2">
+                {selectedItem.title}
+              </Typography>
+              <Typography sx={{ mt: 1 }}>{selectedItem.date}</Typography>
+              <Typography sx={{ whiteSpace: "pre-wrap", mt: 2 }}>
+                {selectedItem.text}
+              </Typography>
+              <Button
+                onClick={handleCloseModal}
+                sx={{
+                  mt: 2,
+                  backgroundColor: primarycolor,
+                  color: "white",
+                }}
+              >
+                閉じる
+              </Button>
+            </div>
+          )}
+        </Box>
+      </Modal>
     </ThemeProvider>
   );
 };

@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Button from "@mui/material/Button";
 import { ThemeProvider, Box } from "@mui/material";
 import { theme } from "../../const/theme";
@@ -70,9 +71,15 @@ const AppBarContents = ({ open, setOpen }) => {
               名産会マッチングシステム
             </Typography>
           </Box>
-          <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-            ログイン
-          </Button>
+          <Box>
+            <IconButton color="inherit" onClick={() => navigate("/Bookmark")}>
+              <BookmarksIcon />
+            </IconButton>
+
+            <Button color="inherit" onClick={() => navigate("/Loginpage")}>
+              ログイン
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </ThemeProvider>
