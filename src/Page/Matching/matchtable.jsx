@@ -47,7 +47,8 @@ function convertCompanyData(company, jobData) {
     id: company.id.toString(),
     name: company.name,
     detail: company.detail,
-    matchdo: matchScore,
+    matchdo: matchScore.score,
+    max: matchScore.total,
     history: [
       {
         industry: company.category,
@@ -60,33 +61,53 @@ function convertCompanyData(company, jobData) {
     ],
   };
 }
+
 // マッチ度を計算する関数
 function calculateMatchScore(company, jobData) {
   let score = 0;
-  // 募集学科情報の比較
-  if (
-    company.recruitment_grade &&
-    jobData.department &&
-    company.recruitment_grade.includes(jobData.department)
-  )
-    score += 10;
-  else {
-    return 0; // 募集学科情報が一致しなかったらスコアを0にして返す
-  }
+  let total = 0;
+
   // 勤務地の比較
-  jobData.location.forEach((location) => {
-    if (company.work_location.includes(location)) score += 10;
+  const selectedLocations = jobData.location;
+  let locationMatched = false;
+  let locationmax = false;
+  selectedLocations.forEach((location) => {
+    if (!locationmax) {
+      total += 15;
+      locationmax = true;
+    }
+    if (company.work_location.includes(location) && !locationMatched) {
+      score += 15; // 一度だけ加算
+      locationMatched = true; // 加算フラグをオンにする
+    }
   });
   // 特長の比較
   jobData.features.forEach((feature) => {
+    total += 10;
     if (company.ideal_candidate_profile.includes(feature)) score += 10;
   });
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
+    total += 10;
     if (company.qualification.includes(qualification)) score += 10;
   });
-
-  return score;
+  // 募集学科情報の比較
+  if (jobData.department != null && jobData.department.trim() !== "") {
+    total += 10;
+    if (
+      company.recruitment_grade &&
+      jobData.department &&
+      company.recruitment_grade.includes(jobData.department)
+    ) {
+      score += 10;
+    } else {
+      score = 0; // 募集学科情報が一致しなかったらスコアを0にして返す
+    }
+  }
+  if (jobData.department == null) {
+    score = 0;
+  }
+  return { score, total };
 }
 
 function Row(props) {
@@ -103,7 +124,10 @@ function Row(props) {
     return navigate("/companyinformation");
   };
 
-  const getMatchdoCellStyle = (matchdo) => {
+  const getMatchdoCellStyle = (matchdo, max) => {
+    if (matchdo >= 40) {
+      return { color: "red" };
+    }
     if (matchdo >= 30) {
       return { color: "green" };
     } else if (matchdo >= 10) {
@@ -147,7 +171,7 @@ function Row(props) {
           </TableCell>
         )}
         <TableCell align="center" sx={getMatchdoCellStyle(row.matchdo)}>
-          {row.matchdo}P
+          {row.matchdo}P/{row.max}P
         </TableCell>
         <TableCell>
           <IconButton onClick={() => onFavoriteToggle(row.id)}>
@@ -219,6 +243,7 @@ Row.propTypes = {
     name: PropTypes.string.isRequired,
     detail: PropTypes.string.isRequired,
     matchdo: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
     history: PropTypes.arrayOf(
       PropTypes.shape({
         industry: PropTypes.string.isRequired,
@@ -431,7 +456,9 @@ export function Matchtable() {
           />
         </Box>
       </Box>
-      <Divider sx={{ my: 5 }} />
+
+      <Divider sx={{ my: 5, borderWidth: "1px" }} />
+
       <TableContainer
         component={Paper}
         className="table1"

@@ -52,7 +52,7 @@ const JobForm = ({ onSave, initialData }) => {
   const navigate = useNavigate();
   const { setJobData } = useContext(JobContext);
   const [formData, setFormData] = useState({
-    department: "",
+    department: null,
     location: [],
     features: [],
     qualifications: [],
@@ -85,7 +85,7 @@ const JobForm = ({ onSave, initialData }) => {
           value={formData.department}
           onChange={handleChange("department")}
           renderInput={(params) => (
-            <TextField {...params} label="募集学科情報" fullWidth />
+            <TextField {...params} label="学科情報" fullWidth />
           )}
         />
       </Box>
