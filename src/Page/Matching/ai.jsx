@@ -19,7 +19,7 @@ export function Ai() {
         現在、このAI機能は未実装です。
       </Typography>
       <Typography variant="body1" gutterBottom>
-        今後の追加をお待ちください。このページは利用できませんので、戻るボタンを押してください。
+        今後の追加をお待ちください。
       </Typography>
       <Button
         className="back"

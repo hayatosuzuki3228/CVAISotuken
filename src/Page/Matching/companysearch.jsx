@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import {
   TextField,
   Button,
+  Box,
   Grid,
   Card,
   CardContent,
@@ -337,18 +338,28 @@ export function Companysearch() {
             <Grid item xs={12} sm={6} md={4} key={company.id}>
               <Card onClick={() => handleCompanyChange(company.id)}>
                 <CardContent>
-                  <Fab
-                    color="secondary"
-                    size="small"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleBookmarkClick(company.id);
-                    }}
+                  <Grid
+                    container
+                    alignItems="center"
+                    justifyContent="space-between"
+                    marginBottom="2px"
                   >
-                    <BookmarksIcon />
-                  </Fab>
-
-                  <Typography variant="h6">{company.name}</Typography>
+                    <Grid item>
+                      <Typography variant="h6">{company.name}</Typography>
+                    </Grid>
+                    <Grid item>
+                      <Fab
+                        color="secondary"
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBookmarkClick(company.id);
+                        }}
+                      >
+                        <BookmarksIcon />
+                      </Fab>
+                    </Grid>
+                  </Grid>
                   <Typography color="textSecondary">
                     業界：{company.category}
                   </Typography>
