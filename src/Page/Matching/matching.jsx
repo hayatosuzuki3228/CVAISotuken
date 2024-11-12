@@ -136,7 +136,7 @@ export function Matching() {
                   onClick={handleClick}
                 >
                   <MoreVertIcon
-                    sx={{ color: "#88d1cc", fontSize: isSmallScreen ? 40 : 60 }}
+                    sx={{ color: "#aaccff", fontSize: isSmallScreen ? 40 : 60 }}
                   />
                 </IconButton>
               </Tooltip>
