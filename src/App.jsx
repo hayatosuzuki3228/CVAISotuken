@@ -9,6 +9,7 @@ import { Matching } from "./Page/Matching/matching";
 import { Matchtable } from "./Page/Matching/matchtable";
 import { Companysearch } from "./Page/Matching/companysearch";
 import { Ai } from "./Page/Matching/ai";
+import { Blog } from "./Page/Matching/blog";
 import { Matchscore } from "./Page/Matching/matchscore";
 import { Conditions } from "./Page/Matching/Conditions";
 import { Setting } from "./Page/Matching/setting";
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/Matchtable" element={<Matchtable />} />
                 <Route path="/Companysearch" element={<Companysearch />} />
                 <Route path="/Ai" element={<Ai />} />
+                <Route path="/Blog" element={<Blog />} />
                 <Route path="/Matching" element={<Matching />} />
                 <Route path="/Matchscore" element={<Matchscore />} />
                 <Route path="/Conditions" element={<Conditions />} />

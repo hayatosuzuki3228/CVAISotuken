@@ -19,7 +19,7 @@
     float: left;
     position: relative;
     width: 300px;
-    background-color: rgb(227, 241, 241);
+    background-color: rgb(209, 232, 246);
     box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
     padding-bottom: 88vh;
     padding-left: 2%;
@@ -43,14 +43,14 @@
     
     position: absolute;
     top: 450px;
-    font-size: 25px;
+    font-size: 33px;
   }
  
   .b4 {
    
     position: absolute;
     top: 570px;
-    font-size: 35px;
+    font-size: 25px;
   }
   
   div.main {
@@ -118,7 +118,7 @@
     float: left;
     position: relative;
     width: 300px;
-    background-color: rgb(227, 241, 241);
+    background-color: rgb(209, 232, 246);
     box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
    
     padding-left: 2%;
@@ -143,14 +143,14 @@
     
     position: absolute;
     top: 390px;
-    font-size: 25px;
+    font-size: 33px;
   }
  
   .b4 {
    
     position: absolute;
     top: 505px;
-    font-size: 35px;
+    font-size: 25px;
   }
   
   .main {
@@ -207,7 +207,7 @@
     margin-top: 50px;
     padding-top:10% ;
     position: relative;
-    background-color: rgb(227, 241, 241);
+    background-color: rgb(209, 232, 246);
     border-left: 10px solid rgb(6, 103, 142);
     border-right: 10px solid rgb(6, 103, 142);
     padding-bottom: 12%;
@@ -226,12 +226,12 @@
   }
   
   .b3 {
-    font-size: 25px;
+    font-size: 30px;
    
   }
   
   .b4 {
-    font-size: 35px;
+    font-size: 25px;
    
   }
   

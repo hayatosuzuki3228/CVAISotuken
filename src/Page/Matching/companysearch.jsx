@@ -197,14 +197,14 @@ export function Companysearch() {
           </FormControl>
         </Grid>
 
-        {/* 所在地フィルター */}
+        {/* 勤務地フィルター */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
-            <InputLabel>所在地</InputLabel>
+            <InputLabel>勤務地</InputLabel>
             <Select
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
-              label="所在地"
+              label="勤務地"
             >
               <MenuItem value="">
                 <em>すべて</em>

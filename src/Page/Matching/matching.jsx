@@ -22,6 +22,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
 import companies from "../../const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
 import styled from "styled-components";
@@ -35,17 +36,19 @@ const StyledButton = styled(Button)`
     width: 250px;
     height: 100px;
     padding: 5px;
+    background-color: #446699;
+
+    &:hover {
+      background-color: #335588;
+    }
   }
 `;
 const StyledButton2 = styled(Button)`
   && {
-    width: 250px;
-    height: 100px;
-    padding: 5px;
-    background-color: #007b43;
+    background-color: #dd3300;
 
     &:hover {
-      background-color: #0c5541;
+      background-color: #aa2200;
     }
   }
 `;
@@ -164,6 +167,12 @@ export function Matching() {
           <ListItemText>プロフィール</ListItemText>
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={() => navigate("/")}>
+          <ListItemIcon>
+            <HomeIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>ホーム</ListItemText>
+        </MenuItem>
         <MenuItem onClick={handleClose}>ログアウト</MenuItem>
       </Menu>
 
@@ -179,7 +188,6 @@ export function Matching() {
               className="b1"
               onClick={() => navigate("/Companysearch")}
               variant="contained"
-              color="success"
             >
               企業検索
             </StyledButton>
@@ -190,30 +198,27 @@ export function Matching() {
                 (window.location.href = "http://intra2.denpa.ac.jp/job/2024/")
               }
               variant="contained"
-              color="success"
             >
               求人票
             </StyledButton>
 
             <StyledButton
               className="b3"
+              onClick={() => navigate("/Blog")}
+              variant="contained"
+            >
+              企業ブログ
+            </StyledButton>
+
+            <StyledButton
+              className="b4"
               onClick={() =>
                 (window.location.href =
                   "http://intra2.denpa.ac.jp/e-learning/job/")
               }
               variant="contained"
-              color="success"
             >
               就職ガイダンス
-            </StyledButton>
-
-            <StyledButton
-              className="b4"
-              onClick={() => navigate("/")}
-              variant="contained"
-              color="success"
-            >
-              HOME
             </StyledButton>
           </Stack>
         </div>
@@ -249,17 +254,16 @@ export function Matching() {
             企業情報
           </Button>
 
-          <Button
+          <StyledButton2
             className="b6"
             onClick={onClick}
             sx={{
               padding: 2,
             }}
             variant="contained"
-            color="error"
           >
             マッチ度表
-          </Button>
+          </StyledButton2>
 
           <Button
             className="b7"
