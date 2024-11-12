@@ -354,9 +354,7 @@ export function Companysearch() {
                           handleBookmarkClick(company.id);
                         }}
                       >
-                        <BookmarksIcon
-                          color={isBookmarked ? "primary" : "default"}
-                        />
+                        <BookmarksIcon />
                       </Fab>
                     </Grid>
                   </Grid>
