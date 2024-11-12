@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import {
   TextField,
   Button,
-  Box,
   Grid,
   Card,
   CardContent,
@@ -41,7 +40,6 @@ export function Companysearch() {
   const { addBookmark } = useContext(BookmarkContext);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
-
   const navigate = useNavigate();
 
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
@@ -356,7 +354,9 @@ export function Companysearch() {
                           handleBookmarkClick(company.id);
                         }}
                       >
-                        <BookmarksIcon />
+                        <BookmarksIcon
+                          color={isBookmarked ? "primary" : "default"}
+                        />
                       </Fab>
                     </Grid>
                   </Grid>
