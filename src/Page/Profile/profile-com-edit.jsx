@@ -3,6 +3,11 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
   Drawer,
   Divider,
   FormControl,
@@ -19,7 +24,6 @@ import {
   Select,
   TextField,
   Typography,
-  useScrollTrigger,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.css";
@@ -31,44 +35,44 @@ export function CEdit() {
   }, []);
 
   const location = useLocation();
-  const warpCnameSave = location.state?.CnameSave || "";
-  const warpCkNameSave = location.state?.CkNameSave || "";
-  const warpPlaceSave = location.state?.placeSave || "";
-  const warpTelSave = location.state?.telSave || "";
-  const warpFaxSave = location.state?.faxSave || "";
-  const warpInfoSave = location.state?.infoSave || "";
-  const warpCOpenSave = location.state?.COpenSave || "";
-  const warpCOpenMSave = location.state?.COpenMSave || "";
-  const warpCapitalSave = location.state?.capitalSave || "";
-  const warpPeopleSave = location.state?.peopleSave || "";
-  const warpComePeopleSave = location.state?.comePeopleSave || "";
-  const warpHomepageSave = location.state?.homepageSave || "";
+  const warpCname = location.state?.Cname || "";
+  const warpCkName = location.state?.CkName || "";
+  const warpPlace = location.state?.place || "";
+  const warpTel = location.state?.tel || "";
+  const warpFax = location.state?.fax || "";
+  const warpInfo = location.state?.info || "";
+  const warpCOpen = location.state?.COpen || "";
+  const warpCOpenM = location.state?.COpenM || "";
+  const warpCapital = location.state?.capital || "";
+  const warpPeople = location.state?.people || "";
+  const warpComePeople = location.state?.comePeople || "";
+  const warpHomepage = location.state?.homepage || "";
 
-  const [Cname, setCname] = useState(warpCnameSave);
-  const [CkName, setCkName] = useState(warpCkNameSave);
-  const [place, setPlace] = useState(warpPlaceSave);
-  const [tel, setTel] = useState(warpTelSave);
-  const [fax, setFax] = useState(warpFaxSave);
-  const [info, setInfo] = useState(warpInfoSave);
-  const [COpen, setCOpen] = useState(warpCOpenSave);
-  const [COpenM, setCOpenM] = useState(warpCOpenMSave);
-  const [capital, setCapital] = useState(warpCapitalSave);
-  const [people, setPeople] = useState(warpPeopleSave);
-  const [comePeople, setComePeople] = useState(warpComePeopleSave);
-  const [homepage, setHomepage] = useState(warpHomepageSave);
+  const [Cname, setCname] = useState(warpCname);
+  const [CkName, setCkName] = useState(warpCkName);
+  const [place, setPlace] = useState(warpPlace);
+  const [tel, setTel] = useState(warpTel);
+  const [fax, setFax] = useState(warpFax);
+  const [info, setInfo] = useState(warpInfo);
+  const [COpen, setCOpen] = useState(warpCOpen);
+  const [COpenM, setCOpenM] = useState(warpCOpenM);
+  const [capital, setCapital] = useState(warpCapital);
+  const [people, setPeople] = useState(warpPeople);
+  const [comePeople, setComePeople] = useState(warpComePeople);
+  const [homepage, setHomepage] = useState(warpHomepage);
 
-  const [CnameSave, setCnameSave] = useState(warpCnameSave);
-  const [CkNameSave, setCkNameSave] = useState(warpCkNameSave);
-  const [placeSave, setPlaceSave] = useState(warpPlaceSave);
-  const [telSave, setTelSave] = useState(warpTelSave);
-  const [faxSave, setFaxSave] = useState(warpFaxSave);
-  const [infoSave, setInfoSave] = useState(warpInfoSave);
-  const [COpenSave, setCOpenSave] = useState(warpCOpenSave);
-  const [COpenMSave, setCOpenMSave] = useState(warpCOpenMSave);
-  const [capitalSave, setCapitalSave] = useState(warpCapitalSave);
-  const [peopleSave, setPeopleSave] = useState(warpPeopleSave);
-  const [comePeopleSave, setComePeopleSave] = useState(warpComePeopleSave);
-  const [homepageSave, setHomepageSave] = useState(warpHomepageSave);
+  const [CnameSave, setCnameSave] = useState(warpCname);
+  const [CkNameSave, setCkNameSave] = useState(warpCkName);
+  const [placeSave, setPlaceSave] = useState(warpPlace);
+  const [telSave, setTelSave] = useState(warpTel);
+  const [faxSave, setFaxSave] = useState(warpFax);
+  const [infoSave, setInfoSave] = useState(warpInfo);
+  const [COpenSave, setCOpenSave] = useState(warpCOpen);
+  const [COpenMSave, setCOpenMSave] = useState(warpCOpenM);
+  const [capitalSave, setCapitalSave] = useState(warpCapital);
+  const [peopleSave, setPeopleSave] = useState(warpPeople);
+  const [comePeopleSave, setComePeopleSave] = useState(warpComePeople);
+  const [homepageSave, setHomepageSave] = useState(warpHomepage);
 
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
@@ -80,242 +84,64 @@ export function CEdit() {
   const [error8, setError8] = useState("");
   const [error9, setError9] = useState("");
   const [error10, setError10] = useState("");
-  const [OneMoreClick, setOneMoreClick] = useState();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  useEffect(() => {
-    if (!Cname) {
-      setCname(CnameSave);
-    } else {
-      setCname(Cname);
-    }
-  }, [CnameSave]);
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
 
-  useEffect(() => {
-    if (!CkName) {
-      setCkName(CkNameSave);
-    } else {
-      setCkName(CkName);
-    }
-  }, [CkNameSave]);
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
 
-  useEffect(() => {
-    if (!place) {
-      setPlace(placeSave);
-    } else {
-      setPlace(place);
-    }
-  }, [placeSave]);
+  const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
+  const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
+  const TelRegex = /^[0-9-]{11,}$/;
+  const MoneyRegex = /^[0-9]{1,}$/;
+  const PageRegex =
+    /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
 
-  useEffect(() => {
-    if (!tel) {
-      setTel(telSave);
-    } else {
-      setTel(tel);
+  const regexCname = (Cname) => {
+    if (!regex.test(Cname)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
-  }, [telSave]);
+    return "";
+  };
 
-  useEffect(() => {
-    if (!fax) {
-      setFax(faxSave);
-    } else {
-      setFax(fax);
-    }
-  }, [faxSave]);
-
-  useEffect(() => {
-    if (!info) {
-      setInfo(infoSave);
-    } else {
-      setInfo(info);
-    }
-  }, [infoSave]);
-
-  useEffect(() => {
-    if (!COpen) {
-      setCOpen(COpenSave);
-    } else {
-      setCOpen(COpen);
-    }
-  }, [COpenSave]);
-
-  useEffect(() => {
-    if (!COpenM) {
-      setCOpenM(COpenMSave);
-    } else {
-      setCOpenM(COpenM);
-    }
-  }, [COpenMSave]);
-
-  useEffect(() => {
-    if (!capital) {
-      setCapital(capitalSave);
-    } else {
-      setCapital(capital);
-    }
-  }, [capitalSave]);
-
-  useEffect(() => {
-    if (!people) {
-      setPeople(peopleSave);
-    } else {
-      setPeople(people);
-    }
-  }, [peopleSave]);
-
-  useEffect(() => {
-    if (!comePeople) {
-      setComePeople(comePeopleSave);
-    } else {
-      setComePeople(comePeople);
-    }
-  }, [comePeopleSave]);
+  const handleConfirmDialog = () => {
+    setDialogOpen(false);
+  };
 
   const navigate = useNavigate();
 
   const OnClick = () => {
-    if (OneMoreClick == true) {
-      null;
-    } else {
-      navigate("/profile-com", {
-        state: {
-          CnameSave,
-          CkNameSave,
-          placeSave,
-          telSave,
-          faxSave,
-          infoSave,
-          COpenSave,
-          COpenMSave,
-          capitalSave,
-          peopleSave,
-          comePeopleSave,
-          homepageSave,
-        },
-      });
-    }
+    navigate("/profile-com", {
+      state: {
+        CnameSave,
+        CkNameSave,
+        placeSave,
+        telSave,
+        faxSave,
+        infoSave,
+        COpenSave,
+        COpenMSave,
+        capitalSave,
+        peopleSave,
+        comePeopleSave,
+        homepageSave,
+      },
+    });
   };
-
-  // profile-com に飛ぶ
-  const OnClickBack = () => {
-    const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
-    const TelRegex = /^[0-9-]{11,}$/;
-    const MoneyRegex = /^[0-9]{1,}$/;
-    const PageRegex =
-      /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
-
-    if (
-      regex.test(Cname) &&
-      regex.test(place) &&
-      regex.test(info) &&
-      regex.test(people) &&
-      regex.test(comePeople) &&
-      KanaRegex.test(CkName) &&
-      TelRegex.test(tel) &&
-      TelRegex.test(fax) &&
-      MoneyRegex.test(capital) &&
-      (PageRegex.test(homepage) || homepage === "")
-    ) {
-      if (
-        Cname === CnameSave &&
-        CkName === CkNameSave &&
-        place === placeSave &&
-        info === infoSave &&
-        tel === telSave &&
-        fax === faxSave &&
-        people === peopleSave &&
-        comePeople === comePeopleSave &&
-        capital === capitalSave &&
-        (homepage === homepageSave || homepage === "")
-      ) {
-        navigate("/profile-com", {
-          state: {
-            Cname,
-            CkName,
-            place,
-            tel,
-            fax,
-            info,
-            COpen,
-            COpenM,
-            capital,
-            people,
-            comePeople,
-            homepage,
-            CnameSave,
-            CkNameSave,
-            placeSave,
-            telSave,
-            faxSave,
-            infoSave,
-            COpenSave,
-            COpenMSave,
-            capitalSave,
-            peopleSave,
-            comePeopleSave,
-            homepageSave,
-          },
-        });
-      } else {
-        setCnameSave(Cname);
-        setCkNameSave(CkName);
-        setPlaceSave(place);
-        setInfoSave(info);
-        setTelSave(tel);
-        setFaxSave(fax);
-        setCOpenSave(COpen);
-        setCOpenMSave(COpenM);
-        setCapitalSave(capital);
-        setPeopleSave(people);
-        setComePeopleSave(comePeople);
-        setHomepageSave(homepage);
-        setError1("");
-        setError2("");
-        setError3("");
-        setError4("");
-        setError5("");
-        setError6("");
-        setError7("");
-        setError8("");
-        setError9("");
-        setError10("");
-        setOneMoreClick(true);
-      }
-    } else {
-      setError1(
-        !regex.test(Cname) ? setError1("エラー：企業名") : setError1("")
-      );
-      setError2(!KanaRegex.test(CkName) ? "エラー：カタカナ企業名" : "");
-      setError3(!regex.test(place) ? "エラー：来訪者数" : "");
-      setError4(!TelRegex.test(tel) ? "エラー：電話番号" : "");
-      setError5(!TelRegex.test(fax) ? "エラー：FAX番号" : "");
-      setError6(!regex.test(info) ? "エラー：事業内容" : "");
-      setError7(!MoneyRegex.test(capital) ? "エラー：資本金" : "");
-      setError8(!regex.test(people) ? "エラー：従業員数" : "");
-      setError9(
-        !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("")
-      );
-      setError10(
-        !PageRegex.test(homepage)
-          ? setError10("エラー：ホームページ")
-          : setError10("")
-      );
-      setOneMoreClick(false);
-    }
-  };
-
-  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
-    Cname &&
-    CkName &&
-    place &&
-    tel &&
-    fax &&
-    info &&
-    COpen &&
-    COpenM &&
-    capital &&
-    people &&
-    comePeople;
+  regex.test(Cname) &&
+    regex.test(place) &&
+    regex.test(info) &&
+    regex.test(people) &&
+    regex.test(comePeople) &&
+    KanaRegex.test(CkName) &&
+    TelRegex.test(tel) &&
+    TelRegex.test(fax) &&
+    MoneyRegex.test(capital) &&
+    (PageRegex.test(homepage) || homepage === "");
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -372,6 +198,7 @@ export function CEdit() {
         paddingTop="3%"
         paddingBottom="7%"
         spacing={2}
+        style={{ whiteSpace: "pre-line" }}
       >
         <Stack direction="row">
           <Box
@@ -663,24 +490,6 @@ export function CEdit() {
           </Box>
         </Stack>
 
-        <div /* エラーの表示 */>
-          {error1 && <p style={{ color: "red" }}>{error1}</p>}
-          {error2 && <p style={{ color: "red" }}>{error2}</p>}
-          {error3 && <p style={{ color: "red" }}>{error3}</p>}
-          {error4 && <p style={{ color: "red" }}>{error4}</p>}
-          {error5 && <p style={{ color: "red" }}>{error5}</p>}
-          {error6 && <p style={{ color: "red" }}>{error6}</p>}
-          {error7 && <p style={{ color: "red" }}>{error7}</p>}
-          {error8 && <p style={{ color: "red" }}>{error8}</p>}
-          {error9 && <p style={{ color: "red" }}>{error9}</p>}
-          {error10 && <p style={{ color: "red" }}>{error10}</p>}
-          {OneMoreClick === true ? (
-            <p style={{ color: "green" }}>
-              よろしければ、もう一度ボタンを押してください。
-            </p>
-          ) : undefined}
-        </div>
-
         <Stack // ボタンの表示
           direction="row"
           spacing={7}
@@ -688,17 +497,28 @@ export function CEdit() {
           <Button // profile-com に飛ぶ(データの保存を行わない)
             variant="contained"
             onClick={OnClick}
-            disabled={OneMoreClick}
           >
             戻る
           </Button>
-          <Button // profile-comに飛ぶ(データの保存を行う)
-            variant="contained"
-            onClick={OnClickBack}
-            disabled={!Check}
-          >
+          <Button variant="contained" onClick={handleOpenDialog}>
             情報を確定する
           </Button>
+          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+            <DialogTitle>確認</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                この操作を実行してもよろしいですか？
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary">
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmDialog} color="primary" autoFocus>
+                実行
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
       </Stack>
     </>

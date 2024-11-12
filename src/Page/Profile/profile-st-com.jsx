@@ -223,7 +223,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{JobSave == job ? job : JobSave}</p>
+            <p>{job == JobSave ? JobSave : job}</p>
           </Box>
         </Stack>
 
@@ -242,7 +242,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{HobbySave == hobby ? hobby : HobbySave}</p>
+            <p>{hobby == HobbySave ? HobbySave : hobby}</p>
           </Box>
         </Stack>
 
@@ -261,7 +261,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{SkillSave == skill ? skill : SkillSave}</p>
+            <p>{skill == SkillSave ? SkillSave : skill}</p>
           </Box>
         </Stack>
 
@@ -280,7 +280,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{SSubjectSave == SSubject ? SSubject : SSubjectSave}</p>
+            <p>{SSubject == SSubjectSave ? SSubjectSave : SSubject}</p>
           </Box>
         </Stack>
 
@@ -299,7 +299,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{KSubjectSave == KSubject ? KSubject : KSubjectSave}</p>
+            <p>{KSubject == KSubjectSave ? KSubjectSave : KSubject}</p>
           </Box>
         </Stack>
 
@@ -320,8 +320,8 @@ export function SCompany() {
           >
             <p></p>
             <div style={{ textAlign: "center" }}>
-              {MyPowerSave
-                ? MyPowerSave.map((option, index) => (
+              {myPower
+                ? myPower.map((option, index) => (
                     <Typography key={index}>{option.title}</Typography>
                   ))
                 : null}
