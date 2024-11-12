@@ -39,7 +39,7 @@ const StyledButton = styled(Button)`
     background-color: #446699;
 
     &:hover {
-      background-color: #335588;
+      background-color: #224477;
     }
   }
 `;

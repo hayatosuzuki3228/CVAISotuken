@@ -11,10 +11,16 @@ import {
   InputLabel,
   FormControl,
   Fab,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import UndoIcon from "@mui/icons-material/Undo";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { useNavigate } from "react-router-dom";
 
 // 外部データファイルをインポート
@@ -22,12 +28,19 @@ import { industries } from "../../const/industries";
 import { jobtypes } from "../../const/jobtypes";
 import { areas } from "../../const/areas";
 import { employeesizes } from "../../const/employeeSizes";
+import { holidays } from "../../const/holiday";
+import { overtimes } from "../../const/overtime";
 import { companies } from "../../const/companies";
 import MyContext from "../../provider/provider";
 import { SearchContext } from "../../provider/SearchContext";
+import { BookmarkContext } from "../../provider/booktext";
 
 export function Companysearch() {
   const { setproviderid } = useContext(MyContext);
+  const { addBookmark } = useContext(BookmarkContext);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedCompanyId, setSelectedCompanyId] = useState(null);
+
   const navigate = useNavigate();
 
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
@@ -45,6 +58,10 @@ export function Companysearch() {
     setLocationFilter,
     sizeFilter,
     setSizeFilter,
+    holidayFilter,
+    setHolidayFilter,
+    overtimeFilter,
+    setOvertimeFilter,
     filteredCompanies,
     setFilteredCompanies,
   } = useContext(SearchContext);
@@ -84,6 +101,17 @@ export function Companysearch() {
       );
     }
 
+    if (holidayFilter) {
+      searchResults = searchResults.filter((company) =>
+        company.holiday.toLowerCase().includes(holidayFilter.toLowerCase())
+      );
+    }
+
+    if (overtimeFilter) {
+      searchResults = searchResults.filter((company) =>
+        company.overtime.toLowerCase().includes(overtimeFilter.toLowerCase())
+      );
+    }
     setFilteredCompanies(searchResults);
   };
 
@@ -91,6 +119,22 @@ export function Companysearch() {
     setproviderid(companyId);
     console.log(companyId);
     navigate(`/companyinformation`);
+  };
+
+  const handleBookmarkClick = (id) => {
+    setSelectedCompanyId(id);
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
+  const handleBookmarkConfirm = () => {
+    if (selectedCompanyId) {
+      addBookmark(selectedCompanyId);
+    }
+    setOpenDialog(false);
   };
 
   // スクロールを監視して「トップに戻る」ボタンの表示を切り替え
@@ -143,7 +187,6 @@ export function Companysearch() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </Grid>
-
         {/* 事業内容検索 */}
         <Grid item xs={12} sm={6}>
           <TextField
@@ -154,7 +197,6 @@ export function Companysearch() {
             onChange={(e) => setDescriptionTerm(e.target.value)}
           />
         </Grid>
-
         {/* 業界フィルター */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
@@ -175,7 +217,6 @@ export function Companysearch() {
             </Select>
           </FormControl>
         </Grid>
-
         {/* 職種フィルター */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
@@ -196,7 +237,6 @@ export function Companysearch() {
             </Select>
           </FormControl>
         </Grid>
-
         {/* 勤務地フィルター */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
@@ -217,7 +257,6 @@ export function Companysearch() {
             </Select>
           </FormControl>
         </Grid>
-
         {/* 従業員規模フィルター */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
@@ -238,7 +277,45 @@ export function Companysearch() {
             </Select>
           </FormControl>
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>年間休日</InputLabel>
+            <Select
+              value={holidayFilter}
+              onChange={(e) => setHolidayFilter(e.target.value)}
+              label="年間休日"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {holidays.map((holiday) => (
+                <MenuItem key={holiday.value} value={holiday.value}>
+                  {holiday.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
 
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>平均残業時間</InputLabel>
+            <Select
+              value={overtimeFilter}
+              onChange={(e) => setOvertimeFilter(e.target.value)}
+              label="平均残業時間"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {overtimes.map((overtime) => (
+                <MenuItem key={overtime.value} value={overtime.value}>
+                  {overtime.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
         {/* 検索ボタン */}
         <Grid item xs={12}>
           <Button
@@ -260,6 +337,17 @@ export function Companysearch() {
             <Grid item xs={12} sm={6} md={4} key={company.id}>
               <Card onClick={() => handleCompanyChange(company.id)}>
                 <CardContent>
+                  <Fab
+                    color="secondary"
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBookmarkClick(company.id);
+                    }}
+                  >
+                    <BookmarksIcon />
+                  </Fab>
+
                   <Typography variant="h6">{company.name}</Typography>
                   <Typography color="textSecondary">
                     業界：{company.category}
@@ -301,6 +389,23 @@ export function Companysearch() {
           <KeyboardArrowUpIcon />
         </Fab>
       )}
+
+      <Dialog open={openDialog} onClose={handleDialogClose}>
+        <DialogTitle>ブックマーク追加</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            この企業をブックマークに追加しますか？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            キャンセル
+          </Button>
+          <Button onClick={handleBookmarkConfirm} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

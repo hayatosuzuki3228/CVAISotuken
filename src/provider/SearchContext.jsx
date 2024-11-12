@@ -10,6 +10,8 @@ export const SearchProvider = ({ children }) => {
   const [jobTypeFilter, setJobTypeFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [sizeFilter, setSizeFilter] = useState("");
+  const [holidayFilter, setHolidayFilter] = useState("");
+  const [overtimeFilter, setOvertimeFilter] = useState("");
   const [filteredCompanies, setFilteredCompanies] = useState([]);
 
   return (
@@ -27,6 +29,10 @@ export const SearchProvider = ({ children }) => {
         setLocationFilter,
         sizeFilter,
         setSizeFilter,
+        holidayFilter,
+        setHolidayFilter,
+        overtimeFilter,
+        setOvertimeFilter,
         filteredCompanies,
         setFilteredCompanies,
       }}
