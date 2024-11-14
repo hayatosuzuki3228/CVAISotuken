@@ -14,7 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
-import data1 from "../../const/data.json";
+//import data1 from "../../const/data.json";
 import companies from "../../const/companies";
 import { postData } from "../../sever/api";
 import "normalize.css";
@@ -76,6 +76,21 @@ export function Admin() {
   const [rowsPerPage, setRowsPerPage] = useState(50);
   const [page2, setPage2] = useState(0);
   const [rowsPerPage2, setRowsPerPage2] = useState(50);
+  const data = {
+    perPage: 21,
+    page: 0,
+  };
+  const [data1, setData1] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await postData("admin/student/list", data);
+      console.log(result);
+      console.log("Result of postData:", result);
+      setData1(result.result);
+    };
+    fetchData();
+  }, []);
 
   const handleChangePage = (event, newPage) => setPage(newPage);
   const handleChangeRowsPerPage = (event) => {
@@ -110,22 +125,29 @@ export function Admin() {
   //登録されている生徒のアカウントを無効にします
   const dataid1 = useCallback((data) => {
     console.log("id: " + data);
-    postData("admin/student/deactivate", data);
+    postData("admin/student/deactivate", { id: data });
+    window.location.reload();
   });
   //登録されている生徒のアカウントを有効にします
   const dataid2 = useCallback((data) => {
     console.log("id: " + data);
-    postData("admin/student/activate", data);
+    postData("admin/student/activate", { id: data });
+    window.location.reload();
   });
   //登録されている企業のアカウントを無効にします
   const companyid1 = useCallback((data) => {
     console.log("id: " + data);
-    postData("admin/company/deactivate", data);
+    postData("admin/company/deactivate", { id: data });
   });
   //登録されている企業のアカウントを有効にします
   const companyid2 = useCallback((data) => {
     console.log("id: " + data);
-    postData("admin/company/activate", data);
+    postData("admin/company/activate", { id: data });
+  });
+  //ログイン認証する
+  const Clicklogin = useCallback((data) => {
+    console.log(data);
+    postData("authentication/admin", data);
   });
 
   const onClick = () => {
@@ -176,6 +198,17 @@ export function Admin() {
                 </Typography>
               )}
             </Box>
+            <Button
+              sx={{ color: "white" }}
+              onClick={() =>
+                Clicklogin({
+                  email: "root",
+                  password: "root",
+                })
+              }
+            >
+              ログイン
+            </Button>
           </Toolbar>
         </AppBar>
         <Main open={open} className="main">
@@ -404,3 +437,6 @@ export function Admin() {
     </ThemeProvider>
   );
 }
+//学生アカウント作成
+//企業アカウント作成
+//資格情報変更機能作成

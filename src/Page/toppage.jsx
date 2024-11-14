@@ -29,7 +29,7 @@ import { gray, primarycolor } from "../const/color";
 import "normalize.css";
 import { Pagination, TextField, Grid } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
-import MyContext  from "../provider/provider";
+import MyContext from "../provider/provider";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -110,7 +110,7 @@ export function Toppage() {
       isNavigate: true,
     },
   ];
-//#region お知らせデータ
+  //#region お知らせデータ
   const careerNotice = [
     {
       date: "2025/1/1",
@@ -213,7 +213,7 @@ export function Toppage() {
       link: "/Matching",
     },
   ];
-//#endregion
+  //#endregion
   const [open1, setOpen1] = useState(false);
 
   const handleClickOpen = () => {
@@ -224,14 +224,11 @@ export function Toppage() {
     setOpen1(false);
   };
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
-  const handleloginout = () =>{
-    if(!loginstats)
-    {
+  const handleloginout = () => {
+    if (!loginstats) {
       navigate("/Loginpage");
-    }
-    else
-    {
-      setOpenLogoutDialog(true); 
+    } else {
+      setOpenLogoutDialog(true);
     }
   };
   const handleConfirmLogout = () => {
@@ -239,7 +236,7 @@ export function Toppage() {
     setloginstats(false);
     setOpenLogoutDialog(false);
   };
-  const {loginstats,setloginstats} = useContext(MyContext);
+  const { loginstats, setloginstats } = useContext(MyContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const navigate = useNavigate();
 
@@ -344,7 +341,7 @@ export function Toppage() {
               </Typography>
             </Box>
             <Button color="inherit" onClick={handleloginout}>
-              {loginstats ? 'ログアウト' : 'ログイン'}
+              {loginstats ? "ログアウト" : "ログイン"}
             </Button>
           </Toolbar>
         </AppBar>
@@ -501,7 +498,7 @@ export function Toppage() {
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
                       <ListItemButton
-                        onClick={() =>{
+                        onClick={() => {
                           setSelectedItem(item);
                           handleClickOpen();
                         }}
@@ -546,39 +543,42 @@ export function Toppage() {
             </div>
           )}
           {selectedItem && (
-          <Dialog
-            open={open1}
-            onClose={handleClose}
-            aria-labelledby="commpany-alert"
-            aria-describedby="commpany-alert"
-          >
-            <DialogTitle id="commpany-alert">{selectedItem.text}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="commpany-alert">
-                {selectedItem.modalText}  
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary" autoFocus>
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog>
+            <Dialog
+              open={open1}
+              onClose={handleClose}
+              aria-labelledby="commpany-alert"
+              aria-describedby="commpany-alert"
+            >
+              <DialogTitle id="commpany-alert">{selectedItem.text}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="commpany-alert">
+                  {selectedItem.modalText}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary" autoFocus>
+                  OK
+                </Button>
+              </DialogActions>
+            </Dialog>
           )}
           <Dialog
-          open={openLogoutDialog}
-          onClose={() => setOpenLogoutDialog(false)}
-         >
-          <DialogTitle>ログアウト確認</DialogTitle>
-          <DialogContent>ログアウトしますか？</DialogContent>
-         <DialogActions>
-          <Button onClick={() => setOpenLogoutDialog(false)} color="primary">
-            キャンセル
-          </Button>
-          <Button onClick={handleConfirmLogout} color="primary">
-            ログアウト
-          </Button>
-          </DialogActions>
+            open={openLogoutDialog}
+            onClose={() => setOpenLogoutDialog(false)}
+          >
+            <DialogTitle>ログアウト確認</DialogTitle>
+            <DialogContent>ログアウトしますか？</DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setOpenLogoutDialog(false)}
+                color="primary"
+              >
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmLogout} color="primary">
+                ログアウト
+              </Button>
+            </DialogActions>
           </Dialog>
         </Main>
       </Box>

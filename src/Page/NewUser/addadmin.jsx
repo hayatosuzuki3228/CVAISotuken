@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Stack, Button, Box, TextField, Typography } from "@mui/material";
 import { primarycolor } from "../../const/color";
 import { postData } from "../../sever/api";
@@ -124,7 +124,7 @@ export function Addadmin() {
             color: primarycolor,
           }}
         >
-          管理者アカウント新規登録
+          管理者アカウント登録
         </Typography>
         <p></p>
         <Stack justifyContent="center" alignItems="center" padding={1}>

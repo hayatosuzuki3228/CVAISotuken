@@ -11,8 +11,8 @@ export function Fuckserver() {
     postData("admin/company/deactivate", data);
     postData("admin/company/activate", data);
     postData("registration/admin", data);
-    postData("registration/student", data);
-    postData("registration/student", data);
+    postData("authentication/admin", data);
+    postData("admin/student/list", data);
     postData("registration/student", data);
     postData("registration/student", data);
     postData("registration/student", data);
