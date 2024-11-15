@@ -38,18 +38,6 @@ export function CProfile() {
         people,
         comePeople,
         homepage,
-        CnameSave,
-        CkNameSave,
-        placeSave,
-        telSave,
-        faxSave,
-        infoSave,
-        COpenSave,
-        COpenMSave,
-        capitalSave,
-        peopleSave,
-        comePeopleSave,
-        homepageSave,
       },
     });
   };
@@ -158,9 +146,9 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {CnameSave == Cname ? Cname : CnameSave}
+              {Cname == CnameSave ? CnameSave : Cname}
               <br />
-              {CkNameSave == CkName ? CkName : CkNameSave}
+              {CkName == CkNameSave ? CkNameSave : CkName}
             </p>
           </Box>
         </Stack>
@@ -180,7 +168,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{placeSave == place ? place : placeSave}</p>
+            <p>{place == placeSave ? placeSave : place}</p>
           </Box>
         </Stack>
 
@@ -204,13 +192,13 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {telSave == tel
-                ? tel && "(TEL)" + tel
-                : telSave && "(TEL)" + telSave}
+              {tel == telSave
+                ? telSave && "(TEL)" + telSave
+                : tel && "(TEL)" + tel}
               <br />
-              {faxSave == fax
-                ? fax && "(FAX)" + fax
-                : faxSave && "(FAX)" + faxSave}
+              {fax == faxSave
+                ? faxSave && "(FAX)" + faxSave
+                : fax && "(FAX)" + fax}
             </p>
           </Box>
         </Stack>
@@ -230,7 +218,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{infoSave == info ? info : infoSave}</p>
+            <p>{info == infoSave ? infoSave : info}</p>
           </Box>
         </Stack>
 
@@ -250,12 +238,12 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {COpenSave == COpen
-                ? COpen && COpen + "年"
-                : COpenSave && COpenSave + "年"}
-              {COpenMSave == COpenM
-                ? COpenM && COpenM + "月創業"
-                : COpenMSave && COpenMSave + "月創業"}
+              {COpen == COpenSave
+                ? COpenSave && COpenSave + "年"
+                : COpen && COpen + "年"}
+              {COpenM == COpenMSave
+                ? COpenMSave && COpenMSave + "月創業"
+                : COpenM && COpenM + "月創業"}
             </p>
           </Box>
         </Stack>
@@ -276,9 +264,9 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {capitalSave == capital
-                ? capital && capital + "万円"
-                : capitalSave && capitalSave + "万円"}
+              {capital == capitalSave
+                ? capitalSave && capitalSave + "万円"
+                : capital && capital + "万円"}
             </p>
           </Box>
         </Stack>
@@ -298,7 +286,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{peopleSave == people ? people : peopleSave}</p>
+            <p>{people == peopleSave ? peopleSave : people}</p>
           </Box>
         </Stack>
 
@@ -317,7 +305,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{comePeopleSave == comePeople ? comePeople : comePeopleSave}</p>
+            <p>{comePeople == comePeopleSave ? comePeopleSave : comePeople}</p>
           </Box>
         </Stack>
 
@@ -337,8 +325,8 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              <a href={homepageSave == homepage ? homepage : homepageSave}>
-                {homepageSave == homepage ? homepage : homepageSave}
+              <a href={homepage == homepageSave ? homepageSave : homepage}>
+                {homepage == homepageSave ? homepageSave : homepage}
               </a>
             </p>
           </Box>

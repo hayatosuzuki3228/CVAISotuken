@@ -36,6 +36,10 @@ import MyContext from "../../provider/provider";
 import { Man } from "@mui/icons-material";
 
 export function SEdit() {
+  useEffect(() => {
+    document.title = "プロフィール編集";
+  }, []);
+
   const location = useLocation();
   const {
     provideremail,
@@ -54,271 +58,137 @@ export function SEdit() {
   const warpName = location.state?.name || "";
   const warpKName = location.state?.kName || "";
   const warpEmail = location.state?.email || "";
-  const warpManSave = location.state?.ManSave || "";
-  const warpGakSave = location.state?.GakSave || "";
-  const warpYearsSave = location.state?.YearsSave || "";
-  const warpMonthsSave = location.state?.MonthsSave || "";
-  const warpDaysSave = location.state?.DaysSave || "";
-  const warpHomeSave = location.state?.HomeSave || "";
-  const warpByeSave = location.state?.ByeSave || "";
-  const warpAgeSave = location.state?.AgeSave || "";
-
-  const {
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-    JobSave,
-    HobbySave,
-    SkillSave,
-    SSubjectSave,
-    KSubjectSave,
-    MyPowerSave,
-  } = location.state || {};
+  const warpMan = location.state?.man || "";
+  const warpGak = location.state?.Gak || "";
+  const warpYears = location.state?.Years || "";
+  const warpMonths = location.state?.Months || "";
+  const warpDays = location.state?.Days || "";
+  const warpHome = location.state?.Home || "";
+  const warpBye = location.state?.bye || "";
+  const warpAge = location.state?.age || "";
+  const { job, hobby, skill, SSubject, KSubject, myPower } =
+    location.state || {};
 
   const [name, setName] = useState(warpName);
   const [kName, setKName] = useState(warpKName);
-  const [man, setMan] = useState(warpManSave);
-  const [Gak, setGak] = useState(warpGakSave);
-  const [Years, setYears] = useState(warpYearsSave);
-  const [Months, setMonths] = useState(warpMonthsSave);
-  const [Days, setDays] = useState(warpDaysSave);
-  const [Home, setHome] = useState(warpHomeSave);
-  const [bye, setBye] = useState(warpByeSave);
+  const [man, setMan] = useState(warpMan);
+  const [Gak, setGak] = useState(warpGak);
+  const [Years, setYears] = useState(warpYears);
+  const [Months, setMonths] = useState(warpMonths);
+  const [Days, setDays] = useState(warpDays);
+  const [Home, setHome] = useState(warpHome);
+  const [bye, setBye] = useState(warpBye);
+  const [age, setAge] = useState(warpAge);
   const [email, setEmail] = useState(warpEmail);
-  const [age, setAge] = useState(warpAgeSave);
 
-  const [ManSave, setManSave] = useState(warpManSave);
-  const [GakSave, setGakSave] = useState(warpGakSave);
-  const [YearsSave, setYearsSave] = useState(warpYearsSave);
-  const [MonthsSave, setMonthsSave] = useState(warpMonthsSave);
-  const [DaysSave, setDaysSave] = useState(warpDaysSave);
-  const [HomeSave, setHomeSave] = useState(warpHomeSave);
-  const [ByeSave, setByeSave] = useState(warpByeSave);
-  const [AgeSave, setAgeSave] = useState(warpAgeSave);
+  const [ManSave, setManSave] = useState(warpMan);
+  const [GakSave, setGakSave] = useState(warpGak);
+  const [YearsSave, setYearsSave] = useState(warpYears);
+  const [MonthsSave, setMonthsSave] = useState(warpMonths);
+  const [DaysSave, setDaysSave] = useState(warpDays);
+  const [HomeSave, setHomeSave] = useState(warpHome);
+  const [ByeSave, setByeSave] = useState(warpBye);
+  const [AgeSave, setAgeSave] = useState(warpAge);
 
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
   const [error3, setError3] = useState("");
-  const [OneMoreClick, setOneMoreClick] = useState();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  useEffect(() => {
-    document.title = "プロフィール編集";
-  }, []);
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
 
-  useEffect(() => {
-    if (!Man) {
-      setMan(ManSave);
-    } else {
-      setMan(man);
-    }
-  }, [ManSave]);
-
-  useEffect(() => {
-    if (!Gak) {
-      setGak(GakSave);
-    } else {
-      setGak(Gak);
-    }
-  }, [GakSave]);
-
-  useEffect(() => {
-    if (!Years) {
-      setYears(YearsSave);
-    } else {
-      setYears(Years);
-    }
-  }, [YearsSave]);
-
-  useEffect(() => {
-    if (!Months) {
-      setMonths(MonthsSave);
-    } else {
-      setMonths(Months);
-    }
-  }, [MonthsSave]);
-
-  useEffect(() => {
-    if (!Days) {
-      setDays(DaysSave);
-    } else {
-      setDays(Days);
-    }
-  }, [DaysSave]);
-
-  useEffect(() => {
-    if (!Home) {
-      setHome(HomeSave);
-    } else {
-      setHome(Home);
-    }
-  }, [HomeSave]);
-
-  useEffect(() => {
-    if (!bye) {
-      setBye(ByeSave);
-    } else {
-      setBye(bye);
-    }
-  }, [ByeSave]);
-
-  useEffect(() => {
-    if (!age) {
-      setAge(AgeSave);
-    } else {
-      setAge(age);
-    }
-  }, [AgeSave]);
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
 
   const navigate = useNavigate();
   // profile-st に飛ぶ(戻るボタン)
   const OnClick = () => {
     navigate("/profile-st", {
       state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
         job,
         hobby,
         skill,
         SSubject,
         KSubject,
         myPower,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
       },
     });
   };
 
   // profile-st-com に飛ぶ
   const OnClick2 = () => {
-    if (OneMoreClick === true) {
-      null;
-    } else {
-      navigate("/profile-st-com", {
-        state: {
-          JobSave,
-          HobbySave,
-          SkillSave,
-          SSubjectSave,
-          KSubjectSave,
-          MyPowerSave,
-        },
-      });
-    }
+    navigate("/profile-st-com", {
+      state: {
+        name,
+        kName,
+        man,
+        Gak,
+        Years,
+        Months,
+        Days,
+        email,
+        Home,
+        bye,
+        age,
+        job,
+        hobby,
+        skill,
+        SSubject,
+        KSubject,
+        myPower,
+      },
+    });
   };
 
-  // profile-st に飛ぶ(情報を確定するボタン)
-  const OnClickNext = () => {
-    const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
-    const regex2 = /^[ァ-ヴ]{2,}$/;
-    const mailRegex =
-      /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-    const birthDate = new Date(Years, Months - 1, Days);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    setAge(age + "歳");
+  /*
+  const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
+  const regex2 = /^[ァ-ヴ]{2,}$/;
+  const mailRegex =
+    /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+  const birthDate = new Date(Years, Months - 1, Days);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  setAge(age + "歳");*/
+  regex.test(providername) &&
+    regex2.test(providerKName) &&
+    mailRegex.test(provideremail);
 
-    if (
-      regex.test(providername) &&
-      regex2.test(providerKName) &&
-      mailRegex.test(provideremail) &&
-      OneMoreClick !== false
-    ) {
-      setproviderSaveName(providername);
-      setproviderSaveEmail(provideremail);
-      setProviderSaveKName(providerKName);
-      if (
-        providerSaveName === providername &&
-        providerSaveKName === providerKName &&
-        providerSaveEmail === provideremail &&
-        ManSave === man &&
-        GakSave === Gak &&
-        YearsSave === Years &&
-        MonthsSave === Months &&
-        DaysSave === Days &&
-        HomeSave === Home &&
-        ByeSave === bye
-      ) {
-        navigate("/profile-st", {
-          state: {
-            name,
-            kName,
-            man,
-            Gak,
-            Years,
-            Months,
-            Days,
-            email,
-            Home,
-            bye,
-            age,
-            job,
-            hobby,
-            skill,
-            JobSave,
-            HobbySave,
-            SkillSave,
-            SSubjectSave,
-            KSubjectSave,
-            MyPowerSave,
-            SSubject,
-            KSubject,
-            myPower,
-            ManSave,
-            GakSave,
-            YearsSave,
-            MonthsSave,
-            DaysSave,
-            HomeSave,
-            ByeSave,
-            AgeSave,
-          },
-        });
-      } else {
-        setManSave(man);
-        setGakSave(Gak);
-        setYearsSave(Years);
-        setMonthsSave(Months);
-        setDaysSave(Days);
-        setHomeSave(Home);
-        setByeSave(bye);
-        setAgeSave(age);
-        setError1("");
-        setError2("");
-        setError3("");
-        setOneMoreClick(true);
-      }
-    } else {
-      setError1(!regex.test(providername) ? setError1("エラー：名前") : "");
-      setError2(!regex.test(kName) ? setError2("エラー：カタカナ") : "");
-      setError3(
-        !regex.test(provideremail) ? setError3("エラー：メールアドレス") : ""
-      );
-      setOneMoreClick(false);
-    }
-  };
-
-  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
-    providername &&
-    providerKName &&
-    man &&
-    Gak &&
-    Years &&
-    Months &&
-    Days &&
-    provideremail &&
-    Home &&
-    bye;
+  navigate("/profile-st", {
+    state: {
+      name,
+      kName,
+      man,
+      Gak,
+      Years,
+      Months,
+      Days,
+      email,
+      Home,
+      bye,
+      age,
+      job,
+      hobby,
+      skill,
+    },
+  });
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -649,17 +519,6 @@ export function SEdit() {
           </Box>
         </Stack>
 
-        <div /* エラーの表示 */>
-          {error1 && <p style={{ color: "red" }}>{error1}</p>}
-          {error2 && <p style={{ color: "red" }}>{error2}</p>}
-          {error3 && <p style={{ color: "red" }}>{error3}</p>}
-          {OneMoreClick === true ? (
-            <p style={{ color: "green" }}>
-              よろしければ、もう一度ボタンを押してください。
-            </p>
-          ) : undefined}
-        </div>
-
         <Stack // ボタンの表示
           direction="row"
           spacing={7}
@@ -667,17 +526,28 @@ export function SEdit() {
           <Button // profile-st に飛ぶ(データの保存を行わない)
             variant="contained"
             onClick={OnClick}
-            disabled={OneMoreClick}
           >
             戻る
           </Button>
-          <Button // profile-st に飛ぶ(データの保存を行う)
-            variant="contained"
-            onClick={OnClickNext}
-            disabled={!Check}
-          >
+          <Button variant="contained" onClick={handleOpenDialog}>
             情報を確定する
           </Button>
+          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+            <DialogTitle>確認</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                この操作を実行してもよろしいですか？
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary">
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmDialog} color="primary" autoFocus>
+                実行
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
       </Stack>
     </>

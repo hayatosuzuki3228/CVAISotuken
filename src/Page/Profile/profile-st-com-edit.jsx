@@ -15,12 +15,9 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  MenuItem,
   IconButton,
   Stack,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -31,6 +28,10 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 export function SCEdit() {
+  useEffect(() => {
+    document.title = "プロフィール";
+  }, []);
+
   const location = useLocation();
   const warpJob = location.state?.job || "";
   const warpHobby = location.state?.hobby || "";
@@ -38,27 +39,8 @@ export function SCEdit() {
   const warpSSubject = location.state?.SSubject || "";
   const warpKSubject = location.state?.KSubject || "";
   const warpMyPower = location.state?.myPower || [];
-  const {
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    ManSave,
-    GakSave,
-    YearsSave,
-    MonthsSave,
-    DaysSave,
-    HomeSave,
-    ByeSave,
-    AgeSave,
-  } = location.state || {};
+  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
+    location.state || {};
 
   const [job, setJob] = useState(warpJob);
   const [hobby, setHobby] = useState(warpHobby);
@@ -74,12 +56,12 @@ export function SCEdit() {
   const [KSubjectSave, setKSubjectSave] = useState(warpKSubject);
   const [MyPowerSave, setMyPowerSave] = useState(warpMyPower);
 
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
-  const [error4, setError4] = useState("");
-  const [error5, setError5] = useState("");
-  const [error6, setError6] = useState("");
+  const [JobError, setJobError] = useState("");
+  const [HobbyError, setHobbyError] = useState("");
+  const [SkillError, setSkillError] = useState("");
+  const [SSubjectError, setSSubjectError] = useState("");
+  const [KSubjectError, setKSubjectError] = useState("");
+  const [MyPowerError, setMyPowerError] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -129,20 +111,27 @@ export function SCEdit() {
   };
 
   const handleConfirmDialog = () => {
-    const error1 = regexJob(JobSave);
-    const error2 = regexHobby(HobbySave);
-    const error3 = regexSkill(SkillSave);
-    const error4 = regexSSubject(SSubjectSave);
-    const error5 = regexKSubject(KSubjectSave);
-    const error6 = regexMyPower(MyPowerSave);
+    const JobError = regexJob(JobSave);
+    const HobbyError = regexHobby(HobbySave);
+    const SkillError = regexSkill(SkillSave);
+    const SSubjectError = regexSSubject(SSubjectSave);
+    const KSubjectError = regexKSubject(KSubjectSave);
+    const MyPowerError = regexMyPower(MyPowerSave);
 
-    setError1(error1);
-    setError2(error2);
-    setError3(error3);
-    setError4(error4);
-    setError5(error5);
-    setError6(error6);
-    if (!error1 && !error2 && !error3 && !error4 && !error5 && !error6) {
+    setJobError(JobError);
+    setHobbyError(HobbyError);
+    setSkillError(SkillError);
+    setSSubjectError(SSubjectError);
+    setKSubjectError(KSubjectError);
+    setMyPowerError(MyPowerError);
+    if (
+      !JobError &&
+      !HobbyError &&
+      !SkillError &&
+      !SSubjectError &&
+      !KSubjectError &&
+      !MyPowerError
+    ) {
       setJob(JobSave);
       setHobby(HobbySave);
       setSkill(SkillSave);
@@ -165,12 +154,8 @@ export function SCEdit() {
     setDialogOpen(false);
   };
 
-  useEffect(() => {
-    document.title = "プロフィール";
-  }, []);
-
   const navigate = useNavigate();
-  /* profile-st に飛ぶ */
+  // profile-st に飛ぶ(サイドバー部分)
   const OnClick = () => {
     navigate("/profile-st", {
       state: {
@@ -200,7 +185,7 @@ export function SCEdit() {
     });
   };
 
-  /* profile-st-com に飛ぶ(戻るボタン) */
+  // profile-st-com に飛ぶ(戻るボタン)
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
@@ -333,8 +318,8 @@ export function SCEdit() {
               onChange={(e) => {
                 setJobSave(e.target.value);
               }}
-              error={Boolean(error1)}
-              helperText={error1}
+              error={Boolean(JobError)}
+              helperText={JobError}
             />
           </Box>
         </Stack>
@@ -362,8 +347,8 @@ export function SCEdit() {
               label="趣味の変更"
               value={HobbySave}
               onChange={(e) => setHobbySave(e.target.value)}
-              error={Boolean(error2)}
-              helperText={error2}
+              error={Boolean(HobbyError)}
+              helperText={HobbyError}
             />
           </Box>
         </Stack>
@@ -390,8 +375,8 @@ export function SCEdit() {
               label="特技の変更"
               value={SkillSave}
               onChange={(e) => setSkillSave(e.target.value)}
-              error={Boolean(error3)}
-              helperText={error3}
+              error={Boolean(SkillError)}
+              helperText={SkillError}
             />
           </Box>
         </Stack>
@@ -419,8 +404,8 @@ export function SCEdit() {
               label="得意な科目の変更"
               value={SSubjectSave}
               onChange={(e) => setSSubjectSave(e.target.value)}
-              error={Boolean(error4)}
-              helperText={error4}
+              error={Boolean(SSubjectError)}
+              helperText={SSubjectError}
             />
             <p></p>
             <TextField
@@ -429,8 +414,8 @@ export function SCEdit() {
               label="苦手な科目の変更"
               value={KSubjectSave}
               onChange={(e) => setKSubjectSave(e.target.value)}
-              error={Boolean(error5)}
-              helperText={error5}
+              error={Boolean(KSubjectError)}
+              helperText={KSubjectError}
             />
           </Box>
         </Stack>
@@ -483,8 +468,8 @@ export function SCEdit() {
                 <TextField
                   {...params}
                   label="取得資格の選択"
-                  error={Boolean(error6)}
-                  helperText={error6}
+                  error={Boolean(MyPowerError)}
+                  helperText={MyPowerError}
                 />
               )}
               onChange={handleChange}
@@ -493,7 +478,7 @@ export function SCEdit() {
         </Stack>
 
         <Stack direction="row" spacing={7} /*ボタンを表示する*/>
-          <Button /* profile-st-com に飛ぶ(データの保存を行わない) */
+          <Button // profile-st-com に飛ぶ(データの保存を行わない)
             variant="contained"
             onClick={OnClick2}
           >

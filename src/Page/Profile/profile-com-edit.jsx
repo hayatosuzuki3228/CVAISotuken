@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -10,24 +10,20 @@ import {
   DialogContentText,
   Drawer,
   Divider,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   MenuItem,
   IconButton,
   Stack,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.css";
 import { days, months, older } from "./Data";
+import { Place } from "@mui/icons-material";
 
 export function CEdit() {
   useEffect(() => {
@@ -74,17 +70,21 @@ export function CEdit() {
   const [comePeopleSave, setComePeopleSave] = useState(warpComePeople);
   const [homepageSave, setHomepageSave] = useState(warpHomepage);
 
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
-  const [error4, setError4] = useState("");
-  const [error5, setError5] = useState("");
-  const [error6, setError6] = useState("");
-  const [error7, setError7] = useState("");
-  const [error8, setError8] = useState("");
-  const [error9, setError9] = useState("");
-  const [error10, setError10] = useState("");
+  const [CnameError, setCnameError] = useState("");
+  const [CkNameError, setCkNameError] = useState("");
+  const [PlaceError, setPlaceError] = useState("");
+  const [TELError, setTELError] = useState("");
+  const [FAXError, setFAXError] = useState("");
+  const [InfoError, setInfoError] = useState("");
+  const [COpenError, setCOpenError] = useState("");
+  const [COpenMError, setCOpenMError] = useState("");
+  const [CapitalError, setCapitalError] = useState("");
+  const [PeopleError, setPeopleError] = useState("");
+  const [CPeopleError, setCPeopleError] = useState("");
+  const [HomepageError, setHomepageError] = useState("");
+
   const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
@@ -107,41 +107,166 @@ export function CEdit() {
     }
     return "";
   };
-
-  const handleConfirmDialog = () => {
-    setDialogOpen(false);
+  const regexCkName = (CkName) => {
+    if (!KanaRegex.test(CkName)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexPlace = (place) => {
+    if (!regex.test(place)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexTel = (tel) => {
+    if (!TelRegex.test(tel)) {
+      return "数字に間違いがある可能性があります。";
+    }
+    return "";
+  };
+  const regexFax = (fax) => {
+    if (!TelRegex.test(fax)) {
+      return "数字に間違いがある可能性があります。";
+    }
+    return "";
+  };
+  const regexInfo = (info) => {
+    if (!regex.test(info)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCOpen = (COpen) => {
+    if (COpen.length <= 0) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCOpenM = (COpenM) => {
+    if (COpenM.length <= 0) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCapital = (capital) => {
+    if (!MoneyRegex.test(capital)) {
+      return "金額を入力してください。";
+    }
+    return "";
+  };
+  const regexPeople = (people) => {
+    if (!regex.test(people)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCPeople = (comePeople) => {
+    if (!regex.test(comePeople)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexHomepage = (homepage) => {
+    if (!PageRegex.test(homepage)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
   };
 
-  const navigate = useNavigate();
+  const handleConfirmDialog = () => {
+    const CnameError = regexCname(CnameSave);
+    const CkNameError = regexCkName(CkNameSave);
+    const PlaceError = regexPlace(placeSave);
+    const TELError = regexTel(telSave);
+    const FAXError = regexFax(faxSave);
+    const InfoError = regexInfo(infoSave);
+    const COpenError = regexCOpen(COpenSave);
+    const COpenMError = regexCOpenM(COpenMSave);
+    const CapitalError = regexCapital(capitalSave);
+    const PeopleError = regexPeople(peopleSave);
+    const CPeopleError = regexCPeople(comePeopleSave);
+    const HomepageError = regexHomepage(homepageSave);
+
+    setCnameError(CnameError);
+    setCkNameError(CkNameError);
+    setPlaceError(PlaceError);
+    setTELError(TELError);
+    setFAXError(FAXError);
+    setInfoError(InfoError);
+    setCOpenError(COpenError);
+    setCOpenMError(COpenMError);
+    setCapitalError(CapitalError);
+    setPeopleError(PeopleError);
+    setCPeopleError(CPeopleError);
+    setHomepageError(HomepageError);
+
+    if (
+      !CnameError &&
+      !CkNameError &&
+      !PlaceError &&
+      !TELError &&
+      !FAXError &&
+      !InfoError &&
+      !COpenError &&
+      !COpenMError &&
+      !CapitalError &&
+      !PeopleError &&
+      !CPeopleError &&
+      (!HomepageError || homepage === "")
+    ) {
+      setCname(CnameSave);
+      setCkName(CkNameSave);
+      setPlace(placeSave);
+      setTel(telSave);
+      setFax(faxSave);
+      setInfo(infoSave);
+      setCOpen(COpenSave);
+      setCOpenM(COpenMSave);
+      setCapital(capitalSave);
+      setPeople(peopleSave);
+      setComePeople(comePeopleSave);
+      setHomepage(homepageSave);
+      setDialogOpen(false);
+
+      navigate("/profile-com", {
+        state: {
+          Cname: CnameSave,
+          CkName: CkNameSave,
+          place: placeSave,
+          tel: telSave,
+          fax: faxSave,
+          info: infoSave,
+          COpen: COpenSave,
+          COpenM: COpenMSave,
+          capital: capitalSave,
+          people: peopleSave,
+          comePeople: comePeopleSave,
+          homepage: homepageSave,
+        },
+      });
+    }
+    setDialogOpen(false);
+  };
 
   const OnClick = () => {
     navigate("/profile-com", {
       state: {
-        CnameSave,
-        CkNameSave,
-        placeSave,
-        telSave,
-        faxSave,
-        infoSave,
-        COpenSave,
-        COpenMSave,
-        capitalSave,
-        peopleSave,
-        comePeopleSave,
-        homepageSave,
+        Cname,
+        CkName,
+        place,
+        tel,
+        fax,
+        info,
+        COpen,
+        COpenM,
+        capital,
+        people,
+        comePeople,
+        homepage,
       },
     });
   };
-  regex.test(Cname) &&
-    regex.test(place) &&
-    regex.test(info) &&
-    regex.test(people) &&
-    regex.test(comePeople) &&
-    KanaRegex.test(CkName) &&
-    TelRegex.test(tel) &&
-    TelRegex.test(fax) &&
-    MoneyRegex.test(capital) &&
-    (PageRegex.test(homepage) || homepage === "");
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -221,16 +346,20 @@ export function CEdit() {
               <TextField
                 fullWidth
                 label="企業名の変更"
-                value={Cname}
-                onChange={(e) => setCname(e.target.value)}
+                value={CnameSave}
+                onChange={(e) => setCnameSave(e.target.value)}
+                error={Boolean(CnameError)}
+                helperText={CnameError}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="企業名(カタカナ)の変更"
-                value={CkName}
-                onChange={(e) => setCkName(e.target.value)}
+                value={CkNameSave}
+                onChange={(e) => setCkNameSave(e.target.value)}
+                error={Boolean(CkNameError)}
+                helperText={CkNameError}
               />
             </Box>
           </Stack>
@@ -255,8 +384,10 @@ export function CEdit() {
             <TextField
               fullWidth
               label="企業所在地の変更"
-              value={place}
-              onChange={(e) => setPlace(e.target.value)}
+              value={placeSave}
+              onChange={(e) => setPlaceSave(e.target.value)}
+              error={Boolean(PlaceError)}
+              helperText={PlaceError}
             />
           </Box>
         </Stack>
@@ -282,18 +413,20 @@ export function CEdit() {
               <TextField
                 fullWidth
                 label="電話番号の変更"
-                value={tel}
-                onChange={(e) => setTel(e.target.value)}
+                value={telSave}
+                onChange={(e) => setTelSave(e.target.value)}
                 helperText="ハイフン(-)を入力してください。"
+                error={Boolean(TELError)}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="FAX番号の変更"
-                value={fax}
-                onChange={(e) => setFax(e.target.value)}
+                value={faxSave}
+                onChange={(e) => setFaxSave(e.target.value)}
                 helperText="ハイフン(-)を入力してください。"
+                error={Boolean(FAXError)}
               />
             </Box>
           </Stack>
@@ -320,8 +453,10 @@ export function CEdit() {
               fullWidth
               minRows={4}
               label="事業内容の変更"
-              value={info}
-              onChange={(e) => setInfo(e.target.value)}
+              value={infoSave}
+              onChange={(e) => setInfoSave(e.target.value)}
+              error={Boolean(InfoError)}
+              helperText={InfoError}
             />
           </Box>
         </Stack>
@@ -352,8 +487,9 @@ export function CEdit() {
               multiline
               id="older2"
               label="年"
-              value={COpen}
-              onChange={(e) => setCOpen(e.target.value)}
+              value={COpenSave}
+              onChange={(e) => setCOpenSave(e.target.value)}
+              error={Boolean(COpenError)}
             >
               {older.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -367,9 +503,10 @@ export function CEdit() {
               multiline
               id="months"
               label="月"
-              value={COpenM}
+              value={COpenMSave}
               select
-              onChange={(e) => setCOpenM(e.target.value)}
+              onChange={(e) => setCOpenMSave(e.target.value)}
+              error={Boolean(COpenMError)}
             >
               {months.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -404,8 +541,10 @@ export function CEdit() {
             <Box>
               <TextField
                 label="資本金の変更(百万円単位)"
-                value={capital}
-                onChange={(e) => setCapital(e.target.value)}
+                value={capitalSave}
+                onChange={(e) => setCapitalSave(e.target.value)}
+                error={Boolean(CapitalError)}
+                helperText={CapitalError}
               />
             </Box>
             <p>万円</p>
@@ -431,8 +570,10 @@ export function CEdit() {
             <TextField
               fullWidth
               label="代表者名の変更"
-              value={people}
-              onChange={(e) => setPeople(e.target.value)}
+              value={peopleSave}
+              onChange={(e) => setPeopleSave(e.target.value)}
+              error={Boolean(PeopleError)}
+              helperText={PeopleError}
             />
           </Box>
         </Stack>
@@ -459,8 +600,10 @@ export function CEdit() {
               minRows={4}
               sx={{ minWidth: 240 }}
               label="企業が求める人材像の変更"
-              value={comePeople}
-              onChange={(e) => setComePeople(e.target.value)}
+              value={comePeopleSave}
+              onChange={(e) => setComePeopleSave(e.target.value)}
+              error={Boolean(CPeopleError)}
+              helperText={CPeopleError}
             />
           </Box>
         </Stack>
@@ -483,9 +626,10 @@ export function CEdit() {
             <TextField
               fullWidth
               label="ホームページ等の追加・変更"
-              value={homepage}
-              onChange={(e) => setHomepage(e.target.value)}
+              value={homepageSave}
+              onChange={(e) => setHomepageSave(e.target.value)}
               helperText="ここは任意です"
+              error={Boolean(HomepageError)}
             />
           </Box>
         </Stack>
