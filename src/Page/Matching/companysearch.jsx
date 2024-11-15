@@ -30,6 +30,8 @@ import { areas } from "../../const/areas";
 import { employeesizes } from "../../const/employeeSizes";
 import { holidays } from "../../const/holiday";
 import { overtimes } from "../../const/overtime";
+import { holidayssys } from "../../const/holidaysys";
+import { salaries } from "../../const/salary";
 import { companies } from "../../const/companies";
 import MyContext from "../../provider/provider";
 import { SearchContext } from "../../provider/SearchContext";
@@ -61,6 +63,10 @@ export function Companysearch() {
     setHolidayFilter,
     overtimeFilter,
     setOvertimeFilter,
+    holidaysysFilter,
+    setHolidaysysFilter,
+    salaryFilter,
+    setSalaryFilter,
     filteredCompanies,
     setFilteredCompanies,
   } = useContext(SearchContext);
@@ -109,6 +115,19 @@ export function Companysearch() {
     if (overtimeFilter) {
       searchResults = searchResults.filter((company) =>
         company.overtime.toLowerCase().includes(overtimeFilter.toLowerCase())
+      );
+    }
+
+    if (holidaysysFilter) {
+      searchResults = searchResults.filter((company) =>
+        company.holidaysys.includes(holidaysysFilter)
+      );
+    }
+
+    // 新しい初任給フィルター
+    if (salaryFilter) {
+      searchResults = searchResults.filter(
+        (company) => company.salary === salaryFilter
       );
     }
     setFilteredCompanies(searchResults);
@@ -310,6 +329,47 @@ export function Companysearch() {
               {overtimes.map((overtime) => (
                 <MenuItem key={overtime.value} value={overtime.value}>
                   {overtime.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>休日制</InputLabel>
+            <Select
+              value={holidaysysFilter}
+              onChange={(e) => setHolidaysysFilter(e.target.value)}
+              label="休日制"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {holidayssys.map((holidaysys) => (
+                <MenuItem key={holidaysys.value} value={holidaysys.value}>
+                  {holidaysys.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        {/* 初任給フィルター */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>初任給</InputLabel>
+            <Select
+              value={salaryFilter}
+              onChange={(e) => setSalaryFilter(e.target.value)}
+              label="初任給"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {salaries.map((salary) => (
+                <MenuItem key={salary.value} value={salary.value}>
+                  {salary.label}
                 </MenuItem>
               ))}
             </Select>

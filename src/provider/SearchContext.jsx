@@ -12,6 +12,8 @@ export const SearchProvider = ({ children }) => {
   const [sizeFilter, setSizeFilter] = useState("");
   const [holidayFilter, setHolidayFilter] = useState("");
   const [overtimeFilter, setOvertimeFilter] = useState("");
+  const [holidaysysFilter, setHolidaysysFilter] = useState("");
+  const [salaryFilter, setSalaryFilter] = useState("");
   const [filteredCompanies, setFilteredCompanies] = useState([]);
 
   return (
@@ -34,6 +36,10 @@ export const SearchProvider = ({ children }) => {
         overtimeFilter,
         setOvertimeFilter,
         filteredCompanies,
+        holidaysysFilter, // 追加
+        setHolidaysysFilter, // 追加
+        salaryFilter, // 追加
+        setSalaryFilter,
         setFilteredCompanies,
       }}
     >

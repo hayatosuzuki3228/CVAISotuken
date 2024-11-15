@@ -72,28 +72,28 @@ export function Matchdo() {
               <Paper elevation={3} className="paper-item">
                 <Box mt={4} p={3} border={1} borderRadius={2}>
                   <Grid container spacing={0}>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                       <Typography>学科情報：</Typography>
                     </Grid>
                     <Grid item xs={9}>
                       <Typography>{jobData.department}</Typography>
                     </Grid>
 
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                       <Typography>勤務地　：</Typography>
                     </Grid>
                     <Grid item xs={9}>
                       <Typography>{jobData.location.join("、")}</Typography>
                     </Grid>
 
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                       <Typography>特長　　：</Typography>
                     </Grid>
                     <Grid item xs={9}>
                       <Typography>{jobData.features.join("、")}</Typography>
                     </Grid>
 
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                       <Typography>資格　　：</Typography>
                     </Grid>
                     <Grid item xs={9}>
