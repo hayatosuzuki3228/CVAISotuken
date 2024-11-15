@@ -113,17 +113,20 @@
   
  
   .menu {
-    display: flex;
+    display: grid;
     flex-direction: column;
     float: left;
     position: relative;
     width: 300px;
     background-color: rgb(209, 232, 246);
     box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.1);
-   
     padding-left: 2%;
    
-   
+  }
+  @media (max-height: 700px) {
+    .menu{
+      padding-bottom: 700px;
+    }
   }
   .b1 {
     

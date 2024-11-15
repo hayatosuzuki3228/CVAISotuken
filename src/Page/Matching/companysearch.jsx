@@ -185,7 +185,7 @@ export function Companysearch() {
         <Grid item>
           <Button
             className="back"
-            variant="outlined"
+            variant="text"
             color="secondary"
             onClick={() => navigate("/matching")}
             startIcon={<UndoIcon />}

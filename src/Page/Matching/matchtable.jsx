@@ -157,7 +157,7 @@ function Row(props) {
         <TableCell>
           <Button
             onClick={handleCompanyChange}
-            style={{ textDecoration: "none", color: "blue", padding: "0" }}
+            style={{ textDecoration: "none", color: "#4466cc", padding: "0" }}
           >
             {row.name}
           </Button>
@@ -391,7 +391,7 @@ export function Matchtable() {
         </Button>
         <Button
           className="back"
-          variant="outlined"
+          variant="text"
           color="secondary"
           onClick={() => navigate("/matching")}
           startIcon={<UndoIcon />}

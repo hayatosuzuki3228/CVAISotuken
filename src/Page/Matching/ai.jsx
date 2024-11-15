@@ -23,7 +23,7 @@ export function Ai() {
       </Typography>
       <Button
         className="back"
-        variant="outlined"
+        variant="text"
         color="secondary"
         onClick={() => navigate("/matching")}
         startIcon={<UndoIcon />}

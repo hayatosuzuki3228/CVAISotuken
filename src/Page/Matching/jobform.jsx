@@ -138,7 +138,7 @@ const JobForm = ({ onSave, initialData }) => {
           マッチ度表へ
         </Button>
         <Button
-          variant="outlined"
+          variant="text"
           color="secondary"
           onClick={() => navigate("/matching")}
           startIcon={<UndoIcon />}
