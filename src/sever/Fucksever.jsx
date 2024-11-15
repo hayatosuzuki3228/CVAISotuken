@@ -13,7 +13,7 @@ export function Fuckserver() {
     postData("registration/admin", data);
     postData("authentication/admin", data);
     postData("admin/student/list", data);
-    postData("registration/student", data);
+    postData("admin/company/list", data);
     postData("registration/student", data);
     postData("registration/student", data);
     postData("registration/student", data);

@@ -15,7 +15,7 @@ import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
 //import data1 from "../../const/data.json";
-import companies from "../../const/companies";
+//import companies from "../../const/companies";
 import { postData } from "../../sever/api";
 import "normalize.css";
 const drawerWidth = 240;
@@ -71,7 +71,7 @@ export function Admin() {
   }, []);
   const navigate = useNavigate();
   const open = useState(false);
-  const [flags, setFlags] = useState(0);
+  const [flags, setFlags] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
   const [page2, setPage2] = useState(0);
@@ -80,7 +80,12 @@ export function Admin() {
     perPage: 21,
     page: 0,
   };
+  const Cdata = {
+    perPage: 21,
+    page: 0,
+  };
   const [data1, setData1] = useState([]);
+  const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,6 +95,16 @@ export function Admin() {
       setData1(result.result);
     };
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData1 = async () => {
+      const result = await postData("admin/company/list", Cdata);
+      console.log(result);
+      console.log("Result of postData:", result);
+      setCompanies(result.result);
+    };
+    fetchData1();
   }, []);
 
   const handleChangePage = (event, newPage) => setPage(newPage);
@@ -121,29 +136,57 @@ export function Admin() {
   const Change1 = useCallback(() => {
     setFlags(1);
   });
+  // 学生のアカウントを無効にします
+  const dataid1 = useCallback(async (data) => {
+    console.log("id: " + data);
+    const result = await postData("admin/student/deactivate", { id: data });
+    if (result.message) {
+      setData1((prevData1) =>
+        prevData1.map((user) =>
+          user.id === data ? { ...user, active: false } : user
+        )
+      );
+    }
+  }, []);
 
-  //登録されている生徒のアカウントを無効にします
-  const dataid1 = useCallback((data) => {
+  // 学生のアカウントを有効にします
+  const dataid2 = useCallback(async (data) => {
     console.log("id: " + data);
-    postData("admin/student/deactivate", { id: data });
-    window.location.reload();
-  });
-  //登録されている生徒のアカウントを有効にします
-  const dataid2 = useCallback((data) => {
+    const result = await postData("admin/student/activate", { id: data });
+    if (result.message) {
+      setData1((prevData1) =>
+        prevData1.map((user) =>
+          user.id === data ? { ...user, active: true } : user
+        )
+      );
+    }
+  }, []);
+
+  // 企業のアカウントを無効にします
+  const companyid1 = useCallback(async (data) => {
     console.log("id: " + data);
-    postData("admin/student/activate", { id: data });
-    window.location.reload();
-  });
-  //登録されている企業のアカウントを無効にします
-  const companyid1 = useCallback((data) => {
+    const result = await postData("admin/company/deactivate", { id: data });
+    if (result.message) {
+      setCompanies((prevCompanies) =>
+        prevCompanies.map((company) =>
+          company.id === data ? { ...company, active: false } : company
+        )
+      );
+    }
+  }, []);
+
+  // 企業のアカウントを有効にします
+  const companyid2 = useCallback(async (data) => {
     console.log("id: " + data);
-    postData("admin/company/deactivate", { id: data });
-  });
-  //登録されている企業のアカウントを有効にします
-  const companyid2 = useCallback((data) => {
-    console.log("id: " + data);
-    postData("admin/company/activate", { id: data });
-  });
+    const result = await postData("admin/company/activate", { id: data });
+    if (result.message) {
+      setCompanies((prevCompanies) =>
+        prevCompanies.map((company) =>
+          company.id === data ? { ...company, active: true } : company
+        )
+      );
+    }
+  }, []);
   //ログイン認証する
   const Clicklogin = useCallback((data) => {
     console.log(data);
@@ -193,9 +236,21 @@ export function Admin() {
                   名産会マッチングシステム／管理者画面・学生データ
                 </Typography>
               ) : (
+                ""
+              )}
+              {flags === 1 ? (
                 <Typography variant="h6" noWrap component="div">
                   名産会マッチングシステム／管理者画面・企業データ
                 </Typography>
+              ) : (
+                ""
+              )}
+              {flags === "" ? (
+                <Typography variant="h6" noWrap component="div">
+                  名産会マッチングシステム／管理者画面
+                </Typography>
+              ) : (
+                ""
               )}
             </Box>
             <Button
@@ -331,7 +386,7 @@ export function Admin() {
                       {user.active ? "Active" : "Inactive"}
                     </Typography>
                     {user.active ? (
-                      <Button onClick={() => dataid1(user?.id)}>停止</Button>
+                      <Button onClick={() => dataid1(user?.id)}>無効化</Button>
                     ) : (
                       <Button onClick={() => dataid2(user?.id)}>有効化</Button>
                     )}
@@ -410,7 +465,7 @@ export function Admin() {
                     </Typography>
                     {company.active ? (
                       <Button onClick={() => companyid1(company?.id)}>
-                        停止
+                        無効化
                       </Button>
                     ) : (
                       <Button onClick={() => companyid2(company?.id)}>
