@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import { ThemeProvider, Box } from "@mui/material";
 import { theme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
@@ -72,9 +73,17 @@ const AppBarContents = ({ open, setOpen }) => {
             </Typography>
           </Box>
           <Box>
-            <IconButton color="inherit" onClick={() => navigate("/Bookmark")}>
-              <BookmarksIcon />
-            </IconButton>
+            <Tooltip
+              title="ブックマーク"
+              placement="top"
+              enterDelay={0}
+              leaveDelay={10}
+              arrow
+            >
+              <IconButton color="inherit" onClick={() => navigate("/Bookmark")}>
+                <BookmarksIcon />
+              </IconButton>
+            </Tooltip>
 
             <Button color="inherit" onClick={() => navigate("/Loginpage")}>
               ログイン

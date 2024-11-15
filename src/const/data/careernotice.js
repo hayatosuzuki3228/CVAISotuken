@@ -2,8 +2,9 @@ export const careerNotice = [
   {
     date: "2025/1/1",
     title: "ここにおしらせタイトルが入ります",
-    link: "/LoginPage",
-    text: "新年のご挨拶とともに、ログインページのリニューアルが完了しました。ぜひご確認ください。",
+    link: "https://www.google.com/?hl=ja",
+    linktext: "ログインページ",
+    text: `帰aaaanao^^ `,
   },
   {
     date: "2024/12/12",

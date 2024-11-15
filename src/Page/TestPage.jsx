@@ -286,23 +286,37 @@ const TestPage = () => {
         >
           {selectedItem && (
             <div>
-              <Typography variant="h6" component="h2">
+              <Typography variant="h5" component="h2">
                 {selectedItem.title}
               </Typography>
               <Typography sx={{ mt: 1 }}>{selectedItem.date}</Typography>
               <Typography sx={{ whiteSpace: "pre-wrap", mt: 2 }}>
                 {selectedItem.text}
               </Typography>
-              <Button
-                onClick={handleCloseModal}
+              <Box
                 sx={{
-                  mt: 2,
-                  backgroundColor: primarycolor,
-                  color: "white",
+                  display: "flex", // Flexboxで配置
+                  justifyContent: "space-between", // ボタンを左右に配置
+                  width: "55%", // 親ボックスの幅を100%に設定
                 }}
               >
-                閉じる
-              </Button>
+                <Button onClick={() => handleLinkClick(selectedItem.link)}>
+                  {selectedItem.linktext}
+                </Button>
+                <Button
+                  onClick={handleCloseModal}
+                  sx={{
+                    mt: 2,
+                    backgroundColor: primarycolor,
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: primarycolor,
+                    },
+                  }}
+                >
+                  閉じる
+                </Button>
+              </Box>
             </div>
           )}
         </Box>
