@@ -27,12 +27,14 @@ import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
+import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
 import { SearchProvider } from "./provider/SearchContext";
+import { ErrorResponse } from "./sever/ErrorResponse.jsx";
+import {Fuckserver} from "./sever/Fucksever.jsx"
 
 import "normalize.css";
 function App() {
-  //
   return (
     <MyProvider>
       <JobProvider>
@@ -42,14 +44,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<Toppage />} />
                 <Route path="/Matchtable" element={<Matchtable />} />
-                <Route path="/Companysearch" element={<Companysearch />} />
-                <Route path="/Ai" element={<Ai />} />
-                <Route path="/Blog" element={<Blog />} />
                 <Route path="/Matching" element={<Matching />} />
                 <Route path="/Matchscore" element={<Matchscore />} />
                 <Route path="/Conditions" element={<Conditions />} />
                 <Route path="/Matchdo" element={<Matchdo />} />
-                <Route path="/Setting" element={<Setting />} />
                 <Route path="/LoginPage" element={<LoginPage />} />
                 <Route path="/Lostpass" element={<Lostpass />} />
                 <Route path="/addstudent" element={<Addstudent />} />
@@ -63,14 +61,14 @@ function App() {
                 <Route path="/profile-st-com-edit" element={<SCEdit />} />
                 <Route path="/profile-com" element={<CProfile />} />
                 <Route path="/profile-com-edit" element={<CEdit />} />
-                <Route path="/Bookmark" element={<Bookmark />} />
-                <Route
-                  path="/companyinformation"
-                  element={<Companyinformation />}
-                />
+                <Route path="/companyinformation" element={<Companyinformation />} />
                 <Route path="/picture" element={<Picture />} />
+                <Route path="/bookmark" element={<Bookmark />} />
+                <Route path="/testpage" element={<TestPage />} />
+                <Route path="/error" element={<ErrorResponse />} />
+                <Route path="/Fuckserver" element={<Fuckserver />} />
               </Routes>
-            </Router>
+             </Router>
           </SearchProvider>
         </BookmarkProvider>
       </JobProvider>

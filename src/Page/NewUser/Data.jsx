@@ -64,6 +64,23 @@ export const options = [
   { title: "ITサービスマネージャ", id: 11 },
   { title: "システム監査技術者", id: 12 },
   { title: "情報処理安全確保支援士", id: 13 },
+  { title: "普通自動車第一種運転免許", id: 14 },
+  { title: "普通自動車第一種運転免許（AT限定）", id: 15 },
+  { title: "日商簿記3級", id: 16 },
+  { title: "日商簿記2級", id: 17 },
+  { title: "日商簿記1級", id: 18 },
+  { title: "ORACLE MASTER Bronze DBA", id: 19 },
+  { title: "ORACLE MASTER Silver DBA", id: 20 },
+  { title: "ORACLE MASTER Gold DBA", id: 21 },
+  { title: "ORACLE MASTER Platinum DBA", id: 22 },
+  { title: "ORACLE MASTER Silver SQL", id: 23 },
+  { title: "LinuCレベル1", id: 24 },
+  { title: "LinuCレベル2", id: 25 },
+  { title: "LinuCレベル3", id: 26 },
+  { title: "LinuCシステムアーキテクト", id: 27 },
+  { title: "Oracle Certified Java Programmer, Bronze SE", id: 28 },
+  { title: "Oracle Certified Java Programmer, Silver SE 11", id: 29 },
+  { title: "Oracle Certified Java Programmer, Gold SE 11", id: 30 },
 ]; //id0で選択できないようにできる
 //学科
 export const selectBox = [
