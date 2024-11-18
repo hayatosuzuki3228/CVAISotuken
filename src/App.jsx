@@ -33,6 +33,7 @@ import { SearchProvider } from "./provider/SearchContext";
 import { ErrorResponse } from "./sever/ErrorResponse.jsx";
 import { Fuckserver } from "./sever/Fucksever.jsx";
 import { CookieTest } from "./Page/CookieTest.tsx";
+import { Setcompanynotice } from "./Page/Companypage/setcompanynotice.jsx";
 import "normalize.css";
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
                 <Route path="/error" element={<ErrorResponse />} />
                 <Route path="/Fuckserver" element={<Fuckserver />} />
                 <Route path="/CookieTest" element={<CookieTest />} />
+                <Route
+                  path="/Setcompanynotice"
+                  element={<Setcompanynotice />}
+                />
               </Routes>
             </Router>
           </SearchProvider>
