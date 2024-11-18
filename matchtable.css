@@ -4,34 +4,24 @@
     margin-right: 5%;
     width: 90%;
     margin-bottom: 5%;
+    margin-top: 2%;
   }
-  .sertch {
-    top: 50px;
-    margin-left: 50px;
-    width: 30%;
+  .text {
+    margin-left: 3%;
+    margin-top: 1%;
+  }
+  .search {
+    width: 300px;
   }
   .detailSearch {
-    top: 50px;
-    margin-left: 50px;
-    width: 30%;
+    width: 300px;
   }
   .matchScoreSearch {
-    top: 50px;
-    margin-left: 50px;
-    width: 30%;
+    width: 300px;
   }
-  .detailbu {
-    bottom: 190px;
-    left: 37%;
-    width: 13vw;
-    height: 5vw;
-    font-size: 1.3vw;
-  }
-  .matchdo {
-    left: 58%;
-  }
+
   .back {
-    left: 60%;
+    margin-right: 5%;
   }
 }
 
@@ -42,35 +32,13 @@
     width: 90%;
     margin-bottom: 10%;
   }
-  .sertch {
-    top: 20px;
-    margin-left: 10px;
-  }
-  .matchScoreSearch {
-    top: 20px;
-    margin-left: 10px;
-  }
-  .detailSearch {
-    top: 20px;
-    margin-left: 10px;
+  .text {
+    margin-left: 3%;
+    margin-top: 3%;
+    padding-right: 1rem;
   }
 
-  .detailbu {
-    width: 20vw;
-    height: 10vw;
-    font-size: 2vw;
-    left: 52%;
-    position: absolute;
-    top: 20px;
-  }
-  .matchdo {
-    left: 50%;
-    position: absolute;
-    top: 170px;
-  }
   .back {
-    left: 75%;
-    position: absolute;
-    top: 170px;
+    margin-right: 5%;
   }
 }
