@@ -9,7 +9,7 @@ import { Matching } from "./Page/Matching/matching";
 import { Matchtable } from "./Page/Matching/matchtable";
 import { Matchscore } from "./Page/Matching/matchscore";
 import { Conditions } from "./Page/Matching/Conditions";
-import { Toppage } from "./Page/toppage";
+import { TopPage } from "./Page/toppage.jsx";
 import { LoginPage } from "./Page/Login/Login";
 import { MyProvider } from "./provider/provider";
 import { JobProvider } from "./provider/context";
@@ -23,7 +23,6 @@ import { Companyinformation } from "./Page/Profile/companyinformation.jsx";
 import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
-import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
 import "normalize.css";
 function App() {
@@ -32,32 +31,34 @@ function App() {
       <JobProvider>
         <BookmarkProvider>
           <Router>
-        <Routes>
-          <Route path="/" element={<Toppage />} />
-          <Route path="/Matchtable" element={<Matchtable />} />
-          <Route path="/Matching" element={<Matching />} />
-          <Route path="/Matchscore" element={<Matchscore />} />
-          <Route path="/Conditions" element={<Conditions />} />
-          <Route path="/Matchdo" element={<Matchdo />} />
-          <Route path="/LoginPage" element={<LoginPage />} />
-          <Route path="/Lostpass" element={<Lostpass />} />
-          <Route path="/addstudent" element={<Addstudent />} />
-          <Route path="/adduser" element={<Addstudentuser />} />
-          <Route path="/addgakka" element={<Addstudentgakka />} />
-          <Route path="/addkakunin" element={<Addstudentkakunin />} />
-          <Route path="/addcompany" element={<Addcompany />} />
-          <Route path="/profile-st" element={<SProfile />} />
-          <Route path="/profile-st-edit" element={<SEdit />} />
-          <Route path="/profile-st-com" element={<SCompany />} />
-          <Route path="/profile-st-com-edit" element={<SCEdit />} />
-          <Route path="/profile-com" element={<CProfile />} />
-          <Route path="/profile-com-edit" element={<CEdit />} />
-          <Route path="/companyinformation" element={<Companyinformation />} />
-          <Route path="/picture" element={<Picture />} />
-          <Route path="/bookmark" element={<Bookmark />} />
-          <Route path="/testpage" element={<TestPage />} />
-        </Routes>
-      </Router>
+            <Routes>
+              <Route path="/" element={<TopPage />} />
+              <Route path="/Matchtable" element={<Matchtable />} />
+              <Route path="/Matching" element={<Matching />} />
+              <Route path="/Matchscore" element={<Matchscore />} />
+              <Route path="/Conditions" element={<Conditions />} />
+              <Route path="/Matchdo" element={<Matchdo />} />
+              <Route path="/LoginPage" element={<LoginPage />} />
+              <Route path="/Lostpass" element={<Lostpass />} />
+              <Route path="/addstudent" element={<Addstudent />} />
+              <Route path="/adduser" element={<Addstudentuser />} />
+              <Route path="/addgakka" element={<Addstudentgakka />} />
+              <Route path="/addkakunin" element={<Addstudentkakunin />} />
+              <Route path="/addcompany" element={<Addcompany />} />
+              <Route path="/profile-st" element={<SProfile />} />
+              <Route path="/profile-st-edit" element={<SEdit />} />
+              <Route path="/profile-st-com" element={<SCompany />} />
+              <Route path="/profile-st-com-edit" element={<SCEdit />} />
+              <Route path="/profile-com" element={<CProfile />} />
+              <Route path="/profile-com-edit" element={<CEdit />} />
+              <Route
+                path="/companyinformation"
+                element={<Companyinformation />}
+              />
+              <Route path="/picture" element={<Picture />} />
+              <Route path="/bookmark" element={<Bookmark />} />
+            </Routes>
+          </Router>
         </BookmarkProvider>
       </JobProvider>
     </MyProvider>

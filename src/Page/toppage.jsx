@@ -1,75 +1,32 @@
-import React from "react";
-import { useState } from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import Stack from "@mui/material/Stack";
+import React, { useState } from "react";
+import { styled, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+import Pagination from "@mui/material/Pagination";
+import { useNavigate } from "react-router-dom";
+import { useMediaQuery, Modal, Button } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
-import { useNavigate } from "react-router-dom";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { careerNotice } from "../const/data/careernotice";
+import { companyNotice } from "../const/data/companynotice";
 import { gray, primarycolor } from "../const/color";
-import "normalize.css";
-import { Pagination, TextField, Grid } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
+import { theme } from "../const/theme";
+import AppBarContents from "./Component/AppBarContents";
+import DrawerContents from "./Component/DrawerContents";
+import MainContents from "./Component/MainContents";
 
-export function Toppage() {
+export function TopPage() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const drawerWidth = isSmallScreen ? 100 : 220;
-
-  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create("margin", {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    })
-  );
-
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== "open",
-  })(({ theme, open }) => ({
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    zIndex: open ? 100 : 1,
-    ...(open && {
-      width: `100%`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
 
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
@@ -103,121 +60,23 @@ export function Toppage() {
       link: "/Setting",
       isNavigate: true,
     },
-  ];
-
-  const careerNotice = [
     {
-      date: "2025/1/1",
-      text: "ここにおしらせタイトルが入ります",
-      link: "/LoginPage",
-    },
-    {
-      date: "2024/12/12",
-      text: "学内合同企業説明会を開催します",
-    },
-    {
-      date: "2024/11/11",
-      text: "マッチング機能の不具合修正を行いました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/10/10",
-      text: "株式会社○○○○が企業登録を行いました",
-    },
-    {
-      date: "2024/9/9",
-      text: "名産会マッチングシステム学生登録が始まりました",
-      link: "/Matching",
-    },
-    {
-      date: "2025/1/1",
-      text: "ここにおしらせタイトルが入ります",
-      link: "/LoginPage",
-    },
-    {
-      date: "2024/12/12",
-      text: "学内合同企業説明会を開催します",
-    },
-    {
-      date: "2024/11/11",
-      text: "マッチング機能の不具合修正を行いました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/9/9",
-      text: "名産会マッチングシステム学生登録が始まりました",
-      link: "/Matching",
-    },
-    {
-      date: "2025/1/1",
-      text: "ここにおしらせタイトルが入ります",
-      link: "/LoginPage",
-    },
-    {
-      date: "2024/12/12",
-      text: "学内合同企業説明会を開催します",
-    },
-    {
-      date: "2024/11/11",
-      text: "マッチング機能の不具合修正を行いました",
-      link: "/Matching",
+      text: "お問い合わせ",
+      icon: <HelpOutlineIcon />,
+      link: "/inquiry",
+      isNavigate: true,
     },
   ];
-
-  const companyNotice = [
-    {
-      date: "2024/1/1",
-      text: "(株)○○システム新卒採用開始しました",
-      link: "/LoginPage",
-    },
-    {
-      date: "20??/12/32",
-      text: "採用サイトリニューアルのおしらせ",
-    },
-    {
-      date: "2000/10/10",
-      text: "システム(株)が企業一覧に追加されました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/1/1",
-      text: "(株)○○システム新卒採用開始しました",
-      link: "/LoginPage",
-    },
-    {
-      date: "20??/12/32",
-      text: "採用サイトリニューアルのおしらせ",
-    },
-    {
-      date: "2000/10/10",
-      text: "システム(株)が企業一覧に追加されました",
-      link: "/Matching",
-    },
-  ];
-
-  const navigate = useNavigate();
-
-  const [open, setOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
-  const handleItemClick = (link, isNavigate) => {
-    if (isNavigate) {
-      navigate(link);
-    } else if (link) {
-      window.location.href = link;
-    }
-  };
 
   const [value, setValue] = React.useState(0);
+  const [openModal, setOpenModal] = useState(false); // モーダルの開閉状態を管理
+  const [selectedItem, setSelectedItem] = useState(null); // クリックされたアイテムを保持
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  //#region pagenation
+  //#region pagination
   const pageItems = 5;
   const [currentCareerPage, setCurrentCareerPage] = useState(1);
   const [currentCompanyPage, setCurrentCompanyPage] = useState(1);
@@ -240,133 +99,45 @@ export function Toppage() {
   const handleCompanyPageChange = (event, value) => {
     setCurrentCompanyPage(value);
   };
+
   //#endregion
 
-  const onClick = () => {
-    return navigate("/bookmark");
+  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
+  const navigate = useNavigate();
+
+  const handleLinkClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
   };
 
-  const theme = createTheme({
-    components: {
-      MuiListItemIcon: {
-        styleOverrides: {
-          root: {
-            color: primarycolor,
-          },
-        },
-      },
-      MuiListItemText: {
-        styleOverrides: {
-          primary: {
-            color: gray,
-          },
-        },
-      },
-    },
-  });
+  const handleItemClick = (item) => {
+    // モーダルを開き、クリックされたアイテムの詳細情報を表示
+    setSelectedItem(item);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedItem(null); // モーダルが閉じられるときに選択されたアイテムをリセット
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          open={open}
-          sx={{
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            backgroundColor: primarycolor,
-          }}
-        >
-          <Toolbar sx={{ justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer}
-                edge="start"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Box />
-              <Typography
-                variant={isSmallScreen ? "h7" : "h6"}
-                noWrap
-                component="div"
-              >
-                名産会マッチングシステム
-              </Typography>
-            </Box>
-            <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-              ログイン
-            </Button>
-          </Toolbar>
-        </AppBar>
+        <AppBarContents open={drawerOpen} setOpen={setDrawerOpen} />
 
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
+        <DrawerContents
+          open={drawerOpen}
+          menuItems={menuItems}
+          handleItemClick={handleLinkClick}
+        />
+
+        <MainContents open={drawerOpen}>
           <DrawerHeader />
-          <Divider />
-          <List>
-            {menuItems.map((item, index) => (
-              <React.Fragment key={index}>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => handleItemClick(item.link, item.isNavigate)}
-                  >
-                    <Grid
-                      container
-                      direction={isSmallScreen ? "column" : "row"}
-                      alignItems="center"
-                    >
-                      <ListItemIcon
-                        style={{
-                          display: "flex",
-                          justifyContent: isSmallScreen
-                            ? "center"
-                            : "flex-start",
-                        }}
-                      >
-                        {React.cloneElement(item.icon, {
-                          fontSize: isSmallScreen ? "small" : "medium",
-                        })}
-                      </ListItemIcon>
-                      <Typography
-                        sx={{
-                          fontSize: isSmallScreen ? "0.6rem" : "1rem",
-                          textAlign: isSmallScreen ? "center" : "left",
-                          paddingTop: isSmallScreen ? 0.3 : 0.5,
-                          paddingBottom: isSmallScreen ? 0.3 : 0.5,
-                        }}
-                      >
-                        {item.text}
-                      </Typography>
-                    </Grid>
-                  </ListItemButton>
-                </ListItem>
-                {index === 2 && (
-                  <Box my={1}>
-                    <Divider />
-                  </Box>
-                )}
-              </React.Fragment>
-            ))}
-          </List>
-        </Drawer>
-        <Main open={open} className="main">
-          <DrawerHeader />
+
           <Tabs
             value={value}
             onChange={handleChange}
@@ -404,11 +175,7 @@ export function Toppage() {
                 {careerItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() =>
-                          handleItemClick(item.link, item.isNavigate)
-                        }
-                      >
+                      <ListItemButton onClick={() => handleItemClick(item)}>
                         <div
                           style={{
                             display: "flex",
@@ -431,7 +198,7 @@ export function Toppage() {
                               color: primarycolor,
                             }}
                           >
-                            {item.text}
+                            {item.title}
                           </Typography>
                         </div>
                       </ListItemButton>
@@ -454,11 +221,7 @@ export function Toppage() {
                 {companyItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() =>
-                          handleItemClick(item.link, item.isNavigate)
-                        }
-                      >
+                      <ListItemButton onClick={() => handleItemClick(item)}>
                         <div
                           style={{
                             display: "flex",
@@ -481,7 +244,7 @@ export function Toppage() {
                               color: primarycolor,
                             }}
                           >
-                            {item.text}
+                            {item.title}
                           </Typography>
                         </div>
                       </ListItemButton>
@@ -498,15 +261,66 @@ export function Toppage() {
               />
             </div>
           )}
-        </Main>
+        </MainContents>
       </Box>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "white",
+            padding: 4,
+            borderRadius: 2,
+            boxShadow: 24,
+            width: "80%",
+            maxWidth: 600,
+          }}
+        >
+          {selectedItem && (
+            <div>
+              <Typography variant="h5" component="h2">
+                {selectedItem.title}
+              </Typography>
+              <Typography sx={{ mt: 1 }}>{selectedItem.date}</Typography>
+              <Typography sx={{ whiteSpace: "pre-wrap", mt: 2 }}>
+                {selectedItem.text}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex", // Flexboxで配置
+                  justifyContent: "space-between", // ボタンを左右に配置
+                  width: "55%", // 親ボックスの幅を100%に設定
+                }}
+              >
+                <Button onClick={() => handleLinkClick(selectedItem.link)}>
+                  {selectedItem.linktext}
+                </Button>
+                <Button
+                  onClick={handleCloseModal}
+                  sx={{
+                    mt: 2,
+                    backgroundColor: primarycolor,
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: primarycolor,
+                    },
+                  }}
+                >
+                  閉じる
+                </Button>
+              </Box>
+            </div>
+          )}
+        </Box>
+      </Modal>
     </ThemeProvider>
   );
-  <head>
-    <link href="toppage.css" rel="stylesheet" type="text/css" media="all" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>;
 }
-
-//メッセージ就職ガイドお問い合わせブックマーク
-//ブックマーク　マッチング　メッセージ
