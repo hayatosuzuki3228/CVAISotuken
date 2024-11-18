@@ -119,7 +119,7 @@ export function Addcompany() {
       worktime !== "" &&
       holiday !== "" &&
       holidaysystem !== "" &&
-      selectqualification.length > 0
+      selectqualification.length >= 0
     );
   };
 
@@ -764,19 +764,14 @@ export function Addcompany() {
             </FormGroup>
             <Autocomplete
               multiple
-              limitTags={1}
+              limitTags={2}
               sx={{ width: "90%", maxWidth: "400px" }}
               value={selectqualification}
               onChange={(event, newValue) => setSelectQualification(newValue)}
               options={qualification}
               getOptionLabel={(option) => option.title}
               renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="必須資格(ない場合は不問を選択)"
-                  variant="standard"
-                  required
-                />
+                <TextField {...params} label="必須資格" variant="standard" />
               )}
             />
           </Box>
@@ -1503,9 +1498,13 @@ export function Addcompany() {
               <Divider component="li" />
               <ListItem>
                 <ListItemText
-                  primary={`必須資格　：　${selectqualification
-                    .map((qualification) => qualification.title)
-                    .join(", ")}`}
+                  primary={
+                    selectqualification.length === 0
+                      ? `必須資格　：　なし`
+                      : `必須資格　：　${selectqualification
+                          .map((qualification) => qualification.title)
+                          .join(", ")}`
+                  }
                 />
               </ListItem>
               <Divider component="li" />
