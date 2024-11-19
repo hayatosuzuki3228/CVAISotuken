@@ -1,6 +1,6 @@
 export async function postData(endpoint, data) {
   try {
-    const response = await fetch(`http://20.27.104.188:8000/${endpoint}`, {
+    const response = await fetch(`http://localhost:8000/${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
