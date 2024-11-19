@@ -337,11 +337,11 @@ export function Companysearch() {
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
-            <InputLabel>休日制</InputLabel>
+            <InputLabel>休日制度</InputLabel>
             <Select
               value={holidaysysFilter}
               onChange={(e) => setHolidaysysFilter(e.target.value)}
-              label="休日制"
+              label="休日制度"
             >
               <MenuItem value="">
                 <em>すべて</em>
@@ -355,14 +355,14 @@ export function Companysearch() {
           </FormControl>
         </Grid>
 
-        {/* 初任給フィルター */}
+        {/* 最低月給フィルター */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth variant="outlined">
-            <InputLabel>初任給</InputLabel>
+            <InputLabel>最低月給</InputLabel>
             <Select
               value={salaryFilter}
               onChange={(e) => setSalaryFilter(e.target.value)}
-              label="初任給"
+              label="最低月給"
             >
               <MenuItem value="">
                 <em>すべて</em>

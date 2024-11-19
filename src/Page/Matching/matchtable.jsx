@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import {
   Button,
   Box,
-  Stack,
   TextField,
   IconButton,
   Collapse,
@@ -66,6 +65,12 @@ function convertCompanyData(company, jobData) {
 function calculateMatchScore(company, jobData) {
   let score = 0;
   let total = 0;
+  if (
+    (company.qualification != "不問" &&
+      company.qualification == jobData.qualification) ||
+    company.qualification == "不問"
+  ) {
+  } //必須資格があった場合必須資格が一致してなかったら0として返す処理。これを各total処理をした直後にそれぞれ入れる。
 
   // 勤務地の比較
   const selectedLocations = jobData.location;
@@ -89,6 +94,7 @@ function calculateMatchScore(company, jobData) {
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
     total += 10;
+
     if (company.qualification.includes(qualification)) score += 10;
   });
   // 募集学科情報の比較
@@ -104,14 +110,16 @@ function calculateMatchScore(company, jobData) {
       score = 0; // 募集学科情報が一致しなかったらスコアを0にして返す
     }
   }
-  if (jobData.department == null) {
+
+  if (jobData.department == null || jobData.department == "") {
     score = 0;
   }
+
   return { score, total };
 }
 
 function Row(props) {
-  const { row, showDetail, onFavoriteToggle, isFavorite } = props;
+  const { row, showDetail, onFavoriteToggle } = props;
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { setproviderid } = useContext(MyContext);
