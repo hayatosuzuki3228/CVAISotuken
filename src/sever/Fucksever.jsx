@@ -10,9 +10,9 @@ export function Fuckserver() {
     pass: "Fuck",
   };
   const handleFuckserver = (event) => {
-    postData("authentication/admin", data);
+    postData("authentication/student", data);
 
-    postData("registration/admin", data2);
+    //postData("registration/admin", data2);
   };
   return <button onClick={handleFuckserver} />;
 }
