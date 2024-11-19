@@ -26,28 +26,47 @@ import { options } from "./Data";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import MyContext from "../../provider/provider";
 
 export function SCEdit() {
   useEffect(() => {
     document.title = "プロフィール";
   }, []);
 
-  const location = useLocation();
-  const warpJob = location.state?.job || "";
-  const warpHobby = location.state?.hobby || "";
-  const warpSkill = location.state?.skill || "";
-  const warpSSubject = location.state?.SSubject || "";
-  const warpKSubject = location.state?.KSubject || "";
-  const warpMyPower = location.state?.myPower || [];
-  const { name, kName, man, Gak, Years, Months, Days, email, Home, bye, age } =
-    location.state || {};
+  const {
+    provideremail,
+    providername,
+    providerKName,
+    providerMan,
+    providerGak,
+    providerYears,
+    providerMonths,
+    providerDays,
+    providerHome,
+    providerBye,
+    providerAge,
 
-  const [job, setJob] = useState(warpJob);
-  const [hobby, setHobby] = useState(warpHobby);
-  const [skill, setSkill] = useState(warpSkill);
-  const [SSubject, setSSubject] = useState(warpSSubject);
-  const [KSubject, setKSubject] = useState(warpKSubject);
-  const [myPower, setMyPower] = useState(warpMyPower);
+    providerJob,
+    setproviderJob,
+    providerHobby,
+    setproviderHobby,
+    providerSkill,
+    setproviderSkill,
+    providerSSubject,
+    setproviderSSubject,
+    providerKSubject,
+    setproviderKSubject,
+    providerMyPower,
+    setproviderMyPower,
+  } = useContext(MyContext);
+
+  const location = useLocation();
+  const warpJob = location.state?.providerJob || "";
+  const warpHobby = location.state?.providerHobby || "";
+  const warpSkill = location.state?.providerSkill || "";
+  const warpSSubject = location.state?.providerSSubject || "";
+  const warpKSubject = location.state?.providerKSubject || "";
+  const warpMyPower = location.state?.providerMyPower || [];
 
   const [JobSave, setJobSave] = useState(warpJob);
   const [HobbySave, setHobbySave] = useState(warpHobby);
@@ -73,39 +92,33 @@ export function SCEdit() {
   };
 
   const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-  const regexJob = (job) => {
-    if (!regex.test(job)) {
+  const regexJob = (JobSave) => {
+    if (!regex.test(JobSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexHobby = (hobby) => {
-    if (!regex.test(hobby)) {
+  const regexHobby = (HobbySave) => {
+    if (!regex.test(HobbySave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexSkill = (skill) => {
-    if (!regex.test(skill)) {
+  const regexSkill = (SkillSave) => {
+    if (!regex.test(SkillSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexSSubject = (SSubject) => {
-    if (!regex.test(SSubject)) {
+  const regexSSubject = (SSubjectSave) => {
+    if (!regex.test(SSubjectSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexKSubject = (KSubject) => {
-    if (!regex.test(KSubject)) {
+  const regexKSubject = (KSubjectSave) => {
+    if (!regex.test(KSubjectSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
-    }
-    return "";
-  };
-  const regexMyPower = (myPower) => {
-    if (myPower.length <= 0) {
-      return "内容を選択してください。";
     }
     return "";
   };
@@ -116,14 +129,12 @@ export function SCEdit() {
     const SkillError = regexSkill(SkillSave);
     const SSubjectError = regexSSubject(SSubjectSave);
     const KSubjectError = regexKSubject(KSubjectSave);
-    const MyPowerError = regexMyPower(MyPowerSave);
-
     setJobError(JobError);
     setHobbyError(HobbyError);
     setSkillError(SkillError);
     setSSubjectError(SSubjectError);
     setKSubjectError(KSubjectError);
-    setMyPowerError(MyPowerError);
+    setMyPowerError(MyPowerSave.length > 0 ? "" : "ERROR");
     if (
       !JobError &&
       !HobbyError &&
@@ -132,22 +143,33 @@ export function SCEdit() {
       !KSubjectError &&
       !MyPowerError
     ) {
-      setJob(JobSave);
-      setHobby(HobbySave);
-      setSkill(SkillSave);
-      setSSubject(SSubjectSave);
-      setKSubject(KSubjectSave);
-      setMyPower(MyPowerSave);
+      setproviderJob(JobSave);
+      setproviderHobby(HobbySave);
+      setproviderSkill(SkillSave);
+      setproviderSSubject(SSubjectSave);
+      setproviderKSubject(KSubjectSave);
+      setproviderMyPower(MyPowerSave);
       setDialogOpen(false);
 
       navigate("/profile-st-com", {
         state: {
-          job: JobSave,
-          hobby: HobbySave,
-          skill: SkillSave,
-          SSubject: SSubjectSave,
-          KSubject: KSubjectSave,
-          myPower: MyPowerSave,
+          providerJob: JobSave,
+          providerHobby: HobbySave,
+          providerSkill: SkillSave,
+          providerSSubject: SSubjectSave,
+          providerKSubject: KSubjectSave,
+          providerMyPower: MyPowerSave,
+          provideremail,
+          providername,
+          providerKName,
+          providerMan,
+          providerGak,
+          providerYears,
+          providerMonths,
+          providerDays,
+          providerHome,
+          providerBye,
+          providerAge,
         },
       });
     }
@@ -159,28 +181,23 @@ export function SCEdit() {
   const OnClick = () => {
     navigate("/profile-st", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        SSubject,
-        KSubject,
-        myPower,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -189,31 +206,23 @@ export function SCEdit() {
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };

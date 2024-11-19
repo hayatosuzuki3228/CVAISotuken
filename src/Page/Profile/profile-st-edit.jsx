@@ -3,11 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
   Drawer,
   Divider,
   FormControlLabel,
-  FormControl,
-  InputLabel,
   IconButton,
   List,
   ListItem,
@@ -16,24 +19,13 @@ import {
   MenuItem,
   Radio,
   RadioGroup,
-  Select,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {
-  years,
-  months,
-  days,
-  selectBox,
-  HOME,
-  Bye,
-  older,
-  older2,
-} from "./Data";
+import { months, days, selectBox, HOME, Bye, older2 } from "./Data";
 import MyContext from "../../provider/provider";
-import { Man } from "@mui/icons-material";
 
 export function SEdit() {
   useEffect(() => {
@@ -44,43 +36,49 @@ export function SEdit() {
   const {
     provideremail,
     setprovidermail,
-    providerSaveEmail,
-    setproviderSaveEmail,
     providername,
     setprovidername,
-    providerSaveName,
-    setproviderSaveName,
     providerKName,
-    setProviderKName,
-    providerSaveKName,
-    setProviderSaveKName,
+    setproviderKName,
+    providerMan,
+    setproviderMan,
+    providerGak,
+    setproviderGak,
+    providerYears,
+    setproviderYears,
+    providerMonths,
+    setproviderMonths,
+    providerDays,
+    setproviderDays,
+    providerHome,
+    setproviderHome,
+    providerBye,
+    setproviderBye,
+    providerAge,
+    setproviderAge,
+
+    providerJob,
+    providerHobby,
+    providerSkill,
+    providerSSubject,
+    providerKSubject,
+    providerMyPower,
   } = useContext(MyContext);
-  const warpName = location.state?.name || "";
-  const warpKName = location.state?.kName || "";
-  const warpEmail = location.state?.email || "";
-  const warpMan = location.state?.man || "";
-  const warpGak = location.state?.Gak || "";
-  const warpYears = location.state?.Years || "";
-  const warpMonths = location.state?.Months || "";
-  const warpDays = location.state?.Days || "";
-  const warpHome = location.state?.Home || "";
-  const warpBye = location.state?.bye || "";
-  const warpAge = location.state?.age || "";
-  const { job, hobby, skill, SSubject, KSubject, myPower } =
-    location.state || {};
 
-  const [name, setName] = useState(warpName);
-  const [kName, setKName] = useState(warpKName);
-  const [man, setMan] = useState(warpMan);
-  const [Gak, setGak] = useState(warpGak);
-  const [Years, setYears] = useState(warpYears);
-  const [Months, setMonths] = useState(warpMonths);
-  const [Days, setDays] = useState(warpDays);
-  const [Home, setHome] = useState(warpHome);
-  const [bye, setBye] = useState(warpBye);
-  const [age, setAge] = useState(warpAge);
-  const [email, setEmail] = useState(warpEmail);
+  const warpName = location.state?.providername || "";
+  const warpKName = location.state?.providerKName || "";
+  const warpEmail = location.state?.provideremail || "";
+  const warpMan = location.state?.providerMan || "";
+  const warpGak = location.state?.providerGak || "";
+  const warpYears = location.state?.providerYears || "";
+  const warpMonths = location.state?.providerMonths || "";
+  const warpDays = location.state?.providerDays || "";
+  const warpHome = location.state?.providerHome || "";
+  const warpBye = location.state?.providerBye || "";
+  const warpAge = location.state?.providerAge || "";
 
+  const [NameSave, setNameSave] = useState(warpName);
+  const [KNameSave, setKNameSave] = useState(warpKName);
   const [ManSave, setManSave] = useState(warpMan);
   const [GakSave, setGakSave] = useState(warpGak);
   const [YearsSave, setYearsSave] = useState(warpYears);
@@ -89,42 +87,154 @@ export function SEdit() {
   const [HomeSave, setHomeSave] = useState(warpHome);
   const [ByeSave, setByeSave] = useState(warpBye);
   const [AgeSave, setAgeSave] = useState(warpAge);
+  const [EmailSave, setEmailSave] = useState(warpEmail);
 
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
+  const [NameError, setNameError] = useState("");
+  const [KNameError, setKNameError] = useState("");
+  const [GakError, setGakError] = useState("");
+  const [HomeError, setHomeError] = useState("");
+  const [ByeError, setByeError] = useState("");
+  const [EmailError, setEmailError] = useState("");
+  const [YearError, setYearError] = useState("");
+  const [MonthError, setMonthError] = useState("");
+  const [DaysError, setDaysError] = useState("");
+  const [ManError, setManError] = useState("");
+
   const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
+    const birthDate = new Date(YearsSave, MonthsSave - 1, DaysSave);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    setAgeSave(age + "歳");
   };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
 
-  const navigate = useNavigate();
-  // profile-st に飛ぶ(戻るボタン)
+  const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
+  const Kregex = /^[ァ-ヴ]{2,}$/;
+  const mailRegex =
+    /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+  const regexName = (NameSave) => {
+    if (!regex.test(NameSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexKName = (KNameSave) => {
+    if (!Kregex.test(KNameSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexHome = (HomeSave) => {
+    if (!regex.test(HomeSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexEmail = (EmailSave) => {
+    if (!mailRegex.test(EmailSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+
+  const handleConfirmDialog = () => {
+    const NameError = regexName(NameSave);
+    const KNameError = regexKName(KNameSave);
+    const HomeError = regexHome(HomeSave);
+    const EmailError = regexEmail(EmailSave);
+
+    setNameError(NameError);
+    setKNameError(KNameError);
+    setHomeError(HomeError);
+    setEmailError(EmailError);
+    setByeError(ByeSave.length > 0 ? "" : "ERROR");
+    setGakError(GakSave.length > 0 ? "" : "ERROR");
+    setYearError(YearsSave.length > 0 ? "" : "ERROR");
+    setMonthError(MonthsSave.length > 0 ? "" : "ERROR");
+    setDaysError(DaysSave.length > 0 ? "" : "ERROR");
+    setManError(ManSave.length > 0 ? "" : "ERROR");
+    if (
+      !NameError &&
+      !KNameError &&
+      !GakError &&
+      !HomeError &&
+      !ByeError &&
+      !EmailError &&
+      !YearError &&
+      !MonthError &&
+      !DaysError &&
+      !ManError
+    ) {
+      setprovidername(NameSave);
+      setproviderKName(KNameSave);
+      setproviderMan(ManSave);
+      setproviderGak(GakSave);
+      setproviderHome(HomeSave);
+      setproviderAge(AgeSave);
+      setproviderYears(YearsSave);
+      setproviderMonths(MonthsSave);
+      setproviderDays(DaysSave);
+      setproviderBye(ByeSave);
+      setprovidermail(EmailSave);
+      setDialogOpen(false);
+
+      navigate("/profile-st", {
+        state: {
+          providername: NameSave,
+          providerKName: KNameSave,
+          provideremail: EmailSave,
+          providerMan: ManSave,
+          providerGak: GakSave,
+          providerYears: YearsSave,
+          providerMonths: MonthsSave,
+          providerDays: DaysSave,
+          providerHome: HomeSave,
+          providerBye: ByeSave,
+          providerAge: AgeSave,
+          providerJob,
+          providerHobby,
+          providerSkill,
+          providerSSubject,
+          providerKSubject,
+          providerMyPower,
+        },
+      });
+    }
+    setDialogOpen(false);
+  };
+
   const OnClick = () => {
+    // profile-st に飛ぶ(戻るボタン)
     navigate("/profile-st", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -133,62 +243,26 @@ export function SEdit() {
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
-
-  /*
-  const regex = /^[一-龠あ-んァ-ヶー]{2,}$/;
-  const regex2 = /^[ァ-ヴ]{2,}$/;
-  const mailRegex =
-    /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-  const birthDate = new Date(Years, Months - 1, Days);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  setAge(age + "歳");*/
-  regex.test(providername) &&
-    regex2.test(providerKName) &&
-    mailRegex.test(provideremail);
-
-  navigate("/profile-st", {
-    state: {
-      name,
-      kName,
-      man,
-      Gak,
-      Years,
-      Months,
-      Days,
-      email,
-      Home,
-      bye,
-      age,
-      job,
-      hobby,
-      skill,
-    },
-  });
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -196,7 +270,7 @@ export function SEdit() {
   };
 
   const handleChange1 = (event) => {
-    setMan(event.target.value);
+    setManSave(event.target.value);
   };
 
   return (
@@ -246,10 +320,10 @@ export function SEdit() {
         justifyContent="center"
         alignItems="center"
         textAlign="center"
-        //direction="column"
         paddingTop="3%"
         paddingBottom="5%"
         spacing={2}
+        style={{ whiteSpace: "pre-line" }}
       >
         <Stack direction="row">
           <Box
@@ -271,16 +345,20 @@ export function SEdit() {
               <TextField
                 fullWidth
                 label="名前の変更"
-                value={providername}
-                onChange={(e) => setprovidername(e.target.value)}
+                value={NameSave}
+                onChange={(e) => setNameSave(e.target.value)}
+                error={Boolean(NameError)}
+                helperText={NameError}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="名前(カタカナ)の変更"
-                value={providerKName}
-                onChange={(e) => setProviderKName(e.target.value)}
+                value={KNameSave}
+                onChange={(e) => setKNameSave(e.target.value)}
+                error={Boolean(KNameError)}
+                helperText={KNameError}
               />
             </Box>
           </Stack>
@@ -302,9 +380,9 @@ export function SEdit() {
             sx={{ minWidth: 300 }}
           >
             <RadioGroup
-              value={man}
+              value={ManSave}
               onChange={handleChange1}
-              defaultValue={man}
+              defaultValue={providerMan}
               row
             >
               <FormControlLabel
@@ -348,8 +426,9 @@ export function SEdit() {
               sx={{ width: 300 }}
               id="SelectBox"
               label="学科名"
-              value={Gak}
-              onChange={(e) => setGak(e.target.value)}
+              value={GakSave}
+              error={Boolean(GakError)}
+              onChange={(e) => setGakSave(e.target.value)}
             >
               {selectBox.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -385,8 +464,9 @@ export function SEdit() {
               multiline
               id="older"
               label="年"
-              value={Years}
-              onChange={(e) => setYears(e.target.value)}
+              value={YearsSave}
+              onChange={(e) => setYearsSave(e.target.value)}
+              error={Boolean(YearError)}
             >
               {older2.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -401,8 +481,9 @@ export function SEdit() {
               multiline
               id="month-select"
               label="月"
-              value={Months}
-              onChange={(e) => setMonths(e.target.value)}
+              value={MonthsSave}
+              onChange={(e) => setMonthsSave(e.target.value)}
+              error={Boolean(MonthError)}
             >
               {months.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -417,8 +498,9 @@ export function SEdit() {
               multiline
               id="days"
               label="日"
-              value={Days}
-              onChange={(e) => setDays(e.target.value)}
+              value={DaysSave}
+              onChange={(e) => setDaysSave(e.target.value)}
+              error={Boolean(DaysError)}
             >
               {days.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -450,9 +532,11 @@ export function SEdit() {
               select
               fullWidth
               id="HOME"
-              value={Home}
+              value={HomeSave}
               label="都道府県"
-              onChange={(e) => setHome(e.target.value)}
+              onChange={(e) => setHomeSave(e.target.value)}
+              error={Boolean(HomeError)}
+              helperText={HomeError}
             >
               {HOME.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -483,8 +567,9 @@ export function SEdit() {
               fullWidth
               id="Bye"
               label="卒業年度"
-              value={bye}
-              onChange={(e) => setBye(e.target.value)}
+              value={ByeSave}
+              onChange={(e) => setByeSave(e.target.value)}
+              error={Boolean(ByeError)}
             >
               {Bye.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -513,8 +598,10 @@ export function SEdit() {
             <TextField
               fullWidth
               label="メールアドレスの変更"
-              value={provideremail}
-              onChange={(e) => setprovidermail(e.target.value)}
+              value={EmailSave}
+              onChange={(e) => setEmailSave(e.target.value)}
+              error={Boolean(EmailError)}
+              helperText={EmailError}
             />
           </Box>
         </Stack>

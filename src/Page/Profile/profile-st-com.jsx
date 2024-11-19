@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -15,32 +15,32 @@ import {
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import MyContext from "../../provider/provider";
 
 export function SCompany() {
   useEffect(() => {
     document.title = "企業向けプロフィール";
   }, []);
 
-  const location = useLocation();
   const {
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-  } = location.state || {};
+    provideremail,
+    providername,
+    providerKName,
+    providerMan,
+    providerGak,
+    providerYears,
+    providerMonths,
+    providerDays,
+    providerHome,
+    providerBye,
+    providerAge,
+    providerJob,
+    providerHobby,
+    providerSkill,
+    providerSSubject,
+    providerKSubject,
+    providerMyPower,
+  } = useContext(MyContext);
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -49,46 +49,46 @@ export function SCompany() {
   const OnClick1 = () => {
     navigate("/profile-st-com-edit", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
   const OnClick2 = () => {
     navigate("/profile-st", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -180,7 +180,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{job == JobSave ? JobSave : job}</p>
+            <p>{!providerJob ? "" : providerJob}</p>
           </Box>
         </Stack>
 
@@ -199,7 +199,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{hobby == HobbySave ? HobbySave : hobby}</p>
+            <p>{!providerHobby ? "" : providerHobby}</p>
           </Box>
         </Stack>
 
@@ -218,7 +218,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{skill == SkillSave ? SkillSave : skill}</p>
+            <p>{!providerSkill ? "" : providerSkill}</p>
           </Box>
         </Stack>
 
@@ -237,7 +237,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{SSubject == SSubjectSave ? SSubjectSave : SSubject}</p>
+            <p>{!providerSSubject ? "" : providerSSubject}</p>
           </Box>
         </Stack>
 
@@ -256,7 +256,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{KSubject == KSubjectSave ? KSubjectSave : KSubject}</p>
+            <p>{!providerKSubject ? "" : providerKSubject}</p>
           </Box>
         </Stack>
 
@@ -277,8 +277,8 @@ export function SCompany() {
           >
             <p></p>
             <div style={{ textAlign: "center" }}>
-              {myPower
-                ? myPower.map((option, index) => (
+              {providerMyPower
+                ? providerMyPower.map((option, index) => (
                     <Typography key={index}>{option.title}</Typography>
                   ))
                 : null}

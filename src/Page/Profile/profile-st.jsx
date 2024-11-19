@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -8,12 +8,11 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   IconButton,
   Stack,
-  TextField,
   Typography,
+  Hidden,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
@@ -25,53 +24,24 @@ export function SProfile() {
     document.title = "プロフィール";
   }, []);
 
-  const location = useLocation();
-  const {
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-    JobSave,
-    HobbySave,
-    SkillSave,
-    SSubjectSave,
-    KSubjectSave,
-    MyPowerSave,
-    ManSave,
-    GakSave,
-    YearsSave,
-    MonthsSave,
-    DaysSave,
-    HomeSave,
-    ByeSave,
-    AgeSave,
-  } = location.state || {};
   const {
     provideremail,
-    setprovideremail,
-    providerSaveEmail,
-    setproviderSaveEmail,
     providername,
-    setprovidername,
-    providerSaveName,
-    setproviderSaveName,
     providerKName,
-    setProviderKName,
-    providerSaveKName,
-    setProviderSaveKName,
+    providerMan,
+    providerGak,
+    providerYears,
+    providerMonths,
+    providerDays,
+    providerHome,
+    providerBye,
+    providerAge,
+    providerJob,
+    providerHobby,
+    providerSkill,
+    providerSSubject,
+    providerKSubject,
+    providerMyPower,
   } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -80,40 +50,25 @@ export function SProfile() {
   };
 
   const OnClick1 = () => {
-    setprovidername(providerSaveName);
     navigate("/profile-st-edit", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -121,37 +76,23 @@ export function SProfile() {
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -227,11 +168,14 @@ export function SProfile() {
         paddingTop="5%"
         paddingBottom="5%"
         spacing={2}
+        sx={{
+          overflow: "hidden",
+        }}
       >
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -245,22 +189,22 @@ export function SProfile() {
           <Stack
             //spacing={2}
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
             <p>
-              {providerSaveName}
+              {!providername ? "" : providername}
               <br />
               <br />
-              {providerKName}
+              {!providerKName ? "" : providerKName}
             </p>
           </Stack>
         </Stack>
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -268,17 +212,17 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{ManSave == man ? man : ManSave}</p>
+            <p>{!providerMan ? "" : providerMan}</p>
           </Box>
         </Stack>
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -286,17 +230,17 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{GakSave == Gak ? Gak : GakSave}</p>
+            <p>{!providerGak ? "" : providerGak}</p>
           </Box>
         </Stack>
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -304,19 +248,17 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>
-              {AgeSave == age ? age && age + "歳" : AgeSave && AgeSave + "歳"}
-            </p>
+            <p>{!providerAge ? "" : providerAge}</p>
           </Box>
         </Stack>
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -324,27 +266,21 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
             <p>
-              {YearsSave == Years
-                ? Years && Years + "年"
-                : YearsSave && YearsSave + "年"}
-              {MonthsSave == Months
-                ? Months && Months + "月"
-                : MonthsSave && MonthsSave + "月"}
-              {DaysSave == Days
-                ? Days && Days + "日生まれ"
-                : DaysSave && DaysSave + "日生まれ"}
+              {!providerYears ? "" : providerYears + "年"}
+              {!providerMonths ? "" : providerMonths + "月"}
+              {!providerDays ? "" : providerDays + "日生まれ"}
             </p>
           </Box>
         </Stack>
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -352,17 +288,17 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{providerSaveEmail}</p>
+            <p>{!provideremail ? "" : provideremail}</p>
           </Box>
         </Stack>
         <Stack direction="row">
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -370,17 +306,17 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{HomeSave == Home ? Home : HomeSave}</p>
+            <p>{!providerHome ? "" : providerHome}</p>
           </Box>
         </Stack>
         <Stack direction="row" paddingBottom={5}>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -388,11 +324,11 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            border="1px solid black"
+            borderBottom="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{ByeSave == bye ? bye : ByeSave}</p>
+            <p>{!providerBye ? "" : providerBye}</p>
           </Box>
         </Stack>
 

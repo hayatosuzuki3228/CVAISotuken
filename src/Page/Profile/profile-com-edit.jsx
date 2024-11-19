@@ -22,13 +22,15 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.css";
-import { days, months, older } from "./Data";
-import { Place } from "@mui/icons-material";
+import { months, older } from "./Data";
+import MyContext from "../../provider/provider";
 
 export function CEdit() {
   useEffect(() => {
     document.title = "企業プロファイル編集";
   }, []);
+
+  const { provideremail, providername, providerKName } = useContext(MyContext);
 
   const location = useLocation();
   const warpCname = location.state?.Cname || "";
@@ -137,18 +139,6 @@ export function CEdit() {
     }
     return "";
   };
-  const regexCOpen = (COpen) => {
-    if (COpen.length <= 0) {
-      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
-    }
-    return "";
-  };
-  const regexCOpenM = (COpenM) => {
-    if (COpenM.length <= 0) {
-      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
-    }
-    return "";
-  };
   const regexCapital = (capital) => {
     if (!MoneyRegex.test(capital)) {
       return "金額を入力してください。";
@@ -181,26 +171,22 @@ export function CEdit() {
     const TELError = regexTel(telSave);
     const FAXError = regexFax(faxSave);
     const InfoError = regexInfo(infoSave);
-    const COpenError = regexCOpen(COpenSave);
-    const COpenMError = regexCOpenM(COpenMSave);
     const CapitalError = regexCapital(capitalSave);
     const PeopleError = regexPeople(peopleSave);
     const CPeopleError = regexCPeople(comePeopleSave);
     const HomepageError = regexHomepage(homepageSave);
-
     setCnameError(CnameError);
     setCkNameError(CkNameError);
     setPlaceError(PlaceError);
     setTELError(TELError);
     setFAXError(FAXError);
     setInfoError(InfoError);
-    setCOpenError(COpenError);
-    setCOpenMError(COpenMError);
+    setCOpenError(COpen.length > 0 ? "" : "ERROR");
+    setCOpenMError(COpenM.length > 0 ? "" : "ERROR");
     setCapitalError(CapitalError);
     setPeopleError(PeopleError);
     setCPeopleError(CPeopleError);
     setHomepageError(HomepageError);
-
     if (
       !CnameError &&
       !CkNameError &&
