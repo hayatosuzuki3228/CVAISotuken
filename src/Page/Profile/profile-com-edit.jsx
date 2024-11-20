@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Box,
@@ -30,34 +30,46 @@ export function CEdit() {
     document.title = "企業プロファイル編集";
   }, []);
 
-  const { provideremail, providername, providerKName } = useContext(MyContext);
+  const {
+    providerCname,
+    setproviderCname,
+    providerCKName,
+    setproviderCKname,
+    providerPlace,
+    setproviderPlace,
+    providerTEL,
+    setproviderTEL,
+    providerFAX,
+    setproviderFAX,
+    providerInfo,
+    setproviderInfo,
+    providerCOpen,
+    setproviderCOpen,
+    providerCOpenM,
+    setproviderCOpenM,
+    providerCapital,
+    setproviderCapital,
+    providerPeople,
+    setproviderPeople,
+    providerComePeople,
+    setproviderComePeople,
+    providerHomepage,
+    setproviderHomepage,
+  } = useContext(MyContext);
 
   const location = useLocation();
-  const warpCname = location.state?.Cname || "";
-  const warpCkName = location.state?.CkName || "";
-  const warpPlace = location.state?.place || "";
-  const warpTel = location.state?.tel || "";
-  const warpFax = location.state?.fax || "";
-  const warpInfo = location.state?.info || "";
-  const warpCOpen = location.state?.COpen || "";
-  const warpCOpenM = location.state?.COpenM || "";
-  const warpCapital = location.state?.capital || "";
-  const warpPeople = location.state?.people || "";
-  const warpComePeople = location.state?.comePeople || "";
-  const warpHomepage = location.state?.homepage || "";
-
-  const [Cname, setCname] = useState(warpCname);
-  const [CkName, setCkName] = useState(warpCkName);
-  const [place, setPlace] = useState(warpPlace);
-  const [tel, setTel] = useState(warpTel);
-  const [fax, setFax] = useState(warpFax);
-  const [info, setInfo] = useState(warpInfo);
-  const [COpen, setCOpen] = useState(warpCOpen);
-  const [COpenM, setCOpenM] = useState(warpCOpenM);
-  const [capital, setCapital] = useState(warpCapital);
-  const [people, setPeople] = useState(warpPeople);
-  const [comePeople, setComePeople] = useState(warpComePeople);
-  const [homepage, setHomepage] = useState(warpHomepage);
+  const warpCname = location.state?.providerCname || "";
+  const warpCkName = location.state?.providerCKName || "";
+  const warpPlace = location.state?.providerPlace || "";
+  const warpTel = location.state?.providerTEL || "";
+  const warpFax = location.state?.providerFAX || "";
+  const warpInfo = location.state?.providerInfo || "";
+  const warpCOpen = location.state?.providerCOpen || "";
+  const warpCOpenM = location.state?.providerCOpenM || "";
+  const warpCapital = location.state?.providerCapital || "";
+  const warpPeople = location.state?.providerPeople || "";
+  const warpComePeople = location.state?.providerComePeople || "";
+  const warpHomepage = location.state?.providerHomepage || "";
 
   const [CnameSave, setCnameSave] = useState(warpCname);
   const [CkNameSave, setCkNameSave] = useState(warpCkName);
@@ -103,62 +115,62 @@ export function CEdit() {
   const PageRegex =
     /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
 
-  const regexCname = (Cname) => {
-    if (!regex.test(Cname)) {
+  const regexCname = (CnameSave) => {
+    if (!regex.test(CnameSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexCkName = (CkName) => {
-    if (!KanaRegex.test(CkName)) {
+  const regexCkName = (CkNameSave) => {
+    if (!KanaRegex.test(CkNameSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexPlace = (place) => {
-    if (!regex.test(place)) {
+  const regexPlace = (placeSave) => {
+    if (!regex.test(placeSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexTel = (tel) => {
-    if (!TelRegex.test(tel)) {
+  const regexTel = (telSave) => {
+    if (!TelRegex.test(telSave)) {
       return "数字に間違いがある可能性があります。";
     }
     return "";
   };
-  const regexFax = (fax) => {
-    if (!TelRegex.test(fax)) {
+  const regexFax = (faxSave) => {
+    if (!TelRegex.test(faxSave)) {
       return "数字に間違いがある可能性があります。";
     }
     return "";
   };
-  const regexInfo = (info) => {
-    if (!regex.test(info)) {
+  const regexInfo = (infoSave) => {
+    if (!regex.test(infoSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexCapital = (capital) => {
-    if (!MoneyRegex.test(capital)) {
+  const regexCapital = (capitalSave) => {
+    if (!MoneyRegex.test(capitalSave)) {
       return "金額を入力してください。";
     }
     return "";
   };
-  const regexPeople = (people) => {
-    if (!regex.test(people)) {
+  const regexPeople = (peopleSave) => {
+    if (!regex.test(peopleSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexCPeople = (comePeople) => {
-    if (!regex.test(comePeople)) {
+  const regexCPeople = (comePeopleSave) => {
+    if (!regex.test(comePeopleSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
   };
-  const regexHomepage = (homepage) => {
-    if (!PageRegex.test(homepage)) {
+  const regexHomepage = (homepageSave) => {
+    if (!PageRegex.test(homepageSave)) {
       return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
     }
     return "";
@@ -181,8 +193,8 @@ export function CEdit() {
     setTELError(TELError);
     setFAXError(FAXError);
     setInfoError(InfoError);
-    setCOpenError(COpen.length > 0 ? "" : "ERROR");
-    setCOpenMError(COpenM.length > 0 ? "" : "ERROR");
+    setCOpenError(COpenSave.length > 0 ? "" : "ERROR");
+    setCOpenMError(COpenMSave.length > 0 ? "" : "ERROR");
     setCapitalError(CapitalError);
     setPeopleError(PeopleError);
     setCPeopleError(CPeopleError);
@@ -199,36 +211,36 @@ export function CEdit() {
       !CapitalError &&
       !PeopleError &&
       !CPeopleError &&
-      (!HomepageError || homepage === "")
+      (!HomepageError || homepageSave === "")
     ) {
-      setCname(CnameSave);
-      setCkName(CkNameSave);
-      setPlace(placeSave);
-      setTel(telSave);
-      setFax(faxSave);
-      setInfo(infoSave);
-      setCOpen(COpenSave);
-      setCOpenM(COpenMSave);
-      setCapital(capitalSave);
-      setPeople(peopleSave);
-      setComePeople(comePeopleSave);
-      setHomepage(homepageSave);
+      setproviderCname(CnameSave);
+      setproviderCKname(CkNameSave);
+      setproviderPlace(placeSave);
+      setproviderTEL(telSave);
+      setproviderFAX(faxSave);
+      setproviderInfo(infoSave);
+      setproviderCOpen(COpenSave);
+      setproviderCOpenM(COpenMSave);
+      setproviderCapital(capitalSave);
+      setproviderPeople(peopleSave);
+      setproviderComePeople(comePeopleSave);
+      setproviderHomepage(homepageSave);
       setDialogOpen(false);
 
       navigate("/profile-com", {
         state: {
-          Cname: CnameSave,
-          CkName: CkNameSave,
-          place: placeSave,
-          tel: telSave,
-          fax: faxSave,
-          info: infoSave,
-          COpen: COpenSave,
-          COpenM: COpenMSave,
-          capital: capitalSave,
-          people: peopleSave,
-          comePeople: comePeopleSave,
-          homepage: homepageSave,
+          providerCname: CnameSave,
+          providerCKName: CkNameSave,
+          providerPlace: placeSave,
+          providerTEL: telSave,
+          providerFAX: faxSave,
+          providerInfo: infoSave,
+          providerCOpen: COpenSave,
+          providerCOpenM: COpenMSave,
+          providerCapital: capitalSave,
+          providerPeople: peopleSave,
+          providerComePeople: comePeopleSave,
+          providerHomepage: homepageSave,
         },
       });
     }
@@ -238,18 +250,18 @@ export function CEdit() {
   const OnClick = () => {
     navigate("/profile-com", {
       state: {
-        Cname,
-        CkName,
-        place,
-        tel,
-        fax,
-        info,
-        COpen,
-        COpenM,
-        capital,
-        people,
-        comePeople,
-        homepage,
+        providerCname,
+        providerCKName,
+        providerPlace,
+        providerTEL,
+        providerFAX,
+        providerInfo,
+        providerCOpen,
+        providerCOpenM,
+        providerCapital,
+        providerPeople,
+        providerComePeople,
+        providerHomepage,
       },
     });
   };

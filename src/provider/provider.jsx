@@ -1,4 +1,4 @@
-import { SettingsSharp } from "@mui/icons-material";
+import { PropaneOutlined, SettingsSharp } from "@mui/icons-material";
 import React, { createContext, useState, useEffect } from "react";
 
 // Contextを作成
@@ -81,6 +81,32 @@ export const MyProvider = ({ children }) => {
     setproviderKSubject,
     providerMyPower,
     setproviderMyPower,
+
+    providerCname,
+    setproviderCname,
+    providerCKName,
+    setproviderCKname,
+    providerPlace,
+    setproviderPlace,
+    providerTEL,
+    setproviderTEL,
+    providerFAX,
+    setproviderFAX,
+    providerInfo,
+    setproviderInfo,
+    providerCOpen,
+    setproviderCOpen,
+    providerCOpenM,
+    setproviderCOpenM,
+    providerCapital,
+    setproviderCapital,
+    providerPeople,
+    setproviderPeople,
+    providerComePeople,
+    setproviderComePeople,
+    providerHomepage,
+    setproviderHomepage,
+
     providerid,
     setproviderid,
     bookmark,
