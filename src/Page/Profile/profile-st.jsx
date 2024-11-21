@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -12,7 +12,6 @@ import {
   IconButton,
   Stack,
   Typography,
-  Hidden,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
@@ -175,7 +174,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -189,7 +188,7 @@ export function SProfile() {
           <Stack
             //spacing={2}
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -204,7 +203,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -212,7 +211,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -222,7 +221,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -230,7 +229,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -240,7 +239,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -248,7 +247,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -258,7 +257,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -266,7 +265,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -280,7 +279,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -288,7 +287,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -298,7 +297,7 @@ export function SProfile() {
         <Stack direction="row">
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -306,7 +305,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -316,7 +315,7 @@ export function SProfile() {
         <Stack direction="row" paddingBottom={5}>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
@@ -324,7 +323,7 @@ export function SProfile() {
           </Box>
           <Box
             flex="1"
-            borderBottom="1px solid black"
+            border="1px solid black"
             padding="10px"
             sx={{ minWidth: 300 }}
           >
