@@ -13,6 +13,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
 //import data1 from "../../const/data.json";
 //import companies from "../../const/companies";
@@ -70,6 +71,9 @@ export function Admin() {
     document.title = "名産会マッチングシステム・管理者画面";
   }, []);
   const navigate = useNavigate();
+  const location = useLocation();
+  const initialSwitchpage = location.state?.switchpage || "";
+  const [switchpage, setSwitchpage] = useState(initialSwitchpage);
   const open = useState(false);
   const [flags, setFlags] = useState("");
   const [page, setPage] = useState(0);
@@ -191,10 +195,25 @@ export function Admin() {
   const Clicklogin = useCallback((data) => {
     console.log(data);
     postData("authentication/admin", data);
+    window.location.href = window.location.href;
   });
 
   const onClick = () => {
     navigate("/Addadmin");
+  };
+
+  const onClick1 = () => {
+    const newSwitchPage = "1";
+    setSwitchpage(newSwitchPage);
+    navigate("/Addstudent", {
+      state: {
+        switchpage: newSwitchPage,
+      },
+    });
+  };
+
+  const onClick2 = () => {
+    navigate("/Addcompany");
   };
 
   const theme = createTheme({
@@ -310,17 +329,35 @@ export function Admin() {
             >
               <Box flexGrow={1}></Box>
               <List>
-                <ListItem>
-                  <ListItem sx={{ justifyContent: "center" }}>
-                    <Button
-                      style={{
-                        color: "black",
-                      }}
-                      onClick={onClick}
-                    >
-                      管理者アカウント作成
-                    </Button>
-                  </ListItem>
+                <ListItem sx={{ justifyContent: "center" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                    }}
+                    onClick={onClick1}
+                  >
+                    学生アカウント作成
+                  </Button>
+                </ListItem>
+                <ListItem sx={{ justifyContent: "center" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                    }}
+                    onClick={onClick2}
+                  >
+                    企業アカウント作成
+                  </Button>
+                </ListItem>
+                <ListItem sx={{ justifyContent: "center" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                    }}
+                    onClick={onClick}
+                  >
+                    管理者アカウント作成
+                  </Button>
                 </ListItem>
               </List>
             </Box>
@@ -332,7 +369,7 @@ export function Admin() {
         {flags === 0 && (
           <>
             <Typography style={{ fontSize: "2em", textAlign: "left" }}>
-              学生データ
+              学生アカウント
             </Typography>
             <TablePagination
               component="div"
@@ -410,7 +447,7 @@ export function Admin() {
         {flags === 1 && (
           <>
             <Typography style={{ fontSize: "2em", textAlign: "left" }}>
-              企業データ
+              企業アカウント
               <TablePagination
                 component="div"
                 count={companies.length}

@@ -16,7 +16,7 @@ import MyContext from "../../provider/provider";
 export function LoginPage() {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const {setloginstats} = useContext(MyContext);
+  const { setloginstats } = useContext(MyContext);
   const navigate = useNavigate();
 
   const signup = () => {

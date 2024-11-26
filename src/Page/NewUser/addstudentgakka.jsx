@@ -18,8 +18,17 @@ export function Addstudentgakka() {
   const initialGakka = location.state?.gakka || "";
   const initialSotu = location.state?.sotu || "";
 
-  const { email, pass, namae, kanamae, gender, birthday, area, sikaku } =
-    location.state || {};
+  const {
+    email,
+    pass,
+    namae,
+    kanamae,
+    gender,
+    birthday,
+    area,
+    sikaku,
+    switchpage,
+  } = location.state || {};
   const [gakka, setGakka] = useState(initialGakka);
   const [sotu, setSotu] = useState(initialSotu);
 
@@ -39,6 +48,7 @@ export function Addstudentgakka() {
         sikaku,
         gakka,
         sotu,
+        switchpage,
       },
     });
   };
@@ -56,6 +66,7 @@ export function Addstudentgakka() {
         sikaku,
         gakka,
         sotu,
+        switchpage,
       },
     });
   };

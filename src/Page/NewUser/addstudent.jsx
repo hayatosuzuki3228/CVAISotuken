@@ -10,8 +10,17 @@ export function Addstudent() {
   const initialEmail = location.state?.email || "";
   const initialPass = location.state?.pass || "";
 
-  const { namae, kanamae, gender, birthday, area, sikaku, gakka, sotu } =
-    location.state || {};
+  const {
+    namae,
+    kanamae,
+    gender,
+    birthday,
+    area,
+    sikaku,
+    gakka,
+    sotu,
+    switchpage,
+  } = location.state || {};
   const [email, setemail] = useState(initialEmail);
   const [remail, setremail] = useState("");
   const [pass, setpass] = useState(initialPass);
@@ -41,6 +50,7 @@ export function Addstudent() {
           sikaku,
           gakka,
           sotu,
+          switchpage,
         },
       });
     } else {
@@ -60,6 +70,9 @@ export function Addstudent() {
   };
   const onClick1 = () => {
     return navigate("/LoginPage");
+  };
+  const onClick2 = () => {
+    return navigate("/Admin");
   };
   const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
@@ -282,14 +295,25 @@ export function Addstudent() {
       </Box>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
-          <Button
-            style={{
-              color: primarycolor,
-            }}
-            onClick={onClick1}
-          >
-            戻る
-          </Button>
+          {switchpage == 1 ? (
+            <Button
+              style={{
+                color: primarycolor,
+              }}
+              onClick={onClick2}
+            >
+              管理者画面へ
+            </Button>
+          ) : (
+            <Button
+              style={{
+                color: primarycolor,
+              }}
+              onClick={onClick1}
+            >
+              ログイン画面へ
+            </Button>
+          )}
         </Box>
         <Box textAlign="right">
           <Button

@@ -30,7 +30,7 @@ export function Addadmin() {
     if (emailRegex.test(email) && passRegex.test(pass)) {
       //管理者アカウント作成
       console.log([email, pass]);
-      postData("registration/admin", [email, pass]);
+      postData("registration/admin", { email: email, password: pass });
       navigate("/Admin");
     } else {
       {
