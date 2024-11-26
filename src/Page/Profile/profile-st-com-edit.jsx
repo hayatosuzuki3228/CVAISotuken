@@ -29,6 +29,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function SCEdit() {
   useEffect(() => {

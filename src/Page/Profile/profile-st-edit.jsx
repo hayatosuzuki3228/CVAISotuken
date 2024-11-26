@@ -28,6 +28,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { months, days, selectBox, HOME, Bye, older2 } from "./Data";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function SEdit() {
   useEffect(() => {

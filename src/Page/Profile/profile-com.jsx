@@ -18,6 +18,7 @@ import {
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function CProfile() {
   useEffect(() => {
