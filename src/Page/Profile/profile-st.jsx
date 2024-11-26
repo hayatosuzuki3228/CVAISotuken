@@ -19,6 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
 import "./styles.css";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function SProfile() {
   useEffect(() => {
@@ -111,6 +112,7 @@ export function SProfile() {
             elevation={4}
             sx={{
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: primarycolor,
             }}
           >
             <IconButton
