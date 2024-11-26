@@ -2,299 +2,233 @@ import React, { useContext, useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Autocomplete,
+  AppBar,
   Box,
   Button,
-  Chip,
   Checkbox,
   Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
   Drawer,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  MenuItem,
-  IconButton,
   Stack,
-  Select,
   TextField,
   Typography,
+  Toolbar,
 } from "@mui/material";
 import "./styles.css";
 import { options } from "./Data";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import MyContext from "../../provider/provider";
 
 export function SCEdit() {
-  const location = useLocation();
-  const warpJobSave = location.state?.JobSave || "";
-  const warpHobbySave = location.state?.HobbySave || "";
-  const warpSkillSave = location.state?.SkillSave || "";
-  const warpSSubjectSave = location.state?.SSubjectSave || "";
-  const warpKSubjectSave = location.state?.KSubjectSave || "";
-  const warpMyPowerSave = location.state?.MyPowerSave || [];
-  const {
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    ManSave,
-    GakSave,
-    YearsSave,
-    MonthsSave,
-    DaysSave,
-    HomeSave,
-    ByeSave,
-    AgeSave,
-  } = location.state || {};
-
-  const [job, setJob] = useState(warpJobSave);
-  const [hobby, setHobby] = useState(warpHobbySave);
-  const [skill, setSkill] = useState(warpSkillSave);
-  const [SSubject, setSSubject] = useState(warpSSubjectSave);
-  const [KSubject, setKSubject] = useState(warpKSubjectSave);
-  const [myPower, setMyPower] = useState(warpMyPowerSave);
-
-  const [JobSave, setJobSave] = useState(warpJobSave);
-  const [HobbySave, setHobbySave] = useState(warpHobbySave);
-  const [SkillSave, setSkillSave] = useState(warpSkillSave);
-  const [SSubjectSave, setSSubjectSave] = useState(warpSSubjectSave);
-  const [KSubjectSave, setKSubjectSave] = useState(warpKSubjectSave);
-  const [MyPowerSave, setMyPowerSave] = useState(warpMyPowerSave);
-
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
-  const [error4, setError4] = useState("");
-  const [error5, setError5] = useState("");
-  const [error6, setError6] = useState("");
-  const [OneMoreClick, setOneMoreClick] = useState();
-
   useEffect(() => {
     document.title = "プロフィール";
   }, []);
 
-  useEffect(() => {
-    if (!job) {
-      setJob(JobSave);
-    } else {
-      setJob(job);
-    }
-  }, [JobSave]);
+  const {
+    provideremail,
+    providername,
+    providerKName,
+    providerMan,
+    providerGak,
+    providerYears,
+    providerMonths,
+    providerDays,
+    providerHome,
+    providerBye,
+    providerAge,
 
-  useEffect(() => {
-    if (!hobby) {
-      setHobby(HobbySave);
-    } else {
-      setHobby(hobby);
-    }
-  }, [HobbySave]);
+    providerJob,
+    setproviderJob,
+    providerHobby,
+    setproviderHobby,
+    providerSkill,
+    setproviderSkill,
+    providerSSubject,
+    setproviderSSubject,
+    providerKSubject,
+    setproviderKSubject,
+    providerMyPower,
+    setproviderMyPower,
+  } = useContext(MyContext);
 
-  useEffect(() => {
-    if (!skill) {
-      setSkill(SkillSave);
-    } else {
-      setSkill(skill);
-    }
-  }, [SkillSave]);
+  const location = useLocation();
+  const warpJob = location.state?.providerJob || "";
+  const warpHobby = location.state?.providerHobby || "";
+  const warpSkill = location.state?.providerSkill || "";
+  const warpSSubject = location.state?.providerSSubject || "";
+  const warpKSubject = location.state?.providerKSubject || "";
+  const warpMyPower = location.state?.providerMyPower || [];
 
-  useEffect(() => {
-    if (!SSubject) {
-      setSSubject(SSubjectSave);
-    } else {
-      setSSubject(SSubject);
-    }
-  }, [SSubjectSave]);
+  const [JobSave, setJobSave] = useState(warpJob);
+  const [HobbySave, setHobbySave] = useState(warpHobby);
+  const [SkillSave, setSkillSave] = useState(warpSkill);
+  const [SSubjectSave, setSSubjectSave] = useState(warpSSubject);
+  const [KSubjectSave, setKSubjectSave] = useState(warpKSubject);
+  const [MyPowerSave, setMyPowerSave] = useState(warpMyPower);
 
-  useEffect(() => {
-    if (!KSubject) {
-      setKSubject(KSubjectSave);
-    } else {
-      setKSubject(KSubject);
-    }
-  }, [KSubjectSave]);
+  const [JobError, setJobError] = useState("");
+  const [HobbyError, setHobbyError] = useState("");
+  const [SkillError, setSkillError] = useState("");
+  const [SSubjectError, setSSubjectError] = useState("");
+  const [KSubjectError, setKSubjectError] = useState("");
+  const [MyPowerError, setMyPowerError] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  useEffect(() => {
-    if (!myPower.length) {
-      setMyPower([...MyPowerSave]);
-    } else {
-      setMyPower([...myPower]);
-    }
-  }, [MyPowerSave]);
-
-  const navigate = useNavigate();
-  /* profile-st に飛ぶ */
-  const OnClick = () => {
-    if (OneMoreClick === true) {
-      null;
-    } else {
-      navigate("/profile-st", {
-        state: {
-          name,
-          kName,
-          man,
-          Gak,
-          Years,
-          Months,
-          Days,
-          email,
-          Home,
-          bye,
-          age,
-          SSubject,
-          KSubject,
-          myPower,
-          ManSave,
-          GakSave,
-          YearsSave,
-          MonthsSave,
-          DaysSave,
-          HomeSave,
-          ByeSave,
-          AgeSave,
-          JobSave,
-          HobbySave,
-          SkillSave,
-          SSubjectSave,
-          KSubjectSave,
-          MyPowerSave,
-        },
-      });
-    }
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
   };
 
-  /* profile-st-com に飛ぶ(戻るボタン) */
-  const OnClick2 = () => {
-    if (OneMoreClick === true) {
-      null;
-    } else {
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
+  const regexJob = (JobSave) => {
+    if (!regex.test(JobSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexHobby = (HobbySave) => {
+    if (!regex.test(HobbySave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexSkill = (SkillSave) => {
+    if (!regex.test(SkillSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexSSubject = (SSubjectSave) => {
+    if (!regex.test(SSubjectSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexKSubject = (KSubjectSave) => {
+    if (!regex.test(KSubjectSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+
+  const handleConfirmDialog = () => {
+    const JobError = regexJob(JobSave);
+    const HobbyError = regexHobby(HobbySave);
+    const SkillError = regexSkill(SkillSave);
+    const SSubjectError = regexSSubject(SSubjectSave);
+    const KSubjectError = regexKSubject(KSubjectSave);
+    setJobError(JobError);
+    setHobbyError(HobbyError);
+    setSkillError(SkillError);
+    setSSubjectError(SSubjectError);
+    setKSubjectError(KSubjectError);
+    setMyPowerError(MyPowerSave.length > 0 ? "" : "ERROR");
+    if (
+      !JobError &&
+      !HobbyError &&
+      !SkillError &&
+      !SSubjectError &&
+      !KSubjectError &&
+      !MyPowerError
+    ) {
+      setproviderJob(JobSave);
+      setproviderHobby(HobbySave);
+      setproviderSkill(SkillSave);
+      setproviderSSubject(SSubjectSave);
+      setproviderKSubject(KSubjectSave);
+      setproviderMyPower(MyPowerSave);
+      setDialogOpen(false);
+
       navigate("/profile-st-com", {
         state: {
-          name,
-          kName,
-          man,
-          Gak,
-          Years,
-          Months,
-          Days,
-          email,
-          Home,
-          bye,
-          age,
-          SSubject,
-          KSubject,
-          myPower,
-          ManSave,
-          GakSave,
-          YearsSave,
-          MonthsSave,
-          DaysSave,
-          HomeSave,
-          ByeSave,
-          AgeSave,
-          JobSave,
-          HobbySave,
-          SkillSave,
-          SSubjectSave,
-          KSubjectSave,
-          MyPowerSave,
+          providerJob: JobSave,
+          providerHobby: HobbySave,
+          providerSkill: SkillSave,
+          providerSSubject: SSubjectSave,
+          providerKSubject: KSubjectSave,
+          providerMyPower: MyPowerSave,
+          provideremail,
+          providername,
+          providerKName,
+          providerMan,
+          providerGak,
+          providerYears,
+          providerMonths,
+          providerDays,
+          providerHome,
+          providerBye,
+          providerAge,
         },
       });
     }
+    setDialogOpen(false);
   };
 
-  /* profile-st-com に飛ぶ(情報を確定するボタン) */
-  const OnClickBack = () => {
-    const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    if (
-      regex.test(job) &&
-      regex.test(hobby) &&
-      regex.test(skill) &&
-      regex.test(SSubject) &&
-      regex.test(KSubject) &&
-      myPower.length > 0
-    ) {
-      if (
-        JobSave === job &&
-        HobbySave === hobby &&
-        SkillSave === skill &&
-        SSubjectSave === SSubject &&
-        KSubjectSave === KSubject &&
-        //MyPowerSave === myPower &&
-        OneMoreClick !== false
-      ) {
-        navigate("/profile-st-com", {
-          state: {
-            name,
-            kName,
-            man,
-            Gak,
-            Years,
-            Months,
-            Days,
-            email,
-            Home,
-            bye,
-            age,
-            job,
-            hobby,
-            skill,
-            ManSave,
-            GakSave,
-            YearsSave,
-            MonthsSave,
-            DaysSave,
-            HomeSave,
-            ByeSave,
-            AgeSave,
-            SSubject,
-            KSubject,
-            myPower,
-            JobSave,
-            HobbySave,
-            SkillSave,
-            SSubjectSave,
-            KSubjectSave,
-            MyPowerSave,
-          },
-        });
-      } else {
-        setJobSave(job);
-        setHobbySave(hobby);
-        setSkillSave(skill);
-        setSSubjectSave(SSubject);
-        setKSubjectSave(KSubject);
-        setMyPowerSave([...myPower]);
-        setError1("");
-        setError2("");
-        setError3("");
-        setError4("");
-        setError5("");
-        setError6("");
-        setOneMoreClick(true);
-      }
-    } else {
-      setError1(!regex.test(job) ? "エラー：希望職種" : "");
-      setError2(!regex.test(hobby) ? "エラー：趣味" : "");
-      setError3(!regex.test(skill) ? "エラー：特技" : "");
-      setError4(!regex.test(SSubject) ? "エラー：得意な科目" : "");
-      setError5(!regex.test(KSubject) ? "エラー：苦手な科目" : "");
-      setError6(myPower.length < 1 ? "エラー：保有資格" : "");
-      setOneMoreClick(false);
-    }
+  const navigate = useNavigate();
+  // profile-st に飛ぶ(サイドバー部分)
+  const OnClick = () => {
+    navigate("/profile-st", {
+      state: {
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
+      },
+    });
   };
 
-  const Check =
-    job && hobby && skill && SSubject && KSubject && myPower.length > 0; // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
+  // profile-st-com に飛ぶ(戻るボタン)
+  const OnClick2 = () => {
+    navigate("/profile-st-com", {
+      state: {
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
+      },
+    });
+  };
+
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -305,62 +239,71 @@ export function SCEdit() {
 
   const handleChange = (event, newValue) => {
     if (newValue.some((option) => option.id === 0)) {
-      setMyPower([options.find((option) => option.id === 0)]);
+      setMyPowerSave([options.find((option) => option.id === 0)]);
     } else {
-      setMyPower(newValue);
+      setMyPowerSave(newValue);
     }
   };
 
   return (
     <>
-      <header /*ヘッダー部分*/
-        className="header"
-        style={{ textAlign: "center" }}
-      >
-        <div>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
+      <div>
+        <AppBar>
+          <Toolbar
+            elevation={4}
+            sx={{
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: primarycolor,
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Drawer open={open} onClose={toggleDrawer(false)}>
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer(false)}
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
             >
-              <List>
-                <ListItem>
-                  <ListItemText
-                    primary={<Typography variant="h6">メニュー</Typography>}
-                  />
-                </ListItem>
-              </List>
-              <br />
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="個人情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="企業向け情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Drawer>
-        </div>
-        <h1>プロフィール編集画面</h1>
-      </header>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              　企業向け情報編集
+            </Typography>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={toggleDrawer(false)}
+              >
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography variant="h6">メニュー</Typography>}
+                    />
+                  </ListItem>
+                </List>
+                <br />
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick}>
+                      <ListItemText primary="個人情報" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick2}>
+                      <ListItemText primary="企業向け情報" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </Box>
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <br />
+      <br />
 
       <Stack /*メインコンテンツ*/
         justifyContent="center"
@@ -369,6 +312,7 @@ export function SCEdit() {
         paddingTop="5%"
         paddingBottom="7%"
         spacing={2}
+        style={{ whiteSpace: "pre-line" }}
       >
         <Stack direction="row">
           <Box
@@ -390,10 +334,12 @@ export function SCEdit() {
               fullWidth
               multiline
               label="希望職種の変更"
-              value={job}
+              value={JobSave}
               onChange={(e) => {
-                setJob(e.target.value);
+                setJobSave(e.target.value);
               }}
+              error={Boolean(JobError)}
+              helperText={JobError}
             />
           </Box>
         </Stack>
@@ -419,8 +365,10 @@ export function SCEdit() {
               multiline
               fullWidth
               label="趣味の変更"
-              value={hobby}
-              onChange={(e) => setHobby(e.target.value)}
+              value={HobbySave}
+              onChange={(e) => setHobbySave(e.target.value)}
+              error={Boolean(HobbyError)}
+              helperText={HobbyError}
             />
           </Box>
         </Stack>
@@ -445,8 +393,10 @@ export function SCEdit() {
               multiline
               fullWidth
               label="特技の変更"
-              value={skill}
-              onChange={(e) => setSkill(e.target.value)}
+              value={SkillSave}
+              onChange={(e) => setSkillSave(e.target.value)}
+              error={Boolean(SkillError)}
+              helperText={SkillError}
             />
           </Box>
         </Stack>
@@ -472,16 +422,20 @@ export function SCEdit() {
               multiline
               fullWidth
               label="得意な科目の変更"
-              value={SSubject}
-              onChange={(e) => setSSubject(e.target.value)}
+              value={SSubjectSave}
+              onChange={(e) => setSSubjectSave(e.target.value)}
+              error={Boolean(SSubjectError)}
+              helperText={SSubjectError}
             />
             <p></p>
             <TextField
               multiline
               fullWidth
               label="苦手な科目の変更"
-              value={KSubject}
-              onChange={(e) => setKSubject(e.target.value)}
+              value={KSubjectSave}
+              onChange={(e) => setKSubjectSave(e.target.value)}
+              error={Boolean(KSubjectError)}
+              helperText={KSubjectError}
             />
           </Box>
         </Stack>
@@ -510,9 +464,9 @@ export function SCEdit() {
               disableCloseOnSelect
               isOptionEqualToValue={(option, value) => option.id === value.id}
               getOptionLabel={(option) => option.title}
-              defaultValue={myPower || []}
-              defaultChecked={myPower || []}
-              value={myPower}
+              defaultValue={MyPowerSave || []}
+              defaultChecked={MyPowerSave || []}
+              value={MyPowerSave}
               renderOption={(props, option, { selected }) => (
                 <li {...props} key={option.id}>
                   <Checkbox
@@ -522,50 +476,54 @@ export function SCEdit() {
                     style={{ marginRight: 8 }}
                     checked={selected}
                     disabled={
-                      myPower.some((selectOption) => selectOption.id === 0) &&
-                      option.id !== 0
+                      MyPowerSave.some(
+                        (selectOption) => selectOption.id === 0
+                      ) && option.id !== 0
                     }
                   />
                   {option.title}
                 </li>
               )}
               renderInput={(params) => (
-                <TextField {...params} label="取得資格の選択" />
+                <TextField
+                  {...params}
+                  label="取得資格の選択"
+                  error={Boolean(MyPowerError)}
+                  helperText={MyPowerError}
+                />
               )}
               onChange={handleChange}
             />
           </Box>
         </Stack>
 
-        <div /*エラーを表示する*/>
-          {error1 && <p style={{ color: "red" }}>{error1}</p>}
-          {error2 && <p style={{ color: "red" }}>{error2}</p>}
-          {error3 && <p style={{ color: "red" }}>{error3}</p>}
-          {error4 && <p style={{ color: "red" }}>{error4}</p>}
-          {error5 && <p style={{ color: "red" }}>{error5}</p>}
-          {error6 && <p style={{ color: "red" }}>{error6}</p>}
-          {OneMoreClick === true ? (
-            <p style={{ color: "green" }}>
-              よろしければ、もう一度ボタンを押してください。
-            </p>
-          ) : undefined}
-        </div>
-
         <Stack direction="row" spacing={7} /*ボタンを表示する*/>
-          <Button /* profile-st-com に飛ぶ(データの保存を行わない) */
+          <Button // profile-st-com に飛ぶ(データの保存を行わない)
             variant="contained"
             onClick={OnClick2}
-            disabled={OneMoreClick}
           >
             戻る
           </Button>
-          <Button /* profile-st-com に飛ぶ(データの保存を行う) */
-            variant="contained"
-            onClick={OnClickBack}
-            disabled={!Check}
-          >
+
+          <Button variant="contained" onClick={handleOpenDialog}>
             情報を確定する
           </Button>
+          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+            <DialogTitle>確認</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                この操作を実行してもよろしいですか？
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary">
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmDialog} color="primary" autoFocus>
+                実行
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
       </Stack>
     </>
