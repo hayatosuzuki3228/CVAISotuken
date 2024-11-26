@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
+import { primarycolor } from "../../const/color";
 
 export function Addstudentkakunin() {
   useEffect(() => {
@@ -40,7 +41,7 @@ export function Addstudentkakunin() {
   };
 
   const onClick1 = () => {
-    navigate("/", {
+    navigate("/LoginPage", {
       state: {
         email,
         pass,
@@ -58,57 +59,74 @@ export function Addstudentkakunin() {
 
   return (
     <>
-      <Box bgcolor="#21a7dd" p={2}>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          fontSize={35}
+          style={{
+            color: primarycolor,
+          }}
+        >
+          最終確認
+        </Typography>
+        <p></p>
         <Stack justifyContent="center" alignItems="center">
-          <Typography fontSize={30} color="white">
-            最終確認
-          </Typography>
+          <div>
+            <p></p>
+            <label>メールアドレス　：　</label>
+            <label>{email}</label>
+            <p></p>
+            <label>パスワード　　　：　</label>
+            <label>{pass}</label>
+            <p></p>
+            <label>氏名　　　　　　：　</label>
+            <label>{namae}</label>
+            <p></p>
+            <label>カタカナ　　　　：　</label>
+            <label>{kanamae}</label>
+            <p></p>
+            <label>性別　　　　　　：　</label>
+            <label>{gender}</label>
+            <p></p>
+            <label>生年月日　　　　：　</label>
+            <label>{birthday}</label>
+            <p></p>
+            <label>居住地域　　　　：　</label>
+            <label>{area}</label>
+            <p></p>
+            <label>学科名　　　　　：　</label>
+            <label>{gakka}</label>
+            <p></p>
+            <label>卒業予定　　　　：　</label>
+            <lable>{sotu}</lable>
+            <p></p>
+            <label>----------------------保有資格----------------------</label>
+            <p></p>
+            <div style={{ textAlign: "center" }}>
+              {sikaku
+                ? sikaku.map((option, index) => (
+                    <Typography key={index}>{option.title}</Typography>
+                  ))
+                : null}
+            </div>
+            <p></p>
+            <label>----------------------------------------------------</label>
+            <p></p>
+          </div>
         </Stack>
       </Box>
-      <Stack justifyContent="center" alignItems="center">
-        <div>
-          <p></p>
-          <label>メールアドレス　：　</label>
-          <label>{email}</label>
-          <p></p>
-          <label>パスワード　　　：　</label>
-          <label>{pass}</label>
-          <p></p>
-          <label>氏名　　　　　　：　</label>
-          <label>{namae}</label>
-          <p></p>
-          <label>カタカナ　　　　：　</label>
-          <label>{kanamae}</label>
-          <p></p>
-          <label>性別　　　　　　：　</label>
-          <label>{gender}</label>
-          <p></p>
-          <label>生年月日　　　　：　</label>
-          <label>{birthday}</label>
-          <p></p>
-          <label>居住地域　　　　：　</label>
-          <label>{area}</label>
-          <p></p>
-          <label>保有資格---------------------------</label>
-          {sikaku.map((option, index) => (
-            <Typography key={index}>{option.title}</Typography>
-          ))}
-          <label>------------------------------------</label>
-          <p></p>
-          <p></p>
-          <label>学科名　　　　　：　</label>
-          <label>{gakka}</label>
-          <p></p>
-          <label>卒業予定　　　　：　</label>
-          <lable>{sotu}</lable>
-          <p></p>
-        </div>
-      </Stack>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
           <Button
-            variant="contained"
-            style={{ backgroundColor: "#bbdefb", color: "#000000" }}
+            style={{
+              color: primarycolor,
+            }}
             onClick={onClick}
           >
             戻る
@@ -116,8 +134,9 @@ export function Addstudentkakunin() {
         </Box>
         <Box textAlign="right">
           <Button
-            variant="contained"
-            style={{ backgroundColor: "#bbdefb", color: "#000000" }}
+            style={{
+              color: primarycolor,
+            }}
             onClick={onClick1}
           >
             登録

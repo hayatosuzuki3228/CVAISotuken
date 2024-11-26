@@ -1,32 +1,54 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { JobContext } from "../../provider/context";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button"; // Buttonをインポート
+import {
+  Button,
+  Box,
+  Stack,
+  TextField,
+  IconButton,
+  Collapse,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Paper,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Fab,
+  useMediaQuery,
+  TablePagination,
+  FormControlLabel,
+  Switch,
+  Divider,
+} from "@mui/material";
+import {
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+} from "@mui/icons-material";
+import UndoIcon from "@mui/icons-material/Undo";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import companies from "../../const/companies.js";
+import { BookmarkContext } from "../../provider/booktext"; // BookmarkContextのインポート
 import MyContext from "../../provider/provider";
-import CircularProgress from "@mui/material/CircularProgress";
-function convertCompanyData(company) {
-  const matchScore = calculateMatchScore(company);
+
+function convertCompanyData(company, jobData) {
+  const matchScore = calculateMatchScore(company, jobData);
 
   return {
     id: company.id.toString(),
     name: company.name,
     detail: company.detail,
-    matchdo: matchScore,
+    matchdo: matchScore.score,
+    max: matchScore.total,
     history: [
       {
         industry: company.category,
@@ -39,39 +61,86 @@ function convertCompanyData(company) {
     ],
   };
 }
-// マッチ度を計算する関数
-function calculateMatchScore(company) {
-  let score = 0;
 
-  /* if (company.category === matchdo.department) score = 0;
-  if (company.job_type === matchdo.location) score = 0;
-  if (company.job_type === matchdo.features) score += 10;
-  if (company.job_type === matchdo.qualifications) score += 10;
-  */
-  if (company.work_location.includes("愛知県")) score += 10;
-  return score;
+// マッチ度を計算する関数
+function calculateMatchScore(company, jobData) {
+  let score = 0;
+  let total = 0;
+
+  // 勤務地の比較
+  const selectedLocations = jobData.location;
+  let locationMatched = false;
+  let locationmax = false;
+  selectedLocations.forEach((location) => {
+    if (!locationmax) {
+      total += 15;
+      locationmax = true;
+    }
+    if (company.work_location.includes(location) && !locationMatched) {
+      score += 15; // 一度だけ加算
+      locationMatched = true; // 加算フラグをオンにする
+    }
+  });
+  // 特長の比較
+  jobData.features.forEach((feature) => {
+    total += 10;
+    if (company.ideal_candidate_profile.includes(feature)) score += 10;
+  });
+  // 資格の比較
+  jobData.qualifications.forEach((qualification) => {
+    total += 10;
+    if (company.qualification.includes(qualification)) score += 10;
+  });
+  // 募集学科情報の比較
+  if (jobData.department != null && jobData.department.trim() !== "") {
+    total += 10;
+    if (
+      company.recruitment_grade &&
+      jobData.department &&
+      company.recruitment_grade.includes(jobData.department)
+    ) {
+      score += 10;
+    } else {
+      score = 0; // 募集学科情報が一致しなかったらスコアを0にして返す
+    }
+  }
+  if (jobData.department == null) {
+    score = 0;
+  }
+  return { score, total };
 }
-const rows = companies.map(convertCompanyData);
 
 function Row(props) {
-  const { row, showDetail } = props;
-  const [open, setOpen] = React.useState(false);
-
+  const { row, showDetail, onFavoriteToggle, isFavorite } = props;
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { setproviderid } = useContext(MyContext);
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
   const handleCompanyChange = () => {
-    const numericId = parseInt(row.id, 10); // IDを数字型に変換
+    const numericId = parseInt(row.id, 10);
     setproviderid(numericId);
     console.log(row.id);
     return navigate("/companyinformation");
   };
-  const handleLinkClick = () => {
-    // リンクをクリックしたときに実行したい関数の処理を記述
+
+  const getMatchdoCellStyle = (matchdo, max) => {
+    if (matchdo >= 40) {
+      return { color: "red" };
+    }
+    if (matchdo >= 30) {
+      return { color: "green" };
+    } else if (matchdo >= 10) {
+      return { color: "orange" };
+    } else {
+      return { color: "black" };
+    }
   };
 
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        {/*開くボタン*/}
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -81,28 +150,56 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        {/*メインの項目 */}
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
         <TableCell>
           <Button
             onClick={handleCompanyChange}
-            style={{ textDecoration: "none", color: "blue", padding: "0" }}
+            style={{ textDecoration: "none", color: "#4466cc", padding: "0" }}
           >
             {row.name}
           </Button>
         </TableCell>
-
-        {showDetail && <TableCell>{row.detail}</TableCell>}
-        <TableCell align="left">{row.matchdo}</TableCell>
+        {showDetail && (
+          <TableCell>
+            {" "}
+            {row.detail.length > 50
+              ? `${row.detail.substring(0, 50)}...`
+              : row.detail}
+          </TableCell>
+        )}
+        <TableCell align="center" sx={getMatchdoCellStyle(row.matchdo)}>
+          {row.matchdo}P/{row.max}P
+        </TableCell>
+        <TableCell>
+          <IconButton onClick={() => onFavoriteToggle(row.id)}>
+            <BookmarksIcon />
+          </IconButton>
+        </TableCell>
       </TableRow>
+
       <TableRow>
         <TableCell
           style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={showDetail ? 5 : 4}
+          colSpan={showDetail ? 6 : 5}
         >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
+          {/*詳細の項目*/}
+          <Collapse
+            in={open}
+            timeout="auto"
+            unmountOnExit
+            sx={{
+              display: isSmallScreen ? "flex" : "table-row",
+              flexDirection: isSmallScreen ? "unset" : "column",
+            }}
+          >
+            <Box
+              sx={{
+                margin: 1,
+              }}
+            >
               <Typography variant="h6" gutterBottom component="div">
                 詳細
               </Typography>
@@ -139,14 +236,14 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
+// データの型
 Row.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     detail: PropTypes.string.isRequired,
     matchdo: PropTypes.number.isRequired,
-
+    max: PropTypes.number.isRequired,
     history: PropTypes.arrayOf(
       PropTypes.shape({
         industry: PropTypes.string.isRequired,
@@ -159,22 +256,46 @@ Row.propTypes = {
     ).isRequired,
   }).isRequired,
   showDetail: PropTypes.bool.isRequired,
+  onFavoriteToggle: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
 export function Matchtable() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [detailSearchTerm, setDetailSearchTerm] = useState(""); // 詳細検索用の状態
-  const [showDetail, setShowDetail] = useState(false); // 事業内容の表示状態を管理するstate
-  const [isLoading, setIsLoading] = useState(true); // ローディング状態のstateを追加
+  const [detailSearchTerm, setDetailSearchTerm] = useState("");
+  const [matchScoreTerm, setMatchScoreTerm] = useState("");
+  const [showDetail, setShowDetail] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { jobData } = useContext(JobContext);
+  const { bookmarks, addBookmark } = useContext(BookmarkContext);
+  const [favorites, setFavorites] = useState({});
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(100);
 
   useEffect(() => {
-    // ここでデータの取得や初期化処理を行う場合、適宜実装する
+    const handleScroll = () => {
+      setShowScrollTopButton(window.scrollY > 300);
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 「トップに戻る」ボタンを押したときの処理
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  // ローディング
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 200); // 0.2秒後にローディング状態を解除する
+    }, 200);
 
-    return () => clearTimeout(timeout); // コンポーネントがアンマウントされたときにクリアする
+    return () => clearTimeout(timeout);
   }, []);
 
   if (isLoading) {
@@ -191,6 +312,7 @@ export function Matchtable() {
       </Box>
     );
   }
+  // tebleから抜き出すためのコード
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -199,13 +321,53 @@ export function Matchtable() {
     setDetailSearchTerm(event.target.value);
   };
 
-  const filteredRows = rows.filter(
-    (row) =>
-      (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase())
-  );
+  const handleMatchScoreSearch = (event) => {
+    setMatchScoreTerm(event.target.value);
+  };
+  const handleFavoriteToggle = (id) => {
+    console.log("トグルするID:", id); // IDのログ出力
+    setSelectedId(id);
+    setDialogOpen(true);
+  };
+  const handleDialogClose = (confirm) => {
+    setDialogOpen(false);
 
+    // ダイアログメッセージに応じてアクションを実行
+    if (confirm) {
+      if (favorites[selectedId]) {
+        // 既に追加されている場合は何もしない
+        return;
+      } else {
+        // まだ追加されていない場合は追加
+        addBookmark(Number(selectedId));
+        setFavorites((prevFavorites) => ({
+          ...prevFavorites,
+          [selectedId]: true,
+        }));
+      }
+    }
+
+    setSelectedId(null); // IDをリセット
+  };
+  const filteredRows = companies
+    .map((company) => convertCompanyData(company, jobData))
+    .filter(
+      (row) =>
+        (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase()) &&
+        (matchScoreTerm === "" || row.matchdo >= parseInt(matchScoreTerm, 10))
+    );
+  const handleChangePage = (event, newPage) => setPage(newPage);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const displayedRows = filteredRows.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
   const toggleDetail = () => {
     setShowDetail((prevShowDetail) => !prevShowDetail);
   };
@@ -215,37 +377,88 @@ export function Matchtable() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "flex-end",
+          gap: "1rem",
+          marginTop: "1rem",
+        }}
+      >
+        <Button
+          className="matchdo"
+          variant="outlined"
+          onClick={() => navigate("/matchdo")}
+        >
+          マッチ度設定
+        </Button>
+        <Button
+          className="back"
+          variant="text"
+          color="secondary"
+          onClick={() => navigate("/matching")}
+          startIcon={<UndoIcon />}
+        >
+          戻る
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
           alignItems: "flex-start",
           marginBottom: "1rem",
         }}
       >
-        <TextField
-          label="IDまたは会社名入力"
-          value={searchTerm}
-          onChange={handleSearch}
-          variant="outlined"
-          sx={{ marginBottom: "1rem", width: 500 }}
-          className="sertch"
-        />
-
-        <TextField
-          label="事業内容入力"
-          value={detailSearchTerm}
-          onChange={handleDetailSearch}
-          variant="outlined"
-          sx={{ marginBottom: "1rem", width: 500 }}
-          className="detailSearch"
-        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+          className="text"
+        >
+          <TextField
+            label="IDまたは会社名入力"
+            value={searchTerm}
+            onChange={handleSearch}
+            variant="outlined"
+            sx={{ marginBottom: "1rem" }}
+            className="search"
+          />
+          <TextField
+            label="事業内容入力"
+            value={detailSearchTerm}
+            onChange={handleDetailSearch}
+            variant="outlined"
+            sx={{ marginBottom: "1rem" }}
+            className="detailSearch"
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+          className="text"
+        >
+          <TextField
+            label="マッチ度入力"
+            value={matchScoreTerm}
+            onChange={handleMatchScoreSearch}
+            variant="outlined"
+            sx={{ marginBottom: "1rem" }}
+            className="matchScoreSearch"
+          />
+          <FormControlLabel
+            control={<Switch />}
+            label="事業内容"
+            onClick={toggleDetail}
+            className="detailbu"
+          />
+        </Box>
       </Box>
-      <Button
-        onClick={toggleDetail}
-        variant="contained"
-        sx={{ marginBottom: "1rem", fontSize: 20 }}
-        className="detailbu"
-      >
-        {showDetail ? "事業内容非表示" : "事業内容表示"}
-      </Button>
+
+      <Divider sx={{ my: 5, borderWidth: "1px" }} />
+
       <TableContainer
         component={Paper}
         className="table1"
@@ -261,16 +474,64 @@ export function Matchtable() {
               <TableCell>ID</TableCell>
               <TableCell>会社名</TableCell>
               {showDetail && <TableCell>事業内容</TableCell>}
-              <TableCell align="left">マッチ度</TableCell>
+              <TableCell align="center">マッチ度</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredRows.map((row) => (
-              <Row key={row.id} row={row} showDetail={showDetail} />
+            {displayedRows.map((row) => (
+              <Row
+                key={row.id}
+                row={row}
+                showDetail={showDetail}
+                onFavoriteToggle={handleFavoriteToggle}
+                isFavorite={bookmarks.includes(row.id)}
+              />
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={filteredRows.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[100, 50, 200]}
+          labelRowsPerPage="表示件数"
+        />
       </TableContainer>
+
+      <Dialog open={dialogOpen} onClose={() => handleDialogClose(false)}>
+        <DialogTitle>確認</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            この会社をブックマークに追加しますか？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleDialogClose(false)} color="primary">
+            キャンセル
+          </Button>
+          <Button
+            onClick={() => handleDialogClose(true)}
+            color="primary"
+            autoFocus
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {showScrollTopButton && (
+        <Fab
+          color="primary"
+          size="small"
+          onClick={scrollToTop}
+          style={{ position: "fixed", bottom: "20px", right: "20px" }}
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      )}
       <head>
         <link
           href="matchtable.css"
@@ -283,4 +544,5 @@ export function Matchtable() {
     </>
   );
 }
+
 export default companies;

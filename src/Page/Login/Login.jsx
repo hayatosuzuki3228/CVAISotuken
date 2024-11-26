@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Container,
   Typography,
@@ -10,20 +10,27 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { primarycolor, gray } from "../../const/color";
+import { postData } from "../../sever/api";
+import MyContext from "../../provider/provider";
 
 export function LoginPage() {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-
+  const { setloginstats } = useContext(MyContext);
   const navigate = useNavigate();
 
   const signup = () => {
     navigate("/Addstudent");
   };
 
+  const company = () => {
+    navigate("/addcompany");
+  };
+
   const Lostpass = () => {
     navigate("/Lostpass");
   };
+
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
   };
@@ -32,10 +39,22 @@ export function LoginPage() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Address:", address, "Password:", password);
-    // ここにログイン処理を実装する
+
+    const data = {
+      email: address,
+      password: password,
+    };
+
+    try {
+      const result = await postData("authentication/student", data);
+      navigate("/");
+      setloginstats(true);
+    } catch (error) {
+      navigate("/error", { state: { message: error.message } });
+    }
   };
 
   const theme = createTheme({
@@ -143,7 +162,14 @@ export function LoginPage() {
               sx={{ mt: 3, mb: 0, color: primarycolor }}
               onClick={signup}
             >
-              新規登録はこちら
+              学生新規登録はこちら
+            </Button>
+            <Button
+              fullWidth
+              sx={{ mt: 0, mb: 0, color: primarycolor }}
+              onClick={company}
+            >
+              企業新規登録はこちら
             </Button>
             <Button
               fullWidth

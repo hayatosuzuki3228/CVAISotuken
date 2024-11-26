@@ -11,4 +11,9 @@ export default defineConfig({
   preview: {
     port: 5172,
   },
+  build: {
+    rollupOptions: {
+      external: ["@mui/icons-material/ArrowDropup"],
+    },
+  },
 });

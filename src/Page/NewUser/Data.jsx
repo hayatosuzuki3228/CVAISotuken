@@ -1,3 +1,4 @@
+//居住地域
 export const selectBox2 = [
   { label: "北海道", value: "北海道" },
   { label: "青森県", value: "青森県" },
@@ -47,24 +48,41 @@ export const selectBox2 = [
   { label: "鹿児島県", value: "鹿児島県" },
   { label: "沖縄県", value: "沖縄県" },
 ];
-
+//保有資格
 export const options = [
-  { title: "なし(泣)" },
-  { title: "ITパスポート" },
-  { title: "情報セキュリティマネジメント" },
-  { title: "基本情報技術者" },
-  { title: "応用情報技術者" },
-  { title: "ITストラテジスト" },
-  { title: "システムアーキテクト" },
-  { title: "プロジェクトマネージャ" },
-  { title: "ネットワークスペシャリスト" },
-  { title: "データベーススペシャリスト" },
-  { title: "エンベデッドシステムスペシャリスト" },
-  { title: "ITサービスマネージャ" },
-  { title: "システム監査技術者" },
-  { title: "情報処理安全確保支援士" },
-];
-
+  { title: "無し", id: 0 },
+  { title: "ITパスポート", id: 1 },
+  { title: "情報セキュリティマネジメント", id: 2 },
+  { title: "基本情報技術者", id: 3 },
+  { title: "応用情報技術者", id: 4 },
+  { title: "ITストラテジスト", id: 5 },
+  { title: "システムアーキテクト", id: 6 },
+  { title: "プロジェクトマネージャ", id: 7 },
+  { title: "ネットワークスペシャリスト", id: 8 },
+  { title: "データベーススペシャリスト", id: 9 },
+  { title: "エンベデッドシステムスペシャリスト", id: 10 },
+  { title: "ITサービスマネージャ", id: 11 },
+  { title: "システム監査技術者", id: 12 },
+  { title: "情報処理安全確保支援士", id: 13 },
+  { title: "普通自動車第一種運転免許", id: 14 },
+  { title: "普通自動車第一種運転免許（AT限定）", id: 15 },
+  { title: "日商簿記3級", id: 16 },
+  { title: "日商簿記2級", id: 17 },
+  { title: "日商簿記1級", id: 18 },
+  { title: "ORACLE MASTER Bronze DBA", id: 19 },
+  { title: "ORACLE MASTER Silver DBA", id: 20 },
+  { title: "ORACLE MASTER Gold DBA", id: 21 },
+  { title: "ORACLE MASTER Platinum DBA", id: 22 },
+  { title: "ORACLE MASTER Silver SQL", id: 23 },
+  { title: "LinuCレベル1", id: 24 },
+  { title: "LinuCレベル2", id: 25 },
+  { title: "LinuCレベル3", id: 26 },
+  { title: "LinuCシステムアーキテクト", id: 27 },
+  { title: "Oracle Certified Java Programmer, Bronze SE", id: 28 },
+  { title: "Oracle Certified Java Programmer, Silver SE 11", id: 29 },
+  { title: "Oracle Certified Java Programmer, Gold SE 11", id: 30 },
+]; //id0で選択できないようにできる
+//学科
 export const selectBox = [
   { label: "情報総合学科", value: "情報総合学科" },
   { label: "情報システム科", value: "情報システム科" },
@@ -112,7 +130,7 @@ export const selectBox = [
   { label: "機械CAD設計科", value: "機械CAD設計科" },
   { label: "産業技術研究科", value: "産業技術研究科" },
 ];
-
+//卒業年
 export const selectBox1 = [
   { label: "25卒", value: "25卒" },
   { label: "26卒", value: "26卒" },
@@ -126,4 +144,13 @@ export const selectBox1 = [
   { label: "34卒", value: "34卒" },
   { label: "35卒", value: "35卒" },
   { label: "36卒", value: "36卒" },
+];
+
+export const field = [
+  { label: "コンピューター・IT分野", value: "コンピューター・IT分野" },
+  { label: "ゲーム・CG分野", value: "ゲーム・CG分野" },
+  { label: "映像・音響分野", value: "映像・音響分野" },
+  { label: "電気分野", value: "電気分野" },
+  { label: "情報通信分野", value: "情報通信分野" },
+  { label: "機械・CADデザイン分野", value: "機械・CADデザイン分野" },
 ];
