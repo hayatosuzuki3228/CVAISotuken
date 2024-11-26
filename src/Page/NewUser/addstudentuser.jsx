@@ -29,7 +29,7 @@ export function Addstudentuser() {
   const initialSikaku = location.state?.sikaku || [];
   const initialGender = location.state?.gender || "";
 
-  const { email, pass, gakka, sotu, switchpage } = location.state || {};
+  const { email, pass, gakka, sotu, switchpage, hope } = location.state || {};
   const [namae, setnamae] = useState(initialNamae);
   const [kanamae, setkanamae] = useState(initialKanamae);
   const [birthday, setbirthday] = useState(initialBirthday);
@@ -62,6 +62,7 @@ export function Addstudentuser() {
         gakka,
         sotu,
         switchpage,
+        hope,
       },
     });
   };
@@ -85,6 +86,7 @@ export function Addstudentuser() {
           gakka,
           sotu,
           switchpage,
+          hope,
         },
       });
     } else {

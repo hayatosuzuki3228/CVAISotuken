@@ -20,6 +20,7 @@ export function Addstudent() {
     gakka,
     sotu,
     switchpage,
+    hope,
   } = location.state || {};
   const [email, setemail] = useState(initialEmail);
   const [remail, setremail] = useState("");
@@ -51,6 +52,7 @@ export function Addstudent() {
           gakka,
           sotu,
           switchpage,
+          hope,
         },
       });
     } else {

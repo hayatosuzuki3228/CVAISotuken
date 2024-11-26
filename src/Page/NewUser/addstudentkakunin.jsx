@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
 import { primarycolor } from "../../const/color";
 import { postData } from "../../sever/api";
+import { selectBox } from "./Data";
 
 export function Addstudentkakunin() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export function Addstudentkakunin() {
     gakka,
     sotu,
     switchpage,
+    hope,
   } = location.state || {};
 
   const onClick = () => {
@@ -35,6 +37,7 @@ export function Addstudentkakunin() {
         gakka,
         sotu,
         switchpage,
+        hope,
       },
     });
   };
@@ -50,11 +53,17 @@ export function Addstudentkakunin() {
       residence: area,
       graduation_year: sotu,
       classId: gakka,
+      qualificationId: sikaku.map((item) => item.value),
+      work_location: hope,
     });
+    console.log(sikaku.map((item) => item.value));
     {
       switchpage == 1 ? navigate("/Admin") : navigate("/LoginPage");
     }
   };
+
+  const result = selectBox.find((selectBox) => selectBox.value[0] === gakka)
+    ?.value[1];
 
   const formatBirthday = (birthday) => {
     const year = birthday.slice(0, 4);
@@ -100,7 +109,7 @@ export function Addstudentkakunin() {
             ["性別", gender == 0 ? "男" : gender == 1 ? "女" : "その他"],
             ["生年月日", formatBirthday(birthday)],
             ["居住地域", area],
-            ["学科名", gakka[1]],
+            ["学科名", result],
             ["卒業予定", `${sotu}年卒`],
             [
               "保有資格",
@@ -110,6 +119,7 @@ export function Addstudentkakunin() {
                 </Typography>
               )),
             ],
+            ["希望勤務地", hope],
           ].map(([label, value], index) => (
             <Stack
               key={index}
