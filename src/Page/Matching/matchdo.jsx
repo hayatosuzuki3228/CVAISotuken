@@ -72,28 +72,28 @@ export function Matchdo() {
               <Paper elevation={3} className="paper-item">
                 <Box mt={4} p={3} border={1} borderRadius={2}>
                   <Grid container spacing={0}>
-                    <Grid item xs={3}>
+                    <Grid item xs={2.5}>
                       <Typography>学科情報：</Typography>
                     </Grid>
                     <Grid item xs={9}>
                       <Typography>{jobData.department}</Typography>
                     </Grid>
 
-                    <Grid item xs={3}>
+                    <Grid item xs={2.5}>
                       <Typography>勤務地　：</Typography>
                     </Grid>
                     <Grid item xs={9}>
                       <Typography>{jobData.location.join("、")}</Typography>
                     </Grid>
 
-                    <Grid item xs={3}>
+                    <Grid item xs={2.5}>
                       <Typography>特長　　：</Typography>
                     </Grid>
                     <Grid item xs={9}>
                       <Typography>{jobData.features.join("、")}</Typography>
                     </Grid>
 
-                    <Grid item xs={3}>
+                    <Grid item xs={2.5}>
                       <Typography>資格　　：</Typography>
                     </Grid>
                     <Grid item xs={9}>
@@ -137,7 +137,12 @@ export function Matchdo() {
                         他項目の一致度に関わらず必ずマッチ度が0として返ってきます。
                       </Box>
                       <br />
-                      また、企業において必須資格があった時、選択した資格と一致してなかった場合も必ずマッチ度が0として返ってきます。
+                      また、企業において必須資格があった時、選択した資格と一致していない場合も必ずマッチ度が0として返ってきます。
+                      <br />
+                      しかし、
+                      <Box component="span" sx={{ color: "red" }}>
+                        資格を選択していない場合に限り、特例でこの条件を無視することができます。
+                      </Box>
                       <br />
                       特長や資格において複数選択で複数一致していた場合はその数に応じて＋１０加点されていきますが、
                       <br />

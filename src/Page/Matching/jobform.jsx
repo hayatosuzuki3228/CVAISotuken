@@ -48,7 +48,7 @@ const featuresOptions = [
   "課題解決力",
 ];
 const qualificationsOptions = [
-  "不問",
+  "なし",
   "基本情報",
   "応用情報",
   "普通自動車免許（AT限定可）",

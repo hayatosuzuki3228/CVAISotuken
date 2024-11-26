@@ -65,12 +65,14 @@ function convertCompanyData(company, jobData) {
 function calculateMatchScore(company, jobData) {
   let score = 0;
   let total = 0;
-  if (
-    (company.qualification != "不問" &&
-      company.qualification == jobData.qualification) ||
-    company.qualification == "不問"
-  ) {
-  } //必須資格があった場合必須資格が一致してなかったら0として返す処理。これを各total処理をした直後にそれぞれ入れる。
+  if (jobData.qualification != null || jobData.qualification != "") {
+    if (
+      (company.qualification != "不問" &&
+        company.qualification == jobData.qualification) ||
+      company.qualification == "不問"
+    ) {
+    }
+  } //必須資格があった場合必須資格が一致してなかったら0として返す処理。これを各total処理をした直後にそれぞれ入れる。空白の場合は無視する。
 
   // 勤務地の比較
   const selectedLocations = jobData.location;
