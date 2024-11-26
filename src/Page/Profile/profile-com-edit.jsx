@@ -26,6 +26,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.css";
 import { months, older } from "./Data";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function CEdit() {
   useEffect(() => {
