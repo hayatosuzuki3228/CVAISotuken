@@ -13,9 +13,16 @@ export const BlogProvider = ({ children }) => {
   // Add a new draft
   const addDraft = (draft) => setDrafts([...drafts, draft]);
 
+  const removeBlog = (index) => setBlogs(blogs.filter((_, i) => i !== index));
   // Remove a draft
   const removeDraft = (index) =>
     setDrafts(drafts.filter((_, i) => i !== index));
+
+  const editDraft = (index, updatedDraft) => {
+    setDrafts((prevDrafts) =>
+      prevDrafts.map((draft, i) => (i === index ? updatedDraft : draft))
+    );
+  };
 
   // Publish a draft
   const publishDraft = (index) => {
@@ -33,6 +40,8 @@ export const BlogProvider = ({ children }) => {
         blogs,
         drafts,
         addDraft,
+        editDraft,
+        removeBlog,
         removeDraft,
         publishDraft,
         myBlogs, // 自分のブログを追加
