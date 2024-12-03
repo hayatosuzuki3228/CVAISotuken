@@ -1,77 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
+  AppBar,
   Box,
   Button,
   Drawer,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  IconButton,
   Stack,
-  TextField,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "normalize.css";
 import "./styles.css";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function SProfile() {
   useEffect(() => {
     document.title = "プロフィール";
   }, []);
 
-  const location = useLocation();
-  const {
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-    JobSave,
-    HobbySave,
-    SkillSave,
-    SSubjectSave,
-    KSubjectSave,
-    MyPowerSave,
-    ManSave,
-    GakSave,
-    YearsSave,
-    MonthsSave,
-    DaysSave,
-    HomeSave,
-    ByeSave,
-    AgeSave,
-  } = location.state || {};
   const {
     provideremail,
-    setprovideremail,
-    providerSaveEmail,
-    setproviderSaveEmail,
     providername,
-    setprovidername,
-    providerSaveName,
-    setproviderSaveName,
     providerKName,
-    setProviderKName,
-    providerSaveKName,
-    setProviderSaveKName,
+    providerMan,
+    providerGak,
+    providerYears,
+    providerMonths,
+    providerDays,
+    providerHome,
+    providerBye,
+    providerAge,
+    providerJob,
+    providerHobby,
+    providerSkill,
+    providerSSubject,
+    providerKSubject,
+    providerMyPower,
   } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -80,40 +52,25 @@ export function SProfile() {
   };
 
   const OnClick1 = () => {
-    setprovidername(providerSaveName);
     navigate("/profile-st-edit", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -121,37 +78,23 @@ export function SProfile() {
   const OnClick2 = () => {
     navigate("/profile-st-com", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -163,62 +106,71 @@ export function SProfile() {
 
   return (
     <>
-      <header // ヘッダー部分
-        className="header"
-        style={{ textAlign: "center" }}
-      >
-        <div>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
+      <div>
+        <AppBar>
+          <Toolbar
+            elevation={4}
+            sx={{
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: primarycolor,
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Drawer open={open} onClose={toggleDrawer(false)}>
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer(false)}
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
             >
-              <List>
-                <ListItem>
-                  <ListItemText
-                    primary={<Typography variant="h6">メニュー</Typography>}
-                  />
-                </ListItem>
-              </List>
-              <br />
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="メイン" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="企業向け情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick1}>
-                    <ListItemText primary="個人情報編集" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Drawer>
-        </div>
-        <h1>プロフィール</h1>
-      </header>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              　個人情報
+            </Typography>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={toggleDrawer(false)}
+              >
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography variant="h6">メニュー</Typography>}
+                    />
+                  </ListItem>
+                </List>
+                <br />
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick}>
+                      <ListItemText primary="トップページ" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick2}>
+                      <ListItemText primary="企業向け情報" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick1}>
+                      <ListItemText primary="個人情報編集" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </Box>
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <br />
+      <br />
 
       <Stack
         justifyContent="center"
@@ -227,6 +179,9 @@ export function SProfile() {
         paddingTop="5%"
         paddingBottom="5%"
         spacing={2}
+        sx={{
+          overflow: "hidden",
+        }}
       >
         <Stack direction="row">
           <Box
@@ -250,10 +205,10 @@ export function SProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {providerSaveName}
+              {!providername ? "" : providername}
               <br />
               <br />
-              {providerKName}
+              {!providerKName ? "" : providerKName}
             </p>
           </Stack>
         </Stack>
@@ -272,7 +227,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{ManSave == man ? man : ManSave}</p>
+            <p>{!providerMan ? "" : providerMan}</p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -290,7 +245,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{GakSave == Gak ? Gak : GakSave}</p>
+            <p>{!providerGak ? "" : providerGak}</p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -308,9 +263,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>
-              {AgeSave == age ? age && age + "歳" : AgeSave && AgeSave + "歳"}
-            </p>
+            <p>{!providerAge ? "" : providerAge}</p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -329,15 +282,9 @@ export function SProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {YearsSave == Years
-                ? Years && Years + "年"
-                : YearsSave && YearsSave + "年"}
-              {MonthsSave == Months
-                ? Months && Months + "月"
-                : MonthsSave && MonthsSave + "月"}
-              {DaysSave == Days
-                ? Days && Days + "日生まれ"
-                : DaysSave && DaysSave + "日生まれ"}
+              {!providerYears ? "" : providerYears + "年"}
+              {!providerMonths ? "" : providerMonths + "月"}
+              {!providerDays ? "" : providerDays + "日生まれ"}
             </p>
           </Box>
         </Stack>
@@ -356,7 +303,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{providerSaveEmail}</p>
+            <p>{!provideremail ? "" : provideremail}</p>
           </Box>
         </Stack>
         <Stack direction="row">
@@ -374,7 +321,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{HomeSave == Home ? Home : HomeSave}</p>
+            <p>{!providerHome ? "" : providerHome}</p>
           </Box>
         </Stack>
         <Stack direction="row" paddingBottom={5}>
@@ -392,7 +339,7 @@ export function SProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{ByeSave == bye ? bye : ByeSave}</p>
+            <p>{!providerBye ? "" : providerBye}</p>
           </Box>
         </Stack>
 

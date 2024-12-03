@@ -1,28 +1,18 @@
 import { postData } from "./api";
 
 export function Fuckserver() {
-    const data = {
-        email: "コンチニハサーバーヲコワシニキマシタ",
-        password: "11111aaa",
-      };
-    const handleFuckserver = (event) =>{
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-        postData("registration/student", data)
-    }
-    return(
-        <button onClick={handleFuckserver}/>
-    );
+  const data = {
+    email: "root",
+    password: "root",
+  };
+  const data2 = {
+    email: "plaseadomin.admin",
+    pass: "Fuck",
+  };
+  const handleFuckserver = (event) => {
+    postData("authentication/student", data);
+
+    //postData("registration/admin", data2);
+  };
+  return <button onClick={handleFuckserver} />;
 }

@@ -1,86 +1,64 @@
-import React, { useEffect } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
+  AppBar,
   Box,
   Button,
   Drawer,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  IconButton,
   Stack,
   Typography,
+  Toolbar,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function CProfile() {
   useEffect(() => {
     document.title = "企業プロフィール";
   }, []);
 
+  const {
+    providerCname,
+    providerCKName,
+    providerPlace,
+    providerTEL,
+    providerFAX,
+    providerInfo,
+    providerCOpen,
+    providerCOpenM,
+    providerCapital,
+    providerPeople,
+    providerComePeople,
+    providerHomepage,
+  } = useContext(MyContext);
+
   const navigate = useNavigate();
   const OnClick = () => {
     navigate("/profile-com-edit", {
       state: {
-        Cname,
-        CkName,
-        place,
-        tel,
-        fax,
-        info,
-        COpen,
-        COpenM,
-        capital,
-        people,
-        comePeople,
-        homepage,
-        CnameSave,
-        CkNameSave,
-        placeSave,
-        telSave,
-        faxSave,
-        infoSave,
-        COpenSave,
-        COpenMSave,
-        capitalSave,
-        peopleSave,
-        comePeopleSave,
-        homepageSave,
+        providerCname,
+        providerCKName,
+        providerPlace,
+        providerTEL,
+        providerFAX,
+        providerInfo,
+        providerCOpen,
+        providerCOpenM,
+        providerCapital,
+        providerPeople,
+        providerComePeople,
+        providerHomepage,
       },
     });
   };
-
-  const location = useLocation();
-  const {
-    Cname,
-    CkName,
-    place,
-    tel,
-    fax,
-    info,
-    COpen,
-    COpenM,
-    capital,
-    people,
-    comePeople,
-    homepage,
-    CnameSave,
-    CkNameSave,
-    placeSave,
-    telSave,
-    faxSave,
-    infoSave,
-    COpenSave,
-    COpenMSave,
-    capitalSave,
-    peopleSave,
-    comePeopleSave,
-    homepageSave,
-  } = location.state || {};
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -89,46 +67,55 @@ export function CProfile() {
 
   return (
     <>
-      <header // ヘッダー部分
-        className="header"
-        style={{ textAlign: "center" }}
-      >
-        <div>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
+      <div>
+        <AppBar>
+          <Toolbar
+            elevation={4}
+            sx={{
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: primarycolor,
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Drawer open={open} onClose={toggleDrawer(false)}>
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer(false)}
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
             >
-              <List>
-                <ListItem>
-                  <ListItemText
-                    primary={<Typography variant="h6">メニュー</Typography>}
-                  />
-                </ListItem>
-              </List>
-              <br />
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="企業情報編集" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Drawer>
-        </div>
-        <h1>企業プロフィール</h1>
-      </header>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              　企業情報
+            </Typography>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={toggleDrawer(false)}
+              >
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography variant="h6">メニュー</Typography>}
+                    />
+                  </ListItem>
+                </List>
+                <br />
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick}>
+                      <ListItemText primary="企業情報編集" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </Box>
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <br />
+      <br />
 
       <Stack // メインコンテンツ
         justifyContent="center"
@@ -158,9 +145,9 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {CnameSave == Cname ? Cname : CnameSave}
+              {!providerCname ? "" : providerCname}
               <br />
-              {CkNameSave == CkName ? CkName : CkNameSave}
+              {!providerCKName ? "" : providerCKName}
             </p>
           </Box>
         </Stack>
@@ -180,7 +167,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{placeSave == place ? place : placeSave}</p>
+            <p>{!providerPlace ? "" : providerPlace}</p>
           </Box>
         </Stack>
 
@@ -204,13 +191,9 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {telSave == tel
-                ? tel && "(TEL)" + tel
-                : telSave && "(TEL)" + telSave}
+              {!providerTEL ? "" : "(TEL)" + providerTEL}
               <br />
-              {faxSave == fax
-                ? fax && "(FAX)" + fax
-                : faxSave && "(FAX)" + faxSave}
+              {!providerFAX ? "" : "(FAX)" + providerFAX}
             </p>
           </Box>
         </Stack>
@@ -230,7 +213,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{infoSave == info ? info : infoSave}</p>
+            <p>{!providerInfo ? "" : providerInfo}</p>
           </Box>
         </Stack>
 
@@ -250,12 +233,8 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              {COpenSave == COpen
-                ? COpen && COpen + "年"
-                : COpenSave && COpenSave + "年"}
-              {COpenMSave == COpenM
-                ? COpenM && COpenM + "月創業"
-                : COpenMSave && COpenMSave + "月創業"}
+              {!providerCOpen ? "" : providerCOpen + "年"}
+              {!providerCOpenM ? "" : providerCOpenM + "月創業"}
             </p>
           </Box>
         </Stack>
@@ -275,11 +254,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>
-              {capitalSave == capital
-                ? capital && capital + "万円"
-                : capitalSave && capitalSave + "万円"}
-            </p>
+            <p>{!providerCapital ? "" : providerCapital + "万円"}</p>
           </Box>
         </Stack>
 
@@ -298,7 +273,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{peopleSave == people ? people : peopleSave}</p>
+            <p>{!providerPeople ? "" : providerPeople}</p>
           </Box>
         </Stack>
 
@@ -317,7 +292,7 @@ export function CProfile() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{comePeopleSave == comePeople ? comePeople : comePeopleSave}</p>
+            <p>{!providerComePeople ? "" : providerComePeople}</p>
           </Box>
         </Stack>
 
@@ -337,8 +312,8 @@ export function CProfile() {
             sx={{ minWidth: 300 }}
           >
             <p>
-              <a href={homepageSave == homepage ? homepage : homepageSave}>
-                {homepageSave == homepage ? homepage : homepageSave}
+              <a href={!providerHomepage ? "" : providerHomepage}>
+                {!providerHomepage ? "" : providerHomepage}
               </a>
             </p>
           </Box>

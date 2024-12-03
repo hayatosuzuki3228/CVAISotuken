@@ -1,321 +1,273 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
+  AppBar,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
   Drawer,
   Divider,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   MenuItem,
-  IconButton,
   Stack,
-  Select,
   TextField,
+  Toolbar,
   Typography,
-  useScrollTrigger,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.css";
-import { days, months, older } from "./Data";
+import { months, older } from "./Data";
+import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function CEdit() {
   useEffect(() => {
     document.title = "企業プロファイル編集";
   }, []);
 
+  const {
+    providerCname,
+    setproviderCname,
+    providerCKName,
+    setproviderCKname,
+    providerPlace,
+    setproviderPlace,
+    providerTEL,
+    setproviderTEL,
+    providerFAX,
+    setproviderFAX,
+    providerInfo,
+    setproviderInfo,
+    providerCOpen,
+    setproviderCOpen,
+    providerCOpenM,
+    setproviderCOpenM,
+    providerCapital,
+    setproviderCapital,
+    providerPeople,
+    setproviderPeople,
+    providerComePeople,
+    setproviderComePeople,
+    providerHomepage,
+    setproviderHomepage,
+  } = useContext(MyContext);
+
   const location = useLocation();
-  const warpCnameSave = location.state?.CnameSave || "";
-  const warpCkNameSave = location.state?.CkNameSave || "";
-  const warpPlaceSave = location.state?.placeSave || "";
-  const warpTelSave = location.state?.telSave || "";
-  const warpFaxSave = location.state?.faxSave || "";
-  const warpInfoSave = location.state?.infoSave || "";
-  const warpCOpenSave = location.state?.COpenSave || "";
-  const warpCOpenMSave = location.state?.COpenMSave || "";
-  const warpCapitalSave = location.state?.capitalSave || "";
-  const warpPeopleSave = location.state?.peopleSave || "";
-  const warpComePeopleSave = location.state?.comePeopleSave || "";
-  const warpHomepageSave = location.state?.homepageSave || "";
+  const warpCname = location.state?.providerCname || "";
+  const warpCkName = location.state?.providerCKName || "";
+  const warpPlace = location.state?.providerPlace || "";
+  const warpTel = location.state?.providerTEL || "";
+  const warpFax = location.state?.providerFAX || "";
+  const warpInfo = location.state?.providerInfo || "";
+  const warpCOpen = location.state?.providerCOpen || "";
+  const warpCOpenM = location.state?.providerCOpenM || "";
+  const warpCapital = location.state?.providerCapital || "";
+  const warpPeople = location.state?.providerPeople || "";
+  const warpComePeople = location.state?.providerComePeople || "";
+  const warpHomepage = location.state?.providerHomepage || "";
 
-  const [Cname, setCname] = useState(warpCnameSave);
-  const [CkName, setCkName] = useState(warpCkNameSave);
-  const [place, setPlace] = useState(warpPlaceSave);
-  const [tel, setTel] = useState(warpTelSave);
-  const [fax, setFax] = useState(warpFaxSave);
-  const [info, setInfo] = useState(warpInfoSave);
-  const [COpen, setCOpen] = useState(warpCOpenSave);
-  const [COpenM, setCOpenM] = useState(warpCOpenMSave);
-  const [capital, setCapital] = useState(warpCapitalSave);
-  const [people, setPeople] = useState(warpPeopleSave);
-  const [comePeople, setComePeople] = useState(warpComePeopleSave);
-  const [homepage, setHomepage] = useState(warpHomepageSave);
+  const [CnameSave, setCnameSave] = useState(warpCname);
+  const [CkNameSave, setCkNameSave] = useState(warpCkName);
+  const [placeSave, setPlaceSave] = useState(warpPlace);
+  const [telSave, setTelSave] = useState(warpTel);
+  const [faxSave, setFaxSave] = useState(warpFax);
+  const [infoSave, setInfoSave] = useState(warpInfo);
+  const [COpenSave, setCOpenSave] = useState(warpCOpen);
+  const [COpenMSave, setCOpenMSave] = useState(warpCOpenM);
+  const [capitalSave, setCapitalSave] = useState(warpCapital);
+  const [peopleSave, setPeopleSave] = useState(warpPeople);
+  const [comePeopleSave, setComePeopleSave] = useState(warpComePeople);
+  const [homepageSave, setHomepageSave] = useState(warpHomepage);
 
-  const [CnameSave, setCnameSave] = useState(warpCnameSave);
-  const [CkNameSave, setCkNameSave] = useState(warpCkNameSave);
-  const [placeSave, setPlaceSave] = useState(warpPlaceSave);
-  const [telSave, setTelSave] = useState(warpTelSave);
-  const [faxSave, setFaxSave] = useState(warpFaxSave);
-  const [infoSave, setInfoSave] = useState(warpInfoSave);
-  const [COpenSave, setCOpenSave] = useState(warpCOpenSave);
-  const [COpenMSave, setCOpenMSave] = useState(warpCOpenMSave);
-  const [capitalSave, setCapitalSave] = useState(warpCapitalSave);
-  const [peopleSave, setPeopleSave] = useState(warpPeopleSave);
-  const [comePeopleSave, setComePeopleSave] = useState(warpComePeopleSave);
-  const [homepageSave, setHomepageSave] = useState(warpHomepageSave);
+  const [CnameError, setCnameError] = useState("");
+  const [CkNameError, setCkNameError] = useState("");
+  const [PlaceError, setPlaceError] = useState("");
+  const [TELError, setTELError] = useState("");
+  const [FAXError, setFAXError] = useState("");
+  const [InfoError, setInfoError] = useState("");
+  const [COpenError, setCOpenError] = useState("");
+  const [COpenMError, setCOpenMError] = useState("");
+  const [CapitalError, setCapitalError] = useState("");
+  const [PeopleError, setPeopleError] = useState("");
+  const [CPeopleError, setCPeopleError] = useState("");
+  const [HomepageError, setHomepageError] = useState("");
 
-  const [error1, setError1] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
-  const [error4, setError4] = useState("");
-  const [error5, setError5] = useState("");
-  const [error6, setError6] = useState("");
-  const [error7, setError7] = useState("");
-  const [error8, setError8] = useState("");
-  const [error9, setError9] = useState("");
-  const [error10, setError10] = useState("");
-  const [OneMoreClick, setOneMoreClick] = useState();
-
-  useEffect(() => {
-    if (!Cname) {
-      setCname(CnameSave);
-    } else {
-      setCname(Cname);
-    }
-  }, [CnameSave]);
-
-  useEffect(() => {
-    if (!CkName) {
-      setCkName(CkNameSave);
-    } else {
-      setCkName(CkName);
-    }
-  }, [CkNameSave]);
-
-  useEffect(() => {
-    if (!place) {
-      setPlace(placeSave);
-    } else {
-      setPlace(place);
-    }
-  }, [placeSave]);
-
-  useEffect(() => {
-    if (!tel) {
-      setTel(telSave);
-    } else {
-      setTel(tel);
-    }
-  }, [telSave]);
-
-  useEffect(() => {
-    if (!fax) {
-      setFax(faxSave);
-    } else {
-      setFax(fax);
-    }
-  }, [faxSave]);
-
-  useEffect(() => {
-    if (!info) {
-      setInfo(infoSave);
-    } else {
-      setInfo(info);
-    }
-  }, [infoSave]);
-
-  useEffect(() => {
-    if (!COpen) {
-      setCOpen(COpenSave);
-    } else {
-      setCOpen(COpen);
-    }
-  }, [COpenSave]);
-
-  useEffect(() => {
-    if (!COpenM) {
-      setCOpenM(COpenMSave);
-    } else {
-      setCOpenM(COpenM);
-    }
-  }, [COpenMSave]);
-
-  useEffect(() => {
-    if (!capital) {
-      setCapital(capitalSave);
-    } else {
-      setCapital(capital);
-    }
-  }, [capitalSave]);
-
-  useEffect(() => {
-    if (!people) {
-      setPeople(peopleSave);
-    } else {
-      setPeople(people);
-    }
-  }, [peopleSave]);
-
-  useEffect(() => {
-    if (!comePeople) {
-      setComePeople(comePeopleSave);
-    } else {
-      setComePeople(comePeople);
-    }
-  }, [comePeopleSave]);
-
+  const [dialogOpen, setDialogOpen] = useState(false);
   const navigate = useNavigate();
 
-  const OnClick = () => {
-    if (OneMoreClick == true) {
-      null;
-    } else {
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
+  const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
+  const TelRegex = /^[0-9-]{11,}$/;
+  const MoneyRegex = /^[0-9]{1,}$/;
+  const PageRegex =
+    /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
+
+  const regexCname = (CnameSave) => {
+    if (!regex.test(CnameSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCkName = (CkNameSave) => {
+    if (!KanaRegex.test(CkNameSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexPlace = (placeSave) => {
+    if (!regex.test(placeSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexTel = (telSave) => {
+    if (!TelRegex.test(telSave)) {
+      return "数字に間違いがある可能性があります。";
+    }
+    return "";
+  };
+  const regexFax = (faxSave) => {
+    if (!TelRegex.test(faxSave)) {
+      return "数字に間違いがある可能性があります。";
+    }
+    return "";
+  };
+  const regexInfo = (infoSave) => {
+    if (!regex.test(infoSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCapital = (capitalSave) => {
+    if (!MoneyRegex.test(capitalSave)) {
+      return "金額を入力してください。";
+    }
+    return "";
+  };
+  const regexPeople = (peopleSave) => {
+    if (!regex.test(peopleSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexCPeople = (comePeopleSave) => {
+    if (!regex.test(comePeopleSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+  const regexHomepage = (homepageSave) => {
+    if (!PageRegex.test(homepageSave)) {
+      return "文字数が足りない、\nまたは正しい表現ではない可能性があります。";
+    }
+    return "";
+  };
+
+  const handleConfirmDialog = () => {
+    const CnameError = regexCname(CnameSave);
+    const CkNameError = regexCkName(CkNameSave);
+    const PlaceError = regexPlace(placeSave);
+    const TELError = regexTel(telSave);
+    const FAXError = regexFax(faxSave);
+    const InfoError = regexInfo(infoSave);
+    const CapitalError = regexCapital(capitalSave);
+    const PeopleError = regexPeople(peopleSave);
+    const CPeopleError = regexCPeople(comePeopleSave);
+    const HomepageError = regexHomepage(homepageSave);
+    setCnameError(CnameError);
+    setCkNameError(CkNameError);
+    setPlaceError(PlaceError);
+    setTELError(TELError);
+    setFAXError(FAXError);
+    setInfoError(InfoError);
+    setCOpenError(COpenSave.length > 0 ? "" : "ERROR");
+    setCOpenMError(COpenMSave.length > 0 ? "" : "ERROR");
+    setCapitalError(CapitalError);
+    setPeopleError(PeopleError);
+    setCPeopleError(CPeopleError);
+    setHomepageError(HomepageError);
+    if (
+      !CnameError &&
+      !CkNameError &&
+      !PlaceError &&
+      !TELError &&
+      !FAXError &&
+      !InfoError &&
+      !COpenError &&
+      !COpenMError &&
+      !CapitalError &&
+      !PeopleError &&
+      !CPeopleError &&
+      (!HomepageError || homepageSave === "")
+    ) {
+      setproviderCname(CnameSave);
+      setproviderCKname(CkNameSave);
+      setproviderPlace(placeSave);
+      setproviderTEL(telSave);
+      setproviderFAX(faxSave);
+      setproviderInfo(infoSave);
+      setproviderCOpen(COpenSave);
+      setproviderCOpenM(COpenMSave);
+      setproviderCapital(capitalSave);
+      setproviderPeople(peopleSave);
+      setproviderComePeople(comePeopleSave);
+      setproviderHomepage(homepageSave);
+      setDialogOpen(false);
+
       navigate("/profile-com", {
         state: {
-          CnameSave,
-          CkNameSave,
-          placeSave,
-          telSave,
-          faxSave,
-          infoSave,
-          COpenSave,
-          COpenMSave,
-          capitalSave,
-          peopleSave,
-          comePeopleSave,
-          homepageSave,
+          providerCname: CnameSave,
+          providerCKName: CkNameSave,
+          providerPlace: placeSave,
+          providerTEL: telSave,
+          providerFAX: faxSave,
+          providerInfo: infoSave,
+          providerCOpen: COpenSave,
+          providerCOpenM: COpenMSave,
+          providerCapital: capitalSave,
+          providerPeople: peopleSave,
+          providerComePeople: comePeopleSave,
+          providerHomepage: homepageSave,
         },
       });
     }
+    setDialogOpen(false);
   };
 
-  // profile-com に飛ぶ
-  const OnClickBack = () => {
-    const regex = /^[一-龠あ-んァ-ヶーA-Z]{2,}$/;
-    const KanaRegex = /^[ア-ンァ-ヶ]{2,}$/;
-    const TelRegex = /^[0-9-]{11,}$/;
-    const MoneyRegex = /^[0-9]{1,}$/;
-    const PageRegex =
-      /^\b((?:(https?|ftp|ftps):\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}(?:\/[^\s]*)?)\b$/;
-
-    if (
-      regex.test(Cname) &&
-      regex.test(place) &&
-      regex.test(info) &&
-      regex.test(people) &&
-      regex.test(comePeople) &&
-      KanaRegex.test(CkName) &&
-      TelRegex.test(tel) &&
-      TelRegex.test(fax) &&
-      MoneyRegex.test(capital) &&
-      (PageRegex.test(homepage) || homepage === "")
-    ) {
-      if (
-        Cname === CnameSave &&
-        CkName === CkNameSave &&
-        place === placeSave &&
-        info === infoSave &&
-        tel === telSave &&
-        fax === faxSave &&
-        people === peopleSave &&
-        comePeople === comePeopleSave &&
-        capital === capitalSave &&
-        (homepage === homepageSave || homepage === "")
-      ) {
-        navigate("/profile-com", {
-          state: {
-            Cname,
-            CkName,
-            place,
-            tel,
-            fax,
-            info,
-            COpen,
-            COpenM,
-            capital,
-            people,
-            comePeople,
-            homepage,
-            CnameSave,
-            CkNameSave,
-            placeSave,
-            telSave,
-            faxSave,
-            infoSave,
-            COpenSave,
-            COpenMSave,
-            capitalSave,
-            peopleSave,
-            comePeopleSave,
-            homepageSave,
-          },
-        });
-      } else {
-        setCnameSave(Cname);
-        setCkNameSave(CkName);
-        setPlaceSave(place);
-        setInfoSave(info);
-        setTelSave(tel);
-        setFaxSave(fax);
-        setCOpenSave(COpen);
-        setCOpenMSave(COpenM);
-        setCapitalSave(capital);
-        setPeopleSave(people);
-        setComePeopleSave(comePeople);
-        setHomepageSave(homepage);
-        setError1("");
-        setError2("");
-        setError3("");
-        setError4("");
-        setError5("");
-        setError6("");
-        setError7("");
-        setError8("");
-        setError9("");
-        setError10("");
-        setOneMoreClick(true);
-      }
-    } else {
-      setError1(
-        !regex.test(Cname) ? setError1("エラー：企業名") : setError1("")
-      );
-      setError2(!KanaRegex.test(CkName) ? "エラー：カタカナ企業名" : "");
-      setError3(!regex.test(place) ? "エラー：来訪者数" : "");
-      setError4(!TelRegex.test(tel) ? "エラー：電話番号" : "");
-      setError5(!TelRegex.test(fax) ? "エラー：FAX番号" : "");
-      setError6(!regex.test(info) ? "エラー：事業内容" : "");
-      setError7(!MoneyRegex.test(capital) ? "エラー：資本金" : "");
-      setError8(!regex.test(people) ? "エラー：従業員数" : "");
-      setError9(
-        !regex.test(comePeople) ? setError9("エラー：人物像") : setError9("")
-      );
-      setError10(
-        !PageRegex.test(homepage)
-          ? setError10("エラー：ホームページ")
-          : setError10("")
-      );
-      setOneMoreClick(false);
-    }
+  const OnClick = () => {
+    navigate("/profile-com", {
+      state: {
+        providerCname,
+        providerCKName,
+        providerPlace,
+        providerTEL,
+        providerFAX,
+        providerInfo,
+        providerCOpen,
+        providerCOpenM,
+        providerCapital,
+        providerPeople,
+        providerComePeople,
+        providerHomepage,
+      },
+    });
   };
-
-  const Check = // 全項目が入力されていればTrueとなり、情報の確定ボタンが押せるようになる
-    Cname &&
-    CkName &&
-    place &&
-    tel &&
-    fax &&
-    info &&
-    COpen &&
-    COpenM &&
-    capital &&
-    people &&
-    comePeople;
 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
@@ -324,54 +276,64 @@ export function CEdit() {
 
   return (
     <>
-      <header // ヘッダー部分
-        className="header"
-        style={{ textAlign: "center" }}
-      >
-        <div>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
+      <div>
+        <AppBar>
+          <Toolbar
+            elevation={4}
+            sx={{
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: primarycolor,
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Drawer open={open} onClose={toggleDrawer(false)}>
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer(false)}
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
             >
-              <List>
-                <ListItem>
-                  <ListItemText
-                    primary={<Typography variant="h6">メニュー</Typography>}
-                  />
-                </ListItem>
-              </List>
-              <br />
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="企業プロフィール" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Drawer>
-        </div>
-        <h1>プロフィール編集</h1>
-      </header>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              　企業情報編集
+            </Typography>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={toggleDrawer(false)}
+              >
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography variant="h6">メニュー</Typography>}
+                    />
+                  </ListItem>
+                </List>
+                <br />
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick}>
+                      <ListItemText primary="企業プロフィール" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </Box>
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <br />
+      <br />
 
       <Stack // メインコンテンツ
         justifyContent="center"
         alignItems="center"
         textAlign="center"
-        paddingTop="3%"
-        paddingBottom="7%"
+        paddingTop="5%"
+        paddingBottom="5%"
         spacing={2}
+        style={{ whiteSpace: "pre-line" }}
       >
         <Stack direction="row">
           <Box
@@ -394,16 +356,20 @@ export function CEdit() {
               <TextField
                 fullWidth
                 label="企業名の変更"
-                value={Cname}
-                onChange={(e) => setCname(e.target.value)}
+                value={CnameSave}
+                onChange={(e) => setCnameSave(e.target.value)}
+                error={Boolean(CnameError)}
+                helperText={CnameError}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="企業名(カタカナ)の変更"
-                value={CkName}
-                onChange={(e) => setCkName(e.target.value)}
+                value={CkNameSave}
+                onChange={(e) => setCkNameSave(e.target.value)}
+                error={Boolean(CkNameError)}
+                helperText={CkNameError}
               />
             </Box>
           </Stack>
@@ -428,8 +394,10 @@ export function CEdit() {
             <TextField
               fullWidth
               label="企業所在地の変更"
-              value={place}
-              onChange={(e) => setPlace(e.target.value)}
+              value={placeSave}
+              onChange={(e) => setPlaceSave(e.target.value)}
+              error={Boolean(PlaceError)}
+              helperText={PlaceError}
             />
           </Box>
         </Stack>
@@ -455,18 +423,20 @@ export function CEdit() {
               <TextField
                 fullWidth
                 label="電話番号の変更"
-                value={tel}
-                onChange={(e) => setTel(e.target.value)}
+                value={telSave}
+                onChange={(e) => setTelSave(e.target.value)}
                 helperText="ハイフン(-)を入力してください。"
+                error={Boolean(TELError)}
               />
             </Box>
             <Box>
               <TextField
                 fullWidth
                 label="FAX番号の変更"
-                value={fax}
-                onChange={(e) => setFax(e.target.value)}
+                value={faxSave}
+                onChange={(e) => setFaxSave(e.target.value)}
                 helperText="ハイフン(-)を入力してください。"
+                error={Boolean(FAXError)}
               />
             </Box>
           </Stack>
@@ -493,8 +463,10 @@ export function CEdit() {
               fullWidth
               minRows={4}
               label="事業内容の変更"
-              value={info}
-              onChange={(e) => setInfo(e.target.value)}
+              value={infoSave}
+              onChange={(e) => setInfoSave(e.target.value)}
+              error={Boolean(InfoError)}
+              helperText={InfoError}
             />
           </Box>
         </Stack>
@@ -525,8 +497,9 @@ export function CEdit() {
               multiline
               id="older2"
               label="年"
-              value={COpen}
-              onChange={(e) => setCOpen(e.target.value)}
+              value={COpenSave}
+              onChange={(e) => setCOpenSave(e.target.value)}
+              error={Boolean(COpenError)}
             >
               {older.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -540,9 +513,10 @@ export function CEdit() {
               multiline
               id="months"
               label="月"
-              value={COpenM}
+              value={COpenMSave}
               select
-              onChange={(e) => setCOpenM(e.target.value)}
+              onChange={(e) => setCOpenMSave(e.target.value)}
+              error={Boolean(COpenMError)}
             >
               {months.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
@@ -577,8 +551,10 @@ export function CEdit() {
             <Box>
               <TextField
                 label="資本金の変更(百万円単位)"
-                value={capital}
-                onChange={(e) => setCapital(e.target.value)}
+                value={capitalSave}
+                onChange={(e) => setCapitalSave(e.target.value)}
+                error={Boolean(CapitalError)}
+                helperText={CapitalError}
               />
             </Box>
             <p>万円</p>
@@ -604,8 +580,10 @@ export function CEdit() {
             <TextField
               fullWidth
               label="代表者名の変更"
-              value={people}
-              onChange={(e) => setPeople(e.target.value)}
+              value={peopleSave}
+              onChange={(e) => setPeopleSave(e.target.value)}
+              error={Boolean(PeopleError)}
+              helperText={PeopleError}
             />
           </Box>
         </Stack>
@@ -632,8 +610,10 @@ export function CEdit() {
               minRows={4}
               sx={{ minWidth: 240 }}
               label="企業が求める人材像の変更"
-              value={comePeople}
-              onChange={(e) => setComePeople(e.target.value)}
+              value={comePeopleSave}
+              onChange={(e) => setComePeopleSave(e.target.value)}
+              error={Boolean(CPeopleError)}
+              helperText={CPeopleError}
             />
           </Box>
         </Stack>
@@ -656,30 +636,13 @@ export function CEdit() {
             <TextField
               fullWidth
               label="ホームページ等の追加・変更"
-              value={homepage}
-              onChange={(e) => setHomepage(e.target.value)}
+              value={homepageSave}
+              onChange={(e) => setHomepageSave(e.target.value)}
               helperText="ここは任意です"
+              error={Boolean(HomepageError)}
             />
           </Box>
         </Stack>
-
-        <div /* エラーの表示 */>
-          {error1 && <p style={{ color: "red" }}>{error1}</p>}
-          {error2 && <p style={{ color: "red" }}>{error2}</p>}
-          {error3 && <p style={{ color: "red" }}>{error3}</p>}
-          {error4 && <p style={{ color: "red" }}>{error4}</p>}
-          {error5 && <p style={{ color: "red" }}>{error5}</p>}
-          {error6 && <p style={{ color: "red" }}>{error6}</p>}
-          {error7 && <p style={{ color: "red" }}>{error7}</p>}
-          {error8 && <p style={{ color: "red" }}>{error8}</p>}
-          {error9 && <p style={{ color: "red" }}>{error9}</p>}
-          {error10 && <p style={{ color: "red" }}>{error10}</p>}
-          {OneMoreClick === true ? (
-            <p style={{ color: "green" }}>
-              よろしければ、もう一度ボタンを押してください。
-            </p>
-          ) : undefined}
-        </div>
 
         <Stack // ボタンの表示
           direction="row"
@@ -688,17 +651,28 @@ export function CEdit() {
           <Button // profile-com に飛ぶ(データの保存を行わない)
             variant="contained"
             onClick={OnClick}
-            disabled={OneMoreClick}
           >
             戻る
           </Button>
-          <Button // profile-comに飛ぶ(データの保存を行う)
-            variant="contained"
-            onClick={OnClickBack}
-            disabled={!Check}
-          >
+          <Button variant="contained" onClick={handleOpenDialog}>
             情報を確定する
           </Button>
+          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+            <DialogTitle>確認</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                この操作を実行してもよろしいですか？
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary">
+                キャンセル
+              </Button>
+              <Button onClick={handleConfirmDialog} color="primary" autoFocus>
+                実行
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
       </Stack>
     </>

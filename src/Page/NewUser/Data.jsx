@@ -145,3 +145,12 @@ export const selectBox1 = [
   { label: "35卒", value: "35卒" },
   { label: "36卒", value: "36卒" },
 ];
+
+export const field = [
+  { label: "コンピューター・IT分野", value: "コンピューター・IT分野" },
+  { label: "ゲーム・CG分野", value: "ゲーム・CG分野" },
+  { label: "映像・音響分野", value: "映像・音響分野" },
+  { label: "電気分野", value: "電気分野" },
+  { label: "情報通信分野", value: "情報通信分野" },
+  { label: "機械・CADデザイン分野", value: "機械・CADデザイン分野" },
+];
