@@ -2,8 +2,8 @@ import { postData } from "./api";
 
 export function Fuckserver() {
   const data = {
-    email: "root",
-    password: "root",
+    email: "hoge@hoge.hoge",
+    password: "hoge0000",
   };
   const data2 = {
     email: "plaseadomin.admin",
