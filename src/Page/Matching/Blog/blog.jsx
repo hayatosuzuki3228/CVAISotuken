@@ -99,6 +99,18 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
       publishDraft(index);
     }
   };
+  const Draftremove = (index) => {
+    const userConfirmed2 = window.confirm("この下書きを破棄しますか？");
+    if (userConfirmed2) {
+      removeDraft(index);
+    }
+  };
+  const Blogremove = (index) => {
+    const userConfirmed3 = window.confirm("このブログを削除しますか？");
+    if (userConfirmed3) {
+      removeBlog(index);
+    }
+  };
 
   const renderCards = (data, isDraft = false, isManagement = false) => {
     return (
@@ -148,6 +160,19 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
                   }}
                   dangerouslySetInnerHTML={{ __html: item.content }}
                 ></div>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                    height: "5vh",
+                    marginRight: "10px",
+                  }}
+                >
+                  <Typography variant="h9" color="text.secondary">
+                    ○○株式会社
+                  </Typography>
+                </Box>
                 {/* 管理画面で削除ボタンを表示 */}
                 {isManagement && accountType === "company" && (
                   <Box mt={2} display="flex" gap={1}>
@@ -156,7 +181,7 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
                       color="error"
                       onClick={(e) => {
                         e.stopPropagation();
-                        removeBlog(index); // ブログ削除
+                        Blogremove(index); // ブログ削除
                       }}
                     >
                       削除
@@ -192,7 +217,7 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
                       color="error"
                       onClick={(e) => {
                         e.stopPropagation(); // 詳細ページ遷移を防ぐ
-                        removeDraft(index);
+                        Draftremove(index);
                       }}
                     >
                       破棄
@@ -433,6 +458,9 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
         >
           <Typography variant="h4" gutterBottom>
             下書き
+          </Typography>
+          <Typography variant="h5" color="text.secondary" gutterBottom>
+            会社名:○○株式会社
           </Typography>
           {/* 画像プレビュー */}
           <Box

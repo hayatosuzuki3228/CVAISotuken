@@ -94,6 +94,19 @@ export function DraftDetail() {
         sx={{ paddingInline: "50px", marginBottom: "5%" }}
         dangerouslySetInnerHTML={{ __html: draft.content }}
       />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "flex-end",
+
+          marginRight: "10px",
+        }}
+      >
+        <Typography variant="h7" color="text.secondary" gutterBottom>
+          ○○株式会社
+        </Typography>
+      </Box>
     </Box>
   );
 }
