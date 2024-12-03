@@ -56,7 +56,6 @@ export function Addstudentkakunin() {
       qualificationId: sikaku.map((item) => item.value),
       work_location: hope,
     });
-    console.log(sikaku.map((item) => item.value));
     {
       switchpage == 1 ? navigate("/Admin") : navigate("/LoginPage");
     }

@@ -191,12 +191,13 @@ export function Admin() {
       );
     }
   }, []);
+
   //ログイン認証する
-  const Clicklogin = useCallback((data) => {
+  const Clicklogin = (data) => {
     console.log(data);
     postData("authentication/admin", data);
     window.location.href = window.location.href;
-  });
+  };
 
   const onClick = () => {
     navigate("/Addadmin");
@@ -214,6 +215,10 @@ export function Admin() {
 
   const onClick2 = () => {
     navigate("/Addcompany");
+  };
+
+  const onClick3 = () => {
+    postData("echo", data);
   };
 
   const theme = createTheme({
@@ -272,17 +277,22 @@ export function Admin() {
                 ""
               )}
             </Box>
-            <Button
-              sx={{ color: "white" }}
-              onClick={() =>
-                Clicklogin({
-                  email: "root",
-                  password: "root",
-                })
-              }
-            >
-              ログイン
-            </Button>
+            <Box>
+              <Button sx={{ color: "white" }} onClick={onClick3}>
+                サーバー動作確認
+              </Button>
+              <Button
+                sx={{ color: "white" }}
+                onClick={() =>
+                  Clicklogin({
+                    email: "root",
+                    password: "root",
+                  })
+                }
+              >
+                ログイン
+              </Button>
+            </Box>
           </Toolbar>
         </AppBar>
         <Main open={open} className="main">
