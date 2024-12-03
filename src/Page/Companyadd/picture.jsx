@@ -1,13 +1,6 @@
-import { Typography, Box, IconButton, Button } from "@mui/material";
 import React, { useState, useRef } from "react";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
-import ZoomOutIcon from "@mui/icons-material/ZoomOut";
-import ArrowDropupIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-export function Picture() {
+export const useImage = () => {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [zoom, setZoom] = useState(1);
@@ -74,6 +67,8 @@ export function Picture() {
   };
   //#endregion
 
+  //#region 画像up
+
   const handleUpload = () => {
     if (!previewUrl) {
       return;
@@ -82,7 +77,6 @@ export function Picture() {
     const containerWidth = containerRef.current.clientWidth;
     const containerHeight = containerRef.current.clientHeight;
 
-    // Canvas を作成して画像を描画
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
@@ -91,177 +85,51 @@ export function Picture() {
       canvas.width = containerWidth;
       canvas.height = containerHeight;
 
-      // 描画する画像のサイズを計算
       const scaledWidth = img.width * zoom;
       const scaledHeight = img.height * zoom;
 
-      // Canvas に描画する位置を計算
       const drawX = (containerWidth - scaledWidth) / 2 + positionX;
       const drawY = (containerHeight - scaledHeight) / 2 + positionY;
 
-      // Canvas に画像を描画
       ctx.drawImage(
         img,
         0,
         0,
         img.width,
-        img.height, // 元画像の描画範囲
+        img.height,
         drawX,
         drawY,
         scaledWidth,
-        scaledHeight // Canvas 上の描画範囲
+        scaledHeight
       );
 
-      // 画像を保存する
       const dataUrl = canvas.toDataURL("image/png");
       const fileName = `${name}.png`;
       const a = document.createElement("a");
       a.href = dataUrl;
+      a.download = fileName;
       a.click();
     };
     img.src = previewUrl;
   };
+  //#endregion
 
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        mt: "10vh",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h5">画像のアップロード（任意）</Typography>
-      <Typography variant="body1">
-        企業一覧に表示する画像として使用します
-        <br />
-        プロフィールで変更することも可能です
-      </Typography>
-      <Typography variant="body2" color="textSecondary">
-        画像ファイル（.jpg, .jpeg, .png）のみアップロードできます
-      </Typography>
-      <input
-        type="file"
-        accept=".jpg, .jpeg, .png"
-        onChange={handleImageChange}
-      />
-
-      {previewUrl && (
-        <Box
-          ref={containerRef}
-          sx={{
-            border: "2px solid black",
-            padding: "10px",
-            width: 300,
-            height: 300,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            mt: 2,
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <IconButton
-            onClick={handleMoveUp}
-            style={{
-              position: "absolute",
-              top: 10,
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 1,
-            }}
-          >
-            <ArrowDropupIcon />
-          </IconButton>
-          <IconButton
-            onClick={handleMoveDown}
-            style={{
-              position: "absolute",
-              bottom: 10,
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 1,
-            }}
-          >
-            <ArrowDropDownIcon />
-          </IconButton>
-          <IconButton
-            onClick={handleMoveLeft}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: 10,
-              transform: "translateY(-50%)",
-              zIndex: 1,
-            }}
-          >
-            <ArrowLeftIcon />
-          </IconButton>
-          <IconButton
-            onClick={handleMoveRight}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: 10,
-              transform: "translateY(-50%)",
-              zIndex: 1,
-            }}
-          >
-            <ArrowRightIcon />
-          </IconButton>
-          <IconButton
-            onClick={handleZoomIn}
-            disabled={zoom >= 2}
-            style={{
-              position: "absolute",
-              top: 10,
-              right: 10,
-              zIndex: 2,
-            }}
-          >
-            <ZoomInIcon />
-          </IconButton>
-          <IconButton
-            onClick={handleZoomOut}
-            disabled={zoom <= 0.5}
-            style={{
-              position: "absolute",
-              top: 40,
-              right: 10,
-              zIndex: 2,
-            }}
-          >
-            <ZoomOutIcon />
-          </IconButton>
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              transformOrigin: "center",
-              transform: `scale(${zoom})`,
-            }}
-          >
-            <img
-              ref={imageRef}
-              src={previewUrl}
-              alt="Preview"
-              style={{
-                objectFit: "contain",
-                transform: `translate(${positionX}px, ${positionY}px)`,
-              }}
-            />
-          </div>
-        </Box>
-      )}
-      <Button variant="contained" color="primary" onClick={handleUpload}>
-        アップロード
-      </Button>
-    </Box>
-  );
-}
+  return {
+    image,
+    previewUrl,
+    zoom,
+    positionX,
+    positionY,
+    previousPosition,
+    containerRef,
+    imageRef,
+    handleImageChange,
+    handleZoomIn,
+    handleZoomOut,
+    handleMoveUp,
+    handleMoveDown,
+    handleMoveLeft,
+    handleMoveRight,
+    handleUpload,
+  };
+};
