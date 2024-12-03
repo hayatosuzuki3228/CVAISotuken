@@ -219,6 +219,7 @@ export function Toppage() {
 
   //#region pagenation
   const { companyNotice } = useContext(MyContext);
+  console.log(companyNotice);
   const pageItems = 5;
   const [currentCareerPage, setCurrentCareerPage] = useState(1);
   const [currentCompanyPage, setCurrentCompanyPage] = useState(1);
