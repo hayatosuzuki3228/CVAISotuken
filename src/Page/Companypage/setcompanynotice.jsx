@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Button,
   TextField,
@@ -19,6 +19,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { postData } from "../../sever/api";
 import { field } from "../NewUser/Data.jsx";
 import { primarycolor } from "../../const/color.js";
+import MyContext from "../../provider/provider.jsx";
+import { useNavigate } from "react-router-dom";
 
 export function Setcompanynotice() {
   const [date, setDate] = useState("");
@@ -28,6 +30,8 @@ export function Setcompanynotice() {
   const [template, setTemplate] = useState("");
   const [templateValues, setTemplateValues] = useState({});
   const [customNumber, setCustomNumber] = useState("");
+  const { addCompanyNotice } = useContext(MyContext);
+  const navigate = useNavigate();
 
   const templates = {
     template1:
@@ -53,8 +57,10 @@ export function Setcompanynotice() {
 
     try {
       // サーバーにデータを送信
-      await postData("api/create-notice", noticeData);
-      alert("お知らせを発行しました！");
+      //await postData("api/create-notice", noticeData);
+      addCompanyNotice(noticeData);
+      //alert("お知らせを発行しました！");
+      navigate("/");
     } catch (error) {
       console.error("お知らせの発行に失敗しました:", error);
       alert("お知らせの発行に失敗しました。");

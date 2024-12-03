@@ -5,7 +5,7 @@ import React, { createContext, useState, useEffect } from "react";
 const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
-  const [loginstats ,setloginstats] = useState(false);
+  const [loginstats, setloginstats] = useState(false);
   const [provideremail, setprovidermail] = useState("");
   const [providername, setprovidername] = useState("");
   const [providerKName, setproviderKName] = useState("");
@@ -38,6 +38,57 @@ export const MyProvider = ({ children }) => {
   const [providerComePeople, setproviderComePeople] = useState("");
   const [providerHomepage, setproviderHomepage] = useState("");
 
+  const [companyNotice, setcompanyNotice] = useState([
+    //#region お知らせ初期データ
+    {
+      date: "2024/1/1",
+      text: "(株)○○システム新卒採用開始しました",
+      link: "https://www.nskint.co.jp/recruitment/",
+      modalText: (
+        <>
+          現在の採用人数は【5】人です。主に【コンピューター・IT分野】から募集をしています。詳しくは
+          <a
+            href="https://www.nskint.co.jp/recruitment/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            弊社の採用ページ
+          </a>
+          をご覧ください。
+        </>
+      ),
+    },
+    {
+      date: "20??/12/32",
+      text: "採用サイトリニューアルのおしらせ",
+    },
+    {
+      date: "2000/10/10",
+      text: "システム(株)が企業一覧に追加されました",
+      link: "/Matching",
+    },
+    {
+      date: "2024/1/1",
+      text: "(株)○○システム新卒採用開始しました",
+      link: "/LoginPage",
+    },
+    {
+      date: "20??/12/32",
+      text: "採用サイトリニューアルのおしらせ",
+    },
+    {
+      date: "2000/10/10",
+      text: "システム(株)が企業一覧に追加されました",
+      link: "/Matching",
+    },
+    //#endregion
+  ]);
+
+  // provider.jsx
+  const addCompanyNotice = (notice) => {
+    setcompanyNotice((prevNotices) => [notice, ...prevNotices]);
+  };
+
   const [providerid, setproviderid] = useState(0);
   const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -53,7 +104,7 @@ export const MyProvider = ({ children }) => {
   }, [bookmark]);
 
   const value = {
-    loginstats ,
+    loginstats,
     setloginstats,
     provideremail,
     setprovidermail,
@@ -114,6 +165,9 @@ export const MyProvider = ({ children }) => {
     setproviderComePeople,
     providerHomepage,
     setproviderHomepage,
+
+    companyNotice,
+    addCompanyNotice,
 
     providerid,
     setproviderid,
