@@ -218,7 +218,7 @@ export function Admin() {
   };
 
   const onClick3 = () => {
-    postData("echo", data);
+    postData("echo");
   };
 
   const theme = createTheme({
@@ -279,7 +279,7 @@ export function Admin() {
             </Box>
             <Box>
               <Button sx={{ color: "white" }} onClick={onClick3}>
-                サーバー動作確認
+                サーバーの起動及び動作確認
               </Button>
               <Button
                 sx={{ color: "white" }}
