@@ -9,7 +9,9 @@ import { Matching } from "./Page/Matching/matching";
 import { Matchtable } from "./Page/Matching/matchtable";
 import { Companysearch } from "./Page/Matching/companysearch";
 import { Ai } from "./Page/Matching/ai";
-import { Blog } from "./Page/Matching/blog";
+import { Blog } from "./Page/Matching/Blog/blog";
+import  BlogDetail  from "./Page/Matching/Blog/blogdetail";
+import { DraftDetail}  from "./Page/Matching/Blog/draftdetail";
 import { Matchscore } from "./Page/Matching/matchscore";
 import { Conditions } from "./Page/Matching/Conditions";
 import { Setting } from "./Page/Matching/setting";
@@ -30,6 +32,7 @@ import { Bookmark } from "./Page/bookmark";
 import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
 import { SearchProvider } from "./provider/SearchContext";
+import { BlogProvider } from "./provider/blogcontext";
 import { ErrorResponse } from "./sever/ErrorResponse.jsx";
 import { Fuckserver } from "./sever/Fucksever.jsx";
 import { CookieTest } from "./Page/CookieTest.tsx";
@@ -41,9 +44,10 @@ function App() {
       <JobProvider>
         <BookmarkProvider>
           <SearchProvider>
-            <Router>
-              <Routes>
-                <Route path="/" element={<Toppage />} />
+            <BlogProvider>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<Toppage />} />
                 <Route path="/Matchtable" element={<Matchtable />} />
                 <Route path="/Matching" element={<Matching />} />
                 <Route path="/Matchscore" element={<Matchscore />} />
@@ -76,8 +80,9 @@ function App() {
                   path="/Setcompanynotice"
                   element={<Setcompanynotice />}
                 />
-              </Routes>
-            </Router>
+                </Routes>
+              </Router>
+            </BlogProvider>
           </SearchProvider>
         </BookmarkProvider>
       </JobProvider>
