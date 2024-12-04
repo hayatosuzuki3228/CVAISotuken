@@ -238,16 +238,19 @@ export function Addcompany() {
   const valuechange = (event, setValue) => {
     let inputValue = event.target.value;
 
-    inputValue = inputValue.replace(/[０-９]/g, (s) => {
-      return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
-    });
+    if (/^\d*$/.test(inputValue)) {
+      setValue(inputValue);
+    }
 
-    const numericValue = inputValue.replace(/[^0-9]/g, "");
-    setValue(numericValue);
+    // inputValue = inputValue.replace(/[０-９]/g, (s) => {
+    //   return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+    // });
 
-    const formattedValue = addCommas(numericValue);
+    // const numericValue = inputValue.replace(/[^0-9]/g, "");
 
-    setValue(formattedValue);
+    // const formattedValue = addCommas(numericValue);
+
+    // setValue(formattedValue);
   };
 
   function addCommas(number) {
