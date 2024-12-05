@@ -199,10 +199,11 @@ export function Admin() {
     window.location.href = window.location.href;
   };
 
+  //管理者アカウント作成
   const onClick = () => {
     navigate("/Addadmin");
   };
-
+  //学生アカウント作成
   const onClick1 = () => {
     const newSwitchPage = "1";
     setSwitchpage(newSwitchPage);
@@ -212,13 +213,9 @@ export function Admin() {
       },
     });
   };
-
+  //企業アカウント作成
   const onClick2 = () => {
     navigate("/Addcompany");
-  };
-
-  const onClick3 = () => {
-    postData("echo");
   };
 
   const theme = createTheme({
@@ -278,9 +275,6 @@ export function Admin() {
               )}
             </Box>
             <Box>
-              <Button sx={{ color: "white" }} onClick={onClick3}>
-                サーバーの起動及び動作確認
-              </Button>
               <Button
                 sx={{ color: "white" }}
                 onClick={() =>
@@ -539,6 +533,5 @@ export function Admin() {
     </ThemeProvider>
   );
 }
-//学生アカウント作成
 //企業アカウント作成
 //資格情報変更機能作成
