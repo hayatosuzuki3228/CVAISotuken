@@ -1,3 +1,4 @@
+//使ってないっす
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";

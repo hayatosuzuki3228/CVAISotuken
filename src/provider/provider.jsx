@@ -1,16 +1,94 @@
+import { PropaneOutlined, SettingsSharp } from "@mui/icons-material";
 import React, { createContext, useState, useEffect } from "react";
 
 // Contextを作成
 const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
-  const [loginstats ,setloginstats] = useState(false);
+  const [loginstats, setloginstats] = useState(false);
   const [provideremail, setprovidermail] = useState("");
-  const [providerSaveEmail, setproviderSaveEmail] = useState("");
   const [providername, setprovidername] = useState("");
-  const [providerSaveName, setproviderSaveName] = useState("");
-  const [providerKName, setProviderKName] = useState("");
-  const [providerSaveKName, setProviderSaveKName] = useState("");
+  const [providerKName, setproviderKName] = useState("");
+  const [providerMan, setproviderMan] = useState("");
+  const [providerGak, setproviderGak] = useState("");
+  const [providerYears, setproviderYears] = useState("");
+  const [providerMonths, setproviderMonths] = useState("");
+  const [providerDays, setproviderDays] = useState("");
+  const [providerAge, setproviderAge] = useState("");
+  const [providerHome, setproviderHome] = useState("");
+  const [providerBye, setproviderBye] = useState("");
+  const [providerJob, setproviderJob] = useState("");
+  const [providerHobby, setproviderHobby] = useState("");
+  const [providerSkill, setproviderSkill] = useState("");
+  const [providerSSubject, setproviderSSubject] = useState("");
+  const [providerKSubject, setproviderKSubject] = useState("");
+  const [providerMyPower, setproviderMyPower] = useState("");
+  // ↑↑↑User側の変数↑↑↑
+  // ↓↓↓企業側の変数↓↓↓
+  const [providerCname, setproviderCname] = useState("");
+  const [providerCKName, setproviderCKname] = useState("");
+  const [providerPlace, setproviderPlace] = useState("");
+  const [providerTEL, setproviderTEL] = useState("");
+  const [providerFAX, setproviderFAX] = useState("");
+  const [providerInfo, setproviderInfo] = useState("");
+  const [providerCOpen, setproviderCOpen] = useState("");
+  const [providerCOpenM, setproviderCOpenM] = useState("");
+  const [providerCapital, setproviderCapital] = useState("");
+  const [providerPeople, setproviderPeople] = useState("");
+  const [providerComePeople, setproviderComePeople] = useState("");
+  const [providerHomepage, setproviderHomepage] = useState("");
+
+  const [companyNotice, setcompanyNotice] = useState([
+    //#region お知らせ初期データ
+    {
+      date: "2024/1/1",
+      text: "(株)○○システム新卒採用開始しました",
+      link: "https://www.nskint.co.jp/recruitment/",
+      modalText: (
+        <>
+          現在の採用人数は【5】人です。主に【コンピューター・IT分野】から募集をしています。詳しくは
+          <a
+            href="https://www.nskint.co.jp/recruitment/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            弊社の採用ページ
+          </a>
+          をご覧ください。
+        </>
+      ),
+    },
+    {
+      date: "20??/12/32",
+      text: "採用サイトリニューアルのおしらせ",
+    },
+    {
+      date: "2000/10/10",
+      text: "システム(株)が企業一覧に追加されました",
+      link: "/Matching",
+    },
+    {
+      date: "2024/1/1",
+      text: "(株)○○システム新卒採用開始しました",
+      link: "/LoginPage",
+    },
+    {
+      date: "20??/12/32",
+      text: "採用サイトリニューアルのおしらせ",
+    },
+    {
+      date: "2000/10/10",
+      text: "システム(株)が企業一覧に追加されました",
+      link: "/Matching",
+    },
+    //#endregion
+  ]);
+
+  // provider.jsx
+  const addCompanyNotice = (notice) => {
+    setcompanyNotice((prevNotices) => [notice, ...prevNotices]);
+  };
+
   const [providerid, setproviderid] = useState(0);
   const initialBookmark = JSON.parse(localStorage.getItem("bookmark")) || [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -26,20 +104,71 @@ export const MyProvider = ({ children }) => {
   }, [bookmark]);
 
   const value = {
-    loginstats ,
+    loginstats,
     setloginstats,
     provideremail,
     setprovidermail,
-    providerSaveEmail,
-    setproviderSaveEmail,
     providername,
     setprovidername,
-    providerSaveName,
-    setproviderSaveName,
     providerKName,
-    setProviderKName,
-    providerSaveKName,
-    setProviderSaveKName,
+    setproviderKName,
+    providerMan,
+    setproviderMan,
+    providerGak,
+    setproviderGak,
+    providerYears,
+    setproviderYears,
+    providerMonths,
+    setproviderMonths,
+    providerDays,
+    setproviderDays,
+    providerHome,
+    setproviderHome,
+    providerBye,
+    setproviderBye,
+    providerAge,
+    setproviderAge,
+    providerJob,
+    setproviderJob,
+    providerHobby,
+    setproviderHobby,
+    providerSkill,
+    setproviderSkill,
+    providerSSubject,
+    setproviderSSubject,
+    providerKSubject,
+    setproviderKSubject,
+    providerMyPower,
+    setproviderMyPower,
+
+    providerCname,
+    setproviderCname,
+    providerCKName,
+    setproviderCKname,
+    providerPlace,
+    setproviderPlace,
+    providerTEL,
+    setproviderTEL,
+    providerFAX,
+    setproviderFAX,
+    providerInfo,
+    setproviderInfo,
+    providerCOpen,
+    setproviderCOpen,
+    providerCOpenM,
+    setproviderCOpenM,
+    providerCapital,
+    setproviderCapital,
+    providerPeople,
+    setproviderPeople,
+    providerComePeople,
+    setproviderComePeople,
+    providerHomepage,
+    setproviderHomepage,
+
+    companyNotice,
+    addCompanyNotice,
+
     providerid,
     setproviderid,
     bookmark,

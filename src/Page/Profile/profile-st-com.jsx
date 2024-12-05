@@ -1,62 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
+  AppBar,
   Box,
   Button,
   Drawer,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  IconButton,
   Typography,
+  Toolbar,
   Stack,
 } from "@mui/material";
 import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import MyContext from "../../provider/provider";
+import { primarycolor } from "../../const/color";
 
 export function SCompany() {
   useEffect(() => {
     document.title = "企業向けプロフィール";
   }, []);
 
-  const location = useLocation();
   const {
-    job,
-    hobby,
-    skill,
-    SSubject,
-    KSubject,
-    myPower,
-    name,
-    kName,
-    man,
-    Gak,
-    Years,
-    Months,
-    Days,
-    email,
-    Home,
-    bye,
-    age,
-    JobSave,
-    HobbySave,
-    SkillSave,
-    SSubjectSave,
-    KSubjectSave,
-    MyPowerSave,
-    ManSave,
-    GakSave,
-    YearsSave,
-    MonthsSave,
-    DaysSave,
-    HomeSave,
-    ByeSave,
-    AgeSave,
-  } = location.state || {};
+    provideremail,
+    providername,
+    providerKName,
+    providerMan,
+    providerGak,
+    providerYears,
+    providerMonths,
+    providerDays,
+    providerHome,
+    providerBye,
+    providerAge,
+    providerJob,
+    providerHobby,
+    providerSkill,
+    providerSSubject,
+    providerKSubject,
+    providerMyPower,
+  } = useContext(MyContext);
 
   const navigate = useNavigate();
   const OnClick = () => {
@@ -65,74 +52,46 @@ export function SCompany() {
   const OnClick1 = () => {
     navigate("/profile-st-com-edit", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
   const OnClick2 = () => {
     navigate("/profile-st", {
       state: {
-        name,
-        kName,
-        man,
-        Gak,
-        Years,
-        Months,
-        Days,
-        email,
-        Home,
-        bye,
-        age,
-        job,
-        hobby,
-        skill,
-        SSubject,
-        KSubject,
-        myPower,
-        JobSave,
-        HobbySave,
-        SkillSave,
-        SSubjectSave,
-        KSubjectSave,
-        MyPowerSave,
-        ManSave,
-        GakSave,
-        YearsSave,
-        MonthsSave,
-        DaysSave,
-        HomeSave,
-        ByeSave,
-        AgeSave,
+        provideremail,
+        providername,
+        providerKName,
+        providerMan,
+        providerGak,
+        providerYears,
+        providerMonths,
+        providerDays,
+        providerHome,
+        providerBye,
+        providerAge,
+        providerJob,
+        providerHobby,
+        providerSkill,
+        providerSSubject,
+        providerKSubject,
+        providerMyPower,
       },
     });
   };
@@ -144,62 +103,71 @@ export function SCompany() {
 
   return (
     <>
-      <header // ヘッダー部分
-        className="header"
-        style={{ textAlign: "center" }}
-      >
-        <div>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
+      <div>
+        <AppBar>
+          <Toolbar
+            elevation={4}
+            sx={{
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: primarycolor,
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Drawer open={open} onClose={toggleDrawer(false)}>
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer(false)}
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
             >
-              <List>
-                <ListItem>
-                  <ListItemText
-                    primary={<Typography variant="h6">メニュー</Typography>}
-                  />
-                </ListItem>
-              </List>
-              <br />
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick}>
-                    <ListItemText primary="メイン" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick2}>
-                    <ListItemText primary="個人情報" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={OnClick1}>
-                    <ListItemText primary="企業向け情報編集" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Drawer>
-        </div>
-        <h1>企業向けプロフィール</h1>
-      </header>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              　企業向け情報
+            </Typography>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={toggleDrawer(false)}
+              >
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography variant="h6">メニュー</Typography>}
+                    />
+                  </ListItem>
+                </List>
+                <br />
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick}>
+                      <ListItemText primary="トップページ" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick2}>
+                      <ListItemText primary="個人情報" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+                <Divider />
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={OnClick1}>
+                      <ListItemText primary="企業向け情報編集" />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </Box>
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <br />
+      <br />
 
       <Stack // メインコンテンツ
         justifyContent="center"
@@ -224,7 +192,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{JobSave == job ? job : JobSave}</p>
+            <p>{!providerJob ? "" : providerJob}</p>
           </Box>
         </Stack>
 
@@ -243,7 +211,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{HobbySave == hobby ? hobby : HobbySave}</p>
+            <p>{!providerHobby ? "" : providerHobby}</p>
           </Box>
         </Stack>
 
@@ -262,7 +230,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{SkillSave == skill ? skill : SkillSave}</p>
+            <p>{!providerSkill ? "" : providerSkill}</p>
           </Box>
         </Stack>
 
@@ -281,7 +249,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{SSubjectSave == SSubject ? SSubject : SSubjectSave}</p>
+            <p>{!providerSSubject ? "" : providerSSubject}</p>
           </Box>
         </Stack>
 
@@ -300,7 +268,7 @@ export function SCompany() {
             padding="10px"
             sx={{ minWidth: 300 }}
           >
-            <p>{KSubjectSave == KSubject ? KSubject : KSubjectSave}</p>
+            <p>{!providerKSubject ? "" : providerKSubject}</p>
           </Box>
         </Stack>
 
@@ -321,8 +289,8 @@ export function SCompany() {
           >
             <p></p>
             <div style={{ textAlign: "center" }}>
-              {MyPowerSave
-                ? MyPowerSave.map((option, index) => (
+              {providerMyPower
+                ? providerMyPower.map((option, index) => (
                     <Typography key={index}>{option.title}</Typography>
                   ))
                 : null}

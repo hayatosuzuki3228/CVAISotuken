@@ -2,8 +2,12 @@ import { postData } from "./api";
 
 export function Fuckserver() {
   const data = {
-    email: "コンチニハサーバーヲコワシニキマシタ",
-    password: "11111aaa",
+    email: "hoge@hoge.hoge",
+    password: "hoge0000",
+  };
+  const data2 = {
+    email: "plaseadomin.admin",
+    pass: "Fuck",
   };
   const handleFuckserver = (event) => {
     postData("admin/student/deactivate", data);
@@ -15,11 +19,15 @@ export function Fuckserver() {
     postData("admin/student/list", data);
     postData("admin/company/list", data);
     postData("registration/student/all", data);
+    postData("authentication/student", data);
     postData("registration/student", data);
     postData("registration/student", data);
     postData("registration/student", data);
     postData("registration/student", data);
     postData("registration/student", data);
+   
+
+    //postData("registration/admin", data2);
   };
   return <button onClick={handleFuckserver} />;
 }

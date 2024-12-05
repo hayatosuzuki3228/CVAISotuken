@@ -7,8 +7,14 @@ import { CProfile } from "./Page/Profile/profile-com";
 import { CEdit } from "./Page/Profile/profile-com-edit";
 import { Matching } from "./Page/Matching/matching";
 import { Matchtable } from "./Page/Matching/matchtable";
+import { Companysearch } from "./Page/Matching/companysearch";
+import { Ai } from "./Page/Matching/ai";
+import { Blog } from "./Page/Matching/Blog/blog";
+import  BlogDetail  from "./Page/Matching/Blog/blogdetail";
+import { DraftDetail}  from "./Page/Matching/Blog/draftdetail";
 import { Matchscore } from "./Page/Matching/matchscore";
 import { Conditions } from "./Page/Matching/Conditions";
+import { Setting } from "./Page/Matching/setting";
 import { Toppage } from "./Page/toppage";
 import { LoginPage } from "./Page/Login/Login";
 import { MyProvider } from "./provider/provider";
@@ -26,48 +32,62 @@ import { Bookmark } from "./Page/bookmark";
 import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
 import { Admin } from "./Page/admin/admin.jsx";
+import { Addadmin } from "./Page/NewUser/addadmin.jsx";
+import { SearchProvider } from "./provider/SearchContext";
+import { BlogProvider } from "./provider/blogcontext";
 import { ErrorResponse } from "./sever/ErrorResponse.jsx";
 import { Fuckserver } from "./sever/Fucksever.jsx";
-import { Addadmin } from "./Page/NewUser/addadmin.jsx";
+import { CookieTest } from "./Page/CookieTest.tsx";
+import { Setcompanynotice } from "./Page/Companypage/setcompanynotice.jsx";
 import "normalize.css";
 function App() {
   return (
     <MyProvider>
       <JobProvider>
         <BookmarkProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Toppage />} />
-              <Route path="/Matchtable" element={<Matchtable />} />
-              <Route path="/Matching" element={<Matching />} />
-              <Route path="/Matchscore" element={<Matchscore />} />
-              <Route path="/Conditions" element={<Conditions />} />
-              <Route path="/Matchdo" element={<Matchdo />} />
-              <Route path="/LoginPage" element={<LoginPage />} />
-              <Route path="/Lostpass" element={<Lostpass />} />
-              <Route path="/addstudent" element={<Addstudent />} />
-              <Route path="/adduser" element={<Addstudentuser />} />
-              <Route path="/addgakka" element={<Addstudentgakka />} />
-              <Route path="/addkakunin" element={<Addstudentkakunin />} />
-              <Route path="/addcompany" element={<Addcompany />} />
-              <Route path="/profile-st" element={<SProfile />} />
-              <Route path="/profile-st-edit" element={<SEdit />} />
-              <Route path="/profile-st-com" element={<SCompany />} />
-              <Route path="/profile-st-com-edit" element={<SCEdit />} />
-              <Route path="/profile-com" element={<CProfile />} />
-              <Route path="/profile-com-edit" element={<CEdit />} />
-              <Route path="/Bookmark" element={<Bookmark />} />
-              <Route path="/Admin" element={<Admin />} />
-              <Route path="/error" element={<ErrorResponse />} />
-              <Route path="/Fuckserver" element={<Fuckserver />} />
-              <Route path="/Addadmin" element={<Addadmin />} />
-              <Route
-                path="/companyinformation"
-                element={<Companyinformation />}
-              />
-              <Route path="/picture" element={<Picture />} />
-            </Routes>
-          </Router>
+          <SearchProvider>
+            <BlogProvider>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<Toppage />} />
+                <Route path="/Matchtable" element={<Matchtable />} />
+                <Route path="/Matching" element={<Matching />} />
+                <Route path="/Matchscore" element={<Matchscore />} />
+                <Route path="/Conditions" element={<Conditions />} />
+                <Route path="/Matchdo" element={<Matchdo />} />
+                <Route path="/LoginPage" element={<LoginPage />} />
+                <Route path="/Lostpass" element={<Lostpass />} />
+                <Route path="/addstudent" element={<Addstudent />} />
+                <Route path="/adduser" element={<Addstudentuser />} />
+                <Route path="/addgakka" element={<Addstudentgakka />} />
+                <Route path="/addkakunin" element={<Addstudentkakunin />} />
+                <Route path="/addcompany" element={<Addcompany />} />
+                <Route path="/profile-st" element={<SProfile />} />
+                <Route path="/profile-st-edit" element={<SEdit />} />
+                <Route path="/profile-st-com" element={<SCompany />} />
+                <Route path="/profile-st-com-edit" element={<SCEdit />} />
+                <Route path="/profile-com" element={<CProfile />} />
+                <Route path="/profile-com-edit" element={<CEdit />} />
+                <Route
+                  path="/companyinformation"
+                  element={<Companyinformation />}
+                />
+                <Route path="/picture" element={<Picture />} />
+                <Route path="/bookmark" element={<Bookmark />} />
+                <Route path="/testpage" element={<TestPage />} />
+                <Route path="/error" element={<ErrorResponse />} />
+                <Route path="/Fuckserver" element={<Fuckserver />} />
+                <Route path="/CookieTest" element={<CookieTest />} />
+                <Route path="/Admin" element={<Admin />} />
+                <Route path="/Addadmin" element={<Addadmin />} />
+                <Route
+                  path="/Setcompanynotice"
+                  element={<Setcompanynotice />}
+                />
+                </Routes>
+              </Router>
+            </BlogProvider>
+          </SearchProvider>
         </BookmarkProvider>
       </JobProvider>
     </MyProvider>

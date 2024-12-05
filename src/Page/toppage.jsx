@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -110,6 +110,8 @@ export function Toppage() {
       isNavigate: true,
     },
   ];
+
+
   //#region お知らせデータ
   const careerNotice = [
     {
@@ -169,50 +171,6 @@ export function Toppage() {
       link: "/Matching",
     },
   ];
-
-  const companyNotice = [
-    {
-      date: "2024/1/1",
-      text: "(株)○○システム新卒採用開始しました",
-      link: "https://www.nskint.co.jp/recruitment/",
-      modalText: (
-        <>
-          現在の採用人数は【5】人です。主に【コンピューター・IT分野】から募集をしています。詳しくは
-          <a
-            href="https://www.nskint.co.jp/recruitment/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            弊社の採用ページ
-          </a>
-          をご覧ください。
-        </>
-      ),
-    },
-    {
-      date: "20??/12/32",
-      text: "採用サイトリニューアルのおしらせ",
-    },
-    {
-      date: "2000/10/10",
-      text: "システム(株)が企業一覧に追加されました",
-      link: "/Matching",
-    },
-    {
-      date: "2024/1/1",
-      text: "(株)○○システム新卒採用開始しました",
-      link: "/LoginPage",
-    },
-    {
-      date: "20??/12/32",
-      text: "採用サイトリニューアルのおしらせ",
-    },
-    {
-      date: "2000/10/10",
-      text: "システム(株)が企業一覧に追加されました",
-      link: "/Matching",
-    },
-  ];
   //#endregion
   const [open1, setOpen1] = useState(false);
 
@@ -261,6 +219,8 @@ export function Toppage() {
   };
 
   //#region pagenation
+  const { companyNotice } = useContext(MyContext);
+  console.log(companyNotice);
   const pageItems = 5;
   const [currentCareerPage, setCurrentCareerPage] = useState(1);
   const [currentCompanyPage, setCurrentCompanyPage] = useState(1);

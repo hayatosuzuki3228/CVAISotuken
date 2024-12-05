@@ -1,6 +1,6 @@
 export async function postData(endpoint, data) {
   try {
-    const response = await fetch(`http://localhost:8000/${endpoint}`, {
+    const response = await fetch(`/api/${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -10,7 +10,13 @@ export const BookmarkProvider = ({ children }) => {
   const [bookmarks, setBookmarks] = useState([]);
 
   const addBookmark = (id) => {
-    setBookmarks((prevBookmarks) => [...prevBookmarks, id]);
+    setBookmarks((prevBookmarks) => {
+      // 既に同じIDが存在している場合は追加しない
+      if (prevBookmarks.includes(id)) {
+        return prevBookmarks;
+      }
+      return [...prevBookmarks, id];
+    });
   };
 
   const removeBookmark = (id) => {
