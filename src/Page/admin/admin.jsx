@@ -193,10 +193,26 @@ export function Admin() {
   }, []);
 
   //ログイン認証する
-  const Clicklogin = (data) => {
-    console.log(data);
-    postData("authentication/admin", data);
-    window.location.href = window.location.href;
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  const Clicklogin = async (data) => {
+    if (isLoggingIn) return; // ログイン中なら何もしない
+    setIsLoggingIn(true);
+
+    try {
+      const result = await postData("authentication/admin", data);
+
+      if (result.message == "認証が成功しました") {
+        console.log("ログイン成功:", result);
+        window.location.reload(); // リロードして状態をリセット
+      } else {
+        console.error("ログイン失敗:", result.message);
+      }
+    } catch (error) {
+      console.error("エラーが発生しました:", error);
+    } finally {
+      setIsLoggingIn(false);
+    }
   };
 
   //管理者アカウント作成
@@ -283,8 +299,9 @@ export function Admin() {
                     password: "root",
                   })
                 }
+                disabled={isLoggingIn} // ログイン中はボタンを無効化
               >
-                ログイン
+                {isLoggingIn ? "ログイン中..." : "ログイン"}
               </Button>
             </Box>
           </Toolbar>
