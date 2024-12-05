@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -9,23 +9,30 @@ import {
   Typography,
 } from "@mui/material";
 import "normalize.css";
-import { selectBox, selectBox1 } from "./Data";
+import { selectBox, selectBox1, selectBox2 } from "./Data";
 import { primarycolor } from "../../const/color";
 
 export function Addstudentgakka() {
-  useEffect(() => {
-    document.title = "新規登録";
-  }, []);
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialGakka = location.state?.gakka || "";
   const initialSotu = location.state?.sotu || "";
+  const initialHope = location.state?.hope || "";
 
-  const { email, pass, namae, kanamae, gender, birthday, area, sikaku } =
-    location.state || {};
+  const {
+    email,
+    pass,
+    namae,
+    kanamae,
+    gender,
+    birthday,
+    area,
+    sikaku,
+    switchpage,
+  } = location.state || {};
   const [gakka, setGakka] = useState(initialGakka);
   const [sotu, setSotu] = useState(initialSotu);
+  const [hope, setHope] = useState(initialHope);
 
   const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
@@ -43,6 +50,8 @@ export function Addstudentgakka() {
         sikaku,
         gakka,
         sotu,
+        switchpage,
+        hope,
       },
     });
   };
@@ -60,6 +69,8 @@ export function Addstudentgakka() {
         sikaku,
         gakka,
         sotu,
+        switchpage,
+        hope,
       },
     });
   };
@@ -123,7 +134,7 @@ export function Addstudentgakka() {
               }}
             >
               {selectBox.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
+                <MenuItem key={index} value={item.value[0]}>
                   {item.label}
                 </MenuItem>
               ))}
@@ -152,6 +163,29 @@ export function Addstudentgakka() {
               ))}
             </TextField>
             <p></p>
+            <TextField
+              required
+              id={selectBox2}
+              label="希望勤務地"
+              value={hope}
+              select
+              fullWidth
+              onChange={(e) => setHope(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: primarycolor,
+                  },
+                },
+              }}
+            >
+              {selectBox2.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <p></p>
           </Box>
         </Stack>
       </Box>
@@ -168,8 +202,12 @@ export function Addstudentgakka() {
         </Box>
         <Box textAlign="right">
           <Button
-            style={!gakka || !sotu ? disabledButtonStyle : enabledButtonStyle}
-            disabled={!gakka || !sotu}
+            style={
+              !gakka || !sotu || !hope
+                ? disabledButtonStyle
+                : enabledButtonStyle
+            }
+            disabled={!gakka || !sotu || !hope}
             onClick={onClick1}
           >
             次へ

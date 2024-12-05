@@ -31,6 +31,8 @@ import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
 import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
+import { Admin } from "./Page/admin/admin.jsx";
+import { Addadmin } from "./Page/NewUser/addadmin.jsx";
 import { SearchProvider } from "./provider/SearchContext";
 import { BlogProvider } from "./provider/blogcontext";
 import { ErrorResponse } from "./sever/ErrorResponse.jsx";
@@ -76,6 +78,8 @@ function App() {
                 <Route path="/error" element={<ErrorResponse />} />
                 <Route path="/Fuckserver" element={<Fuckserver />} />
                 <Route path="/CookieTest" element={<CookieTest />} />
+                <Route path="/Admin" element={<Admin />} />
+                <Route path="/Addadmin" element={<Addadmin />} />
                 <Route
                   path="/Setcompanynotice"
                   element={<Setcompanynotice />}

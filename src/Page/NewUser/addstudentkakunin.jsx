@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Button, Box, Typography } from "@mui/material";
 import { primarycolor } from "../../const/color";
+import { postData } from "../../sever/api";
+import { selectBox } from "./Data";
 
 export function Addstudentkakunin() {
-  useEffect(() => {
-    document.title = "最終確認";
-  }, []);
-
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -21,6 +19,8 @@ export function Addstudentkakunin() {
     sikaku,
     gakka,
     sotu,
+    switchpage,
+    hope,
   } = location.state || {};
 
   const onClick = () => {
@@ -36,25 +36,48 @@ export function Addstudentkakunin() {
         sikaku,
         gakka,
         sotu,
+        switchpage,
+        hope,
       },
     });
   };
 
   const onClick1 = () => {
-    navigate("/LoginPage", {
-      state: {
-        email,
-        pass,
-        namae,
-        kanamae,
-        gender,
-        birthday,
-        area,
-        sikaku,
-        gakka,
-        sotu,
-      },
+    postData("registration/student/status", {
+      email: email,
+      password: pass,
+      name: namae,
+      furigana: kanamae,
+      gender: gender,
+      birthday: formatBirthday1(birthday),
+      residence: area,
+      graduation_year: sotu,
+      classId: gakka,
+      qualificationId: sikaku.map((item) => item.value),
+      work_location: hope,
     });
+    {
+      switchpage == 1 ? navigate("/Admin") : navigate("/LoginPage");
+    }
+  };
+
+  const result = selectBox.find((selectBox) => selectBox.value[0] === gakka)
+    ?.value[1];
+
+  const formatBirthday = (birthday) => {
+    const year = birthday.slice(0, 4);
+    const month = birthday.slice(4, 6);
+    const day = birthday.slice(6, 8);
+
+    return `${year}年${month}月${day}日`;
+  };
+
+  const formatBirthday1 = (birthday) => {
+    const year = birthday.slice(0, 4);
+    const month = birthday.slice(4, 6);
+    const day = birthday.slice(6, 8);
+
+    return `${year}/${month}/${day}`;
   };
 
   return (
@@ -76,52 +99,43 @@ export function Addstudentkakunin() {
           最終確認
         </Typography>
         <p></p>
-        <Stack justifyContent="center" alignItems="center">
-          <div>
-            <p></p>
-            <label>メールアドレス　：　</label>
-            <label>{email}</label>
-            <p></p>
-            <label>パスワード　　　：　</label>
-            <label>{pass}</label>
-            <p></p>
-            <label>氏名　　　　　　：　</label>
-            <label>{namae}</label>
-            <p></p>
-            <label>カタカナ　　　　：　</label>
-            <label>{kanamae}</label>
-            <p></p>
-            <label>性別　　　　　　：　</label>
-            <label>{gender}</label>
-            <p></p>
-            <label>生年月日　　　　：　</label>
-            <label>{birthday}</label>
-            <p></p>
-            <label>居住地域　　　　：　</label>
-            <label>{area}</label>
-            <p></p>
-            <label>学科名　　　　　：　</label>
-            <label>{gakka}</label>
-            <p></p>
-            <label>卒業予定　　　　：　</label>
-            <lable>{sotu}</lable>
-            <p></p>
-            <label>----------------------保有資格----------------------</label>
-            <p></p>
-            <div style={{ textAlign: "center" }}>
-              {sikaku
-                ? sikaku.map((option, index) => (
-                    <Typography key={index}>{option.title}</Typography>
-                  ))
-                : null}
-            </div>
-            <p></p>
-            <label>----------------------------------------------------</label>
-            <p></p>
-          </div>
+        <Stack spacing={2} width="100%" maxWidth="400px">
+          {[
+            ["メールアドレス", email],
+            ["パスワード", pass],
+            ["氏名", namae],
+            ["フリガナ", kanamae],
+            ["性別", gender == 0 ? "男" : gender == 1 ? "女" : "その他"],
+            ["生年月日", formatBirthday(birthday)],
+            ["居住地域", area],
+            ["学科名", result],
+            ["卒業予定", `${sotu}年卒`],
+            [
+              "保有資格",
+              sikaku.map((option, index) => (
+                <Typography sx={{ textAlign: "right" }} key={index}>
+                  {option.title}
+                </Typography>
+              )),
+            ],
+            ["希望勤務地", hope],
+          ].map(([label, value], index) => (
+            <Stack
+              key={index}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ borderBottom: "1px solid #ccc", padding: "8px 0" }}
+            >
+              <Typography variant="body1" fontWeight="bold">
+                {label}
+              </Typography>
+              <Typography variant="body1">{value}</Typography>
+            </Stack>
+          ))}
         </Stack>
       </Box>
-      <Stack direction="row" spacing={20} justifyContent="center">
+      <Stack direction="row" spacing={20} justifyContent="center" marginTop={4}>
         <Box textAlign="left">
           <Button
             style={{

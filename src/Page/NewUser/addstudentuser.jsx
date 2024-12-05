@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -20,10 +20,6 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { primarycolor } from "../../const/color";
 
 export function Addstudentuser() {
-  useEffect(() => {
-    document.title = "新規登録";
-  }, []);
-
   const navigate = useNavigate();
   const location = useLocation();
   const initialNamae = location.state?.namae || "";
@@ -33,7 +29,7 @@ export function Addstudentuser() {
   const initialSikaku = location.state?.sikaku || [];
   const initialGender = location.state?.gender || "";
 
-  const { email, pass, gakka, sotu } = location.state || {};
+  const { email, pass, gakka, sotu, switchpage, hope } = location.state || {};
   const [namae, setnamae] = useState(initialNamae);
   const [kanamae, setkanamae] = useState(initialKanamae);
   const [birthday, setbirthday] = useState(initialBirthday);
@@ -65,6 +61,8 @@ export function Addstudentuser() {
         sikaku,
         gakka,
         sotu,
+        switchpage,
+        hope,
       },
     });
   };
@@ -87,6 +85,8 @@ export function Addstudentuser() {
           sikaku,
           gakka,
           sotu,
+          switchpage,
+          hope,
         },
       });
     } else {
@@ -205,7 +205,7 @@ export function Addstudentuser() {
               <TextField
                 fullWidth
                 required
-                label="カタカナ"
+                label="フリガナ"
                 variant="outlined"
                 value={kanamae}
                 onChange={(e) => setkanamae(e.target.value)}
@@ -238,7 +238,7 @@ export function Addstudentuser() {
                 row
               >
                 <FormControlLabel
-                  value="男性"
+                  value={0}
                   control={
                     <Radio
                       sx={{
@@ -251,7 +251,7 @@ export function Addstudentuser() {
                   label="男性"
                 ></FormControlLabel>
                 <FormControlLabel
-                  value="女性"
+                  value={1}
                   control={
                     <Radio
                       sx={{
@@ -264,7 +264,7 @@ export function Addstudentuser() {
                   label="女性"
                 ></FormControlLabel>
                 <FormControlLabel
-                  value="その他"
+                  value={9}
                   control={
                     <Radio
                       sx={{

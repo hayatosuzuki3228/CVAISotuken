@@ -379,19 +379,21 @@ export function Companyinformation() {
                   <Typography style={{ fontSize: "1.5em" }}>
                     給与
                     <Stack display="flex" direction="row">
-                      4年課程基本給:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Four_year_course_basic_salary}
+                        {company.Four_year_course_basic_salary === ""
+                          ? ""
+                          : "4年課程基本給:" +
+                            company.Four_year_course_basic_salary +
+                            "　"}
                       </Typography>
-                      +4年課程諸手当:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Four_year_course_allowances}
+                        {company.Four_year_course_allowances === ""
+                          ? ""
+                          : "4年課程諸手当:" +
+                            company.Four_year_course_allowances +
+                            "　"}
                       </Typography>
-                      =4年課程総合計:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Four_year_course_salary_total == ""
-                          ? "4年課程情報なし"
-                          : ""}
                         {company.Four_year_course_salary_total === ""
                           ? ""
                           : "4年課程総合計:" +
@@ -399,19 +401,21 @@ export function Companyinformation() {
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
-                      3年課程基本給:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Three_year_course_basic_salary}
+                        {company.Three_year_course_basic_salary === ""
+                          ? ""
+                          : "3年課程基本給:" +
+                            company.Three_year_course_basic_salary +
+                            "　"}
                       </Typography>
-                      +3年課程諸手当:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Three_year_course_allowances}
+                        {company.Three_year_course_allowances === ""
+                          ? ""
+                          : "3年課程諸手当:" +
+                            company.Three_year_course_allowances +
+                            "　"}
                       </Typography>
-                      =3年課程総合計:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Three_year_course_salary_total == ""
-                          ? "3年課程情報なし"
-                          : ""}
                         {company.Three_year_course_salary_total === ""
                           ? ""
                           : "3年課程総合計:" +
@@ -419,19 +423,21 @@ export function Companyinformation() {
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
-                      2年課程基本給:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Two_year_course_basic_salary}
+                        {company.Two_year_course_basic_salary === ""
+                          ? ""
+                          : "2年課程基本給:" +
+                            company.Two_year_course_basic_salary +
+                            "　"}
                       </Typography>
-                      +2年課程諸手当:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Two_year_course_allowances}
+                        {company.Two_year_course_allowances === ""
+                          ? ""
+                          : "2年課程諸手当:" +
+                            company.Two_year_course_allowances +
+                            "　"}
                       </Typography>
-                      =2年課程総合計:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Two_year_course_salary_total == ""
-                          ? "2年課程情報なし"
-                          : ""}
                         {company.Two_year_course_salary_total === ""
                           ? ""
                           : "2年課程総合計:" +
@@ -439,19 +445,21 @@ export function Companyinformation() {
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
-                      1年課程基本給:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.One_year_course_basic_salary}
+                        {company.One_year_course_basic_salary === ""
+                          ? ""
+                          : "1年課程基本給:" +
+                            company.One_year_course_basic_salary +
+                            "　"}
                       </Typography>
-                      +1年課程諸手当:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.One_year_course_allowances}
+                        {company.One_year_course_allowances === ""
+                          ? ""
+                          : "1年課程諸手当:" +
+                            company.One_year_course_allowances +
+                            "　"}
                       </Typography>
-                      =1年課程総合計:
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.One_year_course_salary_total == ""
-                          ? "1年課程情報なし"
-                          : ""}
                         {company.One_year_course_salary_total === ""
                           ? ""
                           : "1年課程総合計:" +
@@ -459,9 +467,10 @@ export function Companyinformation() {
                       </Typography>
                     </Stack>
                     <Stack display="flex" direction="row">
-                      その他
                       <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.others}
+                        {company.others === ""
+                          ? ""
+                          : "その他:" + company.others}
                       </Typography>
                     </Stack>
                   </Typography>

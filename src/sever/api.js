@@ -10,6 +10,7 @@ export async function postData(endpoint, data) {
     });
 
     if (!response.ok) {
+      // サーバーからのエラーメッセージを取得
       const errorData = await response.json();
       throw new Error(errorData.message || "サーバーエラーが発生しました");
     }
