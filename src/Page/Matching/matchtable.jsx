@@ -80,34 +80,34 @@ function calculateMatchScore(company, jobData) {
   let locationmax = false;
   selectedLocations.forEach((location) => {
     if (!locationmax) {
-      total += 15;
+      total += 150;
       locationmax = true;
     }
     if (company.work_location.includes(location) && !locationMatched) {
-      score += 15; // 一度だけ加算
+      score += 150; // 一度だけ加算
       locationMatched = true; // 加算フラグをオンにする
     }
   });
   // 特長の比較
   jobData.features.forEach((feature) => {
-    total += 10;
+    total += 100;
     if (company.ideal_candidate_profile.includes(feature)) score += 10;
   });
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
-    total += 10;
+    total += 100;
 
-    if (company.qualification.includes(qualification)) score += 10;
+    if (company.qualification.includes(qualification)) score += 100;
   });
   // 募集学科情報の比較
   if (jobData.department != null && jobData.department.trim() !== "") {
-    total += 10;
+    total += 100;
     if (
       company.recruitment_grade &&
       jobData.department &&
       company.recruitment_grade.includes(jobData.department)
     ) {
-      score += 10;
+      score += 100;
     } else {
       score = 0; // 募集学科情報が一致しなかったらスコアを0にして返す
     }
@@ -135,12 +135,12 @@ function Row(props) {
   };
 
   const getMatchdoCellStyle = (matchdo, max) => {
-    if (matchdo >= 40) {
+    if (matchdo >= 400) {
       return { color: "red" };
     }
-    if (matchdo >= 30) {
+    if (matchdo >= 300) {
       return { color: "green" };
-    } else if (matchdo >= 10) {
+    } else if (matchdo >= 100) {
       return { color: "orange" };
     } else {
       return { color: "black" };
