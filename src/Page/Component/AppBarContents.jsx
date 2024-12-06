@@ -5,16 +5,14 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import { ThemeProvider, Box } from "@mui/material";
 import { theme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { primarycolor } from "../../const/color";
 
-const AppBarContents = ({ open, setOpen }) => {
+const AppBarContents = ({ open, setOpen, apptitle }) => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const drawerWidth = isSmallScreen ? 100 : 220;
 
@@ -65,30 +63,16 @@ const AppBarContents = ({ open, setOpen }) => {
             </IconButton>
             <Box />
             <Typography
-              variant={isSmallScreen ? "h7" : "h6"}
+              variant={isSmallScreen ? "body1" : "h6"}
               noWrap
               component="div"
             >
-              名産会マッチングシステム
+              {apptitle}
             </Typography>
           </Box>
-          <Box>
-            <Tooltip
-              title="ブックマーク"
-              placement="top"
-              enterDelay={0}
-              leaveDelay={10}
-              arrow
-            >
-              <IconButton color="inherit" onClick={() => navigate("/Bookmark")}>
-                <BookmarksIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-              ログイン
-            </Button>
-          </Box>
+          <Button color="inherit" onClick={() => navigate("/Loginpage")}>
+            ログイン
+          </Button>
         </Toolbar>
       </AppBar>
     </ThemeProvider>

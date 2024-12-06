@@ -127,7 +127,11 @@ export function TopPage() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
-        <AppBarContents open={drawerOpen} setOpen={setDrawerOpen} />
+        <AppBarContents
+          apptitle={"名産会マッチングシステム"}
+          open={drawerOpen}
+          setOpen={setDrawerOpen}
+        />
 
         <DrawerContents
           open={drawerOpen}
