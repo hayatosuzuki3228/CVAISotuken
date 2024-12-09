@@ -41,7 +41,7 @@ const DrawerContents = ({ open, menuItems, handleItemClick }) => {
         }}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={!open}
       >
         <DrawerHeader />
         <Divider />

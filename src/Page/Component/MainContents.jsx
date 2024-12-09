@@ -29,7 +29,7 @@ const MainContents = ({ open, children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Main open={open}>{children}</Main> {/* children を表示 */}
+      <Main open={!open}>{children}</Main> {/* children を表示 */}
     </ThemeProvider>
   );
 };

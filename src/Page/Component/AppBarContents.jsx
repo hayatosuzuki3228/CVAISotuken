@@ -57,7 +57,7 @@ const AppBarContents = ({ open, setOpen, apptitle }) => {
               aria-label="open drawer"
               onClick={toggleDrawer}
               edge="start"
-              sx={{ mr: 2 }}
+              sx={{ ml: isSmallScreen ? 0 : -1.8, mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
