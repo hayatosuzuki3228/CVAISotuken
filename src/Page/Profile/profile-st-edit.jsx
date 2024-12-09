@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useAsyncError, useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -24,11 +24,34 @@ import {
   TextField,
   Typography,
   Toolbar,
+  useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { styled, ThemeProvider } from "@mui/material/styles";
 import { months, days, selectBox, HOME, Bye, older2 } from "./Data";
 import MyContext from "../../provider/provider";
 import { primarycolor } from "../../const/color";
+import AppBarContents from "../Component/AppBarContents";
+import DrawerContents from "../Component/DrawerContents";
+import MainContents from "../Component/MainContents";
+import BusinessIcon from "@mui/icons-material/Business";
+import PersonIcon from "@mui/icons-material/Person";
+import { theme } from "../../const/theme";
+
+const menuItems = [
+  //メニューに追加したいものをここにかく
+  //表示テキスト アイコン リンク の指定
+  {
+    text: "トップページ",
+    icon: <BusinessIcon />,
+    link: "/",
+  },
+  {
+    text: "ページを戻る",
+    icon: <PersonIcon />,
+    link: "/profile-st",
+  },
+];
 
 export function SEdit() {
   useEffect(() => {
@@ -242,421 +265,378 @@ export function SEdit() {
     });
   };
 
-  // profile-st-com に飛ぶ
-  const OnClick2 = () => {
-    navigate("/profile-st-com", {
-      state: {
-        provideremail,
-        providername,
-        providerKName,
-        providerMan,
-        providerGak,
-        providerYears,
-        providerMonths,
-        providerDays,
-        providerHome,
-        providerBye,
-        providerAge,
-        providerJob,
-        providerHobby,
-        providerSkill,
-        providerSSubject,
-        providerKSubject,
-        providerMyPower,
-      },
-    });
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
   const handleChange1 = (event) => {
     setManSave(event.target.value);
   };
 
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
+
+  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
+  const Title = useState("名産会マッチングシステムっす");
+
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
+  };
+
   return (
     <>
-      <div>
-        <AppBar>
-          <Toolbar
-            elevation={4}
-            sx={{
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-              backgroundColor: primarycolor,
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={toggleDrawer(true)}
+      <ThemeProvider theme={theme}>
+        <Box sx={{ display: "flex" }}>
+          <AppBarContents
+            apptitle={"名産会マッチングシステムっす"}
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
+          />
+
+          <DrawerContents
+            open={drawerOpen}
+            menuItems={menuItems}
+            handleItemClick={handleItemClick}
+          />
+
+          <MainContents open={drawerOpen}>
+            <DrawerHeader />
+
+            <Stack // メインコンテンツ
+              alignItems="center"
+              textAlign="center"
+              paddingBottom="5%"
+              spacing={2}
+              style={{ whiteSpace: "pre-line" }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              　個人情報編集
-            </Typography>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
-              <Box
-                sx={{ width: 250 }}
-                role="presentation"
-                onClick={toggleDrawer(false)}
-              >
-                <List>
-                  <ListItem>
-                    <ListItemText
-                      primary={<Typography variant="h6">メニュー</Typography>}
+              <Stack direction="row">
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>名前の編集</p>
+                </Box>
+                <Stack
+                  spacing={2}
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <Box>
+                    <TextField
+                      fullWidth
+                      label="名前の変更"
+                      value={NameSave}
+                      onChange={(e) => setNameSave(e.target.value)}
+                      error={Boolean(NameError)}
+                      helperText={NameError}
                     />
-                  </ListItem>
-                </List>
-                <br />
-                <Divider />
-                <List>
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={OnClick}>
-                      <ListItemText primary="個人情報" />
-                    </ListItemButton>
-                  </ListItem>
-                </List>
-                <Divider />
-                <List>
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={OnClick2}>
-                      <ListItemText primary="企業向け情報" />
-                    </ListItemButton>
-                  </ListItem>
-                </List>
-              </Box>
-            </Drawer>
-          </Toolbar>
-        </AppBar>
-      </div>
+                  </Box>
+                  <Box>
+                    <TextField
+                      fullWidth
+                      label="名前(カタカナ)の変更"
+                      value={KNameSave}
+                      onChange={(e) => setKNameSave(e.target.value)}
+                      error={Boolean(KNameError)}
+                      helperText={KNameError}
+                    />
+                  </Box>
+                </Stack>
+              </Stack>
+
+              <Stack direction="row">
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>性別の変更</p>
+                </Box>
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <RadioGroup
+                    value={ManSave}
+                    onChange={handleChange1}
+                    defaultValue={providerMan}
+                    row
+                  >
+                    <FormControlLabel
+                      value="男性"
+                      control={<Radio />}
+                      label="男性"
+                    ></FormControlLabel>
+                    <FormControlLabel
+                      value="女性"
+                      control={<Radio />}
+                      label="女性"
+                    ></FormControlLabel>
+                    <FormControlLabel
+                      value="その他"
+                      control={<Radio />}
+                      label="その他"
+                    ></FormControlLabel>
+                  </RadioGroup>
+                </Box>
+              </Stack>
+
+              <Stack direction="row">
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>学科名の変更</p>
+                </Box>
+
+                <Box
+                  sx={{ minWidth: 300 }}
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                >
+                  <TextField
+                    multiline
+                    select
+                    sx={{ width: 300 }}
+                    id="SelectBox"
+                    label="学科名"
+                    value={GakSave}
+                    error={Boolean(GakError)}
+                    onChange={(e) => setGakSave(e.target.value)}
+                  >
+                    {selectBox.map((item, index) => (
+                      <MenuItem key={index} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
+              </Stack>
+
+              <Stack direction="row">
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>生年月日の変更</p>
+                </Box>
+                <Stack
+                  sx={{ minWidth: 300 }}
+                  direction="row"
+                  spacing={1}
+                  alignItems="center"
+                  paddingBottom={2}
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                >
+                  <TextField
+                    sx={{ width: 100 }}
+                    select
+                    multiline
+                    id="older"
+                    label="年"
+                    value={YearsSave}
+                    onChange={(e) => setYearsSave(e.target.value)}
+                    error={Boolean(YearError)}
+                  >
+                    {older2.map((item, index) => (
+                      <MenuItem key={index} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <p>年</p>
+                  <TextField
+                    sx={{ width: 60 }}
+                    select
+                    multiline
+                    id="month-select"
+                    label="月"
+                    value={MonthsSave}
+                    onChange={(e) => setMonthsSave(e.target.value)}
+                    error={Boolean(MonthError)}
+                  >
+                    {months.map((item, index) => (
+                      <MenuItem key={index} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <p>月</p>
+                  <TextField
+                    sx={{ width: 60 }}
+                    select
+                    multiline
+                    id="days"
+                    label="日"
+                    value={DaysSave}
+                    onChange={(e) => setDaysSave(e.target.value)}
+                    error={Boolean(DaysError)}
+                  >
+                    {days.map((item, index) => (
+                      <MenuItem key={index} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <p>日</p>
+                </Stack>
+              </Stack>
+
+              <Stack direction="row">
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>居住地域</p>
+                </Box>
+                <Box
+                  paddingBottom={2}
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <TextField
+                    select
+                    fullWidth
+                    id="HOME"
+                    value={HomeSave}
+                    label="都道府県"
+                    onChange={(e) => setHomeSave(e.target.value)}
+                    error={Boolean(HomeError)}
+                    helperText={HomeError}
+                  >
+                    {HOME.map((item, index) => (
+                      <MenuItem key={index} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
+              </Stack>
+
+              <Stack direction="row">
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>卒業年度</p>
+                </Box>
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <TextField
+                    select
+                    fullWidth
+                    id="Bye"
+                    label="卒業年度"
+                    value={ByeSave}
+                    onChange={(e) => setByeSave(e.target.value)}
+                    error={Boolean(ByeError)}
+                  >
+                    {Bye.map((item, index) => (
+                      <MenuItem key={index} value={item.value}>
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
+              </Stack>
+
+              <Stack direction="row" paddingBottom={5}>
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <p>メールアドレス</p>
+                </Box>
+                <Box
+                  flex="1"
+                  border="1px solid black"
+                  padding="10px"
+                  sx={{ minWidth: 300 }}
+                >
+                  <TextField
+                    fullWidth
+                    label="メールアドレスの変更"
+                    value={EmailSave}
+                    onChange={(e) => setEmailSave(e.target.value)}
+                    error={Boolean(EmailError)}
+                    helperText={EmailError}
+                  />
+                </Box>
+              </Stack>
+
+              <Stack // ボタンの表示
+                direction="row"
+                spacing={7}
+              >
+                <Button // profile-st に飛ぶ(データの保存を行わない)
+                  variant="contained"
+                  onClick={OnClick}
+                >
+                  戻る
+                </Button>
+                <Button variant="contained" onClick={handleOpenDialog}>
+                  情報を確定する
+                </Button>
+                <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+                  <DialogTitle>確認</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      この操作を実行してもよろしいですか？
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                      キャンセル
+                    </Button>
+                    <Button
+                      onClick={handleConfirmDialog}
+                      color="primary"
+                      autoFocus
+                    >
+                      実行
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </Stack>
+            </Stack>
+          </MainContents>
+        </Box>
+      </ThemeProvider>
       <br />
       <br />
-
-      <Stack // メインコンテンツ
-        justifyContent="center"
-        alignItems="center"
-        textAlign="center"
-        paddingTop="5%"
-        paddingBottom="5%"
-        spacing={2}
-        style={{ whiteSpace: "pre-line" }}
-      >
-        <Stack direction="row">
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>名前の編集</p>
-          </Box>
-          <Stack
-            spacing={2}
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <Box>
-              <TextField
-                fullWidth
-                label="名前の変更"
-                value={NameSave}
-                onChange={(e) => setNameSave(e.target.value)}
-                error={Boolean(NameError)}
-                helperText={NameError}
-              />
-            </Box>
-            <Box>
-              <TextField
-                fullWidth
-                label="名前(カタカナ)の変更"
-                value={KNameSave}
-                onChange={(e) => setKNameSave(e.target.value)}
-                error={Boolean(KNameError)}
-                helperText={KNameError}
-              />
-            </Box>
-          </Stack>
-        </Stack>
-
-        <Stack direction="row">
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>性別の変更</p>
-          </Box>
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <RadioGroup
-              value={ManSave}
-              onChange={handleChange1}
-              defaultValue={providerMan}
-              row
-            >
-              <FormControlLabel
-                value="男性"
-                control={<Radio />}
-                label="男性"
-              ></FormControlLabel>
-              <FormControlLabel
-                value="女性"
-                control={<Radio />}
-                label="女性"
-              ></FormControlLabel>
-              <FormControlLabel
-                value="その他"
-                control={<Radio />}
-                label="その他"
-              ></FormControlLabel>
-            </RadioGroup>
-          </Box>
-        </Stack>
-
-        <Stack direction="row">
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>学科名の変更</p>
-          </Box>
-
-          <Box
-            sx={{ minWidth: 300 }}
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-          >
-            <TextField
-              multiline
-              select
-              sx={{ width: 300 }}
-              id="SelectBox"
-              label="学科名"
-              value={GakSave}
-              error={Boolean(GakError)}
-              onChange={(e) => setGakSave(e.target.value)}
-            >
-              {selectBox.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-        </Stack>
-
-        <Stack direction="row">
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>生年月日の変更</p>
-          </Box>
-          <Stack
-            sx={{ minWidth: 300 }}
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            paddingBottom={2}
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-          >
-            <TextField
-              sx={{ width: 100 }}
-              select
-              multiline
-              id="older"
-              label="年"
-              value={YearsSave}
-              onChange={(e) => setYearsSave(e.target.value)}
-              error={Boolean(YearError)}
-            >
-              {older2.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <p>年</p>
-            <TextField
-              sx={{ width: 60 }}
-              select
-              multiline
-              id="month-select"
-              label="月"
-              value={MonthsSave}
-              onChange={(e) => setMonthsSave(e.target.value)}
-              error={Boolean(MonthError)}
-            >
-              {months.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <p>月</p>
-            <TextField
-              sx={{ width: 60 }}
-              select
-              multiline
-              id="days"
-              label="日"
-              value={DaysSave}
-              onChange={(e) => setDaysSave(e.target.value)}
-              error={Boolean(DaysError)}
-            >
-              {days.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <p>日</p>
-          </Stack>
-        </Stack>
-
-        <Stack direction="row">
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>居住地域</p>
-          </Box>
-          <Box
-            paddingBottom={2}
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <TextField
-              select
-              fullWidth
-              id="HOME"
-              value={HomeSave}
-              label="都道府県"
-              onChange={(e) => setHomeSave(e.target.value)}
-              error={Boolean(HomeError)}
-              helperText={HomeError}
-            >
-              {HOME.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-        </Stack>
-
-        <Stack direction="row">
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>卒業年度</p>
-          </Box>
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <TextField
-              select
-              fullWidth
-              id="Bye"
-              label="卒業年度"
-              value={ByeSave}
-              onChange={(e) => setByeSave(e.target.value)}
-              error={Boolean(ByeError)}
-            >
-              {Bye.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-        </Stack>
-
-        <Stack direction="row" paddingBottom={5}>
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <p>メールアドレス</p>
-          </Box>
-          <Box
-            flex="1"
-            border="1px solid black"
-            padding="10px"
-            sx={{ minWidth: 300 }}
-          >
-            <TextField
-              fullWidth
-              label="メールアドレスの変更"
-              value={EmailSave}
-              onChange={(e) => setEmailSave(e.target.value)}
-              error={Boolean(EmailError)}
-              helperText={EmailError}
-            />
-          </Box>
-        </Stack>
-
-        <Stack // ボタンの表示
-          direction="row"
-          spacing={7}
-        >
-          <Button // profile-st に飛ぶ(データの保存を行わない)
-            variant="contained"
-            onClick={OnClick}
-          >
-            戻る
-          </Button>
-          <Button variant="contained" onClick={handleOpenDialog}>
-            情報を確定する
-          </Button>
-          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-            <DialogTitle>確認</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                この操作を実行してもよろしいですか？
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialog} color="primary">
-                キャンセル
-              </Button>
-              <Button onClick={handleConfirmDialog} color="primary" autoFocus>
-                実行
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Stack>
-      </Stack>
     </>
   );
 }
