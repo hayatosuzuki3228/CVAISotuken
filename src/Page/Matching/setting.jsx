@@ -55,10 +55,10 @@ export function Setting() {
               selected={selectedMenu === text} // 選択されているかを確認
               sx={{
                 "&.Mui-selected": {
-                  backgroundColor: "#446699",
+                  backgroundColor: "#21a7dd",
                   color: "white",
                   "&:hover": {
-                    backgroundColor: "#224477",
+                    backgroundColor: "#43c9ff",
                   },
                 },
               }}

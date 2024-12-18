@@ -430,7 +430,7 @@ export function Matchtable() {
             value={searchTerm}
             onChange={handleSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem" }}
+            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
             className="search"
           />
           <TextField
@@ -438,7 +438,7 @@ export function Matchtable() {
             value={detailSearchTerm}
             onChange={handleDetailSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem" }}
+            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
             className="detailSearch"
           />
         </Box>
@@ -455,7 +455,7 @@ export function Matchtable() {
             value={matchScoreTerm}
             onChange={handleMatchScoreSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem" }}
+            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
             className="matchScoreSearch"
           />
           <FormControlLabel
