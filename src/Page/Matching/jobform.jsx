@@ -4,7 +4,6 @@ import { TextField, Button, Box, Autocomplete } from "@mui/material";
 import { prefectures } from "../../const/locations";
 import { JobContext } from "../../provider/context";
 import DoneIcon from "@mui/icons-material/Done";
-import UndoIcon from "@mui/icons-material/Undo";
 
 const departmentOptions = [
   "不問",
@@ -156,14 +155,6 @@ const JobForm = ({ onSave, initialData }) => {
         </Button>
         <Button variant="outlined" onClick={() => navigate("/matchtable")}>
           マッチ度表へ
-        </Button>
-        <Button
-          variant="text"
-          color="secondary"
-          onClick={() => navigate("/matching")}
-          startIcon={<UndoIcon />}
-        >
-          戻る
         </Button>
       </Box>
     </form>

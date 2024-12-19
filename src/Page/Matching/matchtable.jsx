@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { JobContext } from "../../provider/context";
 import { useNavigate } from "react-router-dom";
+
 import PropTypes from "prop-types";
 import {
   Button,
@@ -27,17 +28,64 @@ import {
   TablePagination,
   FormControlLabel,
   Switch,
-  Divider,
 } from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@mui/icons-material";
-import UndoIcon from "@mui/icons-material/Undo";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import companies from "../../const/companies.js";
 import { BookmarkContext } from "../../provider/booktext"; // BookmarkContextのインポート
 import MyContext from "../../provider/provider";
+import "normalize.css";
+import AppBarContents from "../Component/AppBarContents";
+import DrawerContents from "../Component/DrawerContents";
+import MainContents from "../Component/MainContents";
+import { theme } from "../../const/theme";
+import { styled, ThemeProvider } from "@mui/material/styles";
+
+const menuItems = [
+  //メニューに追加したいものをここにかく
+  //表示テキスト アイコン リンク の指定
+  {
+    text: "マッチング",
+    icon: <ContentPasteSearchIcon />,
+    link: "/Matching",
+    isNavigate: true,
+  },
+
+  {
+    text: "マッチ度",
+    icon: <FavoriteBorderIcon />,
+    link: "/Matchdo",
+  },
+  {
+    text: "ブックマーク",
+    icon: <ImportContactsIcon />,
+    link: "/bookmark",
+  },
+  {
+    text: "プロフィール",
+    icon: <PersonIcon />,
+    link: "/profile-st",
+  },
+  {
+    text: "設定",
+    icon: <SettingsIcon />,
+    link: "/Setting",
+  },
+  {
+    text: "ホーム",
+    icon: <HomeIcon />,
+    link: "/",
+  },
+];
 
 function convertCompanyData(company, jobData) {
   const matchScore = calculateMatchScore(company, jobData);
@@ -184,7 +232,7 @@ function Row(props) {
           {row.matchdo}P/{row.max}P
         </TableCell>
         <TableCell>
-          <IconButton onClick={() => onFavoriteToggle(row.id)}>
+          <IconButton id="bookmarkbu" onClick={() => onFavoriteToggle(row.id)}>
             <BookmarksIcon />
           </IconButton>
         </TableCell>
@@ -285,6 +333,28 @@ export function Matchtable() {
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
+
+  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
+
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -383,165 +453,188 @@ export function Matchtable() {
   };
 
   return (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          gap: "1rem",
-          marginTop: "1rem",
-        }}
-      >
-        <Button
-          className="matchdo"
-          variant="outlined"
-          onClick={() => navigate("/matchdo")}
-        >
-          マッチ度設定
-        </Button>
-        <Button
-          className="back"
-          variant="text"
-          color="secondary"
-          onClick={() => navigate("/matching")}
-          startIcon={<UndoIcon />}
-        >
-          戻る
-        </Button>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-start",
-          marginBottom: "1rem",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-          className="text"
-        >
-          <TextField
-            label="IDまたは会社名入力"
-            value={searchTerm}
-            onChange={handleSearch}
-            variant="outlined"
-            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
-            className="search"
+    <div>
+      <ThemeProvider theme={theme}>
+        <Box sx={{ display: "flex" }}>
+          <AppBarContents
+            apptitle={"マッチ度表"}
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
           />
-          <TextField
-            label="事業内容入力"
-            value={detailSearchTerm}
-            onChange={handleDetailSearch}
-            variant="outlined"
-            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
-            className="detailSearch"
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-          className="text"
-        >
-          <TextField
-            label="マッチ度入力"
-            value={matchScoreTerm}
-            onChange={handleMatchScoreSearch}
-            variant="outlined"
-            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
-            className="matchScoreSearch"
-          />
-          <FormControlLabel
-            control={<Switch />}
-            label="事業内容"
-            onClick={toggleDetail}
-            className="detailbu"
-          />
-        </Box>
-      </Box>
 
-      <Divider sx={{ my: 5, borderWidth: "1px" }} />
+          <DrawerContents
+            open={drawerOpen}
+            menuItems={menuItems}
+            handleItemClick={handleItemClick}
+          />
 
-      <TableContainer
-        component={Paper}
-        className="table1"
-        sx={{
-          border: "2px solid gray",
-          boxShadow: "0px 10px 14px rgba(0, 0, 0, 0.3)",
-        }}
-      >
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell>ID</TableCell>
-              <TableCell>会社名</TableCell>
-              {showDetail && <TableCell>事業内容</TableCell>}
-              <TableCell align="center">マッチ度</TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {displayedRows.map((row) => (
-              <Row
-                key={row.id}
-                row={row}
-                showDetail={showDetail}
-                onFavoriteToggle={handleFavoriteToggle}
-                isFavorite={bookmarks.includes(row.id)}
+          <MainContents open={drawerOpen}>
+            <DrawerHeader />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                gap: "1rem",
+                marginTop: "1rem",
+              }}
+            >
+              <Button
+                className="matchdo"
+                variant="outlined"
+                onClick={() => navigate("/matchdo")}
+              >
+                マッチ度設定
+              </Button>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                marginBottom: "1rem",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+                className="text"
+              >
+                <TextField
+                  label="IDまたは会社名入力"
+                  value={searchTerm}
+                  onChange={handleSearch}
+                  variant="outlined"
+                  sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
+                  className="search"
+                />
+                <TextField
+                  label="事業内容入力"
+                  value={detailSearchTerm}
+                  onChange={handleDetailSearch}
+                  variant="outlined"
+                  sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
+                  className="detailSearch"
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+                className="text"
+              >
+                <TextField
+                  label="マッチ度入力"
+                  value={matchScoreTerm}
+                  onChange={handleMatchScoreSearch}
+                  variant="outlined"
+                  sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
+                  className="matchScoreSearch"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      id="mySwitchId"
+                      checked={checked}
+                      onChange={handleChange}
+                    />
+                  }
+                  label="事業内容"
+                  onClick={toggleDetail}
+                  className="detailbu"
+                />
+              </Box>
+            </Box>
+
+            <TableContainer
+              component={Paper}
+              className="table1"
+              sx={{
+                border: "2px solid gray",
+                boxShadow: "0px 10px 14px rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              <Table aria-label="collapsible table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>ID</TableCell>
+                    <TableCell>会社名</TableCell>
+                    {showDetail && <TableCell>事業内容</TableCell>}
+                    <TableCell align="center">マッチ度</TableCell>
+                    <TableCell />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {displayedRows.map((row) => (
+                    <Row
+                      key={row.id}
+                      row={row}
+                      showDetail={showDetail}
+                      onFavoriteToggle={handleFavoriteToggle}
+                      isFavorite={bookmarks.includes(row.id)}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                component="div"
+                count={filteredRows.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[100, 50, 200]}
+                labelRowsPerPage="表示件数"
               />
-            ))}
-          </TableBody>
-        </Table>
-        <TablePagination
-          component="div"
-          count={filteredRows.length}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[100, 50, 200]}
-          labelRowsPerPage="表示件数"
-        />
-      </TableContainer>
+            </TableContainer>
 
-      <Dialog open={dialogOpen} onClose={() => handleDialogClose(false)}>
-        <DialogTitle>確認</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            この会社をブックマークに追加しますか？
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleDialogClose(false)} color="primary">
-            キャンセル
-          </Button>
-          <Button
-            onClick={() => handleDialogClose(true)}
-            color="primary"
-            autoFocus
-          >
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {showScrollTopButton && (
-        <Fab
-          color="primary"
-          size="small"
-          onClick={scrollToTop}
-          style={{ position: "fixed", bottom: "20px", right: "20px" }}
-        >
-          <KeyboardArrowUpIcon />
-        </Fab>
-      )}
+            <Dialog
+              id="bookmarkdia"
+              open={dialogOpen}
+              onClose={() => handleDialogClose(false)}
+            >
+              <DialogTitle>確認</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  この会社をブックマークに追加しますか？
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  name="cancel"
+                  onClick={() => handleDialogClose(false)}
+                  color="primary"
+                >
+                  キャンセル
+                </Button>
+                <Button
+                  onClick={() => handleDialogClose(true)}
+                  color="primary"
+                  autoFocus
+                >
+                  OK
+                </Button>
+              </DialogActions>
+            </Dialog>
+            {showScrollTopButton && (
+              <Fab
+                color="primary"
+                size="small"
+                onClick={scrollToTop}
+                style={{ position: "fixed", bottom: "20px", right: "20px" }}
+              >
+                <KeyboardArrowUpIcon />
+              </Fab>
+            )}
+          </MainContents>
+        </Box>
+      </ThemeProvider>
+
       <head>
         <link
           href="matchtable.css"
@@ -551,7 +644,7 @@ export function Matchtable() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-    </>
+    </div>
   );
 }
 

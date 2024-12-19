@@ -16,15 +16,62 @@ import {
   Divider,
   Grid,
 } from "@mui/material";
-import { Home, Drafts, Settings, Add } from "@mui/icons-material";
+import { Home, Drafts, Settings, Favorite, Add } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import WarningIcon from "@mui/icons-material/Warning";
 import UndoIcon from "@mui/icons-material/Undo";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import Masonry from "@mui/lab/Masonry";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "normalize.css";
+import AppBarContents from "../../Component/AppBarContents";
+import DrawerContents from "../../Component/DrawerContents";
+import MainContents from "../../Component/MainContents";
+import { theme } from "../../../const/theme";
+import { styled, ThemeProvider } from "@mui/material/styles";
+const menuItems = [
+  //メニューに追加したいものをここにかく
+  //表示テキスト アイコン リンク の指定
+  {
+    text: "マッチング",
+    icon: <ContentPasteSearchIcon />,
+    link: "/Matching",
+    isNavigate: true,
+  },
 
-export function Blog({ isLoggedIn = true, accountType = "company" }) {
+  {
+    text: "マッチ度",
+    icon: <FavoriteBorderIcon />,
+    link: "/Matchdo",
+  },
+  {
+    text: "ブックマーク",
+    icon: <ImportContactsIcon />,
+    link: "/bookmark",
+  },
+  {
+    text: "プロフィール",
+    icon: <PersonIcon />,
+    link: "/profile-st",
+  },
+  {
+    text: "設定",
+    icon: <SettingsIcon />,
+    link: "/Setting",
+  },
+  {
+    text: "ホーム",
+    icon: <HomeIcon />,
+    link: "/",
+  },
+];
+export function Blog({ isLoggedIn = true, accountType = "student" }) {
   const {
     blogs,
     drafts,
@@ -36,6 +83,7 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
     publishDraft,
   } = useContext(BlogContext);
   const [currentTab, setCurrentTab] = useState(0);
+  const [studentTab, setstudentTab] = useState(0);
   const [draftContent, setDraftContent] = useState({
     title: "",
     content: "",
@@ -44,6 +92,23 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
   const [editingDraftIndex, setEditingDraftIndex] = useState(null);
   const [isDraftModalOpen, setDraftModalOpen] = useState(false);
   const navigate = useNavigate();
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
+
+  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
+
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
+  };
 
   if (!isLoggedIn) {
     return (
@@ -234,51 +299,33 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
 
   const renderContent = () => {
     if (accountType === "student") {
-      return (
-        <Box>
-          <Grid
-            container
-            alignItems="center"
-            justifyContent="space-between"
-            paddingInline={2}
-          >
-            <Grid item>
+      switch (studentTab) {
+        case 0:
+          return (
+            <Box>
               <Typography
-                variant="h4"
-                sx={{
-                  fontStyle: "italic",
-                  fontFamily: "'Merriweather', serif",
-                  fontSize: "50px",
-                  fontWeight: "light",
-                  fontWeight: "bold",
-                  letterSpacing: "0.1em", // 文字間隔
-                  lineHeight: 1.5, // 行間
-                  color: "#469", // テーマの色を使用
-                  textTransform: "uppercase", // 英字を大文字に変換
-                }}
+                variant="h5"
+                sx={{ paddingLeft: "20px" }}
+                gutterBottom
               >
-                Blog
+                ブログ一覧
               </Typography>
-            </Grid>
-            <Grid item>
-              <Button
-                className="back"
-                variant="text"
-                color="secondary"
-                onClick={() => navigate("/matching")}
-                startIcon={<UndoIcon />}
+              {renderCards(blogs)}
+            </Box>
+          );
+        case 1:
+          return (
+            <Box>
+              <Typography
+                variant="h5"
+                sx={{ paddingLeft: "20px" }}
+                gutterBottom
               >
-                戻る
-              </Button>
-            </Grid>
-          </Grid>
-          <Divider sx={{ my: 0.1, borderWidth: "1px" }} />
-          <Typography variant="h5" sx={{ paddingLeft: "20px" }} gutterBottom>
-            ブログ一覧
-          </Typography>
-          {renderCards(blogs)}
-        </Box>
-      );
+                お気に入り一覧
+              </Typography>
+            </Box>
+          );
+      }
     }
 
     // 企業アカウント向けの処理
@@ -286,43 +333,6 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
       case 0:
         return (
           <Box>
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="space-between"
-              paddingInline={2}
-            >
-              <Grid item>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontStyle: "italic",
-                    fontFamily: "'Merriweather', serif",
-                    fontSize: "50px",
-                    fontWeight: "light",
-                    fontWeight: "bold",
-                    letterSpacing: "0.1em", // 文字間隔
-                    lineHeight: 1.5, // 行間
-                    color: "#469", // テーマの色を使用
-                    textTransform: "uppercase", // 英字を大文字に変換
-                  }}
-                >
-                  Blog
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Button
-                  className="back"
-                  variant="text"
-                  color="secondary"
-                  onClick={() => navigate("/matching")}
-                  startIcon={<UndoIcon />}
-                >
-                  戻る
-                </Button>
-              </Grid>
-            </Grid>
-            <Divider sx={{ my: 0.1, borderWidth: "1px" }} />
             <Typography variant="h5" sx={{ paddingLeft: "20px" }} gutterBottom>
               ブログ一覧
             </Typography>
@@ -332,43 +342,6 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
       case 1:
         return (
           <Box>
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="space-between"
-              paddingInline={2}
-            >
-              <Grid item>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontStyle: "italic",
-                    fontFamily: "'Merriweather', serif",
-                    fontSize: "50px",
-                    fontWeight: "light",
-                    fontWeight: "bold",
-                    letterSpacing: "0.1em", // 文字間隔
-                    lineHeight: 1.5, // 行間
-                    color: "#469", // テーマの色を使用
-                    textTransform: "uppercase", // 英字を大文字に変換
-                  }}
-                >
-                  Blog
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Button
-                  className="back"
-                  variant="text"
-                  color="secondary"
-                  onClick={() => navigate("/matching")}
-                  startIcon={<UndoIcon />}
-                >
-                  戻る
-                </Button>
-              </Grid>
-            </Grid>
-            <Divider sx={{ my: 0.1, borderWidth: "1px" }} />
             <Typography variant="h5" sx={{ paddingLeft: "20px" }} gutterBottom>
               下書き一覧
             </Typography>
@@ -385,43 +358,6 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
       case 2:
         return (
           <Box>
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="space-between"
-              paddingInline={2}
-            >
-              <Grid item>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontStyle: "italic",
-                    fontFamily: "'Merriweather', serif",
-                    fontSize: "50px",
-                    fontWeight: "light",
-                    fontWeight: "bold",
-                    letterSpacing: "0.1em", // 文字間隔
-                    lineHeight: 1.5, // 行間
-                    color: "#469", // テーマの色を使用
-                    textTransform: "uppercase", // 英字を大文字に変換
-                  }}
-                >
-                  Blog
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Button
-                  className="back"
-                  variant="text"
-                  color="secondary"
-                  onClick={() => navigate("/matching")}
-                  startIcon={<UndoIcon />}
-                >
-                  戻る
-                </Button>
-              </Grid>
-            </Grid>
-            <Divider sx={{ my: 0.1, borderWidth: "1px" }} />
             <Typography variant="h5" sx={{ paddingLeft: "20px" }} gutterBottom>
               公開したブログ
             </Typography>
@@ -434,138 +370,182 @@ export function Blog({ isLoggedIn = true, accountType = "company" }) {
   };
 
   return (
-    <Box>
-      <Box>{renderContent()}</Box>
-      <Modal
-        open={isDraftModalOpen}
-        onClose={() => setDraftModalOpen(false)}
-        aria-labelledby="下書き作成"
-        aria-describedby="新しい下書きを作成します"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "80vw", // モーダルを広げる
-            maxWidth: 800, // 最大幅を設定
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-            下書き
-          </Typography>
-          <Typography variant="h5" color="text.secondary" gutterBottom>
-            会社名:○○株式会社
-          </Typography>
-          {/* 画像プレビュー */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 0.2,
-              height: 100,
-            }}
-          >
-            {draftContent.image ? (
-              <img
-                src={URL.createObjectURL(draftContent.image)}
-                alt="アップロードされた画像"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: "flex" }}>
+        <AppBarContents
+          apptitle={"ブログ"}
+          open={drawerOpen}
+          setOpen={setDrawerOpen}
+        />
+
+        <DrawerContents
+          open={drawerOpen}
+          menuItems={menuItems}
+          handleItemClick={handleItemClick}
+        />
+
+        <MainContents open={drawerOpen}>
+          <DrawerHeader />
+
+          <Box>
+            <Box>{renderContent()}</Box>
+            <Modal
+              open={isDraftModalOpen}
+              onClose={() => setDraftModalOpen(false)}
+              aria-labelledby="下書き作成"
+              aria-describedby="新しい下書きを作成します"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "80vw", // モーダルを広げる
+                  maxWidth: 800, // 最大幅を設定
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 2,
                 }}
-              />
-            ) : (
-              <Typography variant="body2" color="text.secondary">
-                アップロードされた画像が表示されます
-              </Typography>
+              >
+                <Typography variant="h4" gutterBottom>
+                  下書き
+                </Typography>
+                <Typography variant="h5" color="text.secondary" gutterBottom>
+                  会社名:○○株式会社
+                </Typography>
+                {/* 画像プレビュー */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 0.2,
+                    height: 100,
+                  }}
+                >
+                  {draftContent.image ? (
+                    <img
+                      src={URL.createObjectURL(draftContent.image)}
+                      alt="アップロードされた画像"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                      }}
+                    />
+                  ) : (
+                    <Typography variant="body2" color="text.secondary">
+                      アップロードされた画像が表示されます
+                    </Typography>
+                  )}
+                </Box>
+                <TextField
+                  fullWidth
+                  label="タイトル"
+                  variant="outlined"
+                  margin="normal"
+                  value={draftContent.title}
+                  onChange={(e) =>
+                    setDraftContent({ ...draftContent, title: e.target.value })
+                  }
+                />
+                <ReactQuill
+                  value={draftContent.content}
+                  onChange={(value) =>
+                    setDraftContent({ ...draftContent, content: value })
+                  }
+                  theme="snow"
+                  style={{
+                    height: "300px", // エディタの高さ
+                    marginBottom: "20px",
+                  }}
+                />
+
+                {/* アップロードボタン */}
+                <Button
+                  variant="contained"
+                  component="label"
+                  sx={{ marginTop: 5 }}
+                >
+                  画像をアップロード
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*" // 画像ファイルのみを許可
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        setDraftContent({
+                          ...draftContent,
+                          image: e.target.files[0],
+                        });
+                      }
+                    }}
+                  />
+                </Button>
+                <Box mt={2} display="flex" gap={1}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleDraftSave}
+                  >
+                    保存
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                      setDraftContent({ title: "", content: "", image: null });
+                      setEditingDraftIndex(null); // 編集状態をリセット
+                      setDraftModalOpen(false);
+                    }}
+                  >
+                    キャンセル
+                  </Button>
+                </Box>
+              </Box>
+            </Modal>
+
+            {accountType !== "student" && (
+              <BottomNavigation
+                value={currentTab}
+                onChange={(_, newValue) => setCurrentTab(newValue)}
+                showLabels
+                sx={{
+                  width: "100%",
+                  position: "fixed",
+                  bottom: 0,
+                  backgroundColor: "#deefff",
+                }}
+              >
+                <BottomNavigationAction label="ブログ" icon={<Home />} />
+                <BottomNavigationAction label="下書き" icon={<Drafts />} />
+                <BottomNavigationAction label="管理" icon={<Settings />} />
+              </BottomNavigation>
+            )}
+            {accountType !== "company" && (
+              <BottomNavigation
+                value={studentTab}
+                onChange={(_, newValue) => setstudentTab(newValue)}
+                showLabels
+                sx={{
+                  width: "100%",
+                  position: "fixed",
+                  bottom: 0,
+                  backgroundColor: "#deefff",
+                }}
+              >
+                <BottomNavigationAction label="ブログ" icon={<Home />} />
+                <BottomNavigationAction
+                  label="お気に入り"
+                  icon={<Favorite />}
+                />
+              </BottomNavigation>
             )}
           </Box>
-          <TextField
-            fullWidth
-            label="タイトル"
-            variant="outlined"
-            margin="normal"
-            value={draftContent.title}
-            onChange={(e) =>
-              setDraftContent({ ...draftContent, title: e.target.value })
-            }
-          />
-          <ReactQuill
-            value={draftContent.content}
-            onChange={(value) =>
-              setDraftContent({ ...draftContent, content: value })
-            }
-            theme="snow"
-            style={{
-              height: "300px", // エディタの高さ
-              marginBottom: "20px",
-            }}
-          />
-
-          {/* アップロードボタン */}
-          <Button variant="contained" component="label" sx={{ marginTop: 5 }}>
-            画像をアップロード
-            <input
-              type="file"
-              hidden
-              accept="image/*" // 画像ファイルのみを許可
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  setDraftContent({
-                    ...draftContent,
-                    image: e.target.files[0],
-                  });
-                }
-              }}
-            />
-          </Button>
-          <Box mt={2} display="flex" gap={1}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleDraftSave}
-            >
-              保存
-            </Button>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={() => {
-                setDraftContent({ title: "", content: "", image: null });
-                setEditingDraftIndex(null); // 編集状態をリセット
-                setDraftModalOpen(false);
-              }}
-            >
-              キャンセル
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
-      {accountType !== "student" && (
-        <BottomNavigation
-          value={currentTab}
-          onChange={(_, newValue) => setCurrentTab(newValue)}
-          showLabels
-          sx={{
-            width: "100%",
-            position: "fixed",
-            bottom: 0,
-            backgroundColor: "#deefff",
-          }}
-        >
-          <BottomNavigationAction label="ブログ" icon={<Home />} />
-          <BottomNavigationAction label="下書き" icon={<Drafts />} />
-          <BottomNavigationAction label="管理" icon={<Settings />} />
-        </BottomNavigation>
-      )}
-    </Box>
+        </MainContents>
+      </Box>
+    </ThemeProvider>
   );
 }

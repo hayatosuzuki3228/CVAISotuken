@@ -33,11 +33,7 @@ const options = companies.map((company) => ({
 const menuItems = [
   //メニューに追加したいものをここにかく
   //表示テキスト アイコン リンク の指定
-  {
-    text: "プロフィール",
-    icon: <PersonIcon />,
-    link: "/profile-st",
-  },
+
   {
     text: "マッチ度",
     icon: <FavoriteBorderIcon />,
@@ -48,7 +44,11 @@ const menuItems = [
     icon: <ImportContactsIcon />,
     link: "/bookmark",
   },
-
+  {
+    text: "プロフィール",
+    icon: <PersonIcon />,
+    link: "/profile-st",
+  },
   {
     text: "設定",
     icon: <SettingsIcon />,
