@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+
 import { styled } from "@mui/material/styles";
 import {
   Box,
@@ -10,9 +12,13 @@ import {
   ListItemIcon,
   Typography,
   Grid,
+  Switch,
 } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+
 import { ThemeProvider } from "@mui/material";
-import { theme } from "../../const/theme";
+import { lighttheme, darktheme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
 
 const DrawerContents = ({ open, menuItems, handleItemClick }) => {
@@ -27,8 +33,14 @@ const DrawerContents = ({ open, menuItems, handleItemClick }) => {
     justifyContent: "flex-end",
   }));
 
+  const [toggleDarkMode, setToggleDarkMode] = useState(true);
+
+  const toggleDarkTheme = () => {
+    setToggleDarkMode(!toggleDarkMode);
+  };
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darktheme}>
       <Drawer
         sx={{
           width: drawerWidth,

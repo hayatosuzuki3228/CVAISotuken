@@ -6,8 +6,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
-import { ThemeProvider, Box } from "@mui/material";
-import { theme } from "../../const/theme";
+import { ThemeProvider, Box, CssBaseline } from "@mui/material";
+import { lighttheme, darktheme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { primarycolor } from "../../const/color";
@@ -41,7 +41,8 @@ const AppBarContents = ({ open, setOpen, apptitle }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darktheme}>
+      <CssBaseline />
       <AppBar
         position="fixed"
         open={open}

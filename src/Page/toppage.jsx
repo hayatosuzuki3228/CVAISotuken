@@ -19,8 +19,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { careerNotice } from "../const/data/careernotice";
 import { companyNotice } from "../const/data/companynotice";
-import { gray, primarycolor } from "../const/color";
-import { theme } from "../const/theme";
+import { gray, primarycolor, secondarycolor } from "../const/color";
+import { lighttheme, darktheme } from "../const/theme";
 import AppBarContents from "./Component/AppBarContents";
 import DrawerContents from "./Component/DrawerContents";
 import MainContents from "./Component/MainContents";
@@ -125,7 +125,7 @@ export function TopPage() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darktheme}>
       <Box sx={{ display: "flex" }}>
         <AppBarContents
           apptitle={"名産会マッチングシステム"}
@@ -199,7 +199,6 @@ export function TopPage() {
                           <Typography
                             sx={{
                               fontSize: isSmallScreen ? "0.9rem" : "1.1rem",
-                              color: primarycolor,
                             }}
                           >
                             {item.title}
@@ -245,7 +244,7 @@ export function TopPage() {
                           <Typography
                             sx={{
                               fontSize: isSmallScreen ? "0.9rem" : "1.1rem",
-                              color: primarycolor,
+                              //ここにダークモード時と文字色切り替え設定をかく
                             }}
                           >
                             {item.title}

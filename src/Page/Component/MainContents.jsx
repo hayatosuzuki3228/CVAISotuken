@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "../../const/theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { lighttheme, darktheme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
 
 const MainContents = ({ open, children }) => {
@@ -28,7 +28,8 @@ const MainContents = ({ open, children }) => {
   );
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darktheme}>
+      <CssBaseline />
       <Main open={!open}>{children}</Main> {/* children を表示 */}
     </ThemeProvider>
   );
