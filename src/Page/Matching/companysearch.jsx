@@ -62,31 +62,36 @@ const menuItems = [
     text: "マッチ度",
     icon: <FavoriteBorderIcon />,
     link: "/Matchdo",
+    isNavigate: true,
   },
   {
     text: "ブックマーク",
     icon: <ImportContactsIcon />,
     link: "/bookmark",
+    isNavigate: true,
   },
   {
     text: "プロフィール",
     icon: <PersonIcon />,
     link: "/profile-st",
+    isNavigate: true,
   },
   {
     text: "設定",
     icon: <SettingsIcon />,
     link: "/Setting",
+    isNavigate: true,
   },
   {
     text: "ホーム",
     icon: <HomeIcon />,
     link: "/",
+    isNavigate: true,
   },
 ];
 export function Companysearch() {
   const { setproviderid } = useContext(MyContext);
-  const { addBookmark } = useContext(BookmarkContext);
+  const { bookmarks, addBookmark } = useContext(BookmarkContext);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -214,6 +219,7 @@ export function Companysearch() {
 
   const handleBookmarkConfirm = () => {
     if (selectedCompanyId) {
+      console.log("bookmarkID:", bookmarks);
       addBookmark(selectedCompanyId);
     }
     setOpenDialog(false);
@@ -237,7 +243,7 @@ export function Companysearch() {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         <AppBarContents
-          apptitle={"文字を入力してください"}
+          apptitle={"企業検索"}
           open={drawerOpen}
           setOpen={setDrawerOpen}
         />

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import JobForm from "./jobform";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
   Container,
   Typography,
@@ -38,21 +39,25 @@ const menuItems = [
     text: "ブックマーク",
     icon: <ImportContactsIcon />,
     link: "/bookmark",
+    isNavigate: true,
   },
   {
     text: "プロフィール",
     icon: <PersonIcon />,
     link: "/profile-st",
+    isNavigate: true,
   },
   {
     text: "設定",
     icon: <SettingsIcon />,
     link: "/Setting",
+    isNavigate: true,
   },
   {
     text: "ホーム",
     icon: <HomeIcon />,
     link: "/",
+    isNavigate: true,
   },
 ];
 
@@ -240,10 +245,10 @@ export function Matchdo() {
         </Box>
       </ThemeProvider>
 
-      <head>
+      <Helmet>
         <link href="matchdo.css" rel="stylesheet" type="text/css" media="all" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
+      </Helmet>
     </>
   );
 }

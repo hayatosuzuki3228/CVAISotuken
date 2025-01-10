@@ -49,26 +49,31 @@ const menuItems = [
     text: "マッチ度",
     icon: <FavoriteBorderIcon />,
     link: "/Matchdo",
+    isNavigate: true,
   },
   {
     text: "ブックマーク",
     icon: <ImportContactsIcon />,
     link: "/bookmark",
+    isNavigate: true,
   },
   {
     text: "プロフィール",
     icon: <PersonIcon />,
     link: "/profile-st",
+    isNavigate: true,
   },
   {
     text: "設定",
     icon: <SettingsIcon />,
     link: "/Setting",
+    isNavigate: true,
   },
   {
     text: "ホーム",
     icon: <HomeIcon />,
     link: "/",
+    isNavigate: true,
   },
 ];
 export function Blog({ isLoggedIn = true, accountType = "student" }) {
@@ -386,165 +391,158 @@ export function Blog({ isLoggedIn = true, accountType = "student" }) {
 
         <MainContents open={drawerOpen}>
           <DrawerHeader />
-
-          <Box>
-            <Box>{renderContent()}</Box>
-            <Modal
-              open={isDraftModalOpen}
-              onClose={() => setDraftModalOpen(false)}
-              aria-labelledby="下書き作成"
-              aria-describedby="新しい下書きを作成します"
-            >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "80vw", // モーダルを広げる
-                  maxWidth: 800, // 最大幅を設定
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: 2,
-                }}
-              >
-                <Typography variant="h4" gutterBottom>
-                  下書き
-                </Typography>
-                <Typography variant="h5" color="text.secondary" gutterBottom>
-                  会社名:○○株式会社
-                </Typography>
-                {/* 画像プレビュー */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: 0.2,
-                    height: 100,
-                  }}
-                >
-                  {draftContent.image ? (
-                    <img
-                      src={URL.createObjectURL(draftContent.image)}
-                      alt="アップロードされた画像"
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                      }}
-                    />
-                  ) : (
-                    <Typography variant="body2" color="text.secondary">
-                      アップロードされた画像が表示されます
-                    </Typography>
-                  )}
-                </Box>
-                <TextField
-                  fullWidth
-                  label="タイトル"
-                  variant="outlined"
-                  margin="normal"
-                  value={draftContent.title}
-                  onChange={(e) =>
-                    setDraftContent({ ...draftContent, title: e.target.value })
-                  }
-                />
-                <ReactQuill
-                  value={draftContent.content}
-                  onChange={(value) =>
-                    setDraftContent({ ...draftContent, content: value })
-                  }
-                  theme="snow"
-                  style={{
-                    height: "300px", // エディタの高さ
-                    marginBottom: "20px",
-                  }}
-                />
-
-                {/* アップロードボタン */}
-                <Button
-                  variant="contained"
-                  component="label"
-                  sx={{ marginTop: 5 }}
-                >
-                  画像をアップロード
-                  <input
-                    type="file"
-                    hidden
-                    accept="image/*" // 画像ファイルのみを許可
-                    onChange={(e) => {
-                      if (e.target.files && e.target.files[0]) {
-                        setDraftContent({
-                          ...draftContent,
-                          image: e.target.files[0],
-                        });
-                      }
-                    }}
-                  />
-                </Button>
-                <Box mt={2} display="flex" gap={1}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleDraftSave}
-                  >
-                    保存
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={() => {
-                      setDraftContent({ title: "", content: "", image: null });
-                      setEditingDraftIndex(null); // 編集状態をリセット
-                      setDraftModalOpen(false);
-                    }}
-                  >
-                    キャンセル
-                  </Button>
-                </Box>
-              </Box>
-            </Modal>
-
-            {accountType !== "student" && (
-              <BottomNavigation
-                value={currentTab}
-                onChange={(_, newValue) => setCurrentTab(newValue)}
-                showLabels
-                sx={{
-                  width: "100%",
-                  position: "fixed",
-                  bottom: 0,
-                  backgroundColor: "#deefff",
-                }}
-              >
-                <BottomNavigationAction label="ブログ" icon={<Home />} />
-                <BottomNavigationAction label="下書き" icon={<Drafts />} />
-                <BottomNavigationAction label="管理" icon={<Settings />} />
-              </BottomNavigation>
-            )}
-            {accountType !== "company" && (
-              <BottomNavigation
-                value={studentTab}
-                onChange={(_, newValue) => setstudentTab(newValue)}
-                showLabels
-                sx={{
-                  width: "100%",
-                  position: "fixed",
-                  bottom: 0,
-                  backgroundColor: "#deefff",
-                }}
-              >
-                <BottomNavigationAction label="ブログ" icon={<Home />} />
-                <BottomNavigationAction
-                  label="お気に入り"
-                  icon={<Favorite />}
-                />
-              </BottomNavigation>
-            )}
-          </Box>
         </MainContents>
+      </Box>
+      <Box>
+        <Box>{renderContent()}</Box>
+        <Modal
+          open={isDraftModalOpen}
+          onClose={() => setDraftModalOpen(false)}
+          aria-labelledby="下書き作成"
+          aria-describedby="新しい下書きを作成します"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              height: "90%",
+              transform: "translate(-50%, -50%)",
+              width: "60%", // モーダルを広げる
+              maxWidth: 800, // 最大幅を設定
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 2,
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              下書き
+            </Typography>
+            <Typography variant="h5" color="text.secondary" gutterBottom>
+              会社名:○○株式会社
+            </Typography>
+            {/* 画像プレビュー */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 0.2,
+                height: 100,
+              }}
+            >
+              {draftContent.image ? (
+                <img
+                  src={URL.createObjectURL(draftContent.image)}
+                  alt="アップロードされた画像"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                  }}
+                />
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  アップロードされた画像が表示されます
+                </Typography>
+              )}
+            </Box>
+            <TextField
+              fullWidth
+              label="タイトル"
+              variant="outlined"
+              margin="normal"
+              value={draftContent.title}
+              onChange={(e) =>
+                setDraftContent({ ...draftContent, title: e.target.value })
+              }
+            />
+            <ReactQuill
+              value={draftContent.content}
+              onChange={(value) =>
+                setDraftContent({ ...draftContent, content: value })
+              }
+              theme="snow"
+              style={{
+                height: "250px", // エディタの高さ
+                marginBottom: "20px",
+              }}
+            />
+
+            {/* アップロードボタン */}
+            <Button variant="contained" component="label" sx={{ marginTop: 6 }}>
+              画像をアップロード
+              <input
+                type="file"
+                hidden
+                accept="image/*" // 画像ファイルのみを許可
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setDraftContent({
+                      ...draftContent,
+                      image: e.target.files[0],
+                    });
+                  }
+                }}
+              />
+            </Button>
+            <Box mt={2} display="flex" gap={1}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleDraftSave}
+              >
+                保存
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => {
+                  setDraftContent({ title: "", content: "", image: null });
+                  setEditingDraftIndex(null); // 編集状態をリセット
+                  setDraftModalOpen(false);
+                }}
+              >
+                キャンセル
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+
+        {accountType !== "student" && (
+          <BottomNavigation
+            value={currentTab}
+            onChange={(_, newValue) => setCurrentTab(newValue)}
+            showLabels
+            sx={{
+              width: "100%",
+              position: "fixed",
+              bottom: 0,
+              backgroundColor: "#deefff",
+            }}
+          >
+            <BottomNavigationAction label="ブログ" icon={<Home />} />
+            <BottomNavigationAction label="下書き" icon={<Drafts />} />
+            <BottomNavigationAction label="管理" icon={<Settings />} />
+          </BottomNavigation>
+        )}
+        {accountType !== "company" && (
+          <BottomNavigation
+            value={studentTab}
+            onChange={(_, newValue) => setstudentTab(newValue)}
+            showLabels
+            sx={{
+              width: "100%",
+              position: "fixed",
+              bottom: 0,
+              backgroundColor: "#deefff",
+            }}
+          >
+            <BottomNavigationAction label="ブログ" icon={<Home />} />
+            <BottomNavigationAction label="お気に入り" icon={<Favorite />} />
+          </BottomNavigation>
+        )}
       </Box>
     </ThemeProvider>
   );

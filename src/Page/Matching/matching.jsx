@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
   Typography,
   Autocomplete,
@@ -43,21 +44,25 @@ const menuItems = [
     text: "ブックマーク",
     icon: <ImportContactsIcon />,
     link: "/bookmark",
+    isNavigate: true,
   },
   {
     text: "プロフィール",
     icon: <PersonIcon />,
     link: "/profile-st",
+    isNavigate: true,
   },
   {
     text: "設定",
     icon: <SettingsIcon />,
     link: "/Setting",
+    isNavigate: true,
   },
   {
     text: "ホーム",
     icon: <HomeIcon />,
     link: "/",
+    isNavigate: true,
   },
 ];
 export function Matching() {
@@ -283,9 +288,9 @@ export function Matching() {
                     cursor: "pointer",
                     width: 80,
                     height: "100%",
-                    backgroundColor: "#a33", // 色を指定
+                    backgroundColor: "#b33", // 色を指定
                     "&:hover": {
-                      backgroundColor: "#b24242", // ホバー時の背景色
+                      backgroundColor: "#c34343", // ホバー時の背景色
                     },
                     display: "flex",
                     justifyContent: "center",
@@ -456,7 +461,7 @@ export function Matching() {
         </Box>
       </ThemeProvider>
 
-      <head>
+      <Helmet>
         <link
           href="matching.css"
           rel="stylesheet"
@@ -464,7 +469,7 @@ export function Matching() {
           media="all"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
+      </Helmet>
     </div>
   );
 }

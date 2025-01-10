@@ -37,6 +37,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { TablePagination } from "@mui/material";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -110,6 +111,7 @@ export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { bookmarks, removeBookmark } = useContext(BookmarkContext);
+  console.log("bookmarkID:", bookmarks);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -176,6 +178,20 @@ export function Bookmark() {
     color: "white",
     cursor: "pointer",
   };
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
+
+  const handleChangePage = (event, newPage) => setPage(newPage);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const bookmarksRows = bookmarks.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -248,7 +264,16 @@ export function Bookmark() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-
+          <TablePagination
+            component="div"
+            count={bookmarks.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[50, 100, 200]}
+            labelRowsPerPage="表示件数"
+          />
           <Stack
             direction="row"
             width="97%"
@@ -256,7 +281,7 @@ export function Bookmark() {
             sx={{ marginLeft: 7 }}
           >
             {bookmarks && bookmarks.length > 0 ? (
-              bookmarks.map((item, index) => {
+              bookmarksRows.map((item, index) => {
                 const company = companies.find(
                   (company) => company.id === item
                 );
