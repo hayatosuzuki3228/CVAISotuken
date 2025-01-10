@@ -76,16 +76,17 @@ const menuItems = [
     link: "/profile-st",
     isNavigate: true,
   },
-  {
-    text: "設定",
-    icon: <SettingsIcon />,
-    link: "/Setting",
-    isNavigate: true,
-  },
+
   {
     text: "ホーム",
     icon: <HomeIcon />,
     link: "/",
+    isNavigate: true,
+  },
+  {
+    text: "設定",
+    icon: <SettingsIcon />,
+    link: "/Setting",
     isNavigate: true,
   },
 ];
