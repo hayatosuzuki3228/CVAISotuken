@@ -12,17 +12,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import BusinessIcon from "@mui/icons-material/Business";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
-import SettingsIcon from "@mui/icons-material/Settings";
 import CssBaseline from "@mui/material/CssBaseline";
 import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
-import CampaignIcon from "@mui/icons-material/Campaign";
 import { gray, primarycolor } from "../../const/color";
 import { postData } from "../../sever/api";
 import { useNavigate } from "react-router-dom";
+import { menuItems } from "./onlyCompanypageConst.jsx";
 
 const drawerWidth = 220;
 
@@ -42,14 +38,6 @@ const Main = styled("main", {
 const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
-//サイドバーの項目
-const menuItems = [
-  { text: "お知らせを発行", icon: <CampaignIcon />, path: "/Setcompanynotice" },
-  { text: "求人設定", icon: <EventNoteIcon />, path: "" },
-  { text: "マッチング", icon: <ContentPasteSearchIcon />, path: "" },
-  { text: "企業プロフィール", icon: <BusinessIcon />, path: "" },
-  { text: "設定", icon: <SettingsIcon />, path: "" },
-];
 
 export function Companytoppage() {
   const [open, setOpen] = useState(false);
