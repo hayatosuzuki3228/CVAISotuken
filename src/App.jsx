@@ -42,6 +42,7 @@ import { Setcompanynotice } from "./Page/Companypage/setcompanynotice.jsx";
 import { Companytoppage } from "./Page/Companypage/companytoppage.jsx";
 import { Viewimpression } from "./Page/Companypage/viewimpression.jsx";
 import "normalize.css";
+import { SendEmail } from "./Page/Companypage/sendmailpage.jsx";
 function App() {
   return (
     <MyProvider>
@@ -88,6 +89,7 @@ function App() {
                   />
                   <Route path="/Companytoppage" element={<Companytoppage />} />
                   <Route path="/Viewimpression" element={<Viewimpression />} />
+                  <Route path="/SendEmail" element={<SendEmail />} />
                 </Routes>
               </Router>
             </BlogProvider>

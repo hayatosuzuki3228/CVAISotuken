@@ -23,7 +23,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Bar, Pie } from "react-chartjs-2";
 import { gray, primarycolor } from "../../const/color";
 import { menuItems } from "./onlyCompanypageConst.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Chart as ChartJS,
   BarElement,
@@ -33,6 +33,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import { postData } from "../../sever/api.js";
 
 // Chart.jsの初期化
 ChartJS.register(
@@ -58,8 +59,13 @@ const Dashboard = ({
   selectedYear,
   setSelectedYear,
   registrationfavorite,
+  impressiontitle,
 }) => {
   const navigate = useNavigate();
+
+  const SendmailOnClick = () => {
+    navigate("/SendEmail", { state: { impressiontitle } });
+  };
 
   // 卒業年度に基づく性別分布データのフィルタリング
   const filteredGenderData = userData[selectedYear] || {
@@ -333,17 +339,31 @@ const Dashboard = ({
               />
             </Box>
           </Box>
+          {/*お気に入り登録グラフを左寄せ*/}
           <Box
             sx={{
               width: "45%", // コンテナの幅を固定
               height: "470px", // コンテナの高さを固定
-              border: "1px solid #ddd",
+              //border: "1px solid #ddd",
               borderRadius: "8px",
               padding: 2,
               margin: "0", // 左に寄せるための余白調整
               display: "block", // 他の要素と区別して左寄せ
             }}
-          ></Box>
+          >
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: primarycolor,
+                "&:hover": {
+                  backgroundColor: primarycolor,
+                },
+              }}
+              onClick={SendmailOnClick}
+            >
+              お気に入りした人にメールを送る
+            </Button>
+          </Box>
         </Box>
       </Box>
     </>
@@ -362,6 +382,7 @@ export function Viewimpression() {
     values: [],
   });
   const [selectedYear, setSelectedYear] = useState("全学年");
+  const [impressiontitle, setimpressiontitle] = useState("");
 
   // Drawerの開閉切り替え
   const toggleDrawer = () => {
@@ -384,7 +405,12 @@ export function Viewimpression() {
       labels: ["全学年", "25卒", "26卒", "27卒", "28卒"],
       values: [352, 2, 150, 150, 50],
     });
+    setimpressiontitle("TEST");
   }, []);
+
+  // useEffect(() => {
+  //   (setImpressionData,setUserData,setRegistrationfavorite,setimpressiontitle) = postData("/impression",impressiontitle);
+  // },[]);
 
   return (
     <Dashboard
@@ -395,6 +421,7 @@ export function Viewimpression() {
       selectedYear={selectedYear}
       setSelectedYear={setSelectedYear}
       registrationfavorite={Registrationfavorite}
+      impressiontitle={impressiontitle}
     />
   );
 }
