@@ -135,6 +135,8 @@ export function Matching() {
 
           <MainContents open={drawerOpen}>
             <DrawerHeader />
+
+            {/*メイン画面 */}
             <Stack
               direction={isSmallScreen ? "column" : "row"}
               spacing={isSmallScreen ? 3 : 10}
@@ -142,6 +144,7 @@ export function Matching() {
               alignItems="center"
               sx={{ paddingTop: isSmallScreen ? 2 : 15 }}
             >
+              {/*企業情報*/}
               <Card
                 sx={{
                   width: 390,
@@ -206,6 +209,8 @@ export function Matching() {
                   </Typography>
                 </Box>
               </Card>
+
+              {/*求人票*/}
               <Card
                 sx={{
                   width: 390,
@@ -264,6 +269,8 @@ export function Matching() {
                   </Typography>
                 </Box>
               </Card>
+
+              {/*マッチ度表*/}
               <Card
                 sx={{
                   width: 390,
@@ -311,6 +318,8 @@ export function Matching() {
                 </Box>
               </Card>
             </Stack>
+
+            {/*企業検索*/}
             <Stack
               direction={isSmallScreen ? "column" : "row"}
               spacing={isSmallScreen ? 3 : 10}
@@ -365,6 +374,7 @@ export function Matching() {
                 </Box>
               </Card>
 
+              {/*企業ブログ*/}
               <Card
                 sx={{
                   width: 390,
@@ -411,6 +421,8 @@ export function Matching() {
                   </Typography>
                 </Box>
               </Card>
+
+              {/*AI*/}
               <Card
                 sx={{
                   width: 390,

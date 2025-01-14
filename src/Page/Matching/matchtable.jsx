@@ -145,7 +145,7 @@ function calculateMatchScore(company, jobData) {
   // 特長の比較
   jobData.features.forEach((feature) => {
     total += 100;
-    if (company.ideal_candidate_profile.includes(feature)) score += 10;
+    if (company.ideal_candidate_profile.includes(feature)) score += 100;
   });
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {

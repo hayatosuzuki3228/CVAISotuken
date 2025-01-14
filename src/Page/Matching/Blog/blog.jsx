@@ -13,8 +13,6 @@ import {
   TextField,
   Button,
   Modal,
-  Divider,
-  Grid,
 } from "@mui/material";
 import { Home, Drafts, Settings, Favorite, Add } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -127,7 +125,9 @@ export function Blog({ isLoggedIn = true, accountType = "student" }) {
         textAlign="center"
       >
         <WarningIcon color="error" sx={{ fontSize: "50px" }} />
-        <Typography variant="h5">ログインをしていません</Typography>
+        <Typography variant="h5">
+          この機能を使うにはログインをする必要があります
+        </Typography>
         <Button
           className="back"
           variant="text"
