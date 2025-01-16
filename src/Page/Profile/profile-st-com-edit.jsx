@@ -23,7 +23,6 @@ import {
   Typography,
   Toolbar,
 } from "@mui/material";
-import "./styles.css";
 import { options } from "./Data";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";

@@ -15,7 +15,6 @@ import {
   Typography,
   Toolbar,
 } from "@mui/material";
-import "./styles.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import MyContext from "../../provider/provider";
 import { primarycolor } from "../../const/color";

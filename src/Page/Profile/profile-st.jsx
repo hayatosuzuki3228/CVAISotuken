@@ -22,7 +22,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import MuiAppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import "normalize.css";
-import "./styles.css";
 import MyContext from "../../provider/provider";
 import { primarycolor, gray } from "../../const/color";
 const drawerWidth = 240;
