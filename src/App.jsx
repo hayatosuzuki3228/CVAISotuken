@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SProfile } from "./Page/Profile/profile-st";
 import { SEdit } from "./Page/Profile/profile-st-edit";
@@ -24,12 +25,22 @@ import { Picture } from "./Page/Companyadd/picture.jsx";
 import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
 import { BookmarkProvider } from "./provider/booktext";
-import { lighttheme, darktheme } from "./const/theme.js";
 import "normalize.css";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import { lighttheme, darktheme } from "./const/theme.js";
+import Setting from "./Page/Setting.jsx";
+
 function App() {
+  const [toggleDarkMode, setToggleDarkMode] = useState(true);
+
+  const handleThemeToggle = () => {
+    setToggleDarkMode((prevMode) => !prevMode);
+  };
+
+  const selectTheme = toggleDarkMode ? darktheme : lighttheme;
+
   return (
-    <ThemeProvider theme={darktheme}>
+    <ThemeProvider theme={selectTheme}>
       <CssBaseline />
       <MyProvider>
         <JobProvider>
@@ -61,6 +72,15 @@ function App() {
                 />
                 <Route path="/picture" element={<Picture />} />
                 <Route path="/bookmark" element={<Bookmark />} />
+                <Route
+                  path="/setting"
+                  element={
+                    <Setting
+                      onThemeToggle={handleThemeToggle}
+                      toggleDarkMode={toggleDarkMode}
+                    />
+                  }
+                />
               </Routes>
             </Router>
           </BookmarkProvider>

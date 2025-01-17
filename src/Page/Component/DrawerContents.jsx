@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-import { styled } from "@mui/material/styles";
+import { styled, ThemeProvider } from "@mui/material/styles";
 import {
   Box,
   Drawer,
@@ -12,14 +12,9 @@ import {
   ListItemIcon,
   Typography,
   Grid,
-  Switch,
 } from "@mui/material";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-
-import { ThemeProvider } from "@mui/material";
-import { lighttheme, darktheme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
+import { gray, primarycolor } from "../../const/color";
 
 const DrawerContents = ({ open, menuItems, handleItemClick }) => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -33,75 +28,67 @@ const DrawerContents = ({ open, menuItems, handleItemClick }) => {
     justifyContent: "flex-end",
   }));
 
-  const [toggleDarkMode, setToggleDarkMode] = useState(true);
-
-  const toggleDarkTheme = () => {
-    setToggleDarkMode(!toggleDarkMode);
-  };
-
   return (
-    <ThemeProvider theme={darktheme}>
-      <Drawer
-        sx={{
+    <Drawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
           width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={!open}
-      >
-        <DrawerHeader />
-        <Divider />
-        <List>
-          {menuItems.map((item, index) => (
-            <React.Fragment key={index}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={() => handleItemClick(item.link, item.isNavigate)}
+          boxSizing: "border-box",
+          boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
+        },
+      }}
+      variant="persistent"
+      anchor="left"
+      open={!open}
+    >
+      <DrawerHeader />
+      <Divider />
+      <List>
+        {menuItems.map((item, index) => (
+          <React.Fragment key={index}>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => handleItemClick(item.link, item.isNavigate)}
+              >
+                <Grid
+                  container
+                  direction={isSmallScreen ? "column" : "row"}
+                  alignItems="center"
                 >
-                  <Grid
-                    container
-                    direction={isSmallScreen ? "column" : "row"}
-                    alignItems="center"
+                  <ListItemIcon
+                    style={{
+                      display: "flex",
+                      justifyContent: isSmallScreen ? "center" : "flex-start",
+                    }}
                   >
-                    <ListItemIcon
-                      style={{
-                        display: "flex",
-                        justifyContent: isSmallScreen ? "center" : "flex-start",
-                      }}
-                    >
-                      {React.cloneElement(item.icon, {
-                        fontSize: isSmallScreen ? "small" : "medium",
-                      })}
-                    </ListItemIcon>
-                    <Typography
-                      sx={{
-                        fontSize: isSmallScreen ? "0.6rem" : "1rem",
-                        textAlign: isSmallScreen ? "center" : "left",
-                        paddingTop: isSmallScreen ? 0.3 : 0.5,
-                        paddingBottom: isSmallScreen ? 0.3 : 0.5,
-                      }}
-                    >
-                      {item.text}
-                    </Typography>
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
-              {index === 2 && (
-                <Box my={1}>
-                  <Divider />
-                </Box>
-              )}
-            </React.Fragment>
-          ))}
-        </List>
-      </Drawer>
-    </ThemeProvider>
+                    {React.cloneElement(item.icon, {
+                      fontSize: isSmallScreen ? "small" : "medium",
+                    })}
+                  </ListItemIcon>
+                  <Typography
+                    sx={{
+                      fontSize: isSmallScreen ? "0.6rem" : "1rem",
+                      textAlign: isSmallScreen ? "center" : "left",
+                      paddingTop: isSmallScreen ? 0.3 : 0.5,
+                      paddingBottom: isSmallScreen ? 0.3 : 0.5,
+                    }}
+                  >
+                    {item.text}
+                  </Typography>
+                </Grid>
+              </ListItemButton>
+            </ListItem>
+            {index === 2 && (
+              <Box my={1}>
+                <Divider />
+              </Box>
+            )}
+          </React.Fragment>
+        ))}
+      </List>
+    </Drawer>
   );
 };
 

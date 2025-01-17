@@ -125,7 +125,7 @@ export function TopPage() {
   };
 
   return (
-    <ThemeProvider theme={darktheme}>
+    <>
       <Box sx={{ display: "flex" }}>
         <AppBarContents
           apptitle={"名産会マッチングシステム"}
@@ -324,6 +324,6 @@ export function TopPage() {
           )}
         </Box>
       </Modal>
-    </ThemeProvider>
+    </>
   );
 }

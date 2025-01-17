@@ -1,10 +1,10 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { lighttheme, darktheme } from "../../const/theme";
+// import { CssBaseline, ThemeProvider } from "@mui/material";
+// import { lighttheme, darktheme } from "../../const/theme";
 import { useMediaQuery } from "@mui/material";
 
-const MainContents = ({ open, children }) => {
+const MainContents = ({ open, children, theme }) => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const drawerWidth = isSmallScreen ? 100 : 220;
 
@@ -27,12 +27,7 @@ const MainContents = ({ open, children }) => {
     })
   );
 
-  return (
-    <ThemeProvider theme={darktheme}>
-      <CssBaseline />
-      <Main open={!open}>{children}</Main> {/* children を表示 */}
-    </ThemeProvider>
-  );
+  return <Main open={!open}>{children}</Main>;
 };
 
 export default MainContents;

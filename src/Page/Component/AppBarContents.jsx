@@ -1,16 +1,16 @@
 import React from "react";
-import { styled } from "@mui/material/styles";
+import { styled, ThemeProvider } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
-import { ThemeProvider, Box, CssBaseline } from "@mui/material";
-import { lighttheme, darktheme } from "../../const/theme";
+import { Box } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { primarycolor } from "../../const/color";
+import { lighttheme, darktheme } from "../../const/theme";
 
 const AppBarContents = ({ open, setOpen, apptitle }) => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -41,42 +41,37 @@ const AppBarContents = ({ open, setOpen, apptitle }) => {
   };
 
   return (
-    <ThemeProvider theme={darktheme}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          backgroundColor: primarycolor,
-        }}
-      >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              edge="start"
-              sx={{ ml: isSmallScreen ? 0 : -1.8, mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Box />
-            <Typography
-              variant={isSmallScreen ? "body1" : "h6"}
-              noWrap
-              component="div"
-            >
-              {apptitle}
-            </Typography>
-          </Box>
-          <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-            ログイン
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </ThemeProvider>
+    <AppBar
+      position="fixed"
+      open={open}
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: primarycolor,
+      }}
+    >
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            edge="start"
+            sx={{ ml: isSmallScreen ? 0 : -1.8, mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Box />
+          <Typography
+            variant={isSmallScreen ? "body1" : "h6"}
+            noWrap
+            color={"text.secondary"}
+          >
+            {apptitle}
+          </Typography>
+        </Box>
+        <Button onClick={() => navigate("/Loginpage")}>ログイン</Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 
