@@ -25,6 +25,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { theme } from "../../const/theme";
 import companies from "../../const/companies.js"; // インポートを修正
 import MyContext from "../../provider/provider";
+import { ThemeContext } from "../../provider/ThemeContext";
 import "normalize.css";
 
 const options = companies.map((company) => ({
@@ -67,6 +68,7 @@ const menuItems = [
   },
 ];
 export function Matching() {
+  const { isDarkMode } = useContext(ThemeContext);
   const isSmallScreen = useMediaQuery("(max-width : 1000px)");
   const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -152,6 +154,8 @@ export function Matching() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   position: "relative",
+                  backgroundColor: isDarkMode ? "#444" : "#fff",
+                  color: isDarkMode ? "#ccc" : "#000",
                   height: 150,
                 }}
                 className="c1"
@@ -160,7 +164,10 @@ export function Matching() {
                   <Typography variant="h5" component="div">
                     企業情報
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                  >
                     選択した企業の詳細情報を確認できます。
                   </Typography>
                   <Autocomplete
@@ -175,7 +182,13 @@ export function Matching() {
                         label="企業名入力"
                         variant="outlined"
                         sx={{
-                          backgroundColor: "#eee",
+                          backgroundColor: isDarkMode ? "101010" : "#eee",
+                          "& .MuiInputLabel-root": {
+                            color: isDarkMode ? "#ddd" : "#666", // ラベルのカラー
+                          },
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                          },
                         }}
                       />
                     )}
@@ -218,6 +231,8 @@ export function Matching() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   position: "relative",
+                  backgroundColor: isDarkMode ? "#444" : "#fff",
+                  color: isDarkMode ? "#ccc" : "#000",
                   height: 150,
                 }}
               >
@@ -225,7 +240,10 @@ export function Matching() {
                   <Typography variant="h5" component="div">
                     求人票
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                  >
                     企業の求人情報を確認できます。
                   </Typography>
                   <ToggleButtonGroup
@@ -234,10 +252,24 @@ export function Matching() {
                     onChange={handleYearChange}
                     aria-label="年度選択"
                   >
-                    <ToggleButton value="2023" aria-label="2023">
+                    <ToggleButton
+                      value="2023"
+                      aria-label="2023"
+                      sx={{
+                        backgroundColor: isDarkMode ? "#2e2e2e" : "#fff",
+                        color: isDarkMode ? "#fff" : "#000",
+                      }}
+                    >
                       2023
                     </ToggleButton>
-                    <ToggleButton value="2024" aria-label="2024">
+                    <ToggleButton
+                      value="2024"
+                      aria-label="2024"
+                      sx={{
+                        backgroundColor: isDarkMode ? "#2e2e2e" : "#fff",
+                        color: isDarkMode ? "#fff" : "#000",
+                      }}
+                    >
                       2024
                     </ToggleButton>
                   </ToggleButtonGroup>
@@ -278,6 +310,8 @@ export function Matching() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   position: "relative",
+                  backgroundColor: isDarkMode ? "#444" : "#fff",
+                  color: isDarkMode ? "#ccc" : "#000",
                   height: 150,
                 }}
                 className="c2"
@@ -286,7 +320,10 @@ export function Matching() {
                   <Typography variant="h5" component="div">
                     マッチ度表
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                  >
                     各企業との相性を確認できます。
                   </Typography>
                 </CardContent>
@@ -334,6 +371,8 @@ export function Matching() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   position: "relative",
+                  backgroundColor: isDarkMode ? "#444" : "#fff",
+                  color: isDarkMode ? "#ccc" : "#000",
                   height: 150,
                 }}
                 className="c2"
@@ -342,7 +381,10 @@ export function Matching() {
                   <Typography variant="h5" component="div">
                     企業検索
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                  >
                     求める企業を詳細に絞り込み、検索ができます。
                   </Typography>
                 </CardContent>
@@ -382,6 +424,8 @@ export function Matching() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   position: "relative",
+                  backgroundColor: isDarkMode ? "#444" : "#fff",
+                  color: isDarkMode ? "#ccc" : "#000",
                   height: 150,
                 }}
                 className="c2"
@@ -390,7 +434,10 @@ export function Matching() {
                   <Typography variant="h5" component="div">
                     企業ブログ
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                  >
                     企業の雰囲気など、知られざる一面や役立つ情報を見ることができます。
                   </Typography>
                 </CardContent>
@@ -430,6 +477,8 @@ export function Matching() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   position: "relative",
+                  backgroundColor: isDarkMode ? "#444" : "#fff",
+                  color: isDarkMode ? "#ccc" : "#000",
                   height: 150,
                 }}
                 className="c3"
@@ -438,7 +487,10 @@ export function Matching() {
                   <Typography variant="h5" component="div">
                     AI
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                  >
                     AIを使用しておすすめの企業を提案します。
                   </Typography>
                 </CardContent>

@@ -25,6 +25,7 @@ import DrawerContents from "../Component/DrawerContents";
 import MainContents from "../Component/MainContents";
 import { theme } from "../../const/theme";
 import { styled, ThemeProvider } from "@mui/material/styles";
+import { ThemeContext } from "../../provider/ThemeContext";
 const menuItems = [
   //メニューに追加したいものをここにかく
   //表示テキスト アイコン リンク の指定
@@ -63,6 +64,7 @@ const menuItems = [
 ];
 
 export function Matchdo() {
+  const { isDarkMode } = useContext(ThemeContext);
   const { jobData } = useContext(JobContext);
   const [showAlert, setShowAlert] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -143,14 +145,28 @@ export function Matchdo() {
                   display="flex"
                   justifyContent="space-between"
                   mt={5}
+                  sx={{}}
                 >
-                  <Paper elevation={3} className="paper-item">
+                  <Paper
+                    elevation={3}
+                    className="paper-item"
+                    sx={{
+                      backgroundColor: isDarkMode ? "#444" : "#fff",
+                    }}
+                  >
                     <Box p={3}>
                       <JobForm onSave={handleSave} initialData={jobData} />
                     </Box>
                   </Paper>
                   {jobData && (
-                    <Paper elevation={3} className="paper-item">
+                    <Paper
+                      elevation={3}
+                      className="paper-item"
+                      sx={{
+                        backgroundColor: isDarkMode ? "#444" : "#fff",
+                        color: isDarkMode ? "#ccc" : "#000",
+                      }}
+                    >
                       <Box mt={4} p={3} border={1} borderRadius={2}>
                         <Grid container spacing={0}>
                           <Grid item xs={3} ms={2.5}>
@@ -212,10 +228,15 @@ export function Matchdo() {
                             horizontal: "center",
                           }}
                         >
-                          <Typography sx={{ p: 2 }}>
-                            <Box sx={{ fontWeight: "bold" }}>
-                              マッチ度の計算内容
-                            </Box>
+                          <Typography
+                            sx={{
+                              p: 2,
+                              fontWeight: "bold",
+                              backgroundColor: isDarkMode ? "#444" : "#fff",
+                              color: isDarkMode ? "#eee" : "#000",
+                            }}
+                          >
+                            <Box>マッチ度の計算内容</Box>
                             <br />
                             学科情報、特長、資格は一個で＋１００加点され、勤務地は＋１５０加点されます。
                             <br />

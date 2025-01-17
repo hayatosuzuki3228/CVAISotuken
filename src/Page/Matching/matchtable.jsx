@@ -49,6 +49,7 @@ import DrawerContents from "../Component/DrawerContents";
 import MainContents from "../Component/MainContents";
 import { theme } from "../../const/theme";
 import { styled, ThemeProvider } from "@mui/material/styles";
+import { ThemeContext } from "../../provider/ThemeContext";
 
 const menuItems = [
   //メニューに追加したいものをここにかく
@@ -317,6 +318,7 @@ Row.propTypes = {
 };
 
 export function Matchtable() {
+  const { isDarkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [detailSearchTerm, setDetailSearchTerm] = useState("");
@@ -510,7 +512,10 @@ export function Matchtable() {
             value={searchTerm}
             onChange={handleSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
+            sx={{
+              marginBottom: "1rem",
+              backgroundColor: isDarkMode ? "101010" : "#f6f6f6",
+            }}
             className="search"
           />
           <TextField
@@ -518,7 +523,10 @@ export function Matchtable() {
             value={detailSearchTerm}
             onChange={handleDetailSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
+            sx={{
+              marginBottom: "1rem",
+              backgroundColor: isDarkMode ? "101010" : "#f6f6f6",
+            }}
             className="detailSearch"
           />
         </Box>
@@ -535,7 +543,10 @@ export function Matchtable() {
             value={matchScoreTerm}
             onChange={handleMatchScoreSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem", backgroundColor: "#f6f6f6" }}
+            sx={{
+              marginBottom: "1rem",
+              backgroundColor: isDarkMode ? "101010" : "#f6f6f6",
+            }}
             className="matchScoreSearch"
           />
           <FormControlLabel

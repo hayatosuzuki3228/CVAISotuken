@@ -48,6 +48,7 @@ import DrawerContents from "../Component/DrawerContents";
 import MainContents from "../Component/MainContents";
 import { theme } from "../../const/theme";
 import { styled, ThemeProvider } from "@mui/material/styles";
+import { ThemeContext } from "../../provider/ThemeContext";
 const menuItems = [
   //メニューに追加したいものをここにかく
   //表示テキスト アイコン リンク の指定
@@ -91,6 +92,7 @@ const menuItems = [
   },
 ];
 export function Companysearch() {
+  const { isDarkMode } = useContext(ThemeContext);
   const { setproviderid } = useContext(MyContext);
   const { bookmarks, addBookmark } = useContext(BookmarkContext);
   const [openDialog, setOpenDialog] = useState(false);
@@ -269,6 +271,15 @@ export function Companysearch() {
               fullWidth
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              sx={{
+                "& .MuiInputLabel-root": {
+                  color: isDarkMode ? "#ddd" : "#666", // ラベルのカラー
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                },
+                backgroundColor: isDarkMode ? "#222" : "#fff",
+              }}
             />
           </Grid>
           {/* 事業内容検索 */}
@@ -279,22 +290,43 @@ export function Companysearch() {
               fullWidth
               value={descriptionTerm}
               onChange={(e) => setDescriptionTerm(e.target.value)}
+              sx={{
+                "& .MuiInputLabel-root": {
+                  color: isDarkMode ? "#ddd" : "#666", // ラベルのカラー
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                },
+                backgroundColor: isDarkMode ? "#222" : "#fff",
+              }}
             />
           </Grid>
           {/* 業界フィルター */}
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>業界</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                業界
+              </InputLabel>
               <Select
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
                 value={industryFilter}
                 onChange={(e) => setIndustryFilter(e.target.value)}
                 label="業界"
               >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
                 {industries.map((industry) => (
-                  <MenuItem key={industry.value} value={industry.value}>
+                  <MenuItem
+                    sx={{
+                      backgroundColor: isDarkMode ? "#222" : "#fff",
+                      color: isDarkMode ? "#ddd" : "#666",
+                    }}
+                    key={industry.value}
+                    value={industry.value}
+                  >
                     {industry.label}
                   </MenuItem>
                 ))}
@@ -304,11 +336,19 @@ export function Companysearch() {
           {/* 職種フィルター */}
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>職種</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                職種
+              </InputLabel>
               <Select
                 value={jobTypeFilter}
                 onChange={(e) => setJobTypeFilter(e.target.value)}
                 label="職種"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -324,11 +364,19 @@ export function Companysearch() {
           {/* 勤務地フィルター */}
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>勤務地</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                勤務地
+              </InputLabel>
               <Select
                 value={locationFilter}
                 onChange={(e) => setLocationFilter(e.target.value)}
                 label="勤務地"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -344,11 +392,19 @@ export function Companysearch() {
           {/* 従業員規模フィルター */}
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>従業員規模</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                従業員規模
+              </InputLabel>
               <Select
                 value={sizeFilter}
                 onChange={(e) => setSizeFilter(e.target.value)}
                 label="従業員規模"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -363,11 +419,19 @@ export function Companysearch() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>年間休日</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                年間休日
+              </InputLabel>
               <Select
                 value={holidayFilter}
                 onChange={(e) => setHolidayFilter(e.target.value)}
                 label="年間休日"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -383,11 +447,19 @@ export function Companysearch() {
 
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>平均残業時間</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                平均残業時間
+              </InputLabel>
               <Select
                 value={overtimeFilter}
                 onChange={(e) => setOvertimeFilter(e.target.value)}
                 label="平均残業時間"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -403,11 +475,19 @@ export function Companysearch() {
 
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>休日制度</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                休日制度
+              </InputLabel>
               <Select
                 value={holidaysysFilter}
                 onChange={(e) => setHolidaysysFilter(e.target.value)}
                 label="休日制度"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -424,11 +504,19 @@ export function Companysearch() {
           {/* 最低月給フィルター */}
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>最低月給</InputLabel>
+              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
+                最低月給
+              </InputLabel>
               <Select
                 value={salaryFilter}
                 onChange={(e) => setSalaryFilter(e.target.value)}
                 label="最低月給"
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                  },
+                  backgroundColor: isDarkMode ? "#222" : "#fff",
+                }}
               >
                 <MenuItem value="">
                   <em>すべて</em>
@@ -460,7 +548,13 @@ export function Companysearch() {
           {filteredCompanies.length > 0 ? (
             filteredCompanies.map((company) => (
               <Grid item xs={12} sm={6} md={4} key={company.id}>
-                <Card onClick={() => handleCompanyChange(company.id)}>
+                <Card
+                  onClick={() => handleCompanyChange(company.id)}
+                  sx={{
+                    backgroundColor: isDarkMode ? "#444" : "#fff",
+                    color: isDarkMode ? "#ccc" : "#000",
+                  }}
+                >
                   <CardContent>
                     <Grid
                       container
@@ -484,19 +578,29 @@ export function Companysearch() {
                         </Fab>
                       </Grid>
                     </Grid>
-                    <Typography color="textSecondary">
+                    <Typography
+                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    >
                       業界：{company.category}
                     </Typography>
-                    <Typography color="textSecondary">
+                    <Typography
+                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    >
                       勤務地：{company.work_location}
                     </Typography>
-                    <Typography color="textSecondary">
+                    <Typography
+                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    >
                       {company.area}
                     </Typography>
-                    <Typography color="textSecondary">
+                    <Typography
+                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    >
                       従業員規模： {company.number_of_employees}
                     </Typography>
-                    <Typography color="textSecondary">
+                    <Typography
+                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    >
                       事業内容:{" "}
                       {company.detail.length > 50
                         ? `${company.detail.substring(0, 50)}...`
