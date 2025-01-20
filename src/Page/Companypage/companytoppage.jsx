@@ -60,8 +60,16 @@ export function Companytoppage() {
           text: "発行したお知らせのインプレッション",
           path: "/Viewimpression",
         },
-        { date: "2024/12/25", text: "重要なお知らせがあります" },
-        { date: "2024/12/20", text: "メンテナンスのお知らせ" },
+        {
+          date: "2024/12/25",
+          text: "重要なお知らせがあります",
+          main: "1月以降25卒への求人が出せなくなるのでご承知ください",
+        },
+        {
+          date: "2024/12/20",
+          text: "メンテナンスのお知らせ",
+          main: "2月2日16時～17時でサーバーメンテナンスの為ご利用が出来なくなります",
+        },
       ];
     });
   }, []);
@@ -92,8 +100,12 @@ export function Companytoppage() {
     setCurrentPage(page);
   };
 
-  const handleNoticeClick = (path) => {
-    navigate(path);
+  const handleNoticeClick = (path, text, main) => {
+    if (path != undefined) {
+      navigate(path);
+    } else {
+      window.alert(text + "\n" + main);
+    }
   };
 
   const displayedNotices = notices.slice(
@@ -190,7 +202,9 @@ export function Companytoppage() {
                         backgroundColor: "#f5f5f5",
                       },
                     }}
-                    onClick={() => handleNoticeClick(notice.path)}
+                    onClick={() =>
+                      handleNoticeClick(notice.path, notice.text, notice.main)
+                    }
                   >
                     <Typography variant="h4" color="#696969">
                       {notice.date} - {notice.text}
