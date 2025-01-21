@@ -1,6 +1,6 @@
 export async function postData(endpoint, data) {
   try {
-    const response = await fetch(`http://localhost:8000/${endpoint}`, {
+    const response = await fetch(`/api/${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -10,6 +10,7 @@ export async function postData(endpoint, data) {
     });
 
     if (!response.ok) {
+      // サーバーからのエラーメッセージを取得
       const errorData = await response.json();
       throw new Error(errorData.message || "サーバーエラーが発生しました");
     }

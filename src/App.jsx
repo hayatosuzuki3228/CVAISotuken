@@ -33,6 +33,8 @@ import { Matchdo } from "./Page/Matching/matchdo.jsx";
 import { Bookmark } from "./Page/bookmark";
 import TestPage from "./Page/TestPage.jsx";
 import { BookmarkProvider } from "./provider/booktext";
+import { Admin } from "./Page/admin/admin.jsx";
+import { Addadmin } from "./Page/NewUser/addadmin.jsx";
 import { SearchProvider } from "./provider/SearchContext";
 import { BlogProvider } from "./provider/blogcontext";
 import { ErrorResponse } from "./sever/ErrorResponse.jsx";

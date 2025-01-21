@@ -1,30 +1,19 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Stack, Button, Box, TextField, Typography } from "@mui/material";
 import { primarycolor } from "../../const/color";
+import { postData } from "../../sever/api";
 import "normalize.css";
 
-export function Addstudent() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const initialEmail = location.state?.email || "";
-  const initialPass = location.state?.pass || "";
+export function Addadmin() {
+  useEffect(() => {
+    document.title = "管理者アカウント新規登録";
+  }, []);
 
-  const {
-    namae,
-    kanamae,
-    gender,
-    birthday,
-    area,
-    sikaku,
-    gakka,
-    sotu,
-    switchpage,
-    hope,
-  } = location.state || {};
-  const [email, setemail] = useState(initialEmail);
+  const navigate = useNavigate();
+  const [email, setemail] = useState("");
   const [remail, setremail] = useState("");
-  const [pass, setpass] = useState(initialPass);
+  const [pass, setpass] = useState("");
   const [rpass, setrpass] = useState("");
 
   const [error, setError] = useState(false);
@@ -39,22 +28,10 @@ export function Addstudent() {
       /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
     const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
     if (emailRegex.test(email) && passRegex.test(pass)) {
-      return navigate("/adduser", {
-        state: {
-          email,
-          pass,
-          namae,
-          kanamae,
-          gender,
-          birthday,
-          area,
-          sikaku,
-          gakka,
-          sotu,
-          switchpage,
-          hope,
-        },
-      });
+      //管理者アカウント作成
+      console.log([email, pass]);
+      postData("registration/admin", { email: email, password: pass });
+      navigate("/Admin");
     } else {
       {
         !emailRegex.test(email) && !passRegex.test(pass)
@@ -71,10 +48,7 @@ export function Addstudent() {
     }
   };
   const onClick1 = () => {
-    return navigate("/LoginPage");
-  };
-  const onClick2 = () => {
-    return navigate("/Admin");
+    navigate("/admin");
   };
   const enabledButtonStyle = { color: primarycolor };
   const disabledButtonStyle = { color: "#b0b0b0" };
@@ -150,28 +124,9 @@ export function Addstudent() {
             color: primarycolor,
           }}
         >
-          新規登録
+          管理者アカウント登録
         </Typography>
         <p></p>
-        <Stack
-          direction="row"
-          spacing={4}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Box
-            fontSize={20}
-            sx={{ borderBottom: "2px solid ", borderBottomColor: primarycolor }}
-          >
-            ID・PS
-          </Box>
-          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
-            利用者情報
-          </Box>
-          <Box fontSize={20} sx={{ borderBottom: "1px solid #D3D3D3" }}>
-            学科情報
-          </Box>
-        </Stack>
         <Stack justifyContent="center" alignItems="center" padding={1}>
           <Box width={350}>
             <div>
@@ -297,25 +252,14 @@ export function Addstudent() {
       </Box>
       <Stack direction="row" spacing={20} justifyContent="center">
         <Box textAlign="left">
-          {switchpage == 1 ? (
-            <Button
-              style={{
-                color: primarycolor,
-              }}
-              onClick={onClick2}
-            >
-              管理者画面へ
-            </Button>
-          ) : (
-            <Button
-              style={{
-                color: primarycolor,
-              }}
-              onClick={onClick1}
-            >
-              ログイン画面へ
-            </Button>
-          )}
+          <Button
+            style={{
+              color: primarycolor,
+            }}
+            onClick={onClick1}
+          >
+            管理者画面へ
+          </Button>
         </Box>
         <Box textAlign="right">
           <Button
@@ -343,7 +287,7 @@ export function Addstudent() {
             }
             onClick={onClick}
           >
-            次へ
+            登録
           </Button>
         </Box>
       </Stack>

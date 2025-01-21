@@ -111,6 +111,7 @@ export function Toppage() {
     },
   ];
 
+
   //#region お知らせデータ
   const careerNotice = [
     {

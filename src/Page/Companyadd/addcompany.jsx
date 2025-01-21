@@ -174,7 +174,6 @@ export function Addcompany() {
     });
 
     const numericValue = inputValue.replace(/[^0-9]/g, "");
-    setValue(numericValue);
 
     const formattedValue = addCommas(numericValue);
 

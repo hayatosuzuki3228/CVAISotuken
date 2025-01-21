@@ -13,6 +13,7 @@ import { primarycolor, gray } from "../../const/color";
 
 export function Lostpass() {
   const [address, setAddress] = useState("");
+  const [address2, setAddress2] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,6 +23,9 @@ export function Lostpass() {
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
+  };
+  const handleAddressChange2 = (event) => {
+    setAddress2(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -99,8 +103,8 @@ export function Lostpass() {
               name="address"
               autoComplete="username"
               autoFocus
-              value={address}
-              onChange={handleAddressChange}
+              value={address2}
+              onChange={handleAddressChange2}
               InputLabelProps={{
                 sx: {
                   color: gray,
