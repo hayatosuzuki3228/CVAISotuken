@@ -16,52 +16,15 @@ import {
   Typography,
 } from "@mui/material";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-import MenuIcon from "@mui/icons-material/Menu";
 import BusinessIcon from "@mui/icons-material/Business";
 import PersonIcon from "@mui/icons-material/Person";
 import MuiAppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
+import AppBarContents from "../Component/AppBarContents";
+import DrawerContents from "../Component/DrawerContents";
+import MainContents from "../Component/MainContents";
 import "normalize.css";
 import MyContext from "../../provider/provider";
 import { primarycolor, gray } from "../../const/color";
-const drawerWidth = 240;
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  })
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  zIndex: open ? 100 : 1,
-  ...(open && {
-    width: `100%`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -76,6 +39,11 @@ const menuItems = [
     text: "トップページ",
     icon: <BusinessIcon />,
     link: "/",
+  },
+  {
+    text: "企業プロフィール",
+    icon: <BusinessIcon />,
+    link: "/profile-st-com",
   },
   { text: "プロフィール編集", icon: <PersonIcon />, link: "/profile-st-edit" },
 ];
@@ -186,85 +154,29 @@ export function SProfile() {
   };
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: "flex" }}>
-          <CssBaseline />
-          <AppBar
-            position="fixed"
-            open={open}
-            sx={{
-              zIndex: (theme) => theme.zIndex.drawer + 1,
-              backgroundColor: primarycolor,
-            }}
-          >
-            <Toolbar sx={{ justifyContent: "space-between" }}>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={toggleDrawer}
-                  edge="start"
-                  sx={{ mr: 2 }}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Box />
-                <Typography variant="h6" noWrap component="div">
-                  名産会マッチングシステム／プロフィール
-                </Typography>
-              </Box>
-              <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-                ログイン
-              </Button>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              "& .MuiDrawer-paper": {
-                width: drawerWidth,
-                boxSizing: "border-box",
-                boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={open}
-          >
-            <DrawerHeader />
-            <Divider />
-            <List>
-              {menuItems.map((item, index) => (
-                <React.Fragment key={index}>
-                  <ListItem disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        handleItemClick(item.link, item.isNavigate)
-                      }
-                    >
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.text} />
-                    </ListItemButton>
-                  </ListItem>
-                  {index === 2 && (
-                    <Box my={1}>
-                      <Divider />
-                    </Box>
-                  )}
-                </React.Fragment>
-              ))}
-            </List>
-          </Drawer>
-          <Main
-            open={open} // #region MainContent
-          >
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
+          <AppBarContents
+            apptitle={"名産会マッチングシステム"}
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
+            sx={{ backgroundColor: "gray" }}
+          />
+
+          <DrawerContents
+            open={drawerOpen}
+            menuItems={menuItems}
+            handleItemClick={handleItemClick}
+          />
+
+          <MainContents open={drawerOpen}>
             <DrawerHeader />
             <Stack
               alignItems="center"
@@ -437,10 +349,9 @@ export function SProfile() {
                 </Button>
               </Box>
             </Stack>
-          </Main>
+          </MainContents>
         </Box>
       </ThemeProvider>
-      <br />
     </>
   );
 }

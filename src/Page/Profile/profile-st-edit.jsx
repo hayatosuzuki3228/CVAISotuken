@@ -127,6 +127,8 @@ export function SEdit() {
   const [ManError, setManError] = useState("");
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [BackColor, setBackColor] = useState("white");
+
   const navigate = useNavigate();
 
   const handleOpenDialog = () => {
@@ -280,7 +282,6 @@ export function SEdit() {
   }));
 
   const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
-  const Title = useState("名産会マッチングシステムっす");
 
   const handleItemClick = (link, isNavigate) => {
     if (isNavigate) {
@@ -295,7 +296,7 @@ export function SEdit() {
       <ThemeProvider theme={theme}>
         <Box sx={{ display: "flex" }}>
           <AppBarContents
-            apptitle={"名産会マッチングシステムっす"}
+            apptitle={"名産会マッチングシステム"}
             open={drawerOpen}
             setOpen={setDrawerOpen}
           />
@@ -635,8 +636,6 @@ export function SEdit() {
           </MainContents>
         </Box>
       </ThemeProvider>
-      <br />
-      <br />
     </>
   );
 }
