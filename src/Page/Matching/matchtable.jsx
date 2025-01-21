@@ -127,34 +127,34 @@ function calculateMatchScore(company, jobData) {
   let locationmax = false;
   selectedLocations.forEach((location) => {
     if (!locationmax) {
-      total += 150;
+      total += 15;
       locationmax = true;
     }
     if (company.work_location.includes(location) && !locationMatched) {
-      score += 150; // 一度だけ加算
+      score += 15; // 一度だけ加算
       locationMatched = true; // 加算フラグをオンにする
     }
   });
   // 特長の比較
   jobData.features.forEach((feature) => {
-    total += 100;
+    total += 10;
     if (company.ideal_candidate_profile.includes(feature)) score += 100;
   });
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
-    total += 100;
+    total += 10;
 
     if (company.qualification.includes(qualification)) score += 100;
   });
   // 募集学科情報の比較
   if (jobData.department != null && jobData.department.trim() !== "") {
-    total += 100;
+    total += 10;
     if (
       company.recruitment_grade &&
       jobData.department &&
       company.recruitment_grade.includes(jobData.department)
     ) {
-      score += 100;
+      score += 10;
     } else {
       score = 0; // 募集学科情報が一致しなかったらスコアを0にして返す
     }
