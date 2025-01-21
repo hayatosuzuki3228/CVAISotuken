@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { JobContext } from "../../provider/context";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -27,17 +28,71 @@ import {
   TablePagination,
   FormControlLabel,
   Switch,
-  Divider,
 } from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@mui/icons-material";
-import UndoIcon from "@mui/icons-material/Undo";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import companies from "../../const/companies.js";
 import { BookmarkContext } from "../../provider/booktext"; // BookmarkContextのインポート
 import MyContext from "../../provider/provider";
+import "normalize.css";
+import AppBarContents from "../Component/AppBarContents";
+import DrawerContents from "../Component/DrawerContents";
+import MainContents from "../Component/MainContents";
+import { theme } from "../../const/theme";
+import { styled, ThemeProvider } from "@mui/material/styles";
+import { ThemeContext } from "../../provider/ThemeContext";
+
+const menuItems = [
+  //メニューに追加したいものをここにかく
+  //表示テキスト アイコン リンク の指定
+  {
+    text: "マッチング",
+    icon: <ContentPasteSearchIcon />,
+    link: "/Matching",
+    isNavigate: true,
+  },
+
+  {
+    text: "マッチ度",
+    icon: <FavoriteBorderIcon />,
+    link: "/Matchdo",
+    isNavigate: true,
+  },
+  {
+    text: "ブックマーク",
+    icon: <ImportContactsIcon />,
+    link: "/bookmark",
+    isNavigate: true,
+  },
+  {
+    text: "プロフィール",
+    icon: <PersonIcon />,
+    link: "/profile-st",
+    isNavigate: true,
+  },
+
+  {
+    text: "ホーム",
+    icon: <HomeIcon />,
+    link: "/",
+    isNavigate: true,
+  },
+  {
+    text: "設定",
+    icon: <SettingsIcon />,
+    link: "/Setting",
+    isNavigate: true,
+  },
+];
 
 function convertCompanyData(company, jobData) {
   const matchScore = calculateMatchScore(company, jobData);
@@ -65,14 +120,6 @@ function convertCompanyData(company, jobData) {
 function calculateMatchScore(company, jobData) {
   let score = 0;
   let total = 0;
-  if (jobData.qualification != null || jobData.qualification != "") {
-    if (
-      (company.qualification != "不問" &&
-        company.qualification == jobData.qualification) ||
-      company.qualification == "不問"
-    ) {
-    }
-  } //必須資格があった場合必須資格が一致してなかったら0として返す処理。これを各total処理をした直後にそれぞれ入れる。空白の場合は無視する。
 
   // 勤務地の比較
   const selectedLocations = jobData.location;
@@ -80,34 +127,34 @@ function calculateMatchScore(company, jobData) {
   let locationmax = false;
   selectedLocations.forEach((location) => {
     if (!locationmax) {
-      total += 15;
+      total += 150;
       locationmax = true;
     }
     if (company.work_location.includes(location) && !locationMatched) {
-      score += 15; // 一度だけ加算
+      score += 150; // 一度だけ加算
       locationMatched = true; // 加算フラグをオンにする
     }
   });
   // 特長の比較
   jobData.features.forEach((feature) => {
-    total += 10;
-    if (company.ideal_candidate_profile.includes(feature)) score += 10;
+    total += 100;
+    if (company.ideal_candidate_profile.includes(feature)) score += 100;
   });
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
-    total += 10;
+    total += 100;
 
-    if (company.qualification.includes(qualification)) score += 10;
+    if (company.qualification.includes(qualification)) score += 100;
   });
   // 募集学科情報の比較
   if (jobData.department != null && jobData.department.trim() !== "") {
-    total += 10;
+    total += 100;
     if (
       company.recruitment_grade &&
       jobData.department &&
       company.recruitment_grade.includes(jobData.department)
     ) {
-      score += 10;
+      score += 100;
     } else {
       score = 0; // 募集学科情報が一致しなかったらスコアを0にして返す
     }
@@ -121,6 +168,7 @@ function calculateMatchScore(company, jobData) {
 }
 
 function Row(props) {
+  const { isDarkMode } = useContext(ThemeContext);
   const { row, showDetail, onFavoriteToggle } = props;
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -135,15 +183,15 @@ function Row(props) {
   };
 
   const getMatchdoCellStyle = (matchdo, max) => {
-    if (matchdo >= 40) {
+    if (matchdo >= 400) {
       return { color: "red" };
     }
-    if (matchdo >= 30) {
-      return { color: "green" };
-    } else if (matchdo >= 10) {
+    if (matchdo >= 300) {
       return { color: "orange" };
+    } else if (matchdo >= 100) {
+      return { color: "green" };
     } else {
-      return { color: "black" };
+      return { color: isDarkMode ? "white" : "black" };
     }
   };
 
@@ -184,7 +232,7 @@ function Row(props) {
           {row.matchdo}P/{row.max}P
         </TableCell>
         <TableCell>
-          <IconButton onClick={() => onFavoriteToggle(row.id)}>
+          <IconButton id="bookmarkbu" onClick={() => onFavoriteToggle(row.id)}>
             <BookmarksIcon />
           </IconButton>
         </TableCell>
@@ -271,6 +319,7 @@ Row.propTypes = {
 };
 
 export function Matchtable() {
+  const { isDarkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [detailSearchTerm, setDetailSearchTerm] = useState("");
@@ -285,6 +334,28 @@ export function Matchtable() {
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
+
+  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
+
+  const handleItemClick = (link, isNavigate) => {
+    if (isNavigate) {
+      navigate(link);
+    } else if (link) {
+      window.location.href = link;
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -343,12 +414,13 @@ export function Matchtable() {
     setDialogOpen(false);
 
     // ダイアログメッセージに応じてアクションを実行
-    if (confirm) {
+    if (confirm == true) {
       if (favorites[selectedId]) {
         // 既に追加されている場合は何もしない
         return;
       } else {
         // まだ追加されていない場合は追加
+        console.log("bookmarkID:", bookmarks);
         addBookmark(Number(selectedId));
         setFavorites((prevFavorites) => ({
           ...prevFavorites,
@@ -374,20 +446,40 @@ export function Matchtable() {
     setPage(0);
   };
 
-  const displayedRows = filteredRows.slice(
+  const paginatedCompanies = filteredRows.slice(
     page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
+    (page + 1) * rowsPerPage
   );
+
   const toggleDetail = () => {
     setShowDetail((prevShowDetail) => !prevShowDetail);
   };
 
   return (
-    <>
+    <div>
+      <ThemeProvider theme={theme}>
+        <Box sx={{ display: "flex" }}>
+          <AppBarContents
+            apptitle={"マッチ度表"}
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
+          />
+
+          <DrawerContents
+            open={drawerOpen}
+            menuItems={menuItems}
+            handleItemClick={handleItemClick}
+          />
+
+          <MainContents open={drawerOpen}>
+            <DrawerHeader />
+          </MainContents>
+        </Box>
+      </ThemeProvider>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "flex-start",
           gap: "1rem",
           marginTop: "1rem",
         }}
@@ -398,15 +490,6 @@ export function Matchtable() {
           onClick={() => navigate("/matchdo")}
         >
           マッチ度設定
-        </Button>
-        <Button
-          className="back"
-          variant="text"
-          color="secondary"
-          onClick={() => navigate("/matching")}
-          startIcon={<UndoIcon />}
-        >
-          戻る
         </Button>
       </Box>
       <Box
@@ -430,7 +513,10 @@ export function Matchtable() {
             value={searchTerm}
             onChange={handleSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem" }}
+            sx={{
+              marginBottom: "1rem",
+              backgroundColor: isDarkMode ? "101010" : "#f6f6f6",
+            }}
             className="search"
           />
           <TextField
@@ -438,7 +524,10 @@ export function Matchtable() {
             value={detailSearchTerm}
             onChange={handleDetailSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem" }}
+            sx={{
+              marginBottom: "1rem",
+              backgroundColor: isDarkMode ? "101010" : "#f6f6f6",
+            }}
             className="detailSearch"
           />
         </Box>
@@ -455,19 +544,26 @@ export function Matchtable() {
             value={matchScoreTerm}
             onChange={handleMatchScoreSearch}
             variant="outlined"
-            sx={{ marginBottom: "1rem" }}
+            sx={{
+              marginBottom: "1rem",
+              backgroundColor: isDarkMode ? "101010" : "#f6f6f6",
+            }}
             className="matchScoreSearch"
           />
           <FormControlLabel
-            control={<Switch />}
+            control={
+              <Switch
+                id="mySwitchId"
+                checked={checked}
+                onChange={handleChange}
+              />
+            }
             label="事業内容"
             onClick={toggleDetail}
             className="detailbu"
           />
         </Box>
       </Box>
-
-      <Divider sx={{ my: 5, borderWidth: "1px" }} />
 
       <TableContainer
         component={Paper}
@@ -489,7 +585,7 @@ export function Matchtable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {displayedRows.map((row) => (
+            {paginatedCompanies.map((row) => (
               <Row
                 key={row.id}
                 row={row}
@@ -512,7 +608,11 @@ export function Matchtable() {
         />
       </TableContainer>
 
-      <Dialog open={dialogOpen} onClose={() => handleDialogClose(false)}>
+      <Dialog
+        id="bookmarkdia"
+        open={dialogOpen}
+        onClose={() => handleDialogClose(false)}
+      >
         <DialogTitle>確認</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -520,7 +620,11 @@ export function Matchtable() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleDialogClose(false)} color="primary">
+          <Button
+            name="cancel"
+            onClick={() => handleDialogClose(false)}
+            color="primary"
+          >
             キャンセル
           </Button>
           <Button
@@ -542,7 +646,7 @@ export function Matchtable() {
           <KeyboardArrowUpIcon />
         </Fab>
       )}
-      <head>
+      <Helmet>
         <link
           href="matchtable.css"
           rel="stylesheet"
@@ -550,8 +654,8 @@ export function Matchtable() {
           media="all"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-    </>
+      </Helmet>
+    </div>
   );
 }
 

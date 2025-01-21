@@ -91,7 +91,16 @@ function BlogDetail() {
       </Grid>
       <Divider sx={{ my: 2, borderWidth: "1px" }} />
       <Box
-        sx={{ paddingInline: "50px", marginBottom: "5%" }}
+        sx={{
+          "& img": {
+            maxWidth: "100%", // 画像の幅を親要素に合わせる
+            height: "auto", // アスペクト比を保持
+            objectFit: "contain", // 画像全体を収める
+            margin: "10px 0", // 画像上下の余白
+          },
+          paddingInline: "50px",
+          marginBottom: "5%",
+        }}
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
       <Box
@@ -99,7 +108,6 @@ function BlogDetail() {
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-end",
-
           marginRight: "10px",
         }}
       >
