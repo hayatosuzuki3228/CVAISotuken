@@ -337,7 +337,7 @@ export function Matchtable() {
   const [selectedId, setSelectedId] = useState(null);
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(100)
+  const [rowsPerPage, setRowsPerPage] = useState(100);
   const [sortOrder, setSortOrder] = useState("desc");
   const [checked, setChecked] = useState(false);
 
@@ -614,7 +614,7 @@ export function Matchtable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCompanies.map((row) => (
+            {sortedRows.map((row) => (
               <Row
                 key={row.id}
                 row={row}
