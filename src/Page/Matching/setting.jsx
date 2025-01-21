@@ -31,7 +31,7 @@ export function Setting() {
       case "画面設定":
         return (
           <div>
-            <h1>設定</h1>
+            <h1>画面設定</h1>
             <FormControlLabel
               control={
                 <Switch checked={isDarkMode} onChange={toggleDarkMode} />

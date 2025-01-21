@@ -176,6 +176,34 @@ export function Matching() {
                     getOptionLabel={(option) => option.label}
                     onChange={handleCompanyChange}
                     noOptionsText="企業候補がありません。"
+                    renderOption={(props, option) => (
+                      <li
+                        {...props}
+                        style={{
+                          backgroundColor: isDarkMode ? "#101010" : "#fff", // 候補リストの背景色
+                          color: isDarkMode ? "#ddd" : "#333", // 候補の文字色
+                          padding: "8px 16px", // 候補のパディング
+                          cursor: "pointer", // カーソルをポインタに設定
+                        }}
+                      >
+                        {option.label}
+                      </li>
+                    )}
+                    ListboxProps={{
+                      sx: {
+                        backgroundColor: isDarkMode ? "#333" : "#fff", // リスト全体の背景色
+                        "&::-webkit-scrollbar": {
+                          width: "8px", // スクロールバーの幅
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          backgroundColor: isDarkMode ? "#555" : "#ccc", // スクロールバーの色
+                          borderRadius: "4px", // スクロールバーの角丸
+                        },
+                        "&::-webkit-scrollbar-track": {
+                          backgroundColor: isDarkMode ? "#222" : "#f5f5f5", // トラックの背景色
+                        },
+                      },
+                    }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -188,6 +216,9 @@ export function Matching() {
                           },
                           "& .MuiOutlinedInput-notchedOutline": {
                             borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
+                          },
+                          "& .MuiInputBase-input": {
+                            color: isDarkMode ? "#ddd" : "#333", // 入力文字の色
                           },
                         }}
                       />

@@ -169,14 +169,14 @@ export function Matchdo() {
                     >
                       <Box mt={4} p={3} border={1} borderRadius={2}>
                         <Grid container spacing={0}>
-                          <Grid item xs={3} ms={2.5}>
+                          <Grid item xs={3} md={2}>
                             <Typography>学科情報：</Typography>
                           </Grid>
                           <Grid item xs={9}>
                             <Typography>{jobData.department}</Typography>
                           </Grid>
 
-                          <Grid item xs={3} ms={2.5}>
+                          <Grid item xs={3} md={2}>
                             <Typography>勤務地　：</Typography>
                           </Grid>
                           <Grid item xs={9}>
@@ -185,7 +185,7 @@ export function Matchdo() {
                             </Typography>
                           </Grid>
 
-                          <Grid item xs={3} ms={2.5}>
+                          <Grid item xs={3} md={2}>
                             <Typography>特長　　：</Typography>
                           </Grid>
                           <Grid item xs={9}>
@@ -194,7 +194,7 @@ export function Matchdo() {
                             </Typography>
                           </Grid>
 
-                          <Grid item xs={3} ms={2.5}>
+                          <Grid item xs={3} md={2}>
                             <Typography>資格　　：</Typography>
                           </Grid>
                           <Grid item xs={9}>
