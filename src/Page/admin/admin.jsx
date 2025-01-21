@@ -11,13 +11,14 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { TablePagination } from "@mui/material";
+import { TablePagination, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { gray, primarycolor } from "../../const/color";
 //import data1 from "../../const/data.json";
 //import companies from "../../const/companies";
 import { postData } from "../../sever/api";
+import Cookies from "js-cookie";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -196,20 +197,19 @@ export function Admin() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const Clicklogin = async (data) => {
-    if (isLoggingIn) return; // ログイン中なら何もしない
+    if (isLoggingIn) return;
     setIsLoggingIn(true);
-
     try {
       const result = await postData("authentication/admin", data);
 
       if (result.message == "認証が成功しました") {
         console.log("ログイン成功:", result);
-        window.location.reload(); // リロードして状態をリセット
+        setIsLoggingIn(false);
+        window.location.reload();
       } else {
         console.error("ログイン失敗:", result.message);
+        setIsLoggingIn(false);
       }
-    } catch (error) {
-      console.error("エラーが発生しました:", error);
     } finally {
       setIsLoggingIn(false);
     }
@@ -232,6 +232,22 @@ export function Admin() {
   //企業アカウント作成
   const onClick2 = () => {
     navigate("/Addcompany");
+  };
+  //学生アカウント一括で無効化
+  const onClick3 = (data) => {
+    console.log(data);
+    postData("admin/student/batch/deactivate", { classId: data });
+  };
+  //学生アカウント一括で有効化
+  const onClick4 = (data) => {
+    postData("admin/student/batch/activate", { classId: data });
+  };
+
+  const [setclassId, setSetclassId] = useState("");
+
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    setSetclassId(newValue);
   };
 
   const theme = createTheme({
@@ -301,7 +317,7 @@ export function Admin() {
                 }
                 disabled={isLoggingIn} // ログイン中はボタンを無効化
               >
-                {isLoggingIn ? "ログイン中..." : "ログイン"}
+                {isLoggingIn ? "ログイン処理中..." : "ログイン"}
               </Button>
             </Box>
           </Toolbar>
@@ -402,6 +418,26 @@ export function Admin() {
               rowsPerPageOptions={[50, 100, 200]}
               labelRowsPerPage="表示件数"
             />
+            <Box
+              style={{ textAlign: "right" }}
+              sx={{
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                padding: "8px",
+                marginBottom: "8px",
+                marginRight: "30px",
+              }}
+            >
+              <TextField
+                fullWidth
+                required
+                label="クラスID"
+                value={setclassId}
+                onChange={handleChange}
+              />
+              <Button onClick={() => onClick3(setclassId)}>一括で無効化</Button>
+              <Button onClick={() => onClick4(setclassId)}>一括で有効化</Button>
+            </Box>
             {dataRows.map((user) => (
               <Box
                 key={user.id}

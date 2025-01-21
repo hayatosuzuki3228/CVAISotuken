@@ -18,7 +18,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import BusinessIcon from "@mui/icons-material/Business";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
@@ -35,6 +34,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import HomeIcon from "@mui/icons-material/Home";
+import { FavoriteBorder, ImportContacts } from "@mui/icons-material";
 
 export function Toppage() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -94,12 +95,24 @@ export function Toppage() {
     {
       text: "求人票",
       icon: <EventNoteIcon />,
-      link: "https://www.meisankai.net/student",
+      link: "/Jobv",
     },
     {
       text: "マッチング",
       icon: <ContentPasteSearchIcon />,
       link: "/Matching",
+      isNavigate: true,
+    },
+    {
+      text: "マッチ度",
+      icon: <FavoriteBorder />,
+      link: "/Matchdo",
+      isNavigate: true,
+    },
+    {
+      text: "ブックマーク",
+      icon: <ImportContacts />,
+      link: "/bookmark",
       isNavigate: true,
     },
     { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
@@ -110,7 +123,6 @@ export function Toppage() {
       isNavigate: true,
     },
   ];
-
 
   //#region お知らせデータ
   const careerNotice = [
@@ -359,7 +371,7 @@ export function Toppage() {
                     </Grid>
                   </ListItemButton>
                 </ListItem>
-                {index === 2 && (
+                {index === 4 && (
                   <Box my={1}>
                     <Divider />
                   </Box>

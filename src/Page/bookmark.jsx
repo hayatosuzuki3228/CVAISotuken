@@ -17,8 +17,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import BusinessIcon from "@mui/icons-material/Business";
-import EventNoteIcon from "@mui/icons-material/EventNote";
+import HomeIcon from "@mui/icons-material/Home";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
@@ -38,6 +37,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TablePagination } from "@mui/material";
+import { FavoriteBorder, ImportContacts } from "@mui/icons-material";
 import "normalize.css";
 const drawerWidth = 240;
 
@@ -88,23 +88,36 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const menuItems = [
   {
-    text: "企業検索",
-    icon: <BusinessIcon />,
-    link: "https://www.meisankai.net/student/company/",
-  },
-  {
-    text: "求人票",
-    icon: <EventNoteIcon />,
-    link: "https://www.meisankai.net/student",
-  },
-  {
     text: "マッチング",
     icon: <ContentPasteSearchIcon />,
     link: "/Matching",
     isNavigate: true,
   },
-  { text: "プロフィール", icon: <PersonIcon />, link: "/profile-st" },
-  { text: "設定", icon: <SettingsIcon />, link: "/Setting", isNavigate: true },
+
+  {
+    text: "マッチ度",
+    icon: <FavoriteBorder />,
+    link: "/Matchdo",
+    isNavigate: true,
+  },
+  {
+    text: "ホーム",
+    icon: <HomeIcon />,
+    link: "/",
+    isNavigate: true,
+  },
+  {
+    text: "プロフィール",
+    icon: <PersonIcon />,
+    link: "/profile-st",
+    isNavigate: true,
+  },
+  {
+    text: "設定",
+    icon: <SettingsIcon />,
+    link: "/Setting",
+    isNavigate: true,
+  },
 ];
 
 export function Bookmark() {
@@ -252,7 +265,7 @@ export function Bookmark() {
                     <ListItemText primary={item.text} />
                   </ListItemButton>
                 </ListItem>
-                {index === 2 && (
+                {index === 1 && (
                   <Box my={1}>
                     <Divider />
                   </Box>

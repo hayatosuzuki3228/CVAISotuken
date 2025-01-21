@@ -20,12 +20,11 @@ export function Fuckserver() {
     postData("admin/company/list", data);
     postData("registration/student/all", data);
     postData("authentication/student", data);
+    postData("admin/student/batch/deactivate", data);
+    postData("admin/student/batch/activate", data);
     postData("registration/student", data);
     postData("registration/student", data);
     postData("registration/student", data);
-    postData("registration/student", data);
-    postData("registration/student", data);
-   
 
     //postData("registration/admin", data2);
   };
