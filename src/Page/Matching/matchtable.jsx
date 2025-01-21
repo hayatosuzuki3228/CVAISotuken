@@ -168,6 +168,7 @@ function calculateMatchScore(company, jobData) {
 }
 
 function Row(props) {
+  const { isDarkMode } = useContext(ThemeContext);
   const { row, showDetail, onFavoriteToggle } = props;
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -186,11 +187,11 @@ function Row(props) {
       return { color: "red" };
     }
     if (matchdo >= 300) {
-      return { color: "green" };
-    } else if (matchdo >= 100) {
       return { color: "orange" };
+    } else if (matchdo >= 100) {
+      return { color: "green" };
     } else {
-      return { color: "black" };
+      return { color: isDarkMode ? "white" : "black" };
     }
   };
 

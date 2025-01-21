@@ -213,7 +213,9 @@ export function Matchdo() {
                         }}
                       >
                         <IconButton aria-label="注記" onClick={handleClick}>
-                          <DescriptionIcon sx={{ color: "black" }} />
+                          <DescriptionIcon
+                            sx={{ color: isDarkMode ? "white" : "black" }}
+                          />
                         </IconButton>
                         <Popover
                           open={open}
