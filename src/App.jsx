@@ -41,6 +41,9 @@ import { ErrorResponse } from "./sever/ErrorResponse.jsx";
 import { Fuckserver } from "./sever/Fucksever.jsx";
 import { CookieTest } from "./Page/CookieTest.tsx";
 import { Setcompanynotice } from "./Page/Companypage/setcompanynotice.jsx";
+import { Companytoppage } from "./Page/Companypage/companytoppage.jsx";
+import { Viewimpression } from "./Page/Companypage/viewimpression.jsx";
+import { SendEmail } from "./Page/Companypage/sendmailpage.jsx";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider, ThemeContext } from "./provider/ThemeContext";
 import { CssBaseline } from "@mui/material";
@@ -113,6 +116,9 @@ const ThemedApp = () => {
           <Route path="/Fuckserver" element={<Fuckserver />} />
           <Route path="/CookieTest" element={<CookieTest />} />
           <Route path="/Setcompanynotice" element={<Setcompanynotice />} />
+                  <Route path="/Companytoppage" element={<Companytoppage />} />
+                  <Route path="/Viewimpression" element={<Viewimpression />} />
+                  <Route path="/SendEmail" element={<SendEmail />} />
         </Routes>
       </Router>
     </MuiThemeProvider>

@@ -228,9 +228,13 @@ function Row(props) {
               : row.detail}
           </TableCell>
         )}
-        <TableCell align="center" sx={getMatchdoCellStyle(row.matchdo)}>
-          {row.matchdo}P/{row.max}P
+        <TableCell
+          align="center"
+          sx={getMatchdoCellStyle(row.matchdo, row.max)}
+        >
+          {Math.round((row.matchdo / row.max) * 100)}% ({row.matchdo}/{row.max})
         </TableCell>
+
         <TableCell>
           <IconButton id="bookmarkbu" onClick={() => onFavoriteToggle(row.id)}>
             <BookmarksIcon />
@@ -333,7 +337,8 @@ export function Matchtable() {
   const [selectedId, setSelectedId] = useState(null);
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [rowsPerPage, setRowsPerPage] = useState(100)
+  const [sortOrder, setSortOrder] = useState("desc");
   const [checked, setChecked] = useState(false);
 
   const handleChange = (event) => {
@@ -433,20 +438,34 @@ export function Matchtable() {
   };
   const filteredRows = companies
     .map((company) => convertCompanyData(company, jobData))
-    .filter(
-      (row) =>
+    .filter((row) => {
+      const matchPercentage = (row.matchdo / row.max) * 100;
+
+      return (
         (row.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
           row.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
         row.detail.toLowerCase().includes(detailSearchTerm.toLowerCase()) &&
-        (matchScoreTerm === "" || row.matchdo >= parseInt(matchScoreTerm, 10))
-    );
+        (matchScoreTerm === "" || matchPercentage >= parseFloat(matchScoreTerm))
+      );
+    });
   const handleChangePage = (event, newPage) => setPage(newPage);
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const paginatedCompanies = filteredRows.slice(
+  const sortedRows = [...filteredRows].sort((a, b) => {
+    const percentageA = a.matchdo / a.max;
+    const percentageB = b.matchdo / b.max;
+
+    if (sortOrder === "asc") {
+      return percentageA - percentageB;
+    } else {
+      return percentageB - percentageA;
+    }
+  });
+
+  const displayedRows = sortedRows.slice(
     page * rowsPerPage,
     (page + 1) * rowsPerPage
   );
@@ -540,7 +559,7 @@ export function Matchtable() {
           className="text"
         >
           <TextField
-            label="マッチ度入力"
+            label="マッチ度（％）入力"
             value={matchScoreTerm}
             onChange={handleMatchScoreSearch}
             variant="outlined"
@@ -550,6 +569,16 @@ export function Matchtable() {
             }}
             className="matchScoreSearch"
           />
+          <Button
+            variant="outlined"
+            onClick={() =>
+              setSortOrder((prevOrder) =>
+                prevOrder === "asc" ? "desc" : "asc"
+              )
+            }
+          >
+            {sortOrder === "asc" ? "マッチ度: 昇順" : "マッチ度: 降順"}
+          </Button>
           <FormControlLabel
             control={
               <Switch
