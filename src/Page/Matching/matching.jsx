@@ -155,7 +155,7 @@ export function Matching() {
                   alignItems: "center",
                   position: "relative",
                   backgroundColor: isDarkMode ? "#444" : "#fff",
-                  color: isDarkMode ? "#ccc" : "#000",
+                  color: isDarkMode ? "#fff" : "#000",
                   height: 150,
                 }}
                 className="c1"
@@ -166,7 +166,7 @@ export function Matching() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                   >
                     選択した企業の詳細情報を確認できます。
                   </Typography>
@@ -263,7 +263,7 @@ export function Matching() {
                   alignItems: "center",
                   position: "relative",
                   backgroundColor: isDarkMode ? "#444" : "#fff",
-                  color: isDarkMode ? "#ccc" : "#000",
+                  color: isDarkMode ? "#fff" : "#000",
                   height: 150,
                 }}
               >
@@ -273,7 +273,7 @@ export function Matching() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                   >
                     企業の求人情報を確認できます。
                   </Typography>
@@ -342,7 +342,7 @@ export function Matching() {
                   alignItems: "center",
                   position: "relative",
                   backgroundColor: isDarkMode ? "#444" : "#fff",
-                  color: isDarkMode ? "#ccc" : "#000",
+                  color: isDarkMode ? "#fff" : "#000",
                   height: 150,
                 }}
                 className="c2"
@@ -353,7 +353,7 @@ export function Matching() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                   >
                     各企業との相性を確認できます。
                   </Typography>
@@ -403,7 +403,7 @@ export function Matching() {
                   alignItems: "center",
                   position: "relative",
                   backgroundColor: isDarkMode ? "#444" : "#fff",
-                  color: isDarkMode ? "#ccc" : "#000",
+                  color: isDarkMode ? "#fff" : "#000",
                   height: 150,
                 }}
                 className="c2"
@@ -414,7 +414,7 @@ export function Matching() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                   >
                     求める企業を詳細に絞り込み、検索ができます。
                   </Typography>
@@ -456,7 +456,7 @@ export function Matching() {
                   alignItems: "center",
                   position: "relative",
                   backgroundColor: isDarkMode ? "#444" : "#fff",
-                  color: isDarkMode ? "#ccc" : "#000",
+                  color: isDarkMode ? "#fff" : "#000",
                   height: 150,
                 }}
                 className="c2"
@@ -467,7 +467,7 @@ export function Matching() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                   >
                     企業の雰囲気など、知られざる一面や役立つ情報を見ることができます。
                   </Typography>
@@ -509,7 +509,7 @@ export function Matching() {
                   alignItems: "center",
                   position: "relative",
                   backgroundColor: isDarkMode ? "#444" : "#fff",
-                  color: isDarkMode ? "#ccc" : "#000",
+                  color: isDarkMode ? "#fff" : "#000",
                   height: 150,
                 }}
                 className="c3"
@@ -520,7 +520,7 @@ export function Matching() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                    sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                   >
                     AIを使用しておすすめの企業を提案します。
                   </Typography>
