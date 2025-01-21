@@ -44,7 +44,7 @@ const DrawerContents = ({ open, menuItems, handleItemClick }) => {
       open={!open}
     >
       <DrawerHeader />
-      <Divider />
+
       <List>
         {menuItems.map((item, index) => (
           <React.Fragment key={index}>

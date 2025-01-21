@@ -64,12 +64,14 @@ const AppBarContents = ({ open, setOpen, apptitle }) => {
           <Typography
             variant={isSmallScreen ? "body1" : "h6"}
             noWrap
-            color={"text.secondary"}
+            color="inherit"
           >
             {apptitle}
           </Typography>
         </Box>
-        <Button onClick={() => navigate("/Loginpage")}>ログイン</Button>
+        <Button color="inherit" onClick={() => navigate("/Loginpage")}>
+          ログイン
+        </Button>
       </Toolbar>
     </AppBar>
   );

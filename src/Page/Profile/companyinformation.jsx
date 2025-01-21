@@ -133,393 +133,389 @@ export function Companyinformation() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          open={open}
-          sx={{
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            backgroundColor: primarycolor,
-          }}
-        >
-          <Toolbar sx={{ justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer}
-                edge="start"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Box />
-              <Typography variant="h6" noWrap component="div">
-                名産会マッチングシステム／企業情報
-              </Typography>
-            </Box>
-            <Button color="inherit" onClick={() => navigate("/Loginpage")}>
-              ログイン
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          sx={{
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: primarycolor,
+        }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              edge="start"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box />
+            <Typography variant="h6" noWrap component="div">
+              名産会マッチングシステム／企業情報
+            </Typography>
+          </Box>
+          <Button color="inherit" onClick={() => navigate("/Loginpage")}>
+            ログイン
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader />
-          <Divider />
-          <List>
-            {menuItems.map((item, index) => (
-              <React.Fragment key={index}>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => handleItemClick(item.link, item.isNavigate)}
-                  >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItemButton>
-                </ListItem>
-                {index === 2 && (
-                  <Box my={1}>
-                    <Divider />
-                  </Box>
-                )}
-              </React.Fragment>
-            ))}
-          </List>
-        </Drawer>
-        <Main open={open}>
-          <DrawerHeader />
-          {company ? (
-            <>
-              <Typography
-                style={{ fontSize: "2em", textAlign: "left" }}
-                sx={{ mx: 4 }}
-              >
-                <li key={company.id}>{company.name}</li>
-              </Typography>
-              <Stack
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                height="100%"
-              >
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    業種:職種
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.category == "" ? "情報なし" : company.category}
-                    </Typography>
-                  </Typography>
+            boxSizing: "border-box",
+            boxShadow: "0px 0px 10px rgba(0,0,0,0.3)",
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader />
+        <Divider />
+        <List>
+          {menuItems.map((item, index) => (
+            <React.Fragment key={index}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => handleItemClick(item.link, item.isNavigate)}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+              {index === 2 && (
+                <Box my={1}>
+                  <Divider />
                 </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    会社概要
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.detail == "" ? "情報なし" : company.detail}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    所在地
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.office == "" ? "情報なし" : company.office}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    役員
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.representative == ""
-                        ? "情報なし"
-                        : company.representative}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    創業
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.foundation_date == ""
-                        ? "情報なし"
-                        : company.foundation_date}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    資本金
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.capital == "" ? "情報なし" : company.capital}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    売上高
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.amount_of_sales == ""
-                        ? "情報なし"
-                        : company.amount_of_sales}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    従業員数
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.number_of_employees == ""
-                        ? "情報なし"
-                        : company.number_of_employees}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    電話番号
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.phone_number == ""
-                        ? "情報なし"
-                        : company.phone_number}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    メールアドレス
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.email == "" ? "情報なし" : company.email}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    募集人数
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.recruitment_numbers == ""
-                        ? "情報なし"
-                        : company.recruitment_numbers}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    募集学科
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.recruitment_grade == ""
-                        ? "情報なし"
-                        : company.recruitment_grade}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    必須資格
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.qualification == ""
-                        ? "情報なし"
-                        : company.qualification}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    求める人物像
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.ideal_candidate_profile == ""
-                        ? "情報なし"
-                        : company.ideal_candidate_profile}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    勤務地
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.work_location == ""
-                        ? "情報なし"
-                        : company.work_location}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    労働時間
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.working_hours == ""
-                        ? "情報なし"
-                        : company.working_hours}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    休暇制度
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.holiday == "" ? "情報なし" : company.holiday}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    給与
-                    <Stack display="flex" direction="row">
-                      4年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Four_year_course_basic_salary}
-                      </Typography>
-                      +4年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Four_year_course_allowances}
-                      </Typography>
-                      =4年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Four_year_course_salary_total == ""
-                          ? "4年課程情報なし"
-                          : ""}
-                        {company.Four_year_course_salary_total === ""
-                          ? ""
-                          : "4年課程総合計:" +
-                            company.Four_year_course_salary_total}
-                      </Typography>
-                    </Stack>
-                    <Stack display="flex" direction="row">
-                      3年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Three_year_course_basic_salary}
-                      </Typography>
-                      +3年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Three_year_course_allowances}
-                      </Typography>
-                      =3年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Three_year_course_salary_total == ""
-                          ? "3年課程情報なし"
-                          : ""}
-                        {company.Three_year_course_salary_total === ""
-                          ? ""
-                          : "3年課程総合計:" +
-                            company.Three_year_course_salary_total}
-                      </Typography>
-                    </Stack>
-                    <Stack display="flex" direction="row">
-                      2年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Two_year_course_basic_salary}
-                      </Typography>
-                      +2年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Two_year_course_allowances}
-                      </Typography>
-                      =2年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.Two_year_course_salary_total == ""
-                          ? "2年課程情報なし"
-                          : ""}
-                        {company.Two_year_course_salary_total === ""
-                          ? ""
-                          : "2年課程総合計:" +
-                            company.Two_year_course_salary_total}
-                      </Typography>
-                    </Stack>
-                    <Stack display="flex" direction="row">
-                      1年課程基本給:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.One_year_course_basic_salary}
-                      </Typography>
-                      +1年課程諸手当:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.One_year_course_allowances}
-                      </Typography>
-                      =1年課程総合計:
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.One_year_course_salary_total == ""
-                          ? "1年課程情報なし"
-                          : ""}
-                        {company.One_year_course_salary_total === ""
-                          ? ""
-                          : "1年課程総合計:" +
-                            company.One_year_course_salary_total}
-                      </Typography>
-                    </Stack>
-                    <Stack display="flex" direction="row">
-                      その他
-                      <Typography style={{ fontSize: "1em" }} key={company.id}>
-                        {company.others}
-                      </Typography>
-                    </Stack>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    その他制度
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.allowances == ""
-                        ? "情報なし"
-                        : company.allowances}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    企業理念
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.corporate_philosophy == ""
-                        ? "情報なし"
-                        : company.corporate_philosophy}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    特徴
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.appeal == "" ? "情報なし" : company.appeal}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" width="85%" border={1} p={2}>
-                  <Typography style={{ fontSize: "1.5em" }}>
-                    ホームページ
-                    <Typography style={{ fontSize: "1em" }} key={company.id}>
-                      {company.website == "" ? (
-                        "情報なし"
-                      ) : (
-                        <a href={company.website} target="_blank">
-                          {company.website}
-                        </a>
-                      )}
-                    </Typography>
-                  </Typography>
-                </Box>
-              </Stack>
-            </>
-          ) : (
+              )}
+            </React.Fragment>
+          ))}
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        {company ? (
+          <>
             <Typography
               style={{ fontSize: "2em", textAlign: "left" }}
               sx={{ mx: 4 }}
             >
-              Company not found.
+              <li key={company.id}>{company.name}</li>
             </Typography>
-          )}
-        </Main>
-      </Box>
-    </ThemeProvider>
+            <Stack
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              height="100%"
+            >
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  業種:職種
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.category == "" ? "情報なし" : company.category}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  会社概要
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.detail == "" ? "情報なし" : company.detail}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  所在地
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.office == "" ? "情報なし" : company.office}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  役員
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.representative == ""
+                      ? "情報なし"
+                      : company.representative}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  創業
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.foundation_date == ""
+                      ? "情報なし"
+                      : company.foundation_date}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  資本金
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.capital == "" ? "情報なし" : company.capital}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  売上高
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.amount_of_sales == ""
+                      ? "情報なし"
+                      : company.amount_of_sales}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  従業員数
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.number_of_employees == ""
+                      ? "情報なし"
+                      : company.number_of_employees}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  電話番号
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.phone_number == ""
+                      ? "情報なし"
+                      : company.phone_number}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  メールアドレス
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.email == "" ? "情報なし" : company.email}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  募集人数
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.recruitment_numbers == ""
+                      ? "情報なし"
+                      : company.recruitment_numbers}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  募集学科
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.recruitment_grade == ""
+                      ? "情報なし"
+                      : company.recruitment_grade}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  必須資格
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.qualification == ""
+                      ? "情報なし"
+                      : company.qualification}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  求める人物像
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.ideal_candidate_profile == ""
+                      ? "情報なし"
+                      : company.ideal_candidate_profile}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  勤務地
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.work_location == ""
+                      ? "情報なし"
+                      : company.work_location}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  労働時間
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.working_hours == ""
+                      ? "情報なし"
+                      : company.working_hours}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  休暇制度
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.holiday == "" ? "情報なし" : company.holiday}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  給与
+                  <Stack display="flex" direction="row">
+                    4年課程基本給:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Four_year_course_basic_salary}
+                    </Typography>
+                    +4年課程諸手当:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Four_year_course_allowances}
+                    </Typography>
+                    =4年課程総合計:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Four_year_course_salary_total == ""
+                        ? "4年課程情報なし"
+                        : ""}
+                      {company.Four_year_course_salary_total === ""
+                        ? ""
+                        : "4年課程総合計:" +
+                          company.Four_year_course_salary_total}
+                    </Typography>
+                  </Stack>
+                  <Stack display="flex" direction="row">
+                    3年課程基本給:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Three_year_course_basic_salary}
+                    </Typography>
+                    +3年課程諸手当:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Three_year_course_allowances}
+                    </Typography>
+                    =3年課程総合計:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Three_year_course_salary_total == ""
+                        ? "3年課程情報なし"
+                        : ""}
+                      {company.Three_year_course_salary_total === ""
+                        ? ""
+                        : "3年課程総合計:" +
+                          company.Three_year_course_salary_total}
+                    </Typography>
+                  </Stack>
+                  <Stack display="flex" direction="row">
+                    2年課程基本給:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Two_year_course_basic_salary}
+                    </Typography>
+                    +2年課程諸手当:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Two_year_course_allowances}
+                    </Typography>
+                    =2年課程総合計:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.Two_year_course_salary_total == ""
+                        ? "2年課程情報なし"
+                        : ""}
+                      {company.Two_year_course_salary_total === ""
+                        ? ""
+                        : "2年課程総合計:" +
+                          company.Two_year_course_salary_total}
+                    </Typography>
+                  </Stack>
+                  <Stack display="flex" direction="row">
+                    1年課程基本給:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.One_year_course_basic_salary}
+                    </Typography>
+                    +1年課程諸手当:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.One_year_course_allowances}
+                    </Typography>
+                    =1年課程総合計:
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.One_year_course_salary_total == ""
+                        ? "1年課程情報なし"
+                        : ""}
+                      {company.One_year_course_salary_total === ""
+                        ? ""
+                        : "1年課程総合計:" +
+                          company.One_year_course_salary_total}
+                    </Typography>
+                  </Stack>
+                  <Stack display="flex" direction="row">
+                    その他
+                    <Typography style={{ fontSize: "1em" }} key={company.id}>
+                      {company.others}
+                    </Typography>
+                  </Stack>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  その他制度
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.allowances == "" ? "情報なし" : company.allowances}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  企業理念
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.corporate_philosophy == ""
+                      ? "情報なし"
+                      : company.corporate_philosophy}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  特徴
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.appeal == "" ? "情報なし" : company.appeal}
+                  </Typography>
+                </Typography>
+              </Box>
+              <Box display="flex" width="85%" border={1} p={2}>
+                <Typography style={{ fontSize: "1.5em" }}>
+                  ホームページ
+                  <Typography style={{ fontSize: "1em" }} key={company.id}>
+                    {company.website == "" ? (
+                      "情報なし"
+                    ) : (
+                      <a href={company.website} target="_blank">
+                        {company.website}
+                      </a>
+                    )}
+                  </Typography>
+                </Typography>
+              </Box>
+            </Stack>
+          </>
+        ) : (
+          <Typography
+            style={{ fontSize: "2em", textAlign: "left" }}
+            sx={{ mx: 4 }}
+          >
+            Company not found.
+          </Typography>
+        )}
+      </Main>
+    </Box>
   );
 }
