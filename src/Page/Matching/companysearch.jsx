@@ -552,7 +552,7 @@ export function Companysearch() {
                   onClick={() => handleCompanyChange(company.id)}
                   sx={{
                     backgroundColor: isDarkMode ? "#444" : "#fff",
-                    color: isDarkMode ? "#ccc" : "#000",
+                    color: isDarkMode ? "#fff" : "#000",
                   }}
                 >
                   <CardContent>
@@ -579,27 +579,27 @@ export function Companysearch() {
                       </Grid>
                     </Grid>
                     <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                      sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                     >
                       業界：{company.category}
                     </Typography>
                     <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                      sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                     >
                       勤務地：{company.work_location}
                     </Typography>
                     <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                      sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                     >
                       {company.area}
                     </Typography>
                     <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                      sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                     >
                       従業員規模： {company.number_of_employees}
                     </Typography>
                     <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
+                      sx={{ color: isDarkMode ? "#ccc" : "text.secondary" }}
                     >
                       事業内容:{" "}
                       {company.detail.length > 50

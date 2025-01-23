@@ -69,14 +69,14 @@ function App() {
 const ThemedApp = () => {
   const { isDarkMode } = React.useContext(ThemeContext);
 
-  const theme = createTheme({
+  const toggletheme = createTheme({
     palette: {
       mode: isDarkMode ? "dark" : "light",
     },
   });
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={toggletheme}>
       <CssBaseline />
       <Router>
         <Routes>
