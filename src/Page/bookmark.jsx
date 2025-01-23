@@ -110,7 +110,6 @@ export function Bookmark() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { bookmarks, removeBookmark } = useContext(BookmarkContext);
-  console.log("bookmarkID:", bookmarks);
   const toggleDrawer = () => {
     setOpen(!open);
   };

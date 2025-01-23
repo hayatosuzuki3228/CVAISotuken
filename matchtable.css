@@ -19,8 +19,9 @@
   .matchScoreSearch {
     width: 300px;
   }
-  .matchdo {
-    margin-left: 3%;
+
+  .back {
+    margin-right: 5%;
   }
 }
 
@@ -36,7 +37,8 @@
     margin-top: 3%;
     padding-right: 1rem;
   }
-  .matchdo {
-    margin-left: 3%;
+
+  .back {
+    margin-right: 5%;
   }
 }

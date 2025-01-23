@@ -6,40 +6,18 @@ import {
   ListItem,
   ListItemText,
   Typography,
-  Switch,
-  FormControlLabel,
 } from "@mui/material";
-import { ThemeContext } from "../../provider/ThemeContext";
 
 export function Setting() {
   // 選択されたメニュー項目を管理するステート
-  const [selectedMenu, setSelectedMenu] = useState("画面設定");
-  const { isDarkMode, toggleDarkMode } = React.useContext(ThemeContext);
+  const [selectedMenu, setSelectedMenu] = useState("アカウント管理");
 
   // メニュー項目リスト
-  const menuItems = [
-    "画面設定",
-    "アカウント管理",
-    "通知設定",
-    "プライバシー",
-    "ヘルプ",
-  ];
+  const menuItems = ["アカウント管理", "通知設定", "プライバシー", "ヘルプ"];
 
   // コンテンツのレンダリング関数
   const renderContent = () => {
     switch (selectedMenu) {
-      case "画面設定":
-        return (
-          <div>
-            <h1>画面設定</h1>
-            <FormControlLabel
-              control={
-                <Switch checked={isDarkMode} onChange={toggleDarkMode} />
-              }
-              label="ダークモード"
-            />
-          </div>
-        );
       case "アカウント管理":
         return <Typography variant="h6">アカウント管理画面</Typography>;
       case "通知設定":
@@ -77,10 +55,10 @@ export function Setting() {
               selected={selectedMenu === text} // 選択されているかを確認
               sx={{
                 "&.Mui-selected": {
-                  backgroundColor: "#21a7dd",
+                  backgroundColor: "#446699",
                   color: "white",
                   "&:hover": {
-                    backgroundColor: "#43c9ff",
+                    backgroundColor: "#224477",
                   },
                 },
               }}

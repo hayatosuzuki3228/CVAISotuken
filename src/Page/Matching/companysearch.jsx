@@ -16,9 +16,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import UndoIcon from "@mui/icons-material/Undo";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { useNavigate } from "react-router-dom";
@@ -36,85 +36,13 @@ import { companies } from "../../const/companies";
 import MyContext from "../../provider/provider";
 import { SearchContext } from "../../provider/SearchContext";
 import { BookmarkContext } from "../../provider/booktext";
-import "normalize.css";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ImportContactsIcon from "@mui/icons-material/ImportContacts";
-import PersonIcon from "@mui/icons-material/Person";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import HomeIcon from "@mui/icons-material/Home";
-import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
-import AppBarContents from "../Component/AppBarContents";
-import DrawerContents from "../Component/DrawerContents";
-import MainContents from "../Component/MainContents";
-import { theme } from "../../const/theme";
-import { styled, ThemeProvider } from "@mui/material/styles";
-import { ThemeContext } from "../../provider/ThemeContext";
-const menuItems = [
-  //メニューに追加したいものをここにかく
-  //表示テキスト アイコン リンク の指定
-  {
-    text: "マッチング",
-    icon: <ContentPasteSearchIcon />,
-    link: "/Matching",
-    isNavigate: true,
-  },
 
-  {
-    text: "マッチ度",
-    icon: <FavoriteBorderIcon />,
-    link: "/Matchdo",
-    isNavigate: true,
-  },
-  {
-    text: "ブックマーク",
-    icon: <ImportContactsIcon />,
-    link: "/bookmark",
-    isNavigate: true,
-  },
-  {
-    text: "プロフィール",
-    icon: <PersonIcon />,
-    link: "/profile-st",
-    isNavigate: true,
-  },
-
-  {
-    text: "ホーム",
-    icon: <HomeIcon />,
-    link: "/",
-    isNavigate: true,
-  },
-  {
-    text: "設定",
-    icon: <SettingsIcon />,
-    link: "/Setting",
-    isNavigate: true,
-  },
-];
 export function Companysearch() {
-  const { isDarkMode } = useContext(ThemeContext);
   const { setproviderid } = useContext(MyContext);
-  const { bookmarks, addBookmark } = useContext(BookmarkContext);
+  const { addBookmark } = useContext(BookmarkContext);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
-  const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  }));
-
-  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
   const navigate = useNavigate();
-
-  const handleItemClick = (link, isNavigate) => {
-    if (isNavigate) {
-      navigate(link);
-    } else if (link) {
-      window.location.href = link;
-    }
-  };
 
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
 
@@ -222,7 +150,6 @@ export function Companysearch() {
 
   const handleBookmarkConfirm = () => {
     if (selectedCompanyId) {
-      console.log("bookmarkID:", bookmarks);
       addBookmark(selectedCompanyId);
     }
     setOpenDialog(false);
@@ -243,411 +170,311 @@ export function Companysearch() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
-        <AppBarContents
-          apptitle={"企業検索"}
-          open={drawerOpen}
-          setOpen={setDrawerOpen}
-        />
-
-        <DrawerContents
-          open={drawerOpen}
-          menuItems={menuItems}
-          handleItemClick={handleItemClick}
-        />
-
-        <MainContents open={drawerOpen}>
-          <DrawerHeader />
-        </MainContents>
-      </Box>
-      <div style={{ padding: "10px" }}>
-        <Grid container spacing={2} alignItems="center">
-          {/* 企業名検索 */}
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="企業名で検索"
-              variant="outlined"
-              fullWidth
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{
-                "& .MuiInputLabel-root": {
-                  color: isDarkMode ? "#ddd" : "#666", // ラベルのカラー
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                },
-                backgroundColor: isDarkMode ? "#222" : "#fff",
-              }}
-            />
-          </Grid>
-          {/* 事業内容検索 */}
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="事業内容で検索"
-              variant="outlined"
-              fullWidth
-              value={descriptionTerm}
-              onChange={(e) => setDescriptionTerm(e.target.value)}
-              sx={{
-                "& .MuiInputLabel-root": {
-                  color: isDarkMode ? "#ddd" : "#666", // ラベルのカラー
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                },
-                backgroundColor: isDarkMode ? "#222" : "#fff",
-              }}
-            />
-          </Grid>
-          {/* 業界フィルター */}
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                業界
-              </InputLabel>
-              <Select
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-                value={industryFilter}
-                onChange={(e) => setIndustryFilter(e.target.value)}
-                label="業界"
-              >
-                {industries.map((industry) => (
-                  <MenuItem
-                    sx={{
-                      backgroundColor: isDarkMode ? "#222" : "#fff",
-                      color: isDarkMode ? "#ddd" : "#666",
-                    }}
-                    key={industry.value}
-                    value={industry.value}
-                  >
-                    {industry.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          {/* 職種フィルター */}
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                職種
-              </InputLabel>
-              <Select
-                value={jobTypeFilter}
-                onChange={(e) => setJobTypeFilter(e.target.value)}
-                label="職種"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {jobtypes.map((jobType) => (
-                  <MenuItem key={jobType.value} value={jobType.value}>
-                    {jobType.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          {/* 勤務地フィルター */}
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                勤務地
-              </InputLabel>
-              <Select
-                value={locationFilter}
-                onChange={(e) => setLocationFilter(e.target.value)}
-                label="勤務地"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {areas.map((area) => (
-                  <MenuItem key={area.value} value={area.value}>
-                    {area.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          {/* 従業員規模フィルター */}
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                従業員規模
-              </InputLabel>
-              <Select
-                value={sizeFilter}
-                onChange={(e) => setSizeFilter(e.target.value)}
-                label="従業員規模"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {employeesizes.map((size) => (
-                  <MenuItem key={size.value} value={size.value}>
-                    {size.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                年間休日
-              </InputLabel>
-              <Select
-                value={holidayFilter}
-                onChange={(e) => setHolidayFilter(e.target.value)}
-                label="年間休日"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {holidays.map((holiday) => (
-                  <MenuItem key={holiday.value} value={holiday.value}>
-                    {holiday.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                平均残業時間
-              </InputLabel>
-              <Select
-                value={overtimeFilter}
-                onChange={(e) => setOvertimeFilter(e.target.value)}
-                label="平均残業時間"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {overtimes.map((overtime) => (
-                  <MenuItem key={overtime.value} value={overtime.value}>
-                    {overtime.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                休日制度
-              </InputLabel>
-              <Select
-                value={holidaysysFilter}
-                onChange={(e) => setHolidaysysFilter(e.target.value)}
-                label="休日制度"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {holidayssys.map((holidaysys) => (
-                  <MenuItem key={holidaysys.value} value={holidaysys.value}>
-                    {holidaysys.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          {/* 最低月給フィルター */}
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel sx={{ color: isDarkMode ? "#ddd" : "#666" }}>
-                最低月給
-              </InputLabel>
-              <Select
-                value={salaryFilter}
-                onChange={(e) => setSalaryFilter(e.target.value)}
-                label="最低月給"
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: isDarkMode ? "#aaa" : "#aaa", // ボーダーの色
-                  },
-                  backgroundColor: isDarkMode ? "#222" : "#fff",
-                }}
-              >
-                <MenuItem value="">
-                  <em>すべて</em>
-                </MenuItem>
-                {salaries.map((salary) => (
-                  <MenuItem key={salary.value} value={salary.value}>
-                    {salary.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          {/* 検索ボタン */}
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              startIcon={<SearchIcon />}
-              onClick={handleSearch}
-            >
-              検索
-            </Button>
-          </Grid>
+    <div style={{ padding: "20px" }}>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="space-between"
+        marginBottom="20px"
+      >
+        <Grid item>
+          <Typography variant="h4" gutterBottom>
+            企業検索
+          </Typography>
         </Grid>
-
-        {/* 検索結果表示 */}
-        <Grid container spacing={3} style={{ marginTop: "20px" }}>
-          {filteredCompanies.length > 0 ? (
-            filteredCompanies.map((company) => (
-              <Grid item xs={12} sm={6} md={4} key={company.id}>
-                <Card
-                  onClick={() => handleCompanyChange(company.id)}
-                  sx={{
-                    backgroundColor: isDarkMode ? "#444" : "#fff",
-                    color: isDarkMode ? "#ccc" : "#000",
-                  }}
-                >
-                  <CardContent>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justifyContent="space-between"
-                      marginBottom="2px"
-                    >
-                      <Grid item>
-                        <Typography variant="h6">{company.name}</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Fab
-                          color="secondary"
-                          size="small"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleBookmarkClick(company.id);
-                          }}
-                        >
-                          <BookmarksIcon />
-                        </Fab>
-                      </Grid>
-                    </Grid>
-                    <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
-                    >
-                      業界：{company.category}
-                    </Typography>
-                    <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
-                    >
-                      勤務地：{company.work_location}
-                    </Typography>
-                    <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
-                    >
-                      {company.area}
-                    </Typography>
-                    <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
-                    >
-                      従業員規模： {company.number_of_employees}
-                    </Typography>
-                    <Typography
-                      sx={{ color: isDarkMode ? "#fff" : "text.secondary" }}
-                    >
-                      事業内容:{" "}
-                      {company.detail.length > 50
-                        ? `${company.detail.substring(0, 50)}...`
-                        : company.detail}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))
-          ) : (
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              style={{ margin: "20px auto" }}
-            >
-              検索結果がありません
-            </Typography>
-          )}
-        </Grid>
-        {showScrollTopButton && (
-          <Fab
-            color="primary"
-            size="small"
-            onClick={scrollToTop}
-            style={{ position: "fixed", bottom: "20px", right: "20px" }}
+        <Grid item>
+          <Button
+            className="back"
+            variant="text"
+            color="secondary"
+            onClick={() => navigate("/matching")}
+            startIcon={<UndoIcon />}
           >
-            <KeyboardArrowUpIcon />
-          </Fab>
-        )}
+            戻る
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} alignItems="center">
+        {/* 企業名検索 */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="企業名で検索"
+            variant="outlined"
+            fullWidth
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </Grid>
+        {/* 事業内容検索 */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="事業内容で検索"
+            variant="outlined"
+            fullWidth
+            value={descriptionTerm}
+            onChange={(e) => setDescriptionTerm(e.target.value)}
+          />
+        </Grid>
+        {/* 業界フィルター */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>業界</InputLabel>
+            <Select
+              value={industryFilter}
+              onChange={(e) => setIndustryFilter(e.target.value)}
+              label="業界"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {industries.map((industry) => (
+                <MenuItem key={industry.value} value={industry.value}>
+                  {industry.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* 職種フィルター */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>職種</InputLabel>
+            <Select
+              value={jobTypeFilter}
+              onChange={(e) => setJobTypeFilter(e.target.value)}
+              label="職種"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {jobtypes.map((jobType) => (
+                <MenuItem key={jobType.value} value={jobType.value}>
+                  {jobType.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* 勤務地フィルター */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>勤務地</InputLabel>
+            <Select
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+              label="勤務地"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {areas.map((area) => (
+                <MenuItem key={area.value} value={area.value}>
+                  {area.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* 従業員規模フィルター */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>従業員規模</InputLabel>
+            <Select
+              value={sizeFilter}
+              onChange={(e) => setSizeFilter(e.target.value)}
+              label="従業員規模"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {employeesizes.map((size) => (
+                <MenuItem key={size.value} value={size.value}>
+                  {size.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>年間休日</InputLabel>
+            <Select
+              value={holidayFilter}
+              onChange={(e) => setHolidayFilter(e.target.value)}
+              label="年間休日"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {holidays.map((holiday) => (
+                <MenuItem key={holiday.value} value={holiday.value}>
+                  {holiday.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
 
-        <Dialog open={openDialog} onClose={handleDialogClose}>
-          <DialogTitle>ブックマーク追加</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              この企業をブックマークに追加しますか？
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDialogClose} color="primary">
-              キャンセル
-            </Button>
-            <Button onClick={handleBookmarkConfirm} color="primary">
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    </ThemeProvider>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>平均残業時間</InputLabel>
+            <Select
+              value={overtimeFilter}
+              onChange={(e) => setOvertimeFilter(e.target.value)}
+              label="平均残業時間"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {overtimes.map((overtime) => (
+                <MenuItem key={overtime.value} value={overtime.value}>
+                  {overtime.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>休日制</InputLabel>
+            <Select
+              value={holidaysysFilter}
+              onChange={(e) => setHolidaysysFilter(e.target.value)}
+              label="休日制"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {holidayssys.map((holidaysys) => (
+                <MenuItem key={holidaysys.value} value={holidaysys.value}>
+                  {holidaysys.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        {/* 初任給フィルター */}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>初任給</InputLabel>
+            <Select
+              value={salaryFilter}
+              onChange={(e) => setSalaryFilter(e.target.value)}
+              label="初任給"
+            >
+              <MenuItem value="">
+                <em>すべて</em>
+              </MenuItem>
+              {salaries.map((salary) => (
+                <MenuItem key={salary.value} value={salary.value}>
+                  {salary.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* 検索ボタン */}
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            startIcon={<SearchIcon />}
+            onClick={handleSearch}
+          >
+            検索
+          </Button>
+        </Grid>
+      </Grid>
+
+      {/* 検索結果表示 */}
+      <Grid container spacing={3} style={{ marginTop: "20px" }}>
+        {filteredCompanies.length > 0 ? (
+          filteredCompanies.map((company) => (
+            <Grid item xs={12} sm={6} md={4} key={company.id}>
+              <Card onClick={() => handleCompanyChange(company.id)}>
+                <CardContent>
+                  <Grid
+                    container
+                    alignItems="center"
+                    justifyContent="space-between"
+                    marginBottom="2px"
+                  >
+                    <Grid item>
+                      <Typography variant="h6">{company.name}</Typography>
+                    </Grid>
+                    <Grid item>
+                      <Fab
+                        color="secondary"
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBookmarkClick(company.id);
+                        }}
+                      >
+                        <BookmarksIcon />
+                      </Fab>
+                    </Grid>
+                  </Grid>
+                  <Typography color="textSecondary">
+                    業界：{company.category}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    勤務地：{company.work_location}
+                  </Typography>
+                  <Typography color="textSecondary">{company.area}</Typography>
+                  <Typography color="textSecondary">
+                    従業員規模： {company.number_of_employees}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    事業内容:{" "}
+                    {company.detail.length > 50
+                      ? `${company.detail.substring(0, 50)}...`
+                      : company.detail}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            style={{ margin: "20px auto" }}
+          >
+            検索結果がありません
+          </Typography>
+        )}
+      </Grid>
+      {showScrollTopButton && (
+        <Fab
+          color="primary"
+          size="small"
+          onClick={scrollToTop}
+          style={{ position: "fixed", bottom: "20px", right: "20px" }}
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      )}
+
+      <Dialog open={openDialog} onClose={handleDialogClose}>
+        <DialogTitle>ブックマーク追加</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            この企業をブックマークに追加しますか？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            キャンセル
+          </Button>
+          <Button onClick={handleBookmarkConfirm} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
