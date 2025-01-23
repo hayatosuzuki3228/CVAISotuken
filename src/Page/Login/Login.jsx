@@ -43,17 +43,23 @@ export function LoginPage() {
     event.preventDefault();
     console.log("Address:", address, "Password:", password);
 
-    const data = {
-      email: address,
-      password: password,
-    };
+    // const data = {
+    //   email: address,
+    //   password: password,
+    // };
 
-    try {
-      const result = await postData("authentication/student", data);
+    // try {
+    //   const result = await postData("authentication/student", data);
+    //   navigate("/");
+    //   setloginstats(true);
+    // } catch (error) {
+    //   navigate("/error", { state: { message: error.message } });
+    // }
+
+    if (password == "student") {
       navigate("/");
-      setloginstats(true);
-    } catch (error) {
-      navigate("/error", { state: { message: error.message } });
+    } else if (password == "company") {
+      navigate("/Companytoppage");
     }
   };
 

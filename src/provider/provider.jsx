@@ -5,18 +5,18 @@ import React, { createContext, useState, useEffect } from "react";
 const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
-  const [loginstats ,setloginstats] = useState(false);
-  const [provideremail, setprovidermail] = useState("");
-  const [providername, setprovidername] = useState("");
-  const [providerKName, setproviderKName] = useState("");
-  const [providerMan, setproviderMan] = useState("");
-  const [providerGak, setproviderGak] = useState("");
-  const [providerYears, setproviderYears] = useState("");
-  const [providerMonths, setproviderMonths] = useState("");
-  const [providerDays, setproviderDays] = useState("");
-  const [providerAge, setproviderAge] = useState("");
-  const [providerHome, setproviderHome] = useState("");
-  const [providerBye, setproviderBye] = useState("");
+  const [loginstats, setloginstats] = useState(false);
+  const [provideremail, setprovidermail] = useState("@student.com");
+  const [providername, setprovidername] = useState("佐藤太郎");
+  const [providerKName, setproviderKName] = useState("サトウタロウ");
+  const [providerMan, setproviderMan] = useState("男");
+  const [providerGak, setproviderGak] = useState("情報総合学科");
+  const [providerYears, setproviderYears] = useState("2004");
+  const [providerMonths, setproviderMonths] = useState("9");
+  const [providerDays, setproviderDays] = useState("1");
+  const [providerAge, setproviderAge] = useState("20");
+  const [providerHome, setproviderHome] = useState("愛知県");
+  const [providerBye, setproviderBye] = useState("2027年");
   const [providerJob, setproviderJob] = useState("");
   const [providerHobby, setproviderHobby] = useState("");
   const [providerSkill, setproviderSkill] = useState("");
@@ -53,7 +53,7 @@ export const MyProvider = ({ children }) => {
   }, [bookmark]);
 
   const value = {
-    loginstats ,
+    loginstats,
     setloginstats,
     provideremail,
     setprovidermail,
