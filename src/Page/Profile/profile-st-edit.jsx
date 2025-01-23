@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useAsyncError, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
-  AppBar,
   Box,
   Button,
   Dialog,
@@ -9,34 +8,23 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  Drawer,
-  Divider,
   FormControlLabel,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   MenuItem,
   Radio,
   RadioGroup,
   Stack,
   TextField,
-  Typography,
-  Toolbar,
   useMediaQuery,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { styled, ThemeProvider } from "@mui/material/styles";
 import { months, days, selectBox, HOME, Bye, older2 } from "./Data";
 import MyContext from "../../provider/provider";
-import { primarycolor } from "../../const/color";
 import AppBarContents from "../Component/AppBarContents";
 import DrawerContents from "../Component/DrawerContents";
 import MainContents from "../Component/MainContents";
 import BusinessIcon from "@mui/icons-material/Business";
 import PersonIcon from "@mui/icons-material/Person";
-import { theme } from "../../const/theme";
+import { primarycolor } from "../../const/color";
 
 const menuItems = [
   //メニューに追加したいものをここにかく
@@ -271,8 +259,6 @@ export function SEdit() {
     setManSave(event.target.value);
   };
 
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
-
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -281,7 +267,24 @@ export function SEdit() {
     justifyContent: "flex-end",
   }));
 
-  const [drawerOpen, setDrawerOpen] = useState(false); // ドロワー開閉の状態
+  const theme = createTheme({
+    components: {
+      MuiListItemIcon: {
+        styleOverrides: {
+          root: {
+            color: primarycolor,
+          },
+        },
+      },
+      MuiListItemText: {
+        styleOverrides: {
+          primary: {
+            color: gray,
+          },
+        },
+      },
+    },
+  });
 
   const handleItemClick = (link, isNavigate) => {
     if (isNavigate) {

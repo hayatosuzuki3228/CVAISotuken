@@ -1,24 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Drawer,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-  Stack,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import BusinessIcon from "@mui/icons-material/Business";
 import PersonIcon from "@mui/icons-material/Person";
-import MuiAppBar from "@mui/material/AppBar";
 import AppBarContents from "../Component/AppBarContents";
 import DrawerContents from "../Component/DrawerContents";
 import MainContents from "../Component/MainContents";
@@ -158,16 +143,11 @@ export function SProfile() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box
-          sx={{
-            display: "flex",
-          }}
-        >
+        <Box sx={{ display: "flex" }}>
           <AppBarContents
             apptitle={"名産会マッチングシステム"}
             open={drawerOpen}
             setOpen={setDrawerOpen}
-            sx={{ backgroundColor: "gray" }}
           />
 
           <DrawerContents
