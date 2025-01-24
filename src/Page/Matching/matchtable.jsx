@@ -138,13 +138,13 @@ function calculateMatchScore(company, jobData) {
   // 特長の比較
   jobData.features.forEach((feature) => {
     total += 10;
-    if (company.ideal_candidate_profile.includes(feature)) score += 100;
+    if (company.ideal_candidate_profile.includes(feature)) score += 10;
   });
   // 資格の比較
   jobData.qualifications.forEach((qualification) => {
     total += 10;
 
-    if (company.qualification.includes(qualification)) score += 100;
+    if (company.qualification.includes(qualification)) score += 10;
   });
   // 募集学科情報の比較
   if (jobData.department != null && jobData.department.trim() !== "") {
@@ -183,12 +183,12 @@ function Row(props) {
   };
 
   const getMatchdoCellStyle = (matchdo, max) => {
-    if (matchdo >= 400) {
+    if (matchdo >= 40) {
       return { color: "red" };
     }
-    if (matchdo >= 300) {
+    if (matchdo >= 30) {
       return { color: "orange" };
-    } else if (matchdo >= 100) {
+    } else if (matchdo >= 10) {
       return { color: "green" };
     } else {
       return { color: isDarkMode ? "white" : "black" };

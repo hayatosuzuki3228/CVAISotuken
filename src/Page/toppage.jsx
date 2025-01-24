@@ -89,7 +89,7 @@ export function Toppage() {
     {
       text: "企業検索",
       icon: <BusinessIcon />,
-      link: "https://www.meisankai.net/student/company/",
+      link: "/Companysearch",
     },
     {
       text: "求人票",
@@ -110,7 +110,6 @@ export function Toppage() {
       isNavigate: true,
     },
   ];
-
 
   //#region お知らせデータ
   const careerNotice = [
