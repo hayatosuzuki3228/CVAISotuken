@@ -103,51 +103,51 @@ export function Addcompany() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const valid0 = () => {
-    return (
-      name !== "" &&
-      selectindustry !== null &&
-      selectoccupation !== null &&
-      sales !== "" &&
-      employees !== ""
-    );
-  };
+  // const valid0 = () => {
+  //   return (
+  //     name !== "" &&
+  //     selectindustry !== null &&
+  //     selectoccupation !== null &&
+  //     sales !== "" &&
+  //     employees !== ""
+  //   );
+  // };
 
-  const valid1 = () => {
-    return (
-      selectarea.length > 0 &&
-      worktime !== "" &&
-      holiday !== "" &&
-      holidaysystem !== "" &&
-      selectqualification.length > 0
-    );
-  };
+  // const valid1 = () => {
+  //   return (
+  //     selectarea.length > 0 &&
+  //     worktime !== "" &&
+  //     holiday !== "" &&
+  //     holidaysystem !== "" &&
+  //     selectqualification.length > 0
+  //   );
+  // };
 
-  const valid2 = () => {
-    return (
-      itcheck.includes(true) ||
-      gamecheck.includes(true) ||
-      eizocheck.includes(true) ||
-      denkicheck.includes(true) ||
-      tsusincheck.includes(true) ||
-      kikaicheck.includes(true)
-    );
-  };
+  // const valid2 = () => {
+  //   return (
+  //     itcheck.includes(true) ||
+  //     gamecheck.includes(true) ||
+  //     eizocheck.includes(true) ||
+  //     denkicheck.includes(true) ||
+  //     tsusincheck.includes(true) ||
+  //     kikaicheck.includes(true)
+  //   );
+  // };
 
-  const valid4 = () => {
-    return selectperson.length === 3;
-  };
+  // const valid4 = () => {
+  //   return selectperson.length === 3;
+  // };
 
   const nextdisabled = () => {
     switch (activeStep) {
-      case 0:
-        return !valid0();
-      case 1:
-        return !valid1();
-      case 2:
-        return !valid2();
-      case 4:
-        return !valid4();
+      // case 0:
+      //   return !valid0();
+      // case 1:
+      //   return !valid1();
+      // case 2:
+      //   return !valid2();
+      // case 4:
+      //   return !valid4();
       default:
         return false;
     }
