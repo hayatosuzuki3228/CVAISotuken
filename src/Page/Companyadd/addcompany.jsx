@@ -1429,6 +1429,7 @@ export function Addcompany() {
               }}
             >
               <InputItem primarytext={`会社名　　：　${name}`} />
+              <InputItem primarytext={`メール　　：　${email}`} />
               <InputItem primarytext={`業種　　　：　${selectindustry}`} />
               <InputItem primarytext={`職種　　　：　${selectoccupation}`} />
               <InputItem primarytext={`資本金　　：　${capital}百万円`} />
