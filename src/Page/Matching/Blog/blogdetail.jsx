@@ -49,19 +49,8 @@ function BlogDetail() {
               xs: "70%",
               md: "50%",
             },
-            height: {
-              xs: "30vh",
-              sm: "30vh",
-              md: "50vh",
-            },
-            paddingLeft: {
-              xs: "15%",
-              md: "25%",
-            },
-            paddingRight: {
-              xs: "15%",
-              md: "25%",
-            },
+            display: "block", // ブロック要素として扱う
+            margin: "0 auto",
             objectFit: "contain",
             mb: 2,
           }}

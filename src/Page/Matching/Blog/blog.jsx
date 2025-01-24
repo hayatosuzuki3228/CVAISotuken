@@ -1,3 +1,5 @@
+// isLoggedIn accountTypeにてログイン済みかどうかと、学生用か企業用の画面に切り替える。
+
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlogContext } from "../../../provider/blogcontext";
@@ -75,7 +77,7 @@ const menuItems = [
     isNavigate: true,
   },
 ];
-export function Blog({ isLoggedIn = true, accountType = "student" }) {
+export function Blog({ isLoggedIn = true, accountType = "company" }) {
   const {
     blogs,
     drafts,
@@ -376,24 +378,27 @@ export function Blog({ isLoggedIn = true, accountType = "student" }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
-        <AppBarContents
-          apptitle={"ブログ"}
-          open={drawerOpen}
-          setOpen={setDrawerOpen}
-        />
+    <a>
+      <ThemeProvider theme={theme}>
+        <Box sx={{ display: "flex" }}>
+          <AppBarContents
+            apptitle={"ブログ"}
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
+          />
 
-        <DrawerContents
-          open={drawerOpen}
-          menuItems={menuItems}
-          handleItemClick={handleItemClick}
-        />
+          <DrawerContents
+            open={drawerOpen}
+            menuItems={menuItems}
+            handleItemClick={handleItemClick}
+          />
 
-        <MainContents open={drawerOpen}>
-          <DrawerHeader />
-        </MainContents>
-      </Box>
+          <MainContents open={drawerOpen}>
+            <DrawerHeader />
+          </MainContents>
+        </Box>
+      </ThemeProvider>
+
       <Box>
         <Box>{renderContent()}</Box>
         <Modal
@@ -407,7 +412,7 @@ export function Blog({ isLoggedIn = true, accountType = "student" }) {
               position: "absolute",
               top: "50%",
               left: "50%",
-              height: "90%",
+
               transform: "translate(-50%, -50%)",
               width: "60%", // モーダルを広げる
               maxWidth: 800, // 最大幅を設定
@@ -417,7 +422,7 @@ export function Blog({ isLoggedIn = true, accountType = "student" }) {
               borderRadius: 2,
             }}
           >
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" color={"black"} gutterBottom>
               下書き
             </Typography>
             <Typography variant="h5" color="text.secondary" gutterBottom>
@@ -545,6 +550,6 @@ export function Blog({ isLoggedIn = true, accountType = "student" }) {
           </BottomNavigation>
         )}
       </Box>
-    </ThemeProvider>
+    </a>
   );
 }

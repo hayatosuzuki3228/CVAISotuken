@@ -261,6 +261,7 @@ export function Companysearch() {
           <DrawerHeader />
         </MainContents>
       </Box>
+
       <div style={{ padding: "10px" }}>
         <Grid container spacing={2} alignItems="center">
           {/* 企業名検索 */}
