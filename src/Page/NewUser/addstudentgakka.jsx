@@ -202,12 +202,12 @@ export function Addstudentgakka() {
         </Box>
         <Box textAlign="right">
           <Button
-            style={
-              !gakka || !sotu || !hope
-                ? disabledButtonStyle
-                : enabledButtonStyle
-            }
-            disabled={!gakka || !sotu || !hope}
+            // style={
+            //   !gakka || !sotu || !hope
+            //     ? disabledButtonStyle
+            //     : enabledButtonStyle
+            // }
+            // disabled={!gakka || !sotu || !hope}
             onClick={onClick1}
           >
             次へ

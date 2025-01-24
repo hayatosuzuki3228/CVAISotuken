@@ -68,48 +68,64 @@ export function Addstudentuser() {
   };
 
   const onClick1 = () => {
-    if (
-      birthdayRegex.test(birthday) &&
-      kanamaeRegex.test(kanamae) &&
-      namaeRegex.test(namae)
-    ) {
-      return navigate("/addgakka", {
-        state: {
-          email,
-          pass,
-          namae,
-          kanamae,
-          gender,
-          birthday,
-          area,
-          sikaku,
-          gakka,
-          sotu,
-          switchpage,
-          hope,
-        },
-      });
-    } else {
-      {
-        !namaeRegex.test(namae)
-          ? setMessage1(
-              "2文字以上の全角ひらがなカタカナ漢字を入力してください(スペースなし)"
-            )
-          : "";
-      }
-      {
-        !kanamaeRegex.test(kanamae)
-          ? setMessage2(
-              "2文字以上の全角カタカナを入力してください(スペースなし)"
-            )
-          : "";
-      }
-      {
-        !birthdayRegex.test(birthday)
-          ? setMessage3("数字のみ8文字で入力してください 例20041125")
-          : "";
-      }
-    }
+    // if (
+    //   birthdayRegex.test(birthday) &&
+    //   kanamaeRegex.test(kanamae) &&
+    //   namaeRegex.test(namae)
+    // ) {
+    //   return navigate("/addgakka", {
+    //     state: {
+    //       email,
+    //       pass,
+    //       namae,
+    //       kanamae,
+    //       gender,
+    //       birthday,
+    //       area,
+    //       sikaku,
+    //       gakka,
+    //       sotu,
+    //       switchpage,
+    //       hope,
+    //     },
+    //   });
+    // } else {
+    //   {
+    //     !namaeRegex.test(namae)
+    //       ? setMessage1(
+    //           "2文字以上の全角ひらがなカタカナ漢字を入力してください(スペースなし)"
+    //         )
+    //       : "";
+    //   }
+    //   {
+    //     !kanamaeRegex.test(kanamae)
+    //       ? setMessage2(
+    //           "2文字以上の全角カタカナを入力してください(スペースなし)"
+    //         )
+    //       : "";
+    //   }
+    //   {
+    //     !birthdayRegex.test(birthday)
+    //       ? setMessage3("数字のみ8文字で入力してください 例20041125")
+    //       : "";
+    //   }
+    // }
+    return navigate("/addgakka", {
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        gender,
+        birthday,
+        area,
+        sikaku,
+        gakka,
+        sotu,
+        switchpage,
+        hope,
+      },
+    });
   };
 
   const handleChange = (event) => {
@@ -392,24 +408,24 @@ export function Addstudentuser() {
         </Box>
         <Box textAlign="right">
           <Button
-            style={
-              !area ||
-              namae === "" ||
-              kanamae === "" ||
-              birthday === "" ||
-              gender === "" ||
-              sikaku.length < 1
-                ? disabledButtonStyle
-                : enabledButtonStyle
-            }
-            disabled={
-              !area ||
-              namae === "" ||
-              kanamae === "" ||
-              birthday === "" ||
-              gender === "" ||
-              sikaku.length < 1
-            }
+            // style={
+            //   !area ||
+            //   namae === "" ||
+            //   kanamae === "" ||
+            //   birthday === "" ||
+            //   gender === "" ||
+            //   sikaku.length < 1
+            //     ? disabledButtonStyle
+            //     : enabledButtonStyle
+            // }
+            // disabled={
+            //   !area ||
+            //   namae === "" ||
+            //   kanamae === "" ||
+            //   birthday === "" ||
+            //   gender === "" ||
+            //   sikaku.length < 1
+            // }
             onClick={onClick1}
           >
             次へ

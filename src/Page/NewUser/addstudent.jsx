@@ -35,40 +35,56 @@ export function Addstudent() {
   const [message1, setMessage1] = useState("");
 
   const onClick = () => {
-    const emailRegex =
-      /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-    const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
-    if (emailRegex.test(email) && passRegex.test(pass)) {
-      return navigate("/adduser", {
-        state: {
-          email,
-          pass,
-          namae,
-          kanamae,
-          gender,
-          birthday,
-          area,
-          sikaku,
-          gakka,
-          sotu,
-          switchpage,
-          hope,
-        },
-      });
-    } else {
-      {
-        !emailRegex.test(email) && !passRegex.test(pass)
-          ? setMessage1("文字数字を含めてください") ||
-            setMessage("無効なメールアドレスです")
-          : "";
-      }
-      {
-        emailRegex.test(email) ? setMessage1("文字数字を含めてください") : "";
-      }
-      {
-        passRegex.test(pass) ? setMessage("無効なメールアドレスです") : "";
-      }
-    }
+    // const emailRegex =
+    //   /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    // const passRegex = /^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
+    // if (emailRegex.test(email) && passRegex.test(pass)) {
+    //   return navigate("/adduser", {
+    //     state: {
+    //       email,
+    //       pass,
+    //       namae,
+    //       kanamae,
+    //       gender,
+    //       birthday,
+    //       area,
+    //       sikaku,
+    //       gakka,
+    //       sotu,
+    //       switchpage,
+    //       hope,
+    //     },
+    //   });
+    // } else {
+    //   {
+    //     !emailRegex.test(email) && !passRegex.test(pass)
+    //       ? setMessage1("文字数字を含めてください") ||
+    //         setMessage("無効なメールアドレスです")
+    //       : "";
+    //   }
+    //   {
+    //     emailRegex.test(email) ? setMessage1("文字数字を含めてください") : "";
+    //   }
+    //   {
+    //     passRegex.test(pass) ? setMessage("無効なメールアドレスです") : "";
+    //   }
+    // }
+    return navigate("/adduser", {
+      state: {
+        email,
+        pass,
+        namae,
+        kanamae,
+        gender,
+        birthday,
+        area,
+        sikaku,
+        gakka,
+        sotu,
+        switchpage,
+        hope,
+      },
+    });
   };
   const onClick1 = () => {
     return navigate("/LoginPage");
@@ -319,28 +335,28 @@ export function Addstudent() {
         </Box>
         <Box textAlign="right">
           <Button
-            style={
-              isDifferent ||
-              isDifferent1 ||
-              email === "" ||
-              pass === "" ||
-              error ||
-              error1 ||
-              error2 ||
-              error3
-                ? disabledButtonStyle
-                : enabledButtonStyle
-            }
-            disabled={
-              isDifferent ||
-              isDifferent1 ||
-              email === "" ||
-              pass === "" ||
-              error ||
-              error1 ||
-              error2 ||
-              error3
-            }
+            // style={
+            //   isDifferent ||
+            //   isDifferent1 ||
+            //   email === "" ||
+            //   pass === "" ||
+            //   error ||
+            //   error1 ||
+            //   error2 ||
+            //   error3
+            //     ? disabledButtonStyle
+            //     : enabledButtonStyle
+            // }
+            // disabled={
+            //   isDifferent ||
+            //   isDifferent1 ||
+            //   email === "" ||
+            //   pass === "" ||
+            //   error ||
+            //   error1 ||
+            //   error2 ||
+            //   error3
+            // }
             onClick={onClick}
           >
             次へ
