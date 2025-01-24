@@ -243,24 +243,26 @@ export function Companysearch() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
-        <AppBarContents
-          apptitle={"企業検索"}
-          open={drawerOpen}
-          setOpen={setDrawerOpen}
-        />
+    <a>
+      <ThemeProvider theme={theme}>
+        <Box sx={{ display: "flex" }}>
+          <AppBarContents
+            apptitle={"企業検索"}
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
+          />
 
-        <DrawerContents
-          open={drawerOpen}
-          menuItems={menuItems}
-          handleItemClick={handleItemClick}
-        />
+          <DrawerContents
+            open={drawerOpen}
+            menuItems={menuItems}
+            handleItemClick={handleItemClick}
+          />
 
-        <MainContents open={drawerOpen}>
-          <DrawerHeader />
-        </MainContents>
-      </Box>
+          <MainContents open={drawerOpen}>
+            <DrawerHeader />
+          </MainContents>
+        </Box>
+      </ThemeProvider>
 
       <div style={{ padding: "10px" }}>
         <Grid container spacing={2} alignItems="center">
@@ -649,6 +651,6 @@ export function Companysearch() {
           </DialogActions>
         </Dialog>
       </div>
-    </ThemeProvider>
+    </a>
   );
 }
