@@ -189,7 +189,7 @@ export function TopPage() {
                           <Typography
                             sx={{
                               fontSize: isSmallScreen ? "0.8rem" : "0.9rem",
-                              color: gray,
+
                               mt: 1,
                               mb: 1,
                             }}
@@ -234,7 +234,6 @@ export function TopPage() {
                           <Typography
                             sx={{
                               fontSize: isSmallScreen ? "0.8rem" : "0.9rem",
-                              color: gray,
                               mt: 1,
                               mb: 1,
                             }}

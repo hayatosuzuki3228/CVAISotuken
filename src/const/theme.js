@@ -1,24 +1,24 @@
 import { createTheme } from "@mui/material/styles";
-import { primarycolor, gray } from "./color";
+import { primarycolor, secondarycolor, gray } from "./color";
 
 // ライトテーマ
 export const lighttheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#ddd",
+      main: primarycolor,
     },
     secondary: {
-      main: "#fff",
+      main: secondarycolor,
     },
     background: {
       default: "#fff",
-      paper: "fff",
+      paper: "#fff",
     },
     text: {
       primary: "#1a1a1a",
     },
-    divider: "fff",
+    divider: "#d3d3d3",
   },
   components: {
     MuiAppBar: {
@@ -66,10 +66,25 @@ export const darktheme = createTheme({
         },
       },
     },
+    // MuiOutlinedInput: {
+    //   styleOverrides: {
+    //     root: {
+    //       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    //         borderColor: "#fff", // フォーカス時の枠線を白に設定
+    //       },
+    //       "& .MuiOutlinedInput-notchedOutline": {
+    //         borderColor: "#aaa", // 通常時の枠線をグレーに設定
+    //       },
+    //       "& .MuiInputBase-input": {
+    //         color: "#fff", // テキストを白に設定
+    //       },
+    //     },
+    //   },
+    // },
     MuiTextField: {
       styleOverrides: {
         root: {
-          input: {
+          "& .MuiInputBase-input": {
             color: "#fff", // 入力文字の色
           },
           label: {

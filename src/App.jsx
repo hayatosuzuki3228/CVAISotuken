@@ -31,7 +31,7 @@ import { lighttheme, darktheme } from "./const/theme.js";
 import Setting from "./Page/Setting.jsx";
 
 function App() {
-  const [toggleDarkMode, setToggleDarkMode] = useState(true);
+  const [toggleDarkMode, setToggleDarkMode] = useState(false);
 
   const handleThemeToggle = () => {
     setToggleDarkMode((prevMode) => !prevMode);
