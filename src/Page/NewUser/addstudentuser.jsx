@@ -14,7 +14,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import "normalize.css";
-import { selectBox2, options } from "./Data";
+import { selectBox2, options, featuresOptions } from "./Data";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { primarycolor } from "../../const/color";
@@ -36,6 +36,8 @@ export function Addstudentuser() {
   const [gender, setGender] = useState(initialGender);
   const [area, setArea] = useState(initialArea);
   const [sikaku, setSikaku] = useState(initialSikaku);
+  const [features, setfeatures] = useState("");
+  const [featuresarea, setfeaturesarea] = useState("");
 
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
@@ -390,6 +392,53 @@ export function Addstudentuser() {
                 )}
                 onChange={handleChange1}
               />
+              <p></p>
+              <TextField
+                required
+                id={featuresOptions}
+                label="あなたの特徴"
+                value={features}
+                select
+                fullWidth
+                onChange={(e) => setfeatures(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: primarycolor,
+                    },
+                  },
+                }}
+              >
+                {featuresOptions.map((item, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <p></p>
+              <TextField
+                required
+                id={selectBox2}
+                label="将来希望する勤務地"
+                value={featuresarea}
+                select
+                fullWidth
+                onChange={(e) => setfeaturesarea(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: primarycolor,
+                    },
+                  },
+                }}
+              >
+                {selectBox2.map((item, index) => (
+                  <MenuItem key={index} value={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <p></p>
             </div>
           </Box>
         </Stack>
