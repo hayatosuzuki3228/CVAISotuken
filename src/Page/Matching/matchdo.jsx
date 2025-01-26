@@ -106,6 +106,13 @@ export function Matchdo() {
     }, 3000); // 3秒後にアラートを非表示にする
   };
 
+  const defaultFormData = {
+    department: "不問",
+    location: ["愛知県"],
+    features: ["真面目"],
+    qualifications: [],
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -155,7 +162,10 @@ export function Matchdo() {
                     }}
                   >
                     <Box p={3}>
-                      <JobForm onSave={handleSave} initialData={jobData} />
+                      <JobForm
+                        onSave={handleSave}
+                        initialData={defaultFormData}
+                      />
                     </Box>
                   </Paper>
                   {jobData && (
@@ -240,16 +250,16 @@ export function Matchdo() {
                           >
                             <Box>マッチ度の計算内容</Box>
                             <br />
-                            学科情報、特長、資格は一個で＋１００加点され、勤務地は＋１５０加点されます。
+                            学科情報、特長、資格は一個で＋１０加点され、勤務地は＋１５加点されます。
                             <br />
                             学科情報が一致していないまたは入力していない場合、
                             <Box component="span" sx={{ color: "red" }}>
                               他項目の一致度に関わらず必ずマッチ度が0として返ってきます。
                             </Box>
                             <br />
-                            特長や資格において複数選択で複数一致していた場合はその数に応じて＋１００加点されていきますが、
+                            特長や資格において複数選択で複数一致していた場合はその数に応じて＋１０加点されていきますが、
                             <br />
-                            勤務地の場合は数によらず、＋１５０しか加点されません。
+                            勤務地の場合は数によらず、＋１５しか加点されません。
                           </Typography>
                         </Popover>
                       </Box>
