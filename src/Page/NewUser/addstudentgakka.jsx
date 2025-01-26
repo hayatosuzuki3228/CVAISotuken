@@ -162,7 +162,7 @@ export function Addstudentgakka() {
                 </MenuItem>
               ))}
             </TextField>
-            <p></p>
+            {/* <p></p>
             <TextField
               required
               id={selectBox2}
@@ -185,7 +185,7 @@ export function Addstudentgakka() {
                 </MenuItem>
               ))}
             </TextField>
-            <p></p>
+            <p></p> */}
           </Box>
         </Stack>
       </Box>
