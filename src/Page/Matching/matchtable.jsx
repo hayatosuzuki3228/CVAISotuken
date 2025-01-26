@@ -340,6 +340,12 @@ export function Matchtable() {
   const [rowsPerPage, setRowsPerPage] = useState(100);
   const [sortOrder, setSortOrder] = useState("desc");
   const [checked, setChecked] = useState(false);
+  const defaultFormData = {
+    department: "不問",
+    location: ["愛知県"],
+    features: ["真面目"],
+    qualifications: [],
+  };
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -437,7 +443,7 @@ export function Matchtable() {
     setSelectedId(null); // IDをリセット
   };
   const filteredRows = companies
-    .map((company) => convertCompanyData(company, jobData))
+    .map((company) => convertCompanyData(company, defaultFormData))
     .filter((row) => {
       const matchPercentage = (row.matchdo / row.max) * 100;
 
